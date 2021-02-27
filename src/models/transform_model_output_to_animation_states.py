@@ -109,7 +109,6 @@ def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, f
         else:
             elements[element_id].setAttribute('transform', type + '(' + str(coordinate) + ')')
         # write svg
-        Path("interpolated_logos").mkdir(parents=True, exist_ok=True)
         textfile = open('interpolated_logos/' + filename + '_' + str(i) + '.svg', 'wb')
         textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
         textfile.close()
