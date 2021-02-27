@@ -7,8 +7,7 @@ from cairosvg import svg2png
 def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, from_, to, fromY=None, toY=None, repeatCount=1, fill='freeze'):
     """ Function to interpolate an animated svg and output the interpolated svgs
 
-    Example:
-        interpolate_svg('logos_svg/BMW.svg', 10, 20, 0, 'translate', 1, 2, 0, 100, 0, 100, 2)
+    Example: interpolate_svg('logos_svg/BMW.svg', 10, 20, 0, 'translate', 1, 2, 0, 100, 0, 100, 2)
 
     Args:
         logo (svg): logo in svg format
@@ -25,8 +24,6 @@ def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, f
         repeatCount (int/string): number of repetitions of animation (int or 'indefinite')
         fill (string): state of path after animation ('freeze' or 'remove')
 
-    Output:
-        paths_list (list): list of paths to the interpolated frames
     """
     # Create folder and one svg per frame
     Path("interpolated_logos").mkdir(parents=True, exist_ok=True)
@@ -43,9 +40,6 @@ def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, f
     timestep = total_duration / steps # seconds
     stepsize = (to - from_) / dur # for interpolation
     repeatCounter = 1 # needed to track number of repetitions
-
-    # create path list
-    paths_list = []
 
     # Calculate coordinates
     for i in range(0, steps+1):
@@ -114,32 +108,32 @@ def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, f
         textfile.close()
         doc.unlink()
 
-        # convert svg to png and save path in list
-        path_frame = convert_svg(textfile)
-        paths_list.append(path_frame)
 
+def convert_svgs_in_folder(folder):
+    """ Function to convert all svgs in a folder. svgs get deleted after pngs have been created
+    Example: convert_svgs_in_folder('interpolated_logos')
+    Args:
+        folder (string): The path of the folder with all SVGs that need to be converted.
+    """
+    paths_list = []
+    for file in os.listdir(folder):
+            if file.endswith(".svg"):
+                file = folder + '/' + file
+                convert_svg(file)
+                # create path list
+                paths_list.append(file.replace('.svg', '.png'))
+                os.remove(file)
     return paths_list
+
 
 def convert_svg(file):
     """ Function to convert one svg to png. Requires Cairosvg.
-
-    Example:
-        convert_svg('interpolated_logos/BMW_0.svg')
-
+    Example: convert_svg('interpolated_logos/BMW_0.svg')
     Args:
-        file (string): The path of the interpolated SVG file.
-
-    Output:
-        path_file_png (string): The path to the interpolated frame as Png.
+        file (string): The path of the SVG file that needs to be converted.
     """
+
     # Change name and path for writing element pngs
-    path_file = os.path.abspath(file)
-    path_file_png = path_file.replace('.svg', 'png')
-
+    filename = file.replace('.svg', '')
     # Convert svg to png
-    svg2png(url=file, write_to=path_file_png)
-
-    # Delete the SVG file
-    os.remove(file)
-
-    return path_file_png
+    svg2png(url=file, write_to=filename + '.png')
