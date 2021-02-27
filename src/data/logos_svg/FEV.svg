@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="715.74799"
+   height="239.17322"
+   id="svg11878">
+  <defs
+     id="defs11880">
+    <clipPath
+       id="clipPath10082">
+      <path
+         d="m 481.076,21.363 6.486,30.621 25.457,0 -1.288,-6.069 -13.844,0.07 -1.233,-6.109 13.787,0 -1.303,-5.999 -13.618,0 -2.768,-12.514 -11.676,0"
+         id="path10084" />
+    </clipPath>
+    <clipPath
+       id="clipPath10070">
+      <path
+         d="m 537.89,33.42 -13.668,-0.001 -1.383,-6.524 13.755,-0.002 c 10e-4,-0.023 -1.255,-5.971 -1.255,-5.971 l -25.489,0.007 6.495,30.592 25.379,0 -1.298,-6.013 -13.638,0.016 -1.316,-6.108 13.708,0.001 c 0,0 -1.254,-5.997 -1.29,-5.997"
+         id="path10072" />
+    </clipPath>
+    <clipPath
+       id="clipPath10058">
+      <path
+         d="m 544.752,51.963 10.74,0 -0.418,-21.53 c 0,0 -0.198,0.616 1.564,3.567 0.016,0.027 10.739,17.953 10.739,17.953 l 8.6,0 -19.085,-30.59 -12.177,0 0.037,30.6"
+         id="path10060" />
+    </clipPath>
+  </defs>
+  <metadata
+     id="metadata11883">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-52.115416,-384.03019)"
+     id="layer1">
+    <g
+       transform="matrix(5.973901,0,0,5.973901,-5478.5701,-4025.0546)"
+       id="g11927">
+      <path
+         d="m 1005.9962,738.68894 13.425,0 -0.5225,26.9125 c 0,0 -0.2475,-0.77 1.955,-4.45875 0.02,-0.0338 13.4237,-22.44125 13.4237,-22.44125 l 10.75,0 -23.8562,38.2375 -15.2213,0 0.046,-38.25"
+         id="path10052"
+         style="fill:#ce0039;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+      <g
+         transform="matrix(1.25,0,0,-1.25,325.05616,803.64269)"
+         id="g10054">
+        <g
+           clip-path="url(#clipPath10058)"
+           id="g10056">
+          <path
+             d="m 549.462,52.362 1.101,0 0,-27.433 4.049,0 16.683,27.452 1.364,0.088 -17.607,-28.641 -5.598,0 0.008,28.534"
+             id="path10062"
+             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+        </g>
+      </g>
+      <path
+         d="m 997.41866,761.86769 -17.085,10e-4 -1.72875,8.155 17.19375,0.002 c 10e-4,0.0288 -1.56875,7.46375 -1.56875,7.46375 l -31.86125,-0.009 8.11875,-38.24 31.72379,0 -1.6225,7.51615 -17.04754,-0.02 -1.645,7.635 17.135,-10e-4 c 0,0 -1.5675,7.49625 -1.6125,7.49625"
+         id="path10064"
+         style="fill:#ce0039;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <g
+         transform="matrix(1.25,0,0,-1.25,325.05616,803.64269)"
+         id="g10066">
+        <g
+           clip-path="url(#clipPath10070)"
+           id="g10068">
+          <path
+             d="m 539.324,36.931 -19.707,-10e-4 2.333,11.049 20.976,0 0.22,1.101 -22.072,0 c 0.002,-0.053 -5.369,-25.707 -5.369,-25.707 l 22.049,0 0.22,1.101 -20.89,0 2.427,11.356 19.548,0 0.265,1.101"
+             id="path10074"
+             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+        </g>
+      </g>
+      <path
+         d="m 926.40116,776.93894 8.1075,-38.27625 31.82125,0 -1.61,7.58625 -17.305,-0.0875 -1.54125,7.63625 17.23375,0 -1.62875,7.49875 -17.0225,0 -3.46,15.6425 -14.595,0"
+         id="path10076"
+         style="fill:#ce0039;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <g
+         transform="matrix(1.25,0,0,-1.25,325.05616,803.64269)"
+         id="g10078">
+        <g
+           clip-path="url(#clipPath10082)"
+           id="g10080">
+          <path
+             d="m 514.065,49.539 -21.784,0.003 -5.983,-28.708 1.101,0 3.297,15.455 19.411,0 0.269,1.1 -19.504,0 2.29,11.052 20.738,0 0.165,1.098"
+             id="path10086"
+             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
