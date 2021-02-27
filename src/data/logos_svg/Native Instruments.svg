@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="800"
+   height="570"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <g
+     id="layer1">
+    <rect
+       width="396.53787"
+       height="447.04031"
+       x="51.657772"
+       y="62.744228"
+       id="rect4286"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       width="357.25818"
+       height="447.04031"
+       x="399.5636"
+       y="62.744228"
+       id="rect4288"
+       style="opacity:1;fill:#6b8ca6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       d="M 55.352171,534.68675 C 285.48737,477.50597 515.6163,478.34705 745.7515,534.02544 C 783.11614,369.13928 771.4039,204.25317 745.75774,40.028331 C 515.62879,97.870395 285.49361,96.36803 55.358414,40.689645 C 17.993771,205.57578 29.69977,369.80059 55.352171,534.68675 z"
+       id="path4252"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:52.90464401;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       d="M 543.40373,159.39443 L 543.40373,419.61914 L 596.30837,419.61914 L 596.30837,159.39443 L 543.40373,159.39443 z"
+       id="path4264"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       d="M 149.26415,159.39443 L 149.26415,419.61914 L 202.1688,419.61914 L 202.1688,288.18417 L 253.25484,419.61914 L 310.62331,419.61914 L 310.62331,159.39443 L 257.71867,159.39443 L 257.71867,285.20828 L 208.78188,159.39443 L 149.26415,159.39443 z"
+       id="path4257"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

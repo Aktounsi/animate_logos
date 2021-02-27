@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Ebene_1"
+   data-name="Ebene 1"
+   viewBox="0 0 2519.99 1040.5"
+   version="1.1"
+   sodipodi:docname="PCC_SE_Logo.svg"
+   width="2519.99"
+   height="1040.5"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:export-filename="C:\Users\sbisk\Pictures\PCC_SE_Logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <metadata
+     id="metadata29">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>PCC_SE_rgb_2000px</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview27"
+     showgrid="false"
+     fit-margin-top="260"
+     fit-margin-bottom="260"
+     fit-margin-right="260"
+     fit-margin-left="260"
+     inkscape:pagecheckerboard="false"
+     inkscape:zoom="0.42815316"
+     inkscape:cx="749.6586"
+     inkscape:cy="520.245"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Ebene_1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid31"
+       originx="259.99"
+       originy="260.00001" />
+  </sodipodi:namedview>
+  <defs
+     id="defs12">
+    <style
+       id="style10">.cls-1{fill:#f60;fill-rule:evenodd;}.cls-2{fill:#012a7b;}</style>
+  </defs>
+  <title
+     id="title14">PCC_SE_rgb_2000px</title>
+  <path
+     class="cls-1"
+     d="m 2259.99,514.18 -42.59,-12.37 c -45.57,46.49 -119.76,71 -212,71 -136.71,0 -220.52,-50.15 -220.52,-141.52 0,-94.34 89.08,-150 225.78,-150 82.9,0 146.55,19.92 188.92,59.08 l 41.22,-13.28 C 2185.8,282.21 2100.89,260 1984.33,260 c -187.77,0 -336.16,71 -336.16,169.22 0,102.82 148.39,169.91 330.89,169.91 127.02,0.01 226.89,-29.99 280.93,-84.95 z"
+     id="path16"
+     inkscape:connector-curvature="0"
+     style="fill:#ff6600;fill-rule:evenodd" />
+  <path
+     class="cls-1"
+     d="m 1589.51,514.18 -42.36,-12.59 c -45.57,46.71 -119.76,71 -212,71 -136.48,0 -220.29,-50.15 -220.29,-141.29 0,-94.34 89.08,-150 225.56,-150 82.66,0 146.27,19.94 188.66,59.08 l 41.45,-13.51 c -55.21,-44.63 -139.94,-66.86 -256.73,-66.86 -187.31,0 -335.92,70.98 -335.92,169.23 0,102.82 148.61,169.91 330.66,169.91 127.32,-0.01 226.93,-30.01 280.97,-84.97 z"
+     id="path18"
+     inkscape:connector-curvature="0"
+     style="fill:#ff6600;fill-rule:evenodd" />
+  <path
+     class="cls-1"
+     d="m 400.13,544.41 c 41.22,18.55 92.05,28.17 150,28.17 136.71,0 220.52,-50.15 220.52,-141.29 0,-94.34 -89.08,-150 -225.78,-150 -82.21,0 -146.32,22 -188.69,60.68 a 1.75,1.75 0 0 0 -0.46,1.14 V 778.67 H 260 V 326.18 C 334,267.1 482.81,260 571.43,260 c 187.53,0.01 336.15,70.99 336.15,169.24 0,102.81 -148.62,169.9 -330.89,169.9 -79,0 -147.24,-11.45 -200.6,-33.43 z"
+     id="path20"
+     inkscape:connector-curvature="0"
+     style="fill:#ff6600;fill-rule:evenodd" />
+  <path
+     class="cls-2"
+     d="m 2074.28,775.92 a 102.85,102.85 0 0 0 30.23,4.58 c 22.44,0 44.42,-7.33 44.42,-33.43 0,-36.64 -47.86,-25.65 -47.86,-42.13 0,-8.93 11.22,-9.39 18.09,-9.39 a 55,55 0 0 1 22.67,4.58 l 1.6,-20.84 a 85.9,85.9 0 0 0 -26.1,-3.89 c -20.38,0 -44.2,6.87 -44.2,31.14 0,36.87 48.09,25 48.09,44 0,8 -8.24,9.85 -16.72,9.85 a 60.54,60.54 0 0 1 -27.94,-6.64 l -2.29,22.21 z m 94.34,2.75 h 73 v -19.24 h -46 v -22.9 h 42.13 V 717.3 h -42.13 v -20.84 h 44.46 v -19.22 h -71.44 z"
+     id="path22"
+     inkscape:connector-curvature="0"
+     style="fill:#012a7b" />
+  <rect
+     class="cls-2"
+     x="399.89999"
+     y="758.52002"
+     width="1632.7"
+     height="20.15"
+     id="rect24"
+     style="fill:#012a7b" />
+</svg>
