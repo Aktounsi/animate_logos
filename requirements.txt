@@ -116,3 +116,7 @@ widgetsnbextension==3.5.1
 win-inet-pton @ file:///C:/ci/win_inet_pton_1605306165655/work
 wincertstore==0.2
 zipp @ file:///tmp/build/80754af9/zipp_1604001098328/work
+
+cairosvg~=2.5.1
+pillow~=8.1.0
+setuptools~=52.0.0
