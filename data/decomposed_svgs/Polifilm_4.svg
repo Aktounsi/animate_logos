@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?><svg enable-background="new 0 0 252 254.1" height="300" viewBox="0 0 300 299.99999" width="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	
+  
+	<clipPath id="a">
+		
+    
+		
+		
+  
+	</clipPath>
+	
+  
+	<linearGradient gradientUnits="userSpaceOnUse" id="b" x1="173.5641" x2="163.108" y1="188.3436" y2="173.411">
+		
+    
+		<stop offset="0" stop-color="#6f6f6e"/>
+		
+    
+		<stop offset=".227" stop-color="#9c9b9b"/>
+		
+    
+		<stop offset=".9571" stop-color="#fff"/>
+		
+    
+		<stop offset="1" stop-color="#fbfbfb"/>
+		
+  
+	</linearGradient>
+	
+  
+	<linearGradient gradientUnits="userSpaceOnUse" id="c" x1="20.4027" x2="187.45399" y1="178.3461" y2="11.2948">
+		
+    
+		<stop offset="0" stop-color="#292827"/>
+		
+    
+		<stop offset=".1896" stop-color="#2c2c2b"/>
+		
+    
+		<stop offset=".3751" stop-color="#383837"/>
+		
+    
+		<stop offset=".5591" stop-color="#4c4c4b"/>
+		
+    
+		<stop offset=".7421" stop-color="#676766"/>
+		
+    
+		<stop offset=".9228" stop-color="#8a8a8a"/>
+		
+    
+		<stop offset="1" stop-color="#9c9b9b"/>
+		
+  
+	</linearGradient>
+	
+  
+	<g transform="matrix(1.5166835 0 0 1.5166835 -42.618804 -33.670369)">
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		<g fill="#fff">
+			
+      
+			
+			
+      
+			<path animation_id="4" d="m165.2 110.6h2.9v22.7h14.2v2.6h-17.1z" stroke="black"/>
+			
+      
+			
+			
+      
+			
+			
+      
+			
+			
+      
+			
+			
+      
+			
+			
+      
+			
+			
+    
+		</g>
+		
+  
+	</g>
+	
+
+</svg>
