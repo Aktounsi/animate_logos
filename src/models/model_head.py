@@ -366,5 +366,4 @@ def transform_binary_model_output(output):
         elif type == 'skewX':
             toY = None
 
-    return {'type': type, 'begin': begin, 'dur': dur, 'repeatCount': repeatCount,
-            'fill': fill, 'from_': from_ ,'to': to, 'fromY': fromY, 'toY': toY}
+    return type, begin, dur, repeatCount, fill, from_ , to, fromY, toY

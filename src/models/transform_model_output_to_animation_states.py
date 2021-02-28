@@ -2,7 +2,7 @@ from xml.dom import minidom
 from pathlib import Path
 import os
 from cairosvg import svg2png
-from transform_binary_model_output import transform_binary_model_output
+from model_head import transform_binary_model_output
 
 
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
