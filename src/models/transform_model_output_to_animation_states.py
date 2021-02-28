@@ -2,32 +2,38 @@ from xml.dom import minidom
 from pathlib import Path
 import os
 from cairosvg import svg2png
+from transform_binary_model_output import transform_binary_model_output
 
 
-def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, from_, to, fromY=None, toY=None, repeatCount=1, fill='freeze'):
+def interpolate_svg(logo, total_duration, steps, animation_id, output):
     """ Function to interpolate an animated svg and output the interpolated svgs
 
-    Example: interpolate_svg('logos_svg/BMW.svg', 10, 20, 0, 'translate', 1, 2, 0, 100, 0, 100, 2)
+    Example: interpolate_svg('logos_svg/BMW.svg', 10, 20, 0, [1,0,0,1,0,0,0,1,1,0,1,0,1,1,1,0,1,0,1,0,0])
 
     Args:
         logo (svg): logo in svg format
         total_duration (int): duration of animation in seconds
         steps (int): number of interpolation steps
-        element_id (int): id of element to be animated
-        type (string): type of transformation to be interpolated (translate, scale, rotate, skewX, skewY)
-        begin(int): beginning time of animation in seconds
-        dur (int): duration of animation in seconds
-        from_ (int): starting point of animation
-        to (int): end point of animation
-        fromY (int): starting y-coordinate of animation (for translate and scale only)
-        toY (int): end y-coordinate of animation (for translate and scale only)
-        repeatCount (int/string): number of repetitions of animation (int or 'indefinite')
-        fill (string): state of path after animation ('freeze' or 'remove')
+        animation_id (int): id of element to be animated
+        output (list): 21-dimensional list with binary model output -> gets transformed to
+            type (string): type of transformation to be interpolated (translate, scale, rotate, skewX, skewY)
+            begin(int): beginning time of animation in seconds
+            dur (int): duration of animation in seconds
+            from_ (int): starting point of animation
+            to (int): end point of animation
+            fromY (int): starting y-coordinate of animation (for translate and scale only)
+            toY (int): end y-coordinate of animation (for translate and scale only)
+            repeatCount (int/string): number of repetitions of animation (int or 'indefinite')
+            fill (string): state of path after animation ('freeze' or 'remove')
 
     """
+    # Transform binary output to values
+    type, begin, dur, repeatCount, fill, from_, to, fromY, toY = transform_binary_model_output(output)
+
     # Create folder and one svg per frame
     Path("interpolated_logos").mkdir(parents=True, exist_ok=True)
-    filename = logo.replace('.svg', '').replace('logos_svg/', '')
+    pathelements = logo.split('/')
+    filename = pathelements[len(pathelements)-1].replace('.svg','')
     if os.path.exists('interpolated_logos/' + filename + '_0.svg') == False:
         doc = minidom.parse(logo)
         for i in range(0, steps+1):
@@ -99,9 +105,13 @@ def interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, f
             'rect') + doc.getElementsByTagName('text')
         # set transformation
         if (type == 'translate' or type == 'scale') and fromY is not None and toY is not None:
-            elements[element_id].setAttribute('transform', type + '(' + str(coordinate) + ',' + str(coordinateY) + ')')
+            for element in elements:
+                if element.getAttribute('animation_id') == animation_id:
+                    element.setAttribute('transform', type + '(' + str(coordinate) + ',' + str(coordinateY) + ')')
         else:
-            elements[element_id].setAttribute('transform', type + '(' + str(coordinate) + ')')
+            for element in elements:
+                if element.getAttribute('animation_id') == animation_id:
+                    element.setAttribute('transform', type + '(' + str(coordinate) + ')')
         # write svg
         textfile = open('interpolated_logos/' + filename + '_' + str(i) + '.svg', 'wb')
         textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
