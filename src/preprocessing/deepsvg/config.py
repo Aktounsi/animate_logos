@@ -16,7 +16,7 @@ class _Config:
         self.meta_filepath = "./data/svg_meta.csv"            #
         self.loader_num_workers = 0                           #
 
-        self.pretrained_path = None                           #
+        self.pretrained_path = "./models/hierarchical_ordered.pth.tar"        #
 
         self.model_cfg = None                                 #
 
