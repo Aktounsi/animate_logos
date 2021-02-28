@@ -1,39 +1,24 @@
 import torch
-import torch.nn as nn
 import numpy as np
 import copy
+from model_head import MLP
 from fitness_function import aesthetic_measure
-from transform_model_output_to_animation_states import interpolate_svg
-
-class MLP(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.fc = nn.Sequential(
-            nn.Linear(30, 32, bias=True),
-            nn.ReLU(),
-            nn.Linear(32, 16, bias=True),
-            nn.Sigmoid()
-        )
-
-    def forward(self, inputs):
-        x = self.fc(inputs)
-        return x
 
 
 def init_weights(m):
-    for layer in m.fc:
+    for layer in m.hidden:
+        torch.nn.init.xavier_uniform_(layer.weight)
+        layer.bias.data.fill_(0.00)
+    torch.nn.init.xavier_uniform_(m.out.weight)
+    m.out.bias.data.fill_(0.00)
 
-        if isinstance(layer, nn.Linear):
-            torch.nn.init.xavier_uniform_(layer.weight)
-            layer.bias.data.fill_(0.00)
 
-
-def create_random_agents(num_agents):
+def create_random_agents(num_agents, hidden_sizes, out_size):
     agents = []
 
     for _ in range(num_agents):
 
-        agent = MLP()
+        agent = MLP(hidden_sizes, out_size)
 
         for param in agent.parameters():
             param.requires_grad = False
@@ -44,32 +29,27 @@ def create_random_agents(num_agents):
     return agents
 
 
-def compute_agent_rewards(driver, agents, inp_model, inp_ff):
-    agent_rewards = []
-    for agent in agents:
-        print("New Agent")
-        animation = agent.forward(inp_model) > 0.5
-        agent_rewards.append(return_average_reward(driver, inp_model, inp_ff, animation))
-
-    return agent_rewards
+# TODO: has to be adapted, depends on modules to transform model output into animated SVG and fitness function that rewards animated SVG
+def return_average_reward(X, Y):
+  rewards = np.array([aesthetic_measure(X[i], Y[i]) for i in range(X.shape[0])])
+  return np.mean(rewards)
 
 
-def return_average_reward(inp_model, inp_ff, animation):
-    rewards = []
-    for i in range(inp_model.shape[0]):
-        interpolate_svg(logo, total_duration, steps, element_id, type, begin, dur, from_, to, fromY=None, toY=None, repeatCount=1, fill='freeze')
-        reward = aesthetic_measure(path_file_animated)
-        rewards.append(reward)
-    return np.mean(rewards)
+def compute_agent_rewards(agents, X):
+  agent_rewards = []
+  for agent in agents:
+    Y_hat = (agent.forward(X) > 0.5).int()
+    agent_rewards.append(return_average_reward(X,Y_hat))
+  return agent_rewards
 
 
-def crossover(agents, num_agents):
+def crossover(agents, num_agents, hidden_sizes, out_size):
     children = []
     for _ in range((num_agents - len(agents)) // 2):
         parent1 = np.random.choice(agents)
         parent2 = np.random.choice(agents)
-        child1 = MLP()
-        child2 = MLP()
+        child1 = MLP(hidden_sizes, out_size)
+        child2 = MLP(hidden_sizes, out_size)
 
         shapes = [param.shape for param in parent1.parameters()]
 
@@ -89,6 +69,12 @@ def crossover(agents, num_agents):
             shape_flat = np.product(shape)
             genes2_unflat.append(genes2_flat[index: (index + shape_flat)].reshape(shape))
             index += shape_flat
+
+        for i, param in enumerate(child1.parameters()):
+            param = genes1_unflat[i]
+
+        for i, param in enumerate(child2.parameters()):
+            param = genes2_unflat[i]
 
         children.append(child1)
         children.append(child2)

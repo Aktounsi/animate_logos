@@ -1,6 +1,7 @@
 from xml.dom import minidom
 from pathlib import Path
-from transform_binary_model_output import transform_binary_model_output
+from model_head import transform_binary_model_output
+
 
 def svg_to_doc(file):
     """ Function to parse a SVG file.
@@ -11,6 +12,7 @@ def svg_to_doc(file):
     Returns (xml.dom.minidom.Document): Parsed file.
     """
     return minidom.parse(file)
+
 
 def create_animation_statement(output):
     """ Function to set up animation statement from model output
@@ -34,7 +36,6 @@ def create_animation_statement(output):
         animation = animation + 'toY = "' + str(toY) + '" '
 
     return animation
-
 
 
 def insert_animation(file, animation_id, output):

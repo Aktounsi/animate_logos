@@ -2,7 +2,7 @@ from xml.dom import minidom
 from pathlib import Path
 import os
 from cairosvg import svg2png
-from transform_binary_model_output import transform_binary_model_output
+from model_head import transform_binary_model_output
 
 
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
@@ -127,12 +127,12 @@ def convert_svgs_in_folder(folder):
     """
     paths_list = []
     for file in os.listdir(folder):
-            if file.endswith(".svg"):
-                file = folder + '/' + file
-                convert_svg(file)
-                # create path list
-                paths_list.append(file.replace('.svg', '.png'))
-                os.remove(file)
+        if file.endswith(".svg"):
+            file = folder + '/' + file
+            convert_svg(file)
+            # create path list
+            paths_list.append(file.replace('.svg', '.png'))
+            os.remove(file)
     return paths_list
 
 
