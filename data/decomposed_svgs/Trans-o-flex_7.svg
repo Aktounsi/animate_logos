@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="iso-8859-1"?><svg data-name="Ebene 1" id="Ebene_1" viewBox="0 0 886.85 138.9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	
+  
+	<defs>
+		
+    
+		<radialGradient cx="-249.04" cy="31.69" fx="-234.47618694833056" fy="14.730909198533059" gradientTransform="matrix(-1, 0, 0, 1, 459.82, 0)" gradientUnits="userSpaceOnUse" id="radial-gradient" r="84.71">
+			
+      
+			<stop offset="0" stop-color="#f29000"/>
+			
+      
+			<stop offset="1" stop-color="#ee7c00"/>
+			
+    
+		</radialGradient>
+		
+    
+		<linearGradient data-name="TOF Logoverlauf" gradientUnits="userSpaceOnUse" id="TOF_Logoverlauf" x1="73.42" x2="73.42" y1="111.51" y2="46.1">
+			
+      
+			<stop offset="0" stop-color="#636a6d"/>
+			
+      
+			<stop offset="1" stop-color="#92989b"/>
+			
+    
+		</linearGradient>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-2" x1="451.07" x2="451.07" xlink:href="#TOF_Logoverlauf" y1="111.51" y2="26.22"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-3" x1="608.53" x2="608.53" xlink:href="#TOF_Logoverlauf" y1="111.51" y2="47.22"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-4" x1="540.64" x2="540.64" xlink:href="#TOF_Logoverlauf" y1="112.68" y2="46.04"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-5" x1="490.56" x2="490.56" xlink:href="#TOF_Logoverlauf" y1="111.51" y2="27.39"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-6" x1="364.41" x2="364.41" xlink:href="#TOF_Logoverlauf" y1="112.68" y2="46.04"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-7" x1="412.84" x2="412.84" xlink:href="#TOF_Logoverlauf" y1="83.13" y2="70.27"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-8" x1="313.96" x2="313.96" xlink:href="#TOF_Logoverlauf" y1="83.13" y2="70.27"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-9" x1="267.99" x2="267.99" xlink:href="#TOF_Logoverlauf" y1="112.68" y2="46.04"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-10" x1="197.85" x2="197.85" xlink:href="#TOF_Logoverlauf" y1="111.51" y2="46.04"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-11" x1="125.08" x2="125.08" xlink:href="#TOF_Logoverlauf" y1="112.68" y2="46.04"/>
+		
+    
+		<linearGradient id="TOF_Logoverlauf-12" x1="22.71" x2="22.71" xlink:href="#TOF_Logoverlauf" y1="112.68" y2="27.39"/>
+		
+  
+	</defs>
+	
+  
+	<title>tof_logo</title>
+	
+  
+	<g>
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		<path animation_id="7" d="M416.15,70.27h-4.32a5.37,5.37,0,0,0-3.78,1.34,6.86,6.86,0,0,0-1.9,3.89l-.43,2.43a4.92,4.92,0,0,0,.53,3.81,3.67,3.67,0,0,0,3.26,1.39h4.33a5.26,5.26,0,0,0,3.76-1.39,6.69,6.69,0,0,0,1.92-3.81l.45-2.43a5.11,5.11,0,0,0-.52-3.89A3.8,3.8,0,0,0,416.15,70.27Z" fill="url(#TOF_Logoverlauf-7)" stroke="black"/>
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+    
+		
+		
+  
+	</g>
+	
+
+</svg>
