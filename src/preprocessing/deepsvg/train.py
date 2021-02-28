@@ -133,6 +133,8 @@ def train(cfg: _Config, model_name, experiment_name="", log_dir="./logs", debug=
 
             if not debug and step % cfg.ckpt_every == 0 and step > 0:
                 utils.save_ckpt_list(checkpoint_dir, model, cfg, optimizers, scheduler_lrs, scheduler_warmups, stats, train_vars)
+    
+    return model #SFS, 27.02.21
 
 
 if __name__ == "__main__":
