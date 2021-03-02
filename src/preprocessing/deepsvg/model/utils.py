@@ -1,5 +1,5 @@
 import torch
-from deepsvg.difflib.tensor import SVGTensor
+from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
 from torch.distributions.categorical import Categorical
 import torch.nn.functional as F
 

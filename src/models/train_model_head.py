@@ -3,7 +3,7 @@ from datetime import datetime
 from src.models.genetic_algorithm import *
 
 
-def train_model_head(svg_dataset, hidden_sizes=[256, 256], out_size=21,
+def train_model_head(svg_dataset, hidden_sizes=[256, 192], out_size=21,
                      num_agents=100, top_parent_limit=10, generations=10):
 
     # Create model input from svg_dataset

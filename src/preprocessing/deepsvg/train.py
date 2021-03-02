@@ -1,6 +1,6 @@
-from deepsvg.config import _Config
-from deepsvg import utils
-from deepsvg.utils import Stats, TrainVars, Timer
+from src.preprocessing.deepsvg.config import _Config
+from src.preprocessing.deepsvg import utils
+from src.preprocessing.deepsvg.utils import Stats, TrainVars, Timer
 import os
 from tensorboardX import SummaryWriter
 import torch.nn as nn
