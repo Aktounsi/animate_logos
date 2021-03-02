@@ -41,11 +41,8 @@ def return_award(path_output, filename, animation_id, idx):
     if idx % 200 == 0:
         logger.info(f'Current path index: {idx}')
     try:
-        # Insert animation of the current path in its corresponding SVG file
-        insert_animation(file=f'./data/svgs/{filename}.svg', animation_id=animation_id, output=path_output)
-
         # Interpolate animation of the current path in its corresponding SVG file and convert interpolations to PNG
-        interpolate_svg(logo=f'./data/animated_logos/{filename}.svg',
+        interpolate_svg(logo=f'./data/svgs/{filename}.svg',
                         total_duration=5,
                         steps=10,
                         animation_id=animation_id,
