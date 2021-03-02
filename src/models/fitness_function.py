@@ -2,6 +2,8 @@ from matplotlib import image
 from skimage.metrics import mean_squared_error
 import numpy as np
 
+from src.utils import logger
+
 
 def aesthetic_measure(paths_list):
     """ Function to calculate a uniformity of change score for an animation.
@@ -24,7 +26,10 @@ def aesthetic_measure(paths_list):
     for i in range(length_sequence - 1):
         img_origin = image.imread(paths_list[i])
         img_next = image.imread(paths_list[i + 1])
-        img_sequence_mse[i] = mean_squared_error(img_origin, img_next)
+        try:
+            img_sequence_mse[i] = mean_squared_error(img_origin, img_next)
+        except ValueError:
+            logger.error(f'Input images must have the same dimensions; skip {paths_list[i]} and {paths_list[i+1]}')
 
     # calculate the var as score
     sequence_score = np.var(img_sequence_mse)
