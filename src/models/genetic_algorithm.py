@@ -1,8 +1,16 @@
 import torch
 import numpy as np
 import copy
-from model_head import MLP
-from fitness_function import aesthetic_measure
+from os import listdir
+from os.path import isfile, join
+
+from src.utils import utils
+from src.utils import logger
+
+from src.models.model_head import MLP
+from src.models.fitness_function import aesthetic_measure
+from src.models.insert_animation import insert_animation
+from src.models.transform_model_output_to_animation_states import interpolate_svg, convert_svgs_in_folder
 
 
 def init_weights(m):
@@ -29,18 +37,59 @@ def create_random_agents(num_agents, hidden_sizes, out_size):
     return agents
 
 
-# TODO: has to be adapted, depends on modules to transform model output into animated SVG and fitness function that rewards animated SVG
-def return_average_reward(X, Y):
-  rewards = np.array([aesthetic_measure(X[i], Y[i]) for i in range(X.shape[0])])
-  return np.mean(rewards)
+def return_award(path_output, filename, animation_id, idx):
+    if idx % 200 == 0:
+        logger.info(f'Current path index: {idx}')
+    try:
+        # Insert animation of the current path in its corresponding SVG file
+        insert_animation(file=f'./data/svgs/{filename}.svg', animation_id=animation_id, output=path_output)
+
+        # Interpolate animation of the current path in its corresponding SVG file and convert interpolations to PNG
+        interpolate_svg(logo=f'./data/animated_logos/{filename}.svg',
+                        total_duration=5,
+                        steps=10,
+                        animation_id=animation_id,
+                        output=path_output)
+        convert_svgs_in_folder('./data/interpolated_logos')
+
+        # Compute aesthetic measure for the interpolated animation
+        interpolated_files = [join('./data/interpolated_logos', f) for f in listdir('./data/interpolated_logos') if
+                              isfile(join('./data/interpolated_logos', f))]
+        interpolated_files.sort()
+        award = aesthetic_measure(interpolated_files)
+        utils.delete_dir(['./data/animated_logos', './data/interpolated_logos'])
+        return award
+    except KeyboardInterrupt:
+        raise
+    except Exception as e:
+        logger.error(f'Failed computing reward for file={filename} and animation id={animation_id}; '
+                     f'Return reward of -1')
+        logger.error(f'Raised exception: {e}')
+        utils.delete_dir(['./data/animated_logos', './data/interpolated_logos'])
+        return -1
 
 
-def compute_agent_rewards(agents, X):
-  agent_rewards = []
-  for agent in agents:
-    Y_hat = (agent.forward(X) > 0.5).int()
-    agent_rewards.append(return_average_reward(X,Y_hat))
-  return agent_rewards
+def return_average_reward(model_output, filenames, animation_ids):
+    rewards = np.array([return_award(path_output=model_output[i],
+                                     filename=filenames[i],
+                                     animation_id=animation_ids[i],
+                                     idx=i)
+                        for i in range(model_output.shape[0])])
+    return np.mean(rewards)
+
+
+def compute_agent_rewards(agents, X, filenames, animation_ids):
+    # Delete directories for animated and interpolated logos in case they haven't been deleted previously
+    utils.delete_dir(['./data/animated_logos', './data/interpolated_logos'])
+
+    agent_rewards = []
+    num_agents = len(agents)
+    for i, agent in enumerate(agents):
+        model_output = agent(X)
+        # if i % 10 == 0:
+        logger.info(f'Compute rewards for agent {i+1}/{num_agents}')
+        agent_rewards.append(return_average_reward(model_output, filenames, animation_ids))
+    return agent_rewards
 
 
 def crossover(agents, num_agents, hidden_sizes, out_size):
