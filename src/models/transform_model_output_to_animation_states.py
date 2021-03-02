@@ -1,8 +1,8 @@
 from xml.dom import minidom
 from pathlib import Path
-import os
+import os, math
 from cairosvg import svg2png
-from model_head import transform_binary_model_output
+from src.models.model_head import transform_binary_model_output
 
 
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
@@ -27,18 +27,21 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
             fill (string): state of path after animation ('freeze' or 'remove')
 
     """
+    # Get number of digits of number of steps to save interpolated SVGs with leading zeros
+    digits = int(math.log10(steps))+1
+
     # Transform binary output to values
     type, begin, dur, repeatCount, fill, from_, to, fromY, toY = transform_binary_model_output(output)
 
     # Create folder and one svg per frame
-    Path("interpolated_logos").mkdir(parents=True, exist_ok=True)
+    Path("./data/interpolated_logos").mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')
     filename = pathelements[len(pathelements)-1].replace('.svg','')
-    if os.path.exists('interpolated_logos/' + filename + '_0.svg') == False:
+    if os.path.exists('./data/interpolated_logos/' + filename + '_' + str(0).zfill(digits) + '.svg') == False:
         doc = minidom.parse(logo)
         for i in range(0, steps+1):
             # write svg
-            textfile = open('interpolated_logos/' + filename + '_' + str(i) + '.svg', 'wb')
+            textfile = open('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg', 'wb')
             textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
             textfile.close()
 
@@ -97,7 +100,7 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
                 coordinateY = fromY + (time - begin) * stepsizeY
 
         # Load interpolated svg
-        doc = minidom.parse('interpolated_logos/' + filename + '_' + str(i) + '.svg')
+        doc = minidom.parse('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg')
         # Store all elements in list
         elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
             'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(
@@ -113,7 +116,7 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
                 if element.getAttribute('animation_id') == animation_id:
                     element.setAttribute('transform', type + '(' + str(coordinate) + ')')
         # write svg
-        textfile = open('interpolated_logos/' + filename + '_' + str(i) + '.svg', 'wb')
+        textfile = open('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg', 'wb')
         textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
         textfile.close()
         doc.unlink()
@@ -138,7 +141,7 @@ def convert_svgs_in_folder(folder):
 
 def convert_svg(file):
     """ Function to convert one svg to png. Requires Cairosvg.
-    Example: convert_svg('interpolated_logos/BMW_0.svg')
+    Example: convert_svg('./data/interpolated_logos/BMW_0.svg')
     Args:
         file (string): The path of the SVG file that needs to be converted.
     """
