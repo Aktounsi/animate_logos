@@ -53,3 +53,4 @@ def train_model_head(svg_dataset, hidden_sizes=[256, 192], out_size=21,
 
     overall_stop = datetime.now()
     logger.info(f'Overall operation time: {overall_stop - overall_start}')
+    return top_agents[0]

@@ -32,6 +32,6 @@ def aesthetic_measure(paths_list):
             logger.error(f'Input images must have the same dimensions; skip {paths_list[i]} and {paths_list[i+1]}')
 
     # calculate the var as score
-    sequence_score = np.var(img_sequence_mse)
+    sequence_score = -np.var(img_sequence_mse)
 
     return sequence_score

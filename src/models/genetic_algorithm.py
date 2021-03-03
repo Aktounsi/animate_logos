@@ -9,7 +9,6 @@ from src.utils import logger
 
 from src.models.model_head import MLP
 from src.models.fitness_function import aesthetic_measure
-from src.models.insert_animation import insert_animation
 from src.models.transform_model_output_to_animation_states import interpolate_svg, convert_svgs_in_folder
 
 
@@ -38,7 +37,7 @@ def create_random_agents(num_agents, hidden_sizes, out_size):
 
 
 def return_award(path_output, filename, animation_id, idx):
-    if idx % 200 == 0:
+    if idx % 50 == 0:
         logger.info(f'Current path index: {idx}')
     try:
         # Interpolate animation of the current path in its corresponding SVG file and convert interpolations to PNG
@@ -54,7 +53,7 @@ def return_award(path_output, filename, animation_id, idx):
                               isfile(join('./data/interpolated_logos', f))]
         interpolated_files.sort()
         award = aesthetic_measure(interpolated_files)
-        utils.delete_dir(['./data/animated_logos', './data/interpolated_logos'])
+        utils.delete_dir(['./data/interpolated_logos'])
         return award
     except KeyboardInterrupt:
         raise
@@ -62,7 +61,7 @@ def return_award(path_output, filename, animation_id, idx):
         logger.error(f'Failed computing reward for file={filename} and animation id={animation_id}; '
                      f'Return reward of -1')
         logger.error(f'Raised exception: {e}')
-        utils.delete_dir(['./data/animated_logos', './data/interpolated_logos'])
+        utils.delete_dir(['./data/interpolated_logos'])
         return -1
 
 
@@ -77,7 +76,7 @@ def return_average_reward(model_output, filenames, animation_ids):
 
 def compute_agent_rewards(agents, X, filenames, animation_ids):
     # Delete directories for animated and interpolated logos in case they haven't been deleted previously
-    utils.delete_dir(['./data/animated_logos', './data/interpolated_logos'])
+    utils.delete_dir(['./data/interpolated_logos'])
 
     agent_rewards = []
     num_agents = len(agents)
