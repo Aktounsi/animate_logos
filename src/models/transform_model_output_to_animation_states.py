@@ -1,6 +1,6 @@
 from xml.dom import minidom
 from pathlib import Path
-import os
+import os, math
 from cairosvg import svg2png
 from model_head import transform_binary_model_output
 
@@ -8,7 +8,7 @@ from model_head import transform_binary_model_output
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
     """ Function to interpolate an animated svg and output the interpolated svgs
 
-    Example: interpolate_svg('logos_svg/BMW.svg', 10, 20, 0, [1,0,0,1,0,0,0,1,1,0,1,0,1,1,1,0,1,0,1,0,0])
+    Example: interpolate_svg('./data/logos_svg_id/BMW.svg', 10, 20, 0, [0,0,0,0,0,1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,0])
 
     Args:
         logo (svg): logo in svg format
@@ -27,18 +27,20 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
             fill (string): state of path after animation ('freeze' or 'remove')
 
     """
+    # Get number of digits of number of steps to save interpolated SVGs with leading zeros
+    digits = int(math.log10(steps))+1
+
     # Transform binary output to values
     type, begin, dur, repeatCount, fill, from_, to, fromY, toY = transform_binary_model_output(output)
-
     # Create folder and one svg per frame
-    Path("interpolated_logos").mkdir(parents=True, exist_ok=True)
+    Path("./data/interpolated_logos").mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')
     filename = pathelements[len(pathelements)-1].replace('.svg','')
-    if os.path.exists('interpolated_logos/' + filename + '_0.svg') == False:
+    if os.path.exists('./data/interpolated_logos/' + filename + '_' + str(0).zfill(digits) + '.svg') == False:
         doc = minidom.parse(logo)
         for i in range(0, steps+1):
             # write svg
-            textfile = open('interpolated_logos/' + filename + '_' + str(i) + '.svg', 'wb')
+            textfile = open('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg', 'wb')
             textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
             textfile.close()
 
@@ -97,7 +99,7 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
                 coordinateY = fromY + (time - begin) * stepsizeY
 
         # Load interpolated svg
-        doc = minidom.parse('interpolated_logos/' + filename + '_' + str(i) + '.svg')
+        doc = minidom.parse('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg')
         # Store all elements in list
         elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
             'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(
@@ -106,14 +108,14 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
         # set transformation
         if (type == 'translate' or type == 'scale') and fromY is not None and toY is not None:
             for element in elements:
-                if element.getAttribute('animation_id') == animation_id:
+                if element.getAttribute('animation_id') == str(animation_id):
                     element.setAttribute('transform', type + '(' + str(coordinate) + ',' + str(coordinateY) + ')')
         else:
             for element in elements:
-                if element.getAttribute('animation_id') == animation_id:
+                if element.getAttribute('animation_id') == str(animation_id):
                     element.setAttribute('transform', type + '(' + str(coordinate) + ')')
         # write svg
-        textfile = open('interpolated_logos/' + filename + '_' + str(i) + '.svg', 'wb')
+        textfile = open('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg', 'wb')
         textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
         textfile.close()
         doc.unlink()
