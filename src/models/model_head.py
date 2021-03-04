@@ -31,7 +31,7 @@ def transform_binary_model_output(output):
         output (np.array): 21-dimensional list of binary values
 
     """
-    output = (output > 0.5).int()
+    output = (output > 0.5).astype(int)
 
     if output[0] == 0 and output[1] == 0:
         type = 'translate'
