@@ -12,6 +12,9 @@ from src.preprocessing.deepsvg.svglib.geom import Bbox
 from src.preprocessing.deepsvg.svgtensor_dataset import SVGTensorDataset, load_dataset
 from src.preprocessing.deepsvg.utils.utils import batchify, linear
 
+# Reproducibility
+utils.set_seed(42)
+
 
 def save_tensor_as_pkl(svg, file_path):
     t_data = svg.copy().numericalize().to_tensor(concat_groups=False)
@@ -47,7 +50,7 @@ def preprocess_svg(svg_file, output_folder, tensor_folder, meta_data):
     }
 
 
-def preprocessing_main(data_folder="data/svgs", workers=4):
+def preprocess_folder(data_folder="data/svgs", workers=4):
     output_folder = f'{data_folder}_simplified'
     tensor_folder = f'{data_folder}_tensors'
     output_meta_file = f'{data_folder}_meta.csv'
@@ -73,8 +76,29 @@ def preprocessing_main(data_folder="data/svgs", workers=4):
     logging.info("SVG Preprocessing complete.")
 
 
-def save_model(model_dir, model_name, model, cfg=None, optimizer=None, scheduler_lr=None, scheduler_warmup=None,
-               stats=None, train_vars=None):
+def _load_model(model_path="models/hierarchical_ordered.pth.tar",
+                cfg_module="configs.deepsvg.hierarchical_ordered",
+                data_folder="data/svgs"):
+    os.chdir("src/preprocessing")
+    cfg = importlib.import_module(cfg_module).Config()
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    model = cfg.make_model().to(device)
+    cfg.dataloader_module = "deepsvg.svgtensor_dataset"
+    os.chdir("../..")
+
+    utils.load_model(model_path, model)
+    model.eval();
+
+    cfg.data_dir = f"{data_folder}_tensors/"
+    cfg.meta_filepath = f"{data_folder}_meta.csv"
+
+    dataset = load_dataset(cfg)
+
+    return dataset, model, device, cfg
+
+
+def _save_model(model_dir, model_name, model, cfg=None, optimizer=None, scheduler_lr=None, scheduler_warmup=None,
+                stats=None, train_vars=None):
     state = {
         "model": model.state_dict()
     }
@@ -107,7 +131,6 @@ def train_embedding_model(data_folder="./data/svgs",
                           debug=False,
                           resume=False,
                           save=True):
-
     os.chdir("src/preprocessing")
     cfg = importlib.import_module(cfg_module).Config()  # _fonts
     cfg.dataloader_module = "deepsvg.svgtensor_dataset"
@@ -122,14 +145,16 @@ def train_embedding_model(data_folder="./data/svgs",
     model = train(cfg, model_name, experiment_name, log_dir=log_dir, debug=debug, resume=resume)
 
     if save:
-        save_model("models",
-                   f"{datetime.now().strftime('%Y%m%d_%H%M')}_model_batch{batch_size}_epoch{num_epochs}_{data_folder.split('/')[-1]}.pth.tar",
-                   model)
+        date_time = datetime.now().strftime('%Y%m%d_%H%M')
+        data = data_folder.split('/')[-1]
+        _save_model("models",
+                    f"{date_time}_model_batch{batch_size}_epoch{num_epochs}_{data}.pth.tar",
+                    model)
 
     return model
 
 
-def encode_tensor(dataset, idx, model, device, cfg):
+def _encode_tensor(dataset, idx, model, device, cfg):
     data = dataset.get(id=idx, random_aug=False)
     model_args = batchify((data[key] for key in cfg.model_args), device)
     with torch.no_grad():
@@ -137,22 +162,10 @@ def encode_tensor(dataset, idx, model, device, cfg):
         return z
 
 
-def decode(z, model, do_display=True, return_svg=False, return_png=False):
-    commands_y, args_y = model.greedy_sample(z=z)
-    tensor_pred = SVGTensor.from_cmd_args(commands_y[0].cpu(), args_y[0].cpu())
-    svg_path_sample = SVG.from_tensor(tensor_pred.data, viewbox=Bbox(256),
-                                      allow_empty=True).normalize().split_paths().set_color("random")
-
-    if return_svg:
-        return svg_path_sample
-
-    return svg_path_sample.draw(do_display=do_display, return_png=return_png)
-
-
-def apply_embedding(dataset, pkl_file, pkl_list, model, device, cfg):
+def _apply_embedding(dataset, pkl_file, pkl_list, model, device, cfg):
     filename = os.path.splitext(os.path.basename(pkl_file))[0]
 
-    z = encode_tensor(dataset, filename, model, device, cfg).numpy()[0][0][0]
+    z = _encode_tensor(dataset, filename, model, device, cfg).numpy()[0][0][0]
 
     dict_data = {"filename": filename,
                  "embedding": z}
@@ -163,28 +176,15 @@ def apply_embedding(dataset, pkl_file, pkl_list, model, device, cfg):
 def apply_embedding_model(model_path="models/hierarchical_ordered.pth.tar",
                           cfg_module="configs.deepsvg.hierarchical_ordered",
                           data_folder="data/svgs",
-                          workers=4):
-
-    os.chdir("src/preprocessing")
-    cfg = importlib.import_module(cfg_module).Config()
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = cfg.make_model().to(device)
-    cfg.dataloader_module = "deepsvg.svgtensor_dataset"
-    os.chdir("../..")
-
-    utils.load_model(model_path, model)
-    model.eval();
-
-    cfg.data_dir = f"{data_folder}_tensors/"
-    cfg.meta_filepath = f"{data_folder}_meta.csv"
-
-    dataset = load_dataset(cfg)
+                          workers=4,
+                          save=True):
+    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
 
     with futures.ThreadPoolExecutor(max_workers=workers) as executor:
-        pkl_files = glob.glob(os.path.join(cfg.data_dir , "*.pkl"))
+        pkl_files = glob.glob(os.path.join(cfg.data_dir, "*.pkl"))
         pkl_list = []
         with tqdm(total=len(pkl_files)) as pbar:
-            embedding_requests = [executor.submit(apply_embedding, dataset, pkl_file, pkl_list, model, device, cfg)
+            embedding_requests = [executor.submit(_apply_embedding, dataset, pkl_file, pkl_list, model, device, cfg)
                                   for pkl_file in pkl_files]
 
             for _ in futures.as_completed(embedding_requests):
@@ -200,25 +200,61 @@ def apply_embedding_model(model_path="models/hierarchical_ordered.pth.tar",
         df = df.reindex(columns=cols)
         df['filename'] = df['filename'].apply(lambda row: row.split('_')[0])
 
-    output = open(f'{data_folder}_embedding.pkl', 'wb')
-    pickle.dump(df, output)
-    output.close()
+    if save:
+        model = model_path.split("/")[-1].replace("_svgs.pth.tar", "").replace("_decomposed", "")
+        data = data_folder.split("/")[-1]
+        output = open(f'data/{model}_{data}_embedding.pkl', 'wb')
+        pickle.dump(df, output)
+        output.close()
 
     logging.info("Embedding complete.")
 
     return df
 
 
-def combine_embeddings(df_svg_embedding, df_decomposed_svg_embedding):
+def combine_embeddings(df_svg_embedding,
+                       df_decomposed_svg_embedding,
+                       model_path="models/hierarchical_ordered.pth.tar",
+                       save=True):
+    # TODO: model_path is only needed for naming. Not very nice. Change later?
     merged_embeddings = df_decomposed_svg_embedding.merge(df_svg_embedding, how='left', on='filename')
     combined_embedding = merged_embeddings[["filename", "animation_id"]]
     for col in range(256):
         combined_embedding[col] = merged_embeddings[str(col) + "_x"] + merged_embeddings[str(col) + "_y"]
 
-    output = open("data/combined_embedding.pkl", 'wb')
-    pickle.dump(combined_embedding, output)
-    output.close()
+    if save:
+        model = model_path.split("/")[-1].replace("_svgs.pth.tar", "").replace("_decomposed", "")
+        output = open(f"data/{model}_combined_embedding.pkl", 'wb')
+        pickle.dump(combined_embedding, output)
+        output.close()
 
     return combined_embedding
 
 
+def encode_logo(logo,
+                model_path="models/hierarchical_ordered.pth.tar",
+                cfg_module="configs.deepsvg.hierarchical_ordered",
+                data_folder="data/svgs"):
+    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
+
+    return _encode_tensor(dataset, logo, model, device, cfg)
+
+
+def decode_z(z,
+           model_path="models/hierarchical_ordered.pth.tar",
+           cfg_module="configs.deepsvg.hierarchical_ordered",
+           data_folder="data/svgs",
+           do_display=True,
+           return_svg=False,
+           return_png=False):
+    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
+
+    commands_y, args_y = model.greedy_sample(z=z)
+    tensor_pred = SVGTensor.from_cmd_args(commands_y[0].cpu(), args_y[0].cpu())
+    svg_path_sample = SVG.from_tensor(tensor_pred.data, viewbox=Bbox(256),
+                                      allow_empty=True).normalize().split_paths().set_color("random")
+
+    if return_svg:
+        return svg_path_sample
+
+    return svg_path_sample.draw(do_display=do_display, return_png=return_png)

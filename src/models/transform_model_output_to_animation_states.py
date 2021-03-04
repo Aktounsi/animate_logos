@@ -8,7 +8,7 @@ from src.models.model_head import transform_binary_model_output
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
     """ Function to interpolate an animated svg and output the interpolated svgs
 
-    Example: interpolate_svg('logos_svg/BMW.svg', 10, 20, 0, [1,0,0,1,0,0,0,1,1,0,1,0,1,1,1,0,1,0,1,0,0])
+    Example: interpolate_svg('./data/logos_svg_id/BMW.svg', 10, 20, 0, [0,0,0,0,0,1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,0])
 
     Args:
         logo (svg): logo in svg format
@@ -108,11 +108,11 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
         # set transformation
         if (type == 'translate' or type == 'scale') and fromY is not None and toY is not None:
             for element in elements:
-                if element.getAttribute('animation_id') == animation_id:
+                if element.getAttribute('animation_id') == str(animation_id):
                     element.setAttribute('transform', type + '(' + str(coordinate) + ',' + str(coordinateY) + ')')
         else:
             for element in elements:
-                if element.getAttribute('animation_id') == animation_id:
+                if element.getAttribute('animation_id') == str(animation_id):
                     element.setAttribute('transform', type + '(' + str(coordinate) + ')')
         # write svg
         textfile = open('./data/interpolated_logos/' + filename + '_' + str(i).zfill(digits) + '.svg', 'wb')
