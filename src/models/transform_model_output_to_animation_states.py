@@ -2,7 +2,7 @@ from xml.dom import minidom
 from pathlib import Path
 import os, math
 from cairosvg import svg2png
-from model_head import transform_binary_model_output
+from src.models.model_head import transform_binary_model_output
 
 
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
@@ -140,7 +140,7 @@ def convert_svgs_in_folder(folder):
 
 def convert_svg(file):
     """ Function to convert one svg to png. Requires Cairosvg.
-    Example: convert_svg('interpolated_logos/BMW_0.svg')
+    Example: convert_svg('./data/interpolated_logos/BMW_0.svg')
     Args:
         file (string): The path of the SVG file that needs to be converted.
     """

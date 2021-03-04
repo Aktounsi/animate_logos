@@ -1,6 +1,6 @@
 from xml.dom import minidom
 from pathlib import Path
-from model_head import transform_binary_model_output
+from src.models.model_head import transform_binary_model_output
 
 
 def svg_to_doc(file):
@@ -43,7 +43,7 @@ def insert_animation(file, animation_id, output):
 
         Args:
             file (string): The path of the SVG file.
-            aniamtion_id (num): Id of the element that should be animated in the file
+            animation_id (num): Id of the element that should be animated in the file
             output (list): 21 dimensional list with binary model output
 
         Returns (xml.dom.minidom.Document): Parsed file.
@@ -51,7 +51,7 @@ def insert_animation(file, animation_id, output):
 
     animation = create_animation_statement(output)
 
-    Path("animated_logos").mkdir(parents=True, exist_ok=True)
+    Path("./data/animated_logos").mkdir(parents=True, exist_ok=True)
     doc= svg_to_doc(file)
     elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
         'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(
@@ -65,6 +65,6 @@ def insert_animation(file, animation_id, output):
     pathelements = file.split("/")
     filename=pathelements[len(pathelements)-1].replace(".svg","")
     # write svg
-    textfile = open('animated_logos/' + filename + '.svg', 'wb')
+    textfile = open('./data/animated_logos/' + filename + '.svg', 'wb')
     textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
     textfile.close()

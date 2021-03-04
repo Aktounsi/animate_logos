@@ -1,5 +1,5 @@
-from deepsvg.difflib.tensor import SVGTensor
-from deepsvg.utils.utils import _pack_group_batch, _unpack_group_batch, _make_seq_first, _make_batch_first
+from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
+from src.preprocessing.deepsvg.utils.utils import _pack_group_batch, _unpack_group_batch, _make_seq_first, _make_batch_first
 
 from .layers.transformer import *
 from .layers.improved_transformer import *
