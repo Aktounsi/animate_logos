@@ -1,5 +1,5 @@
 import torch.optim as optim
-from deepsvg.schedulers.warmup import GradualWarmupScheduler
+from src.preprocessing.deepsvg.schedulers.warmup import GradualWarmupScheduler
 
 
 class _Config:
@@ -13,7 +13,7 @@ class _Config:
         self.dataloader_module = "deepsvg.svgtensor_dataset"  #
         self.collate_fn = None                                #
         self.data_dir = "./data/svgs_tensors/"             #
-        self.meta_filepath = "./data/svg_meta.csv"            #
+        self.meta_filepath = "./data/svgs_meta.csv"            #
         self.loader_num_workers = 0                           #
 
         self.pretrained_path = "./models/hierarchical_ordered.pth.tar"        #

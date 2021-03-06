@@ -1,5 +1,5 @@
+import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class MLP(nn.Module):
@@ -17,8 +17,8 @@ class MLP(nn.Module):
     # Forward Pass
     def forward(self, x):
         for layer in self.hidden:
-            x = F.relu(layer(x))
-        output = F.sigmoid(self.out(x))
+            x = torch.relu(layer(x))
+        output = torch.sigmoid(self.out(x))
         return output
 
 
@@ -31,7 +31,7 @@ def transform_binary_model_output(output):
         output (np.array): 21-dimensional list of binary values
 
     """
-    output = (output > 0.5).int()
+    output = (output > 0.5).astype(int)
 
     if output[0] == 0 and output[1] == 0:
         type = 'translate'
