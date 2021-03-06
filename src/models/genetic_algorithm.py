@@ -36,7 +36,7 @@ def create_random_agents(num_agents, hidden_sizes, out_size):
     return agents
 
 
-def return_award(path_output, filename, animation_id, idx):
+def return_reward(path_output, filename, animation_id, idx):
     if idx % 50 == 0:
         logger.info(f'Current path index: {idx}')
     try:
@@ -52,9 +52,9 @@ def return_award(path_output, filename, animation_id, idx):
         interpolated_files = [join('./data/interpolated_logos', f) for f in listdir('./data/interpolated_logos') if
                               isfile(join('./data/interpolated_logos', f))]
         interpolated_files.sort()
-        award = aesthetic_measure(interpolated_files)
+        reward = aesthetic_measure(interpolated_files)
         utils.delete_dir(['./data/interpolated_logos'])
-        return award
+        return reward
     except KeyboardInterrupt:
         raise
     except Exception as e:
@@ -66,7 +66,7 @@ def return_award(path_output, filename, animation_id, idx):
 
 
 def return_average_reward(model_output, filenames, animation_ids):
-    rewards = np.array([return_award(path_output=model_output[i],
+    rewards = np.array([return_reward(path_output=model_output[i],
                                      filename=filenames[i],
                                      animation_id=animation_ids[i],
                                      idx=i)
