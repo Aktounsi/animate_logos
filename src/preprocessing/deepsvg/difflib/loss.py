@@ -1,5 +1,5 @@
 import numpy as np
-from .utils import *
+from src.preprocessing.deepsvg.utils import *
 
 
 def chamfer_loss(x, y):

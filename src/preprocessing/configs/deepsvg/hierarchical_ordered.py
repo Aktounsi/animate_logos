@@ -10,7 +10,7 @@ class ModelConfig(Hierarchical):
 
 
 class Config(Config):
-    def __init__(self, num_gpus=2):
+    def __init__(self, num_gpus=1):
         super().__init__(num_gpus=num_gpus)
 
         self.model_cfg = ModelConfig()
@@ -19,6 +19,6 @@ class Config(Config):
         self.filter_category = None
 
         self.learning_rate = 1e-3 * num_gpus
-        self.batch_size = 60 * num_gpus
+        self.batch_size = 20 #60 * num_gpus
 
-        self.val_every = 2000
+        self.val_every = 10 #2000
