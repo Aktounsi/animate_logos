@@ -1,4 +1,4 @@
-import deepsvg.svglib.svg as svg_lib
+import src.preprocessing.deepsvg.svglib.svg as svg_lib
 from .geom import Bbox, Point
 import math
 import numpy as np
