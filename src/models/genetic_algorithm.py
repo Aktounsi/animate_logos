@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import pandas as pd
 import copy
 from os import listdir
 from os.path import isfile, join
@@ -8,7 +9,7 @@ from src.utils import utils
 from src.utils import logger
 
 from src.models.model_head import MLP
-from src.models.fitness_function import aesthetic_measure
+from src.models.fitness_function import aesthetic_measure, predict
 from src.models.transform_model_output_to_animation_states import interpolate_svg, convert_svgs_in_folder
 
 
@@ -65,26 +66,40 @@ def return_reward(path_output, filename, animation_id, idx):
         return -1
 
 
-def return_average_reward(model_output, filenames, animation_ids):
-    rewards = np.array([return_reward(path_output=model_output[i],
-                                     filename=filenames[i],
-                                     animation_id=animation_ids[i],
-                                     idx=i)
-                        for i in range(model_output.shape[0])])
+def pad_list(l):
+    return l + [[-1] * 13] * (8 - len(l))
+
+
+def prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings):
+    model_output_list = [output.tolist() for output in model_output]
+    path_level_df = pd.DataFrame(
+        {'filename': filenames, 'animation_id': animation_ids, 'model_output': model_output_list})
+    concatenated_model_outputs = path_level_df.groupby('filename')['model_output'].apply(list)
+    surrogate_model_input = pd.merge(left=concatenated_model_outputs, right=svg_embeddings, on='filename')
+    surrogate_model_input['model_output'] = [pad_list(output) for output in surrogate_model_input['model_output']]
+    surrogate_model_input[[f'animation_output_{i}' for i in range(8)]] = pd.DataFrame(
+        surrogate_model_input['model_output'].tolist(), index=surrogate_model_input.index)
+    for i in range(8):
+        surrogate_model_input[[f'animation_output_{i}_{j}' for j in range(13)]] = pd.DataFrame(
+            surrogate_model_input[f'animation_output_{i}'].tolist(), index=surrogate_model_input.index)
+    surrogate_model_input.drop([f'animation_output_{i}' for i in range(8)], inplace=True, axis=1)
+    surrogate_model_input.drop('model_output', inplace=True, axis=1)
+    return surrogate_model_input
+
+
+def return_average_reward(model_output, filenames, animation_ids, svg_embeddings):
+    rewards = predict(prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings))
     return np.mean(rewards)
 
 
-def compute_agent_rewards(agents, X, filenames, animation_ids):
-    # Delete directories for animated and interpolated logos in case they haven't been deleted previously
-    utils.delete_dir(['./data/interpolated_logos'])
-
+def compute_agent_rewards(agents, X, filenames, animation_ids, svg_embeddings):
     agent_rewards = []
     num_agents = len(agents)
     for i, agent in enumerate(agents):
         model_output = agent(X)
         # if i % 10 == 0:
-        logger.info(f'Compute rewards for agent {i+1}/{num_agents}')
-        agent_rewards.append(return_average_reward(model_output, filenames, animation_ids))
+        logger.info(f'Compute rewards for agent {i + 1}/{num_agents}')
+        agent_rewards.append(return_average_reward(model_output, filenames, animation_ids, svg_embeddings))
     return agent_rewards
 
 
