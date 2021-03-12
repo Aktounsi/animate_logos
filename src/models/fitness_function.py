@@ -1,8 +1,14 @@
 from matplotlib import image
 from skimage.metrics import mean_squared_error
 import numpy as np
+import random
 
 from src.utils import logger
+
+
+def predict(surrogate_model_input):
+    print(surrogate_model_input.columns)
+    return [random.uniform(0, 1) for _ in range(len(surrogate_model_input))]
 
 
 def aesthetic_measure(paths_list):
