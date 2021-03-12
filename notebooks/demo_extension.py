@@ -1,4 +1,4 @@
-from src.models.train_model_head import *
+from src.models.train_animation_predictor import *
 import os
 import pandas as pd
 
