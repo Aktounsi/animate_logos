@@ -7,7 +7,7 @@ from os.path import isfile, join
 from src.utils import utils
 from src.utils import logger
 
-from src.models.model_head import MLP
+from src.models.animation_prediction import AnimationPredictor
 from src.models.fitness_function import aesthetic_measure
 from src.models.transform_model_output_to_animation_states import interpolate_svg, convert_svgs_in_folder
 

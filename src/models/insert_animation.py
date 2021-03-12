@@ -1,6 +1,6 @@
 from xml.dom import minidom
 from pathlib import Path
-from src.models.model_head import transform_binary_model_output
+from src.models.animation_prediction import transform_binary_model_output
 
 
 def svg_to_doc(file):
