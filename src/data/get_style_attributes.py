@@ -138,7 +138,7 @@ def combine_style_attributes(df_global, df_local):
     Returns (pd.DataFrame): Dataframe with all style attributes.
     """
     df = df_local.merge(df_global, how='left', on=['file', 'class_'])
-    df_styles = df[["file", "class_"]]
+    df_styles = df[["file", "animation_id", "class_"]]
     df_styles["fill"] = _combine_columns(df, "fill")
     df_styles["stroke"] = _combine_columns(df, "stroke")
     df_styles["stroke_width"] = _combine_columns(df, "stroke_width")
