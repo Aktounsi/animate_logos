@@ -1,3 +1,5 @@
+from src.models.train_animation_predictor import *
+import os
 import os, sys
 import pandas as pd
 
