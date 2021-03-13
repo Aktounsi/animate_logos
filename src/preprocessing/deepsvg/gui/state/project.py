@@ -5,8 +5,8 @@ import numpy as np
 from moviepy.editor import ImageClip, concatenate_videoclips
 import shutil
 
-from src.preprocessing.deepsvg.svglib.svg import SVG
-from src.preprocessing.deepsvg.svglib.geom import Bbox
+from deepsvg.svglib.svg import SVG
+from deepsvg.svglib.geom import Bbox
 
 from ..config import ROOT_DIR
 

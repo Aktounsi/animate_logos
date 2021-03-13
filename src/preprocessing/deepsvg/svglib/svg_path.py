@@ -1,6 +1,6 @@
 from __future__ import annotations
 from .geom import *
-import src.preprocessing.deepsvg.svglib.geom as geom
+import deepsvg.svglib.geom as geom
 import re
 import torch
 from typing import List, Union

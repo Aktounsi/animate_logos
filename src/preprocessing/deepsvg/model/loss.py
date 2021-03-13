@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
+from deepsvg.difflib.tensor import SVGTensor
 from .utils import _get_padding_mask, _get_visibility_mask
 from .config import _DefaultConfig
 

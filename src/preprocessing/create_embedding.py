@@ -4,13 +4,13 @@ from concurrent import futures
 from tqdm import tqdm
 import pandas as pd
 
-from src.preprocessing.deepsvg.svglib.svg import SVG
-from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
-from src.preprocessing.deepsvg.train import train
-from src.preprocessing.deepsvg import utils
-from src.preprocessing.deepsvg.svglib.geom import Bbox
-from src.preprocessing.deepsvg.svgtensor_dataset import SVGTensorDataset, load_dataset
-from src.preprocessing.deepsvg.utils.utils import batchify, linear
+from deepsvg.svglib.svg import SVG
+from deepsvg.difflib.tensor import SVGTensor
+from deepsvg.train import train
+from deepsvg import utils
+from deepsvg.svglib.geom import Bbox
+from deepsvg.svgtensor_dataset import SVGTensorDataset, load_dataset
+from deepsvg.utils.utils import batchify, linear
 
 # Reproducibility
 utils.set_seed(42)
@@ -241,12 +241,12 @@ def encode_logo(logo,
 
 
 def decode_z(z,
-           model_path="models/hierarchical_ordered.pth.tar",
-           cfg_module="configs.deepsvg.hierarchical_ordered",
-           data_folder="data/svgs",
-           do_display=True,
-           return_svg=False,
-           return_png=False):
+             model_path="models/hierarchical_ordered.pth.tar",
+             cfg_module="configs.deepsvg.hierarchical_ordered",
+             data_folder="data/svgs",
+             do_display=True,
+             return_svg=False,
+             return_png=False):
     dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
 
     commands_y, args_y = model.greedy_sample(z=z)

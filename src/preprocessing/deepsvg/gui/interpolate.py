@@ -2,16 +2,16 @@ import torch
 from torch.utils.data import DataLoader
 import torch.nn as nn
 
-from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
+from configs.deepsvg.hierarchical_ordered import Config
 
-from src.preprocessing.deepsvg import utils
-from src.preprocessing.deepsvg.svglib.svg import SVG
-from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
-from src.preprocessing.deepsvg.svglib.geom import Bbox
-from src.preprocessing.deepsvg.svgtensor_dataset import load_dataset, SVGFinetuneDataset
-from src.preprocessing.deepsvg.utils.utils import batchify
+from deepsvg import utils
+from deepsvg.svglib.svg import SVG
+from deepsvg.difflib.tensor import SVGTensor
+from deepsvg.svglib.geom import Bbox
+from deepsvg.svgtensor_dataset import load_dataset, SVGFinetuneDataset
+from deepsvg.utils.utils import batchify
 
-from src.preprocessing.deepsvg.gui.state.project import DeepSVGProject, Frame
+from deepsvg.gui.state.project import DeepSVGProject, Frame
 from .utils import easein_easeout
 
 

@@ -1,5 +1,5 @@
 import torch.optim as optim
-from src.preprocessing.deepsvg.schedulers.warmup import GradualWarmupScheduler
+from deepsvg.schedulers.warmup import GradualWarmupScheduler
 
 
 class _Config:
