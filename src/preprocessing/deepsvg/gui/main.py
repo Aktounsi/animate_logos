@@ -20,9 +20,9 @@ from kivy.core.window import Window
 import os
 from typing import List
 
-from src.preprocessing.deepsvg.svglib.geom import Point
-from src.preprocessing.deepsvg.svglib.svg_command import SVGCommandMove, SVGCommandLine, SVGCommandBezier
-from src.preprocessing.deepsvg.svgtensor_dataset import SVGTensorDataset
+from deepsvg.svglib.geom import Point
+from deepsvg.svglib.svg_command import SVGCommandMove, SVGCommandLine, SVGCommandBezier
+from deepsvg.svgtensor_dataset import SVGTensorDataset
 
 from .layout.aligned_textinput import AlignedTextInput
 from .state.state import State, ToolMode, DrawMode, LoopMode, PlaybackMode

@@ -21,14 +21,20 @@ def parse_svg(file):
     return paths, attrs
 
 
-def _get_local_style_records(folder):
-    """ Helper function to get local style records.
+def get_local_style_attributes(folder):
+    """ Function to generate dataframe containing local style attributes of all SVG file in a folder.
+
+    Example: get_local_style_attributes('data/svgs')
 
     Args:
         folder (string): The path of the folder containing all SVG file.
 
-    Returns (dictonary): Dictonary containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+    Returns (pd.DataFrame): A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
+    return pd.DataFrame.from_records(_get_local_style_attributes(folder))
+
+
+def _get_local_style_attributes(folder):
     for file in os.listdir(folder):
         if file.endswith(".svg"):
             try:
@@ -66,27 +72,20 @@ def _get_local_style_records(folder):
                            opacity=opacity, stroke_opacity=stroke_opacity)
 
 
-def get_local_style_attributes(folder):
-    """ Function to generate dataframe containing local style attributes of all SVG file in a folder.
+def get_global_style_attributes(folder):
+    """ Function to generate dataframe containing global style attributes of all SVG file in a folder.
 
-    Example: get_local_style_attributes('data/svgs')
-
-    Args:
-        folder (string): The path of the folder containing all SVG file.
-
-    Returns (DataFrame): A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
-    """
-    return pd.DataFrame.from_records(_get_local_style_records(folder))
-
-
-def _get_global_style_records(folder):
-    """ Helper function to get global style records.
+    Example: get_global_style_attributes('data/svgs')
 
     Args:
         folder (string): The path of the folder containing all SVG file.
 
-    Returns (dictonary): Dictonary containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+    Returns (pd.DataFrame): A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
+    return pd.DataFrame.from_records(_get_global_style_attributes(folder))
+
+
+def _get_global_style_attributes(folder):
     for file in os.listdir(folder):
         if file.endswith(".svg"):
             doc = minidom.parse(folder + '/' + file)
@@ -113,19 +112,6 @@ def _get_global_style_records(folder):
                         stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
                     yield dict(file=file, class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
                                opacity=opacity, stroke_opacity=stroke_opacity)
-
-
-def get_global_style_attributes(folder):
-    """ Function to generate dataframe containing global style attributes of all SVG file in a folder.
-
-    Example: get_global_style_attributes('data/svgs')
-
-    Args:
-        folder (string): The path of the folder containing all SVG file.
-
-    Returns (DataFrame): A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
-    """
-    return pd.DataFrame.from_records(_get_global_style_records(folder))
 
 
 def combine_style_attributes(df_global, df_local):

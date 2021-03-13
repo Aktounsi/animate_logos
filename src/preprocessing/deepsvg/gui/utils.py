@@ -1,6 +1,6 @@
-from src.preprocessing.deepsvg.svglib.svg import SVG
-from src.preprocessing.deepsvg.svglib.svg_path import SVGPath
-from src.preprocessing.deepsvg.svglib.geom import Bbox
+from deepsvg.svglib.svg import SVG
+from deepsvg.svglib.svg_path import SVGPath
+from deepsvg.svglib.geom import Bbox
 
 
 color_dict = {

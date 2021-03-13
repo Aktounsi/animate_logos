@@ -1,5 +1,5 @@
-from src.preprocessing.deepsvg.gui.state.project import DeepSVGProject
-from src.preprocessing.deepsvg.gui.config import STATE_PATH
+from deepsvg.gui.state.project import DeepSVGProject
+from deepsvg.gui.config import STATE_PATH
 import pickle
 import os
 
