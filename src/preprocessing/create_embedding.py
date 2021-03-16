@@ -154,38 +154,29 @@ def train_embedding_model(data_folder="./data/svgs",
     return model
 
 
-def _encode_tensor(dataset, idx, model, device, cfg):
-    data = dataset.get(id=idx, random_aug=False)
-    model_args = batchify((data[key] for key in cfg.model_args), device)
-    with torch.no_grad():
-        z = model(*model_args, encode_mode=True)
-        return z
+def encode_pkl(logo,
+               model_path="models/hierarchical_ordered.pth.tar",
+               cfg_module="configs.deepsvg.hierarchical_ordered",
+               data_folder="data/svgs"):
+    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
+
+    return _encode_tensor(dataset, logo, model, device, cfg)
 
 
-def _apply_embedding(dataset, pkl_file, pkl_list, model, device, cfg):
-    filename = os.path.splitext(os.path.basename(pkl_file))[0]
-
-    z = _encode_tensor(dataset, filename, model, device, cfg).numpy()[0][0][0]
-
-    dict_data = {"filename": filename,
-                 "embedding": z}
-
-    pkl_list.append(dict_data)
-
-
-def apply_embedding_model(model_path="models/hierarchical_ordered.pth.tar",
-                          cfg_module="configs.deepsvg.hierarchical_ordered",
-                          data_folder="data/svgs",
-                          workers=4,
-                          save=True):
+def apply_embedding_model_to_pkl(model_path="models/hierarchical_ordered.pth.tar",
+                                 cfg_module="configs.deepsvg.hierarchical_ordered",
+                                 data_folder="data/svgs",
+                                 workers=4,
+                                 save=True):
     dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
 
     with futures.ThreadPoolExecutor(max_workers=workers) as executor:
         pkl_files = glob.glob(os.path.join(cfg.data_dir, "*.pkl"))
         pkl_list = []
         with tqdm(total=len(pkl_files)) as pbar:
-            embedding_requests = [executor.submit(_apply_embedding, dataset, pkl_file, pkl_list, model, device, cfg)
-                                  for pkl_file in pkl_files]
+            embedding_requests = [
+                executor.submit(_apply_embedding_to_pkl, dataset, pkl_file, pkl_list, model, device, cfg)
+                for pkl_file in pkl_files]
 
             for _ in futures.as_completed(embedding_requests):
                 pbar.update(1)
@@ -212,6 +203,100 @@ def apply_embedding_model(model_path="models/hierarchical_ordered.pth.tar",
     return df
 
 
+def _apply_embedding_to_pkl(dataset, pkl_file, pkl_list, model, device, cfg):
+    filename = os.path.splitext(os.path.basename(pkl_file))[0]
+
+    z = _encode_tensor(dataset, filename, model, device, cfg).numpy()[0][0][0]
+
+    dict_data = {"filename": filename,
+                 "embedding": z}
+
+    pkl_list.append(dict_data)
+
+
+def _encode_tensor(dataset, idx, model, device, cfg):
+    data = dataset.get(id=idx, random_aug=False)
+    model_args = batchify((data[key] for key in cfg.model_args), device)
+    with torch.no_grad():
+        z = model(*model_args, encode_mode=True)
+        return z
+
+
+def encode_svg(filename,
+               model_path="models/hierarchical_ordered.pth.tar",
+               cfg_module="configs.deepsvg.hierarchical_ordered",
+               data_folder="data/svgs"):
+    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
+    svg = SVG.load_svg(filename)
+    svg = dataset.simplify(svg)
+    svg = dataset.preprocess(svg)
+
+    return _encode_svg(dataset, svg, model, device, cfg)
+
+
+def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.tar",
+                                  cfg_module="configs.deepsvg.hierarchical_ordered",
+                                  data_folder="data/svgs",
+                                  workers=4,
+                                  save=True):
+    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
+
+    # TODO: Change data_dir in _load_model (new parameter)
+    cfg.data_dir = data_folder
+
+    with futures.ThreadPoolExecutor(max_workers=workers) as executor:
+        svg_files = glob.glob(os.path.join(cfg.data_dir, "*.svg"))
+        svg_list = []
+        with tqdm(total=len(svg_files)) as pbar:
+            embedding_requests = [executor.submit(_apply_embedding_to_svg, dataset, svg_file, svg_list, model, device, cfg)
+                                  for svg_file in svg_files]
+
+            for _ in futures.as_completed(embedding_requests):
+                pbar.update(1)
+
+    df = pd.DataFrame.from_records(svg_list, index='filename')['embedding'].apply(pd.Series)
+    df.reset_index(level=0, inplace=True)
+
+    if data_folder == "data/decomposed_svgs":
+        df['animation_id'] = df['filename'].apply(lambda row: row.split('_')[-1]).replace(".svg", "")
+        cols = list(df.columns)
+        cols = [cols[0], cols[-1]] + cols[1:-1]
+        df = df.reindex(columns=cols)
+        df['filename'] = df['filename'].apply(lambda row: row.split('_')[0])
+
+    if save:
+        model = model_path.split("/")[-1].replace("_svgs.pth.tar", "").replace("_decomposed", "")
+        data = data_folder.split("/")[-1]
+        output = open(f'data/{model}_{data}_embedding.pkl', 'wb')
+        pickle.dump(df, output)
+        output.close()
+
+    logging.info("Embedding complete.")
+
+    return df
+
+
+def _apply_embedding_to_svg(dataset, svg_file, svg_list, model, device, cfg):
+    z = _encode_svg(dataset, svg_file, model, device, cfg).numpy()[0][0][0]
+    filename = svg_file.split("\\")[-1]
+
+    dict_data = {"filename": filename,
+                 "embedding": z}
+
+    svg_list.append(dict_data)
+
+
+def _encode_svg(dataset, filename, model, device, cfg):
+    svg = SVG.load_svg(filename)
+    svg = dataset.simplify(svg)
+    svg = dataset.preprocess(svg)
+    data = dataset.get(svg=svg)
+    model_args = batchify((data[key] for key in cfg.model_args), device)
+    with torch.no_grad():
+        z = model(*model_args, encode_mode=True)
+        return z
+
+
 def combine_embeddings(df_svg_embedding,
                        df_decomposed_svg_embedding,
                        model_path="models/hierarchical_ordered.pth.tar",
@@ -229,15 +314,6 @@ def combine_embeddings(df_svg_embedding,
         output.close()
 
     return combined_embedding
-
-
-def encode_logo(logo,
-                model_path="models/hierarchical_ordered.pth.tar",
-                cfg_module="configs.deepsvg.hierarchical_ordered",
-                data_folder="data/svgs"):
-    dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
-
-    return _encode_tensor(dataset, logo, model, device, cfg)
 
 
 def decode_z(z,
