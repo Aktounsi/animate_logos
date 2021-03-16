@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import time
 
 
 class AnimationPredictor(nn.Module):
@@ -46,6 +47,9 @@ class AnimationPredictor(nn.Module):
 
 
 if __name__ == "__main__":
-    input = torch.randn(3, 256)
-    m = AnimationPredictor()
-    print(m(input))
+    start_time = time.time()
+    for _ in range(116):
+        input = torch.randn(4, 256)
+        m = AnimationPredictor()
+        m(input)
+    print("--- %s seconds ---" % (time.time() - start_time))

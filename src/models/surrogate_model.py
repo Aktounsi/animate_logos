@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class FitnessFunction(nn.Module):
-    def __init__(self, hidden_sizes):
+    def __init__(self, hidden_sizes=[360, 245]):
         super().__init__()
 
         # Hidden Layers
@@ -15,8 +15,8 @@ class FitnessFunction(nn.Module):
         self.out = nn.Linear(hidden_sizes[-1], 5)
 
     # Forward Pass
-    def forward(self, x):
+    def forward(self, X):
         for layer in self.hidden:
-            x = torch.relu(layer(x))
-        output = self.out(x) # no softmax: CrossEntropyLoss()
+            X = torch.relu(layer(X))
+        output = self.out(X) # no softmax: CrossEntropyLoss()
         return output
