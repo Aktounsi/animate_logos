@@ -10,9 +10,9 @@ class DatasetFF(torch.utils.data.Dataset):
 
         # Read csv file and load data into variables
         if train:
-            file_path = "../../data/fitness_function/train_ff.csv"
+            file_path = "../data/fitness_function/train_ff.csv"
         else:
-            file_path = "../../data/fitness_function/test_ff.csv"
+            file_path = "../data/fitness_function/test_ff.csv"
 
         file_out = pd.read_csv(file_path)
         X = file_out.iloc[0:file_out.shape[0], 0:-1].values
@@ -33,8 +33,3 @@ class DatasetFF(torch.utils.data.Dataset):
         # Generates one sample of data
         # Select sample
         return self.X[index], self.y[index]
-
-
-if __name__ == "__main__":
-    data = DatasetFF(train=True)
-    print(data.X.shape)

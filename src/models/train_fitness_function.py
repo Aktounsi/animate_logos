@@ -24,8 +24,6 @@ test_dataset.scale(scaler)
 
 # Build model and switch to GPU if available
 fitness_function = FitnessFunction(hidden_sizes=[360, 245])
-for param in fitness_function.parameters():
-    print(param.requires_grad)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -52,6 +50,9 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
 
 # Train the model
 n_epochs = 10
+
+# TODO: implement early stopping
+# TODO: more details on epoch information should be printed (e.g. test accuracy in each epoch)
 
 # Stuff to store
 train_losses = np.zeros(n_epochs)
