@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import numpy as np
 
 
 class FitnessFunction(nn.Module):
@@ -18,5 +19,15 @@ class FitnessFunction(nn.Module):
     def forward(self, x):
         for layer in self.hidden:
             x = torch.relu(layer(x))
-        output = self.out(x) # no softmax: CrossEntropyLoss()
+        # output = self.out(x) # no softmax: CrossEntropyLoss()
+        output = torch.softmax(self.out(x), dim=1)
         return output
+
+
+def predict_svg_reward(X):
+    surrogate_model = torch.load('./models/surrogate_model.pkl')
+    X.drop('filename', inplace=True, axis=1)
+    surrogate_model_input = torch.tensor(X.to_numpy(), dtype=torch.float)
+    output = surrogate_model(surrogate_model_input)
+    rewards = [np.argmax(out) for out in output.detach().numpy()]
+    return rewards
