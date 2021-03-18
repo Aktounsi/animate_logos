@@ -30,7 +30,7 @@ def expand_viewbox(logo, percent):
         percent (int): Percentage: How much do we want to expand the viewbox?
 
     """
-    Path("logos_svg_expanded").mkdir(parents=True, exist_ok=True)
+    Path("C:/Users/jonat/OneDrive/Dokumente/1 Uni/2 Master/Semester 2 NOVA/Team Project/Github/data/svgs_expanded").mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')
     filename = pathelements[len(pathelements) - 1].replace('.svg', '')
 
@@ -90,7 +90,7 @@ def expand_viewbox(logo, percent):
     coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(v4 + y_new)
     doc.getElementsByTagName('svg')[0].setAttribute('viewBox', coordinates)
     # write to svg
-    textfile = open('logos_svg_expanded/' + filename + '.svg', 'wb')
+    textfile = open('C:/Users/jonat/OneDrive/Dokumente/1 Uni/2 Master/Semester 2 NOVA/Team Project/Github/data/svgs_expanded/' + filename + '.svg', 'wb')
     textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
     textfile.close()
     doc.unlink()
