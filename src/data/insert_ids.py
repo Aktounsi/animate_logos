@@ -29,7 +29,7 @@ def insert_id(logo):
 
        """
     Path("svgs").mkdir(parents=True, exist_ok=True)
-    filename = logo.replace('.svg', '').replace('svgs_without_ID/', '')
+    filename = logo.replace('.svg', '').split("/")[-1]
     doc = minidom.parse(logo)
     # Store all elements in list
     elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
