@@ -7,7 +7,7 @@ from xml.dom import minidom
 def get_style_attributes_svg(file):
     """ Function to get style attributes of a SVG file.
 
-    Example: get_style_attributes_svg('logos_svg/Air France.svg')
+    Example: get_style_attributes_svg('svgs/Air France.svg')
 
     Args:
         file (string): The path of the SVG file.
