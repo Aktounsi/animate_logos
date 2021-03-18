@@ -13,5 +13,3 @@ def sort_by_relevance(path_selection_folder):
     relevance_score_ordering = list(range(nr_paths))
     relevance_score_ordering.sort(key=lambda x: relevance_scores[x], reverse=True)
     return relevance_score_ordering
-
-
