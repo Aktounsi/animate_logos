@@ -2,7 +2,40 @@ from svgpathtools import svg2paths
 import pandas as pd
 import numpy as np
 from xml.dom import minidom
-import os
+
+
+def get_style_attributes_svg(file):
+    """ Function to get style attributes of a SVG file.
+
+    Example: get_style_attributes_svg('logos_svg/Air France.svg')
+
+    Args:
+        file (string): The path of the SVG file.
+
+    Returns:
+        (pd.DataFrame): List of dictionaries containing the attributes of each path.
+    """
+    global_styles = get_global_style_attributes(file)
+    local_styles = get_local_style_attributes(file)
+    return combine_style_attributes(global_styles, local_styles)
+
+
+def get_style_attributes_path(file, animation_id, attribute):
+    """ Function to get style attributes of a specific path in a SVG file.
+
+    Example: get_style_attributes_svg('logos_svg/Air France.svg')
+
+    Args:
+        file (string): The path of the SVG file.
+        animation_id (string): Path ID.
+        attribute (string): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity
+
+    Returns:
+        (pd.DataFrame): List of dictionaries containing the attributes of each path.
+    """
+    styles = get_style_attributes_svg(file)
+    styles_animation_id = styles[styles["animation_id"] == str(animation_id)]
+    return styles_animation_id.iloc[0][attribute]
 
 
 def parse_svg(file):
@@ -21,97 +54,93 @@ def parse_svg(file):
     return paths, attrs
 
 
-def get_local_style_attributes(folder):
+def get_local_style_attributes(file):
     """ Function to generate dataframe containing local style attributes of all SVG file in a folder.
 
     Example: get_local_style_attributes('data/svgs')
 
     Args:
-        folder (string): The path of the folder containing all SVG file.
+        file (string): The path of the SVG file.
 
     Returns (pd.DataFrame): A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
-    return pd.DataFrame.from_records(_get_local_style_attributes(folder))
+    return pd.DataFrame.from_records(_get_local_style_attributes(file))
 
 
-def _get_local_style_attributes(folder):
-    for file in os.listdir(folder):
-        if file.endswith(".svg"):
-            try:
-                _, attributes = parse_svg(folder + '/' + file)
-            except:
-                print(file + ': Attributes not defined.')
-            for i, attr in enumerate(attributes):
-                animation_id = attr['animation_id']
-                fill = '#000000'
-                stroke = '#000000'
-                stroke_width = '0'
-                opacity = '1.0'
-                stroke_opacity = '1.0'
-                try:
-                    a = attr['style']
-                except:
-                    a = ''
-                try:
-                    class_ = attr['class']
-                except:
-                    class_ = ''
-                if a.find('fill') != -1:
-                    fill = a.split('fill:', 1)[-1].split(';', 1)[0]
-                if a.find('stroke') != -1:
-                    stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
-                if a.find('stroke-width') != -1:
-                    stroke_width = a.split('stroke-width:', 1)[-1].split(';', 1)[0]
-                if a.find('opacity') != -1:
-                    opacity = a.split('opacity:', 1)[-1].split(';', 1)[0]
-                if a.find('stroke-opacity') != -1:
-                    stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+def _get_local_style_attributes(file):
+    try:
+        _, attributes = parse_svg(file)
+    except:
+        print(file + ': Attributes not defined.')
+    for i, attr in enumerate(attributes):
+        animation_id = attr['animation_id']
+        fill = '#000000'
+        stroke = '#000000'
+        stroke_width = '0'
+        opacity = '1.0'
+        stroke_opacity = '1.0'
+        try:
+            a = attr['style']
+        except:
+            a = ''
+        try:
+            class_ = attr['class']
+        except:
+            class_ = ''
+        if a.find('fill') != -1:
+            fill = a.split('fill:', 1)[-1].split(';', 1)[0]
+        if a.find('stroke') != -1:
+            stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
+        if a.find('stroke-width') != -1:
+            stroke_width = a.split('stroke-width:', 1)[-1].split(';', 1)[0]
+        if a.find('opacity') != -1:
+            opacity = a.split('opacity:', 1)[-1].split(';', 1)[0]
+        if a.find('stroke-opacity') != -1:
+            stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
 
-                yield dict(file=file, animation_id=animation_id, class_=class_, fill=fill, stroke=stroke,
-                           stroke_width=stroke_width,
-                           opacity=opacity, stroke_opacity=stroke_opacity)
+        yield dict(file=file, animation_id=animation_id, class_=class_, fill=fill, stroke=stroke,
+                   stroke_width=stroke_width,
+                   opacity=opacity, stroke_opacity=stroke_opacity)
 
 
-def get_global_style_attributes(folder):
+def get_global_style_attributes(file):
     """ Function to generate dataframe containing global style attributes of all SVG file in a folder.
 
     Example: get_global_style_attributes('data/svgs')
 
     Args:
-        folder (string): The path of the folder containing all SVG file.
+        file (string): the path of the SVG file
 
     Returns (pd.DataFrame): A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
-    return pd.DataFrame.from_records(_get_global_style_attributes(folder))
+    return pd.DataFrame.from_records(_get_global_style_attributes(file))
 
 
-def _get_global_style_attributes(folder):
-    for file in os.listdir(folder):
-        if file.endswith(".svg"):
-            doc = minidom.parse(folder + '/' + file)
-            style = doc.getElementsByTagName('style')
-            fill = ''
-            stroke = ''
-            stroke_width = ''
-            opacity = ''
-            stroke_opacity = ''
-            for i, attr in enumerate(style):
-                a = attr.toxml()
-                for i in range(0, len(a.split(';}')) - 1):
-                    attr = a.split(';}')[i]
-                    class_ = attr.split('.', 1)[-1].split('{', 1)[0]
-                    if attr.find('fill:') != -1:
-                        fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
-                    if attr.find('stroke:') != -1:
-                        stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
-                    if attr.find('stroke-width:') != -1:
-                        stroke_width = attr.split('stroke-width:', 1)[-1].split(';', 1)[0]
-                    if attr.find('opacity:') != -1:
-                        opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
-                    if attr.find('stroke-opacity:') != -1:
-                        stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
-                    yield dict(file=file, class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
-                               opacity=opacity, stroke_opacity=stroke_opacity)
+def _get_global_style_attributes(file):
+    doc = minidom.parse(file)
+    style = doc.getElementsByTagName('style')
+    fill = ''
+    stroke = ''
+    stroke_width = ''
+    opacity = ''
+    stroke_opacity = ''
+    for i, attr in enumerate(style):
+        a = attr.toxml()
+        for i in range(0, len(a.split(';}')) - 1):
+            attr = a.split(';}')[i]
+            class_ = attr.split('.', 1)[-1].split('{', 1)[0]
+            if attr.find('fill:') != -1:
+                fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
+            if attr.find('stroke:') != -1:
+                stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
+            if attr.find('stroke-width:') != -1:
+                stroke_width = attr.split('stroke-width:', 1)[-1].split(';', 1)[0]
+            if attr.find('opacity:') != -1:
+                opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
+            if attr.find('stroke-opacity:') != -1:
+                stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+            yield dict(file=file, class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
+                       opacity=opacity, stroke_opacity=stroke_opacity)
 
 
 def combine_style_attributes(df_global, df_local):
@@ -123,6 +152,10 @@ def combine_style_attributes(df_global, df_local):
 
     Returns (pd.DataFrame): Dataframe with all style attributes.
     """
+    if df_global.empty:
+        return df_local
+    if df_local.empty:
+        return df_global
     df = df_local.merge(df_global, how='left', on=['file', 'class_'])
     df_styles = df[["file", "animation_id", "class_"]]
     df_styles["fill"] = _combine_columns(df, "fill")
