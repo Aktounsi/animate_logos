@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.1//EN'
+  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
 	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
 	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
 	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
@@ -10,58 +12,85 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Ebene_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 595.28 198.43"
-	 style="enable-background:new 0 0 595.28 198.43;" xml:space="preserve">
-<style type="text/css">
+<svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Ebene_1" x="0px" y="0px" viewBox="0 0 595.28 198.43" style="enable-background:new 0 0 595.28 198.43;" xml:space="preserve">
+	
+
+	<style type="text/css">
 	.st0{fill:#C5007B;}
 	.st1{fill:none;stroke:#C5007B;stroke-width:0;stroke-miterlimit:3.8637;}
 	.st2{fill:#EC7404;stroke:#C5007B;stroke-width:0;stroke-miterlimit:3.8637;}
 	.st3{fill:#FFFFFF;}
 </style>
-<switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
-		<i:aipgfRef  xlink:href="#adobe_illustrator_pgf">
+	
+
+	<switch>
+		
+	
+		<foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1">
+			
+		
+			<i:aipgfRef xlink:href="#adobe_illustrator_pgf">
 		</i:aipgfRef>
-	</foreignObject>
-	<g i:extraneous="self">
-		<g>
-			<path class="st0" d="M14.17,184.25L91.79,49.69c12.41-21.51,36.33-35.52,61.19-35.52H581.1l-77.94,134.99
-				c-12.32,21.34-35.93,35.09-60.8,35.09H14.17L14.17,184.25z"/>
-			<path class="st1" d="M14.17,184.25L91.79,49.69c12.41-21.51,36.33-35.52,61.19-35.52H581.1l-77.94,134.99
-				c-12.32,21.34-35.93,35.09-60.8,35.09H14.17L14.17,184.25z"/>
-			<path class="st2" d="M63.24,155.91l51.74-89.71c9.11-15.66,21.77-23.68,39.66-23.68h377.28l-51.96,89.99
-				c-8.86,15.55-21.58,23.39-39.4,23.39H63.24L63.24,155.91z"/>
+			
+	
+		</foreignObject>
+		
+	
+		<g i:extraneous="self">
+			
+		
 			<g>
-				<path class="st3" d="M182.23,76.88c-11.23,17.28-19.58,35.33-25.25,55.29c-0.19,0.86-0.58,1.73-1.63,1.73h-12.77
-					c-1.25,0-1.54-0.77-1.54-1.34c0-0.1,0.1-0.19,0.1-0.29c4.9-17.09,15.74-41.85,27.45-57.88h-32.83c-0.77,0-1.34-0.67-1.34-1.54
-					v-8.45c0-0.86,0.48-1.44,1.34-1.44h45.88c0.77,0,1.34,0.86,1.34,1.44V74C183,75.35,182.61,76.21,182.23,76.88z"/>
+				
+			
+				<path class="st0" d="M14.17,184.25L91.79,49.69c12.41-21.51,36.33-35.52,61.19-35.52H581.1l-77.94,134.99     c-12.32,21.34-35.93,35.09-60.8,35.09H14.17L14.17,184.25z" animation_id="0"/>
+				
+			
+				<path class="st1" d="M14.17,184.25L91.79,49.69c12.41-21.51,36.33-35.52,61.19-35.52H581.1l-77.94,134.99     c-12.32,21.34-35.93,35.09-60.8,35.09H14.17L14.17,184.25z" animation_id="1"/>
+				
+			
+				<path class="st2" d="M63.24,155.91l51.74-89.71c9.11-15.66,21.77-23.68,39.66-23.68h377.28l-51.96,89.99     c-8.86,15.55-21.58,23.39-39.4,23.39H63.24L63.24,155.91z" animation_id="2"/>
+				
+			
+				<g>
+					
+				
+					<path class="st3" d="M182.23,76.88c-11.23,17.28-19.58,35.33-25.25,55.29c-0.19,0.86-0.58,1.73-1.63,1.73h-12.77      c-1.25,0-1.54-0.77-1.54-1.34c0-0.1,0.1-0.19,0.1-0.29c4.9-17.09,15.74-41.85,27.45-57.88h-32.83c-0.77,0-1.34-0.67-1.34-1.54      v-8.45c0-0.86,0.48-1.44,1.34-1.44h45.88c0.77,0,1.34,0.86,1.34,1.44V74C183,75.35,182.61,76.21,182.23,76.88z" animation_id="3"/>
+					
+			
+				</g>
+				
+			
+				<g>
+					
+				
+					<path class="st3" d="M234.35,135.68c-12.96,0-23.23-2.98-24.86-3.55c-1.06-0.38-1.63-1.25-1.63-2.11v-0.48l1.34-7.1      c0.19-1.15,0.86-1.54,1.63-1.54c0.29,0,0.58,0.1,0.86,0.1c2.11,0.48,11.9,3.26,20.64,3.26c7.58,0,13.73-2.02,13.73-9.31      c0-7.58-6.82-8.26-15.55-9.6c-9.98-1.54-23.33-4.51-23.33-21.02c0-17.09,12.19-21.69,27.55-21.69c11.23,0,20.73,2.59,22.94,3.26      c1.15,0.29,1.92,1.06,1.92,2.11v0.48l-1.44,7.1c-0.1,0.77-0.77,1.44-1.63,1.44c-0.1,0-0.19,0-0.29-0.1      c-5.57-1.15-12.1-2.88-19.87-2.88c-6.72,0-13.34,1.25-13.34,8.64c0,7.3,7.49,8.16,15.74,9.41c11.14,1.73,23.61,3.74,23.61,21.79      C262.38,130.59,248.94,135.68,234.35,135.68z" animation_id="4"/>
+					
+				
+					<path class="st3" d="M295.89,134.62h-12.77c-0.86,0-1.54-0.58-1.54-1.44V65.41c0-0.77,0.58-1.25,1.44-1.34l12.96-1.63h0.19      c0.86,0,1.25,0.67,1.25,1.34v69.4C297.42,134.04,296.75,134.62,295.89,134.62z" animation_id="5"/>
+					
+				
+					<path class="st3" d="M384.59,134.62h-25.15c-0.86,0-1.63-0.67-1.82-1.54l-19.87-57.5h-2.98l1.06,57.6      c0,0.86-0.67,1.44-1.54,1.44h-12.67c-0.86,0-1.54-0.58-1.54-1.44V65.12c0-0.77,0.77-1.44,1.63-1.44h25.82      c0.96,0,1.63,0.58,1.92,1.34l20.35,60.57h1.54l-0.77-60.28c0-1.34,0.96-1.63,2.11-1.63h11.33c1.25,0,2.21,0.29,2.21,1.73v67.77      C386.22,134.04,385.55,134.62,384.59,134.62z" animation_id="6"/>
+					
+				
+					<path class="st3" d="M433.17,135.68c-12.96,0-23.23-2.98-24.86-3.55c-1.06-0.38-1.63-1.25-1.63-2.11v-0.48l1.34-7.1      c0.19-1.15,0.86-1.54,1.63-1.54c0.29,0,0.58,0.1,0.86,0.1c2.11,0.48,11.9,3.26,20.64,3.26c7.58,0,13.73-2.02,13.73-9.31      c0-7.58-6.82-8.26-15.55-9.6c-9.98-1.54-23.33-4.51-23.33-21.02c0-17.09,12.19-21.69,27.55-21.69c11.23,0,20.73,2.59,22.94,3.26      c1.15,0.29,1.92,1.06,1.92,2.11v0.48l-1.44,7.1c-0.1,0.77-0.77,1.44-1.63,1.44c-0.1,0-0.19,0-0.29-0.1      c-5.57-1.15-12.09-2.88-19.87-2.88c-6.72,0-13.34,1.25-13.34,8.64c0,7.3,7.49,8.16,15.74,9.41      c11.14,1.73,23.61,3.74,23.61,21.79C461.2,130.59,447.76,135.68,433.17,135.68z" animation_id="7"/>
+					
+			
+				</g>
+				
+		
 			</g>
-			<g>
-				<path class="st3" d="M234.35,135.68c-12.96,0-23.23-2.98-24.86-3.55c-1.06-0.38-1.63-1.25-1.63-2.11v-0.48l1.34-7.1
-					c0.19-1.15,0.86-1.54,1.63-1.54c0.29,0,0.58,0.1,0.86,0.1c2.11,0.48,11.9,3.26,20.64,3.26c7.58,0,13.73-2.02,13.73-9.31
-					c0-7.58-6.82-8.26-15.55-9.6c-9.98-1.54-23.33-4.51-23.33-21.02c0-17.09,12.19-21.69,27.55-21.69c11.23,0,20.73,2.59,22.94,3.26
-					c1.15,0.29,1.92,1.06,1.92,2.11v0.48l-1.44,7.1c-0.1,0.77-0.77,1.44-1.63,1.44c-0.1,0-0.19,0-0.29-0.1
-					c-5.57-1.15-12.1-2.88-19.87-2.88c-6.72,0-13.34,1.25-13.34,8.64c0,7.3,7.49,8.16,15.74,9.41c11.14,1.73,23.61,3.74,23.61,21.79
-					C262.38,130.59,248.94,135.68,234.35,135.68z"/>
-				<path class="st3" d="M295.89,134.62h-12.77c-0.86,0-1.54-0.58-1.54-1.44V65.41c0-0.77,0.58-1.25,1.44-1.34l12.96-1.63h0.19
-					c0.86,0,1.25,0.67,1.25,1.34v69.4C297.42,134.04,296.75,134.62,295.89,134.62z"/>
-				<path class="st3" d="M384.59,134.62h-25.15c-0.86,0-1.63-0.67-1.82-1.54l-19.87-57.5h-2.98l1.06,57.6
-					c0,0.86-0.67,1.44-1.54,1.44h-12.67c-0.86,0-1.54-0.58-1.54-1.44V65.12c0-0.77,0.77-1.44,1.63-1.44h25.82
-					c0.96,0,1.63,0.58,1.92,1.34l20.35,60.57h1.54l-0.77-60.28c0-1.34,0.96-1.63,2.11-1.63h11.33c1.25,0,2.21,0.29,2.21,1.73v67.77
-					C386.22,134.04,385.55,134.62,384.59,134.62z"/>
-				<path class="st3" d="M433.17,135.68c-12.96,0-23.23-2.98-24.86-3.55c-1.06-0.38-1.63-1.25-1.63-2.11v-0.48l1.34-7.1
-					c0.19-1.15,0.86-1.54,1.63-1.54c0.29,0,0.58,0.1,0.86,0.1c2.11,0.48,11.9,3.26,20.64,3.26c7.58,0,13.73-2.02,13.73-9.31
-					c0-7.58-6.82-8.26-15.55-9.6c-9.98-1.54-23.33-4.51-23.33-21.02c0-17.09,12.19-21.69,27.55-21.69c11.23,0,20.73,2.59,22.94,3.26
-					c1.15,0.29,1.92,1.06,1.92,2.11v0.48l-1.44,7.1c-0.1,0.77-0.77,1.44-1.63,1.44c-0.1,0-0.19,0-0.29-0.1
-					c-5.57-1.15-12.09-2.88-19.87-2.88c-6.72,0-13.34,1.25-13.34,8.64c0,7.3,7.49,8.16,15.74,9.41
-					c11.14,1.73,23.61,3.74,23.61,21.79C461.2,130.59,447.76,135.68,433.17,135.68z"/>
-			</g>
+			
+	
 		</g>
-	</g>
-</switch>
-<i:aipgf  id="adobe_illustrator_pgf" i:pgfEncoding="zstd/base64" i:pgfVersion="24">
-	<![CDATA[
+		
+
+	</switch>
+	
+
+	<i:aipgf id="adobe_illustrator_pgf" i:pgfEncoding="zstd/base64" i:pgfVersion="24">
+		
+	
+<![CDATA[
 	KLUv/QBYdUYD2p8PtzgAAWDWAxze8P5/eP/////Dg/C9t5WImEpBqGKHVEBEFRFRRFXEjCgGcCVJ
 KaWkjVhFREX//9M/hEgL2AvICxWECtn5oCADLxecgD7lwBLBiFRkxrsgjlV86UkIVJkMKmgXJiID
 vskut5icEkF1wASCV8ExAiJt0m0YSoFqR8SVpxH6hjaxMErsF7qMnEtTdlXQCAiRiWFIV4XyiiRc
@@ -134,8 +163,9 @@ IoGxDpRB5ZfJ1Nt25jiYOGC+YKQKgCYGKMNA22ZGbmoxmOwNGAUTIvSElEv+FC6HU6PHQIkVA+Yz
 MIgJEMPwjhyOcUbi8YO5C8xRiRabmDLKKNHYpudc6VdAUwCONgSmGRhYbAIuFBQ+29yVyVMcTJSN
 T1f2+HRljk+XAVai7NNU+kwlytakyGKXSJHFPkMGxJW7rU21KUzJ21S3MSCu/CZEFhszIA8GxJW7
 7Tto3TmguXNAOwcUdw5o54D6g6adMCXtdMKUByUa54BqD3NA9eJBW7i2zlLuzCKBPg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	aAsXf9AWrpkJQyo1SCVSSXOy6JO2cGUHbeHKDMpjezH354jHwkAQfwKmQzsETIc+ecz9mSWxJE7C
 jEobCzEduuFNh96KVj5FJVEJQ5aiUqOBt8/rNgejocrkU6fQn2UfjOyDKWUfTBkqMVSZfLosZYFQ
 ZfKi27jBACLZzDYuS+ndSMINBhDJZtaIjCR8M8OQZadHEq7YYPhm5jB0Iwl/PxCJR+BpZILXCLSE
@@ -208,8 +238,9 @@ MJO0GMtiCCE0NqVxGjyjhRLNgj4qw1Zg5A24CFBnkS9BkS8TpCwwUWiQD0sXUjcWtSBhY4t86fFY
 qAN6FxOYdQICy5Nh6bbCkHh5nyELG/gy8Rn40vv0bKU9A196rYEjMEE7hZXeBb6DJLjnTYfOHgyY
 QQ4GzO0ostgK3wWj4E0wDYQqkxsQTLdlzkShhsKXkiNZ7MdkAKJg0Q4IhMFo5W5DMXoJZg2i6UmZ
 kST8dHCwMTMlksUDMcbnI+NL73HQLkfGl54j5n5Gxi8yHkSoMtk9+fJDqDL5kSpRdg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	ovJhoDdFFnuT0EhdTrIEqjWaDONS6x4VT+HgYGO6HFZmjpO3IzkcZ7j5bVqph6EyaTwM52U/DKEp
 chhSj/EzZEqdR6l2QTkY6zYPbyOWawonRre0NbVpbpjR3RbxHgR54LDpgI4TxNKfKTFoPQdUg6i0
 NXyay8G9eCeLXlBwxM9y+pkFzIcdBdkjmpBqkcCqWltZu1bmyBK0ktHxSI/E4iA0uk0Alsidtyk4
@@ -282,8 +313,9 @@ dAdFhBB3k+jdEODVmNFkEeijVIqYPdwP1bIKXjFtj5gOX8vASw0D9kSJQjkka0Zh4UWRsYb/fHQq
 LZRFd4bnNWo62ZZL+e3DMERqtjZ4EpdeB0E1d7pL8FTUy2MrAkbfE1rKdJNOfmwOHtb5zT2ZjdhL
 TO8oPj7CLvcA9Kyw8kggdw3tkX5MMlQq9h9o0hrT/BJS+B60dCFLQe/1AfvJIXj7oi+kmJKRqUXL
 bHJiPIDkGwUBfrPOCV5cWk4WwNIiOgA5DXnnNp++AdwvmugU9RpajoEKaJBQpUstRg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	97X6FOGL20zf04kZZWYv3uM1bBTiIY3lADml49g2HUw/JclTZj0fSoJ9RMqNR6qvQlKzqZRC4xz+
 WPrGjNMCikfDg3KxklYacsSTgWlCaBMvuilmMoIfBv2FaHxdstQQEPfazrJXvWBAlywc9upW9HTO
 mhjoF05e+Dsg9VE+IwWGOwWCjJy06hx42zmaxhy7Q2GFOYAlLhE3+tBa/k/g/VMZr8TMiTKEEkze
@@ -356,8 +388,9 @@ fiR8c6NzfDdwkEF34r86Nt6uZnxi+RxJNN691H0rcALfMYeqq8k9WDE+F6F39vrV065TSvzngrKY
 FsxMtrMfNnWFRPPGeOCfpsts4yBjrmpYGAHOHJrLiJKmJOh+A4o86tv26yn5Hj/r+am7gLJPpE9x
 fKJHZq3ziBiA/OLbIXlAOfkAR4TUBAdIDqvrjhwYHT2VE2pc3kgmgQ6YOTXCr++CAw8T3pC5flTC
 TkVsrHsMBS0u/Hzp+pRKWdYnGjALNTAfk+OIcnPgSTNAq0ogOfoRHVRWRSfPs1zuHg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	9zyOy/+MG0ayTNjEMP1G8gwEfuLa31ISQ/raNYtGvIVYZkqJuHCahLjUACPNNXo/STzV2JHrCZN/
 RruY0RoBvH23KQZ6FDrYcrQmYOYR+t7hwMYPmXl8NMaMs+XleuNNcSGsqwTDgPvVKPJLmAHHaD9S
 2wjGnFf1fVYlaJ34Ais5V7mQ3/+K9UsNVcph+N4ftKXFtPXKWYL7suUWyf+Pp1dGQIiNvrgud+ZV
@@ -430,8 +463,9 @@ iAx47OU9pCL/u742a3B3sJPVcsDz++sQVm6gBZrcgTRbJ+1lv7cGc2/pnaxL/cPPC/GbHBb1bdN0
 j/Twkkm8lMbbuOhZ1rOX2zUUH7HiU4yks0imetvLZeJTdPcpNmItaX/SyPQUXQ5UN7JfFVl2dOOL
 6bMsGvEQcnRlRiFkxi66yGD16KIX93lOpj+6+P0+428AJBRuPZ2kTWoU3R/w6LJhymDgy+TRtbaX
 kVJX6KD3n0pRZrOe2MmR8BLfyTUc/Apddyvi+hZeiwVFm7FkWTIMamReMfUEgqdmaw==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	eTqFCzBJD9n4rRG3EarSFTcv/ngfILLsRMVLVOT+gRg2UaxPfx2aAvfcKyJ+G97Td1GEZRa3WWO9
 NWPxziMU5Zu0yUvclHki3o2jGCU5r89mR/MUZbAYkCJxXqShOFZNhSS6dnGjEvvMe9z5K+ddoi22
 x7pEUjOnSfbXyyYTWwjdanmb4TBF2wAdq2AIMYUTino7k88ZeKUQJCzOOblqoKqieQ3QZqUEfPSl
@@ -504,8 +538,9 @@ vnS7DIVvWfNLDk8+Wl8SNjnzjESpcHYIAH56gJV5wqeDE63ZphwEkvWG5cTk9jl9Wh66+jH+HRy7
 RBb8gDOrneAYJRG33RjKbhCTynq2/H6cCyuO4IhRUlHrWVs8yfZKXFx8mjsoLEpWB+r1UcxkvDkm
 P+UVRtM2kP+ShjgU8WCZt7gE6QACpEPp75/A2KYrBJRjwL66gVFAMBoRJYi9JXHMnnCkoEg/9dAT
 Qk5cPFsb7HVvEHmubp0JrU/Po+vt0eipO4Dzy+eBervb2QwydqBAQZga/qrg0IwiQg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	YSDIOnpxB/Vea5wm+w14iY7f7jViQcdvZgPq8gxxGL4miYIElbgHbTftLFAr46Rl0DarRE9DC27s
 QFp7/g3SxJRshULwi68SwZICc/a5ZPe2Bxb5+xbGSyFrk4VX6Torytjsr7mateflhuMIJx/WVMgP
 Dvtf5zKJ7soQdbtLpwV78XqOf79Wb5UsoNpM0bS4fatBUumdIHCEZECCKosMdkHO26bfxcjQp5I9
@@ -546,6 +581,9 @@ DC2dZEvCDkVwBCs7C1sPa2A10LXB0UeSv3QclUJmqc2JKVwrU8jQwL1GgOTqv52ptfaEfMb8g8N/
 ZZ9q1KAC9D4lJ1owf3cfPRCMJputdgF/P7eUSnyS4bOCQpBchHhGof1AXJJCbAEjS2QSrHvBZdlP
 1t/tUg+GjBweTteG8p0Z6IaXW2JZEiJspRuh74Srlyxkt2y5LrzCbBT+uid0pHsRnSPSJo07RTS/
 zgCjfgBVgH9/2kI0TdHr/wbHvA+P5HqlI97/K08PhLKazXE7zZ26CQ==
-	]]>
-</i:aipgf>
+	]]>		
+
+	</i:aipgf>
+	
+
 </svg>

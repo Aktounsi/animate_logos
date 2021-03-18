@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.1//EN'
+  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
 	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
 	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
 	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
@@ -10,61 +12,113 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg version="1.1" id="Ebene_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 595.28 226.77"
-	 style="enable-background:new 0 0 595.28 226.77;" xml:space="preserve">
-<style type="text/css">
+<svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Ebene_1" x="0px" y="0px" viewBox="0 0 595.28 226.77" style="enable-background:new 0 0 595.28 226.77;" xml:space="preserve">
+	
+
+	<style type="text/css">
 	.st0{fill:#F6A800;}
 	.st1{fill:#FFFFFF;}
 	
 		.st2{fill:none;stroke:#FFFFFF;stroke-width:14.173;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:1.000000e-03,28.379;}
 	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
 </style>
-<switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
-		<i:aipgfRef  xlink:href="#adobe_illustrator_pgf">
+	
+
+	<switch>
+		
+	
+		<foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1">
+			
+		
+			<i:aipgfRef xlink:href="#adobe_illustrator_pgf">
 		</i:aipgfRef>
-	</foreignObject>
-	<g i:extraneous="self">
-		<g>
+			
+	
+		</foreignObject>
+		
+	
+		<g i:extraneous="self">
+			
+		
 			<g>
-				<rect x="170.08" y="14.17" width="411.02" height="198.43"/>
-				<rect x="14.17" y="14.17" class="st0" width="155.91" height="198.43"/>
+				
+			
 				<g>
-					<path class="st1" d="M54.29,77.74h19.24c5.33,0,9.62,4.29,9.62,9.62v64.74h-9.62V87.36h-9.62v64.74h-9.62V77.74z"/>
-					<path class="st1" d="M104.21,91.39c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v47.06
-						c0,7.93-6.5,14.43-14.43,14.43c-7.93,0-14.43-6.5-14.43-14.43V91.39z M113.83,142.49h9.62V87.36h-9.62V142.49z"/>
+					
+				
+					<rect x="170.08" y="14.17" width="411.02" height="198.43" animation_id="13"/>
+					
+				
+					<rect x="14.17" y="14.17" class="st0" width="155.91" height="198.43" animation_id="14"/>
+					
+				
+					<g>
+						
+					
+						<path class="st1" d="M54.29,77.74h19.24c5.33,0,9.62,4.29,9.62,9.62v64.74h-9.62V87.36h-9.62v64.74h-9.62V77.74z" animation_id="0"/>
+						
+					
+						<path class="st1" d="M104.21,91.39c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v47.06       c0,7.93-6.5,14.43-14.43,14.43c-7.93,0-14.43-6.5-14.43-14.43V91.39z M113.83,142.49h9.62V87.36h-9.62V142.49z" animation_id="1"/>
+						
+				
+					</g>
+					
+				
+					<g>
+						
+					
+						<path class="st0" d="M228.15,87.36h-9.62v22.75h9.62c5.33,0,9.62,4.29,9.62,9.62v18.72c0,7.93-6.5,14.43-14.43,14.43       c-7.93,0-14.43-6.5-14.43-14.43v-5.59h9.62v9.62h9.62v-22.75h-9.62c-5.33,0-9.62-4.29-9.62-9.62V91.39       c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v5.59h-9.62V87.36z" animation_id="2"/>
+						
+					
+						<path class="st0" d="M257.66,91.39c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v28.34h-19.24v22.75h9.62v-9.62       h9.62v5.59c0,7.93-6.5,14.43-14.43,14.43c-7.93,0-14.43-6.5-14.43-14.43V91.39z M267.28,110.12h9.62V87.36h-9.62V110.12z" animation_id="3"/>
+						
+					
+						<path class="st0" d="M336.44,138.46c0,7.93-6.5,14.43-14.43,14.43c-7.93,0-14.43-6.5-14.43-14.43V91.39       c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v5.59h-9.62v-9.62h-9.62v55.12h9.62v-9.62h9.62V138.46z" animation_id="4"/>
+						
+					
+						<path class="st0" d="M357.5,77.74h9.62v64.74h9.62V77.74h9.62v64.74c0,5.33-4.29,9.62-9.62,9.62H357.5V77.74z" animation_id="5"/>
+						
+					
+						<path class="st0" d="M407.42,87.36c0-5.33,4.29-9.62,9.62-9.62h9.62v9.62h-9.62v64.74h-9.62V87.36z" animation_id="6"/>
+						
+					
+						<path class="st0" d="M455,68.9h-9.62v-9.62H455V68.9z M455,152.89c-2.6-0.13-4.94-1.17-6.76-2.86s-2.86-4.16-2.86-6.76V77.74       H455V152.89z" animation_id="7"/>
+						
+					
+						<path class="st0" d="M495.3,87.36h-9.62v65.52c-2.6-0.13-4.94-1.17-6.76-2.86s-2.86-4.16-2.86-6.76V59.28h9.62v18.46h9.62       V87.36z" animation_id="8"/>
+						
+					
+						<path class="st0" d="M540.41,170.31h-9.62v-18.2h-9.62c-5.33,0-9.62-4.29-9.62-9.62V77.74h9.62v64.74h9.62V77.74h9.62V170.31z" animation_id="9"/>
+						
+				
+					</g>
+					
+				
+					<line class="st2" x1="170.08" y1="56.63" x2="170.08" y2="141.8" animation_id="12"/>
+					
+				
+					<path class="st3" d="M155.91,56.69c0-3.76,1.49-7.36,4.15-10.02c2.66-2.66,6.26-4.15,10.02-4.15c3.76,0,7.36,1.49,10.02,4.15      c2.66,2.66,4.15,6.26,4.15,10.02c0,3.76-1.49,7.36-4.15,10.02c-2.66,2.66-6.26,4.15-10.02,4.15c-3.76,0-7.36-1.49-10.02-4.15      C157.4,64.06,155.91,60.45,155.91,56.69" animation_id="10"/>
+					
+				
+					<path class="st3" d="M155.91,170.08c0-3.76,1.49-7.36,4.15-10.02c2.66-2.66,6.26-4.15,10.02-4.15c3.76,0,7.36,1.49,10.02,4.15      c2.66,2.66,4.15,6.26,4.15,10.02c0,3.76-1.49,7.36-4.15,10.02c-2.66,2.66-6.26,4.15-10.02,4.15c-3.76,0-7.36-1.49-10.02-4.15      C157.4,177.44,155.91,173.84,155.91,170.08" animation_id="11"/>
+					
+			
 				</g>
-				<g>
-					<path class="st0" d="M228.15,87.36h-9.62v22.75h9.62c5.33,0,9.62,4.29,9.62,9.62v18.72c0,7.93-6.5,14.43-14.43,14.43
-						c-7.93,0-14.43-6.5-14.43-14.43v-5.59h9.62v9.62h9.62v-22.75h-9.62c-5.33,0-9.62-4.29-9.62-9.62V91.39
-						c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v5.59h-9.62V87.36z"/>
-					<path class="st0" d="M257.66,91.39c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v28.34h-19.24v22.75h9.62v-9.62
-						h9.62v5.59c0,7.93-6.5,14.43-14.43,14.43c-7.93,0-14.43-6.5-14.43-14.43V91.39z M267.28,110.12h9.62V87.36h-9.62V110.12z"/>
-					<path class="st0" d="M336.44,138.46c0,7.93-6.5,14.43-14.43,14.43c-7.93,0-14.43-6.5-14.43-14.43V91.39
-						c0-7.93,6.5-14.43,14.43-14.43c7.93,0,14.43,6.5,14.43,14.43v5.59h-9.62v-9.62h-9.62v55.12h9.62v-9.62h9.62V138.46z"/>
-					<path class="st0" d="M357.5,77.74h9.62v64.74h9.62V77.74h9.62v64.74c0,5.33-4.29,9.62-9.62,9.62H357.5V77.74z"/>
-					<path class="st0" d="M407.42,87.36c0-5.33,4.29-9.62,9.62-9.62h9.62v9.62h-9.62v64.74h-9.62V87.36z"/>
-					<path class="st0" d="M455,68.9h-9.62v-9.62H455V68.9z M455,152.89c-2.6-0.13-4.94-1.17-6.76-2.86s-2.86-4.16-2.86-6.76V77.74
-						H455V152.89z"/>
-					<path class="st0" d="M495.3,87.36h-9.62v65.52c-2.6-0.13-4.94-1.17-6.76-2.86s-2.86-4.16-2.86-6.76V59.28h9.62v18.46h9.62
-						V87.36z"/>
-					<path class="st0" d="M540.41,170.31h-9.62v-18.2h-9.62c-5.33,0-9.62-4.29-9.62-9.62V77.74h9.62v64.74h9.62V77.74h9.62V170.31z"
-						/>
-				</g>
-				<line class="st2" x1="170.08" y1="56.63" x2="170.08" y2="141.8"/>
-				<path class="st3" d="M155.91,56.69c0-3.76,1.49-7.36,4.15-10.02c2.66-2.66,6.26-4.15,10.02-4.15c3.76,0,7.36,1.49,10.02,4.15
-					c2.66,2.66,4.15,6.26,4.15,10.02c0,3.76-1.49,7.36-4.15,10.02c-2.66,2.66-6.26,4.15-10.02,4.15c-3.76,0-7.36-1.49-10.02-4.15
-					C157.4,64.06,155.91,60.45,155.91,56.69"/>
-				<path class="st3" d="M155.91,170.08c0-3.76,1.49-7.36,4.15-10.02c2.66-2.66,6.26-4.15,10.02-4.15c3.76,0,7.36,1.49,10.02,4.15
-					c2.66,2.66,4.15,6.26,4.15,10.02c0,3.76-1.49,7.36-4.15,10.02c-2.66,2.66-6.26,4.15-10.02,4.15c-3.76,0-7.36-1.49-10.02-4.15
-					C157.4,177.44,155.91,173.84,155.91,170.08"/>
+				
+		
 			</g>
+			
+	
 		</g>
-	</g>
-</switch>
-<i:aipgf  id="adobe_illustrator_pgf" i:pgfEncoding="zstd/base64" i:pgfVersion="24">
-	<![CDATA[
+		
+
+	</switch>
+	
+
+	<i:aipgf id="adobe_illustrator_pgf" i:pgfEncoding="zstd/base64" i:pgfVersion="24">
+		
+	
+<![CDATA[
 	KLUv/QBYpRMDqlbTqTYAAQDUAPyH9//D+////x8ehN+/lWxSSCSR54pYBS2ajcyqFUuVBlCUutPe
 m6YiVsj8/7v/6wVmCtMK1Qqt3akkFq2FTl5/JS8nxDRUjO1mOuo2sJwu+nFkFPc2WawIWEailAft
 TuorjU1669Kg0NwxICB60s/qomcZf36N1hehMCISDRnindXEIPZFKJ7DX9CLtxRQaBVW60Gd+EBC
@@ -137,8 +191,9 @@ Purso56zj3qGSonVRafyO0EUVheN8LbeDTgiGlgjvxPRG0V6N+CIaGAFZBTpGlg1T2+PIv2gUbsG
 XnTeKNLnjyPyZTzNNPRaZkdeknp+GZq5cUSkSN8OQ9+RLTM7EAgOQ++ZmWqe4ExJRF6RdlLPDxOz
 HEwWe6YkIinimzEHGG8rzDKKYw4UnSujKivCpTEHqnk2FJ0ln3PKVaUJv8BU8/Q2Dao2moehX2AK
 TSUR+S4EWWnCO+v8LvwCW8ip0oTTzvn8OEMsSDheJRripVUX6R+MVOvX3lYwyCAIPg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	Aa2FjFkw4apLNc8EC8KGnSmrMPgFYVi36lJLEASfgNa4lNHEAY8BmL70522JCYPGWV7l7JpJDcUt
 a4LBgSA4oqbCmLLzs8jv5OM0zoK3t8ks9VRnwrrD0fy1RH4nn7ep1PMLKafKPmjUDjM2Apn8dSV1
 mH3U8/O2ygH8/ELDdH4DG82OfBXSqXLo1HNmmM5v4KBYqQ3T+VW8rVVhhukF9QNd7NdE2C+98LYC
@@ -211,8 +266,9 @@ SSotvC1MFzLZ2xQy+evFPwDTg0uniK5QrV/hbaFSqBQqHcDVRaezjzr7jJpte6NITzgQA45I4dOz
 KNIzM5pp6N6WmWUSmp05gA5D1+xIBsQcxGQUxxwoYhgM5mCmJCKyQzJ/9fwulwtMPufLBcYvsFWK
 r/hO8RWvuVQXT1A0pxw+FEKIIh8+FA+GoAtKihBNkMr8Oj6d9hCyqMWGXjg/xgeC4AZuGVUqmqTp
 lKBLWVAYUEeDqlpROqJXGD8CGosGVwsBpRBbg0hCEfPxgUTI3H9KRScAA1kYxKigoA==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	dthCOJlElAJEGjgLbdHbUVKIJoPUcV7Kj4lUkEGRDoVwIrjLcipZvO2jfhHK+K1eiCj0RSihzC9Q
 CDLhJN0yighy8eZBirFDKheJijZlbMudL8M5Eo+DBpvFU/E8z9s+bIUHeGMy9+N3ln8M4z5shf+8
 cl/AKsO2+LfsGosajfgPWDcbcxtts5u6+3EUx06WpS9JzsdR3KbeYh9JP5LlSJpjKW5Te5OXZVma
@@ -285,8 +341,9 @@ dZUR8ppuZdh1Wkfd9nb8wfP63yhM9anbN8YI0y8BxEPJet/+cGPCerdpNtBhjW1J/gramBEXau9R
 G5UThy2ducqBntlgA/CGlZeGoSVmZo82ppTgXwm/CbtXIcS3R6gd5k2M/vrwdbf2opGefYGtY+/s
 4KqmuAm7SuYr+or/+FU76VLg5AjzVPOFbOtwC/n8Ma/rVKSFSuRcQk4TyDbKRQzmN2BFHyfWmoP6
 /UhB1dh5Wfp8xQLp5zn7bTaO8+6WO9z2ogaEmwFWBlHpgvTkDXQVy4QT4KxPtt8V3A==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	67uIYanjvH2foUDN1g07Y0LigJbGpl6q8aPksVxYoATdD+51zgYSUaKcu957vLm+3DvWOdqeNBUc
 Rnt8jbtE98NYgYFKNo2KJxlCpHuPLm/zDaqP8Um7iA8DCo5apbKi2tOk0rV/qU/bnqy6sfaazytr
 iPOYy6zzTMxVfo9D174Tw0yL19FMnCZqqL4wm1yQLwkFFTvYO90Hd2yyL2dBxuD4K0MP4vUpQqi3
@@ -359,8 +416,9 @@ uJ2RTftdjXr7sIsO7eiVD4hxSvDeiEhV8QRKmo0olgQhkEjUbSzp8RGQyEuNQQgwiUTtdKOO5LXN
 mrySQ9GowU/vCdpmGVDSeEIBXL5TPJ42Zt6katETQR656JrE46mZJmjGnxnUeHL1XXfAS74S+DDU
 s/G0JKE30ld/d5GsKW01wz8phRH03j5Eqzn4xPLylG6K+8y7X5z+UDpxxpflU2iH0G79IT94QiId
 8xURipvUC+ri3Q1re10lcS6MQo5MLriKCULjCf0IYGGLWx6ficzeigmFHbgobivMJw==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	PUkCxuwewJmSRgm6yqtPSzJeEvW8D1qKy2JSTX0y2t0atodhlr3Ey837cTfXkk3ssn53cTfzaJRs
 1DP4l8kQM5UIim5lig4z4Df2OKz6A9qB55Qr0YFapEJU9MrlxrvsBkQPHgq/ZKKj4CVc6vpV6i5B
 ZOYg3TD6P223LNS73gu5TIuY6Lp0lQdPT46pqysv/RtXQg1uRwF59O0C5TV7GYpYkjRotxmilGP1
@@ -433,8 +491,9 @@ kqNaSDnwU1O7pjpFMxJbEBgcp1S/u3DW545BQxcleI2sq1npCQWnXhDHdoRLYBQMiPWkSILYKdIg
 HXt4hHn/vFDDq+QiKcJQnpYQ9zU+z2GYenDYbQsY4AjF9EoVt/EBqJssnEbld2JnoWuwEcS72HVf
 sPWXh3JejeH/qF1y+F2qeHWYOPElBeO7pFKGf4gN/4KLoqU6DU+eOGbAnWGF3afAcCxuSnicx4B+
 lFPtA/ibzr1jwYbRaEW5+TJiDHgJtHFw7+/KgENML+cPXzYWAVt3tVTSZp2ZvnueFg==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	j/Iucf4eABdod3FVKWRGk5U++cpWb1Jp4hCy5zrKMLWU4fIu+nRl11ShXh7Lsm3RZescvYl5Kzy0
 6WZMhweytHaB6Yop0p7aMI4Gm4a3Vx6PFsrh7QsALTSLYLBQOBEpcS7VaDND0BsVrkPlPuRIJL2P
 O3Tn4Q0T2cwvmrZEVAuSYECrtY8V5Pax5DxxuBwYf1y+bEjaYxtCAshesIxnsR9KWiLdHa2e4xnk
@@ -507,8 +566,9 @@ G4toFroSG7YxsSnWOIXhFDM+SCWqw1OaMsNyD0cOwNW/eab/5rkNGC6eHMc5rBfTQwmvfNcyuAgj
 +1xjzHq2nvwqiWczGGkGcfE8rPWwiWh+Y+eHhnrXZRTZV36q9hVLjBBtw5iYKfXwwZKJETtELI/3
 yjSq7uHzTurb5FC0VnzUp/nTQWNLmbM0D53EfG1AGEjughjQCG+yhjwGV2zxC+Y0KdJFwIKbLJpq
 Y7Kkfb1HCFwWu57aZ7LEkY90E2xsHFcyU3+1DfdYmkaIKiGNJyh9I8bQ3xpW94NFEw==
-	]]>
-	<![CDATA[
+	]]>		
+	
+<![CDATA[
 	/h+/RQuRCoWuy8BUnwewXgLdiPeIYaBHT+ImHkN/WshatvoBPeSMW6nJTpYKQhw8IPkzkcet7KkE
 sCK1LIz5HU0aFbB38RWNGKZWBZcjNb7hEBTfwTpxS1o9WK40xkKFsC+9cR6tPbQ+oYBxr99tMGw1
 DrNMm2Tkus6QQymB/PcH9c8NINifxbpOSKSwNv2YL6wgeuUjYg7W3+2S47JPp/P0KRzfeLjhpVDt
@@ -521,6 +581,9 @@ paWeTgt+a13Vv6wnAr/N4Ier6m1JwNoO8/bNzllMCLZadqrjhcN2G2v3Lh11cs0cK0XNbrsk5nbR
 Evhc4XUT6wj8iVE/7Qx2AI5VP0j49oH795oAwUqWTKNUa6BLNzt0N4u9DJmSFm4I9PQPhbCjrJy3
 6Kq6CG6E6/eJAcn8QdcdavDjTkGrp6vBqBdkGYT13+QimobTgRtlKLP/YLS9dMT1BjhpzvyKVekG
 1LQyQyX26Q8ydg==
-	]]>
-</i:aipgf>
+	]]>		
+
+	</i:aipgf>
+	
+
 </svg>
