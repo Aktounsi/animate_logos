@@ -28,7 +28,7 @@ def insert_id(logo):
            logo (string): The path of the svg.
 
        """
-    Path("svgs").mkdir(parents=True, exist_ok=True)
+    Path("data/svgs").mkdir(parents=True, exist_ok=True)
     filename = logo.replace('.svg', '').split("/")[-1]
     doc = minidom.parse(logo)
     # Store all elements in list
@@ -39,7 +39,7 @@ def insert_id(logo):
     for i in range(len(elements)):
         elements[i].setAttribute('animation_id', str(i))
     # write svg
-    textfile = open('svgs/' + filename + '.svg', 'wb')
+    textfile = open('data/svgs/' + filename + '.svg', 'wb')
     textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
     textfile.close()
     doc.unlink()

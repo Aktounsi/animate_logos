@@ -8,7 +8,7 @@ import os
 def decompose_logos_in_folder(folder):
     """ Function to decompose all Logos in a folder.
 
-    Example: decompose_logos_in_folder('svgs')
+    Example: decompose_logos_in_folder('data/svgs')
 
     Args:
         folder (string): The path of the folder with all SVGs that need to be decomposed.
@@ -22,7 +22,7 @@ def decompose_logos_in_folder(folder):
 def decompose_logo(file):
     """ Function to decompose one Logo.
 
-    Example: decompose_logo('Air France.svg')
+    Example: decompose_logo('data/svgs/Air France.svg')
 
     Args:
         file (string): The path of the SVG file that needs to be decomposed.
@@ -36,8 +36,8 @@ def decompose_logo(file):
     num_elements = len(elements)
 
     # Change name and path for writing element svgs
-    filename = file.replace('svgs/', '').replace('.svg', '')
-    Path("decomposed_svgs").mkdir(parents=True, exist_ok=True)
+    filename = file.split('/')[-1].replace('.svg', '')
+    Path("data/decomposed_svgs").mkdir(parents=True, exist_ok=True)
 
     # Write each element to a svg file
     for i in range(num_elements):
@@ -59,7 +59,7 @@ def decompose_logo(file):
             elements_temp[i].attributes['style'].value = elements_temp[i].attributes['style'].value.replace('stroke:none', '')
         # save element svgs
         animation_id = elements_temp[i].getAttribute('animation_id')
-        textfile = open('decomposed_svgs/' + filename + '_' + animation_id + '.svg', 'wb')
+        textfile = open('data/decomposed_svgs/' + filename + '_' + animation_id + '.svg', 'wb')
         textfile.write(doc_temp.toxml(encoding="iso-8859-1")) # needed to handle "Umlaute"
         textfile.close()
         doc_temp.unlink()
