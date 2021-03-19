@@ -7,7 +7,7 @@ from pathlib import Path
 from src.models.transform_model_output_to_animation_states import convert_svgs_in_folder
 
 
-def sort_by_relevance(path_selection_folder):
+def sort_by_relevance(path_selection_folder, nr_paths_trunc=8):
     nr_paths = len([name for name in os.listdir(path_selection_folder) if os.path.isfile(os.path.join(path_selection_folder, name))]) - 1
     relevance_scores = []
     img_origin = image.imread(os.path.join(path_selection_folder, "original.png"))
@@ -16,7 +16,7 @@ def sort_by_relevance(path_selection_folder):
         relevance_scores.append(mean_squared_error(img_origin, img_reduced))
     relevance_score_ordering = list(range(nr_paths))
     relevance_score_ordering.sort(key=lambda x: relevance_scores[x], reverse=True)
-    return relevance_score_ordering
+    return relevance_score_ordering[0:nr_paths_trunc]
 
 
 def get_elements(doc):
