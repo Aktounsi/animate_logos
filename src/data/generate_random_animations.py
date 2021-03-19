@@ -16,4 +16,4 @@ def random_animation_vector(nr_animations, frac_animations = 0.5, frac_animation
             for i in range(10,13):
                 vec[i] = random.uniform(0, 1)
             animation_list.append(vec)
-    return np.array(animation_list)
+    return animation_list
