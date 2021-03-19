@@ -3,20 +3,21 @@ from pathlib import Path
 from .transform_animation_predictor_output import transform_animation_predictor_output
 
 
-def insert_animation(file, animation_id, output):
+def insert_animation(file, animation_id, model_output):
     """ Function to insert multiple animation statements.
 
     Args:
         file (string): The path of the SVG file
         animation_id (list): List of Path IDs that get animated
-        output (list): List of 13 dimensional lists with animation predictor model output
+        model_output (list): List of 13 dimensional lists with animation predictor model output
     """
     doc = svg_to_doc(file)
     for i in range(len(animation_id)):
-        output_dict = transform_animation_predictor_output(file, animation_id[i], output[i])
-        doc = insert_one_animation(doc, animation_id[i], output_dict[i])
+        output_dict = transform_animation_predictor_output(file, animation_id[i], model_output[i])
+        doc = insert_one_animation(doc, animation_id[i], output_dict)
 
-    save_animated_logo(doc, "test")
+    filename = file.split('/')[-1].replace(".svg", "")
+    save_animated_logo(doc, filename)
 
 
 def svg_to_doc(file):
@@ -30,17 +31,17 @@ def svg_to_doc(file):
     return minidom.parse(file)
 
 
-def insert_one_animation(doc, animation_id, output_dict):
+def insert_one_animation(doc, animation_id, model_output_dict):
     """ Function to insert one animation statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file
         animation_id (int): Id of the element that gets animated
-        output_dict (dict): 13 dimensional list with animation predictor model output
+        model_output_dict (dict): 13 dimensional list with animation predictor model output
 
     Returns (xml.dom.minidom.Document): Parsed file
     """
-    animation = create_animation_statement(output_dict)
+    animation = create_animation_statement(model_output_dict)
 
     elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
         'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(
@@ -61,9 +62,9 @@ def save_animated_logo(doc, filename):
         doc (xml.dom.minidom.Document): Parsed file
         filename (string): Name of output file
     """
-    Path("animated_logos").mkdir(parents=True, exist_ok=True)
+    Path("data/animated_logos").mkdir(parents=True, exist_ok=True)
 
-    with open('animated_logos/' + filename + '.svg', 'wb') as f:
+    with open('data/animated_logos/' + filename + '.svg', 'wb') as f:
         f.write(doc.toprettyxml(encoding="iso-8859-1"))
 
 
@@ -93,7 +94,7 @@ def _create_animate_transform_statement(animation_dict):
     animation = animation + 'type = "' + str(animation_dict["type"]) + '" '
     animation = animation + 'begin = "' + str(animation_dict["begin"]) + '" '
     animation = animation + 'dur = "' + str(animation_dict["dur"]) + '" '
-    animation = animation + 'from  = "' + str(animation_dict["from"]) + '" '
+    animation = animation + 'from  = "' + str(animation_dict["from_"]) + '" '
     animation = animation + 'to = "' + str(animation_dict["to"]) + '" '
     animation = animation + 'fill = "freeze"'  # repeatCount = "indefinite"
     return animation
@@ -111,7 +112,7 @@ def _create_animate_statement(animation_dict):
     animation = animation + 'attributeName = "' + str(animation_dict["type"]) + '" '
     animation = animation + 'begin = "' + str(animation_dict["begin"]) + '" '
     animation = animation + 'dur = "' + str(animation_dict["dur"]) + '" '
-    animation = animation + 'from  = "' + str(animation_dict["from"]) + '" '
+    animation = animation + 'from  = "' + str(animation_dict["from_"]) + '" '
     animation = animation + 'to = "' + str(animation_dict["to"]) + '" '
-    animation = animation + 'fill = "freeze">'  # repeatCount = "indefinite"
+    animation = animation + 'fill = "freeze"'  # repeatCount = "indefinite"
     return animation
