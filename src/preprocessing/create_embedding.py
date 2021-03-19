@@ -227,11 +227,8 @@ def encode_svg(filename,
                cfg_module="configs.deepsvg.hierarchical_ordered",
                data_folder="data/svgs"):
     dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
-    svg = SVG.load_svg(filename)
-    svg = dataset.simplify(svg)
-    svg = dataset.preprocess(svg)
 
-    return _encode_svg(dataset, svg, model, device, cfg)
+    return _encode_svg(dataset, filename, model, device, cfg)
 
 
 def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.tar",
@@ -258,11 +255,11 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
     df.reset_index(level=0, inplace=True)
 
     if data_folder == "data/decomposed_svgs":
-        df['animation_id'] = df['filename'].apply(lambda row: row.split('_')[-1]).replace(".svg", "")
+        df['animation_id'] = df['filename'].apply(lambda row: row.split('_')[-1])#.replace(".svg", "")
         cols = list(df.columns)
         cols = [cols[0], cols[-1]] + cols[1:-1]
         df = df.reindex(columns=cols)
-        df['filename'] = df['filename'].apply(lambda row: row.split('_')[0])
+        #df['filename'] = df['filename'].apply(lambda row: row.split('_')[0])
 
     if save:
         model = model_path.split("/")[-1].replace("_svgs.pth.tar", "").replace("_decomposed", "")
@@ -278,7 +275,8 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
 
 def _apply_embedding_to_svg(dataset, svg_file, svg_list, model, device, cfg):
     z = _encode_svg(dataset, svg_file, model, device, cfg).numpy()[0][0][0]
-    filename = svg_file.split("\\")[-1]
+    #filename = svg_file.split("\\")[-1]
+    filename = os.path.splitext(os.path.basename(svg_file))[0]
 
     dict_data = {"filename": filename,
                  "embedding": z}
