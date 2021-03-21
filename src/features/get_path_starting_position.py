@@ -1,4 +1,5 @@
 from ..preprocessing.deepsvg.svglib.svg import SVG
+# Not needed anymore ?
 
 
 def get_path_starting_position(file, animation_id):
