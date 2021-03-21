@@ -2,16 +2,16 @@ from xml.dom import minidom
 from pathlib import Path
 from src.features.get_bbox_size import get_midpoint_of_path_bbox
 from src.models_output.transform_animation_predictor_output import transform_animation_predictor_output
-from random import randint
 
 
-def create_animated_svg(file, animation_id, model_output):
+def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
     """ Function to insert multiple animation statements.
 
     Args:
         file (string): The path of the SVG file
-        animation_id (list): List of Path IDs that get animated
-        model_output (list): List of 13 dimensional lists with animation predictor model output
+        animation_id (list[int]): List of Path IDs that get animated
+        model_output (list[list[dict]]): List of 13 dimensional lists with animation predictor model output
+        filename_suffix  (string): Suffix of animated SVG
     """
     doc = svg_to_doc(file)
     for i in range(len(animation_id)):
@@ -32,7 +32,7 @@ def create_animated_svg(file, animation_id, model_output):
             if output_dict["type"] in ["opacity", "stroke-opacity"]:
                 doc = insert_opacity_statement(doc, animation_id[i], output_dict)
 
-    filename = file.split('/')[-1].replace(".svg", "") + "_" + str(randint(100, 999))
+    filename = file.split('/')[-1].replace(".svg", "") + "_" + filename_suffix
     save_animated_svg(doc, filename)
 
 
@@ -101,7 +101,7 @@ def insert_scale_statement(doc, animation_id, model_output_dict, file):
 
 def insert_rotate_statement(doc, animation_id, model_output_dict):
     """ Function to insert rotate statement. """
-    model_output_dict['begin'] = 0
+    model_output_dict["begin"] = 0
     animation = create_animation_statement(model_output_dict)
     doc = insert_animation(doc, animation_id, animation)
     return doc
@@ -109,7 +109,7 @@ def insert_rotate_statement(doc, animation_id, model_output_dict):
 
 def insert_skew_statement(doc, animation_id, model_output_dict):
     """ Function to insert skew statement. """
-    model_output_dict['begin'] = 0
+    model_output_dict["begin"] = 0
     animation = create_animation_statement(model_output_dict)
     doc = insert_animation(doc, animation_id, animation)
     return doc
@@ -118,7 +118,7 @@ def insert_skew_statement(doc, animation_id, model_output_dict):
 def insert_fill_statement(doc, animation_id, model_output_dict):
     """ Function to insert fill statement. """
     pre_animation = ""
-    if model_output_dict['begin'] < 2.5:
+    if model_output_dict['begin'] < 2:
         model_output_dict['begin'] = 0
     else:  # Wave
         pre_animation_dict = {"type": "fill",
@@ -137,7 +137,7 @@ def insert_fill_statement(doc, animation_id, model_output_dict):
 def insert_stroke_statement(doc, animation_id, model_output_dict):
     """ Function to insert stroke and stroke-width statement. """
     pre_animation = ""
-    if model_output_dict['begin'] < 2.5:
+    if model_output_dict['begin'] < 2:
         model_output_dict['begin'] = 0
     else:  # Wave
         pre_animation_dict = {"type": model_output_dict["type"],
@@ -155,7 +155,6 @@ def insert_stroke_statement(doc, animation_id, model_output_dict):
 
 def insert_opacity_statement(doc, animation_id, model_output_dict):
     """ Function to insert opacity and stroke-opacity statement. """
-    model_output_dict['begin'] = 0
     animation = create_animation_statement(model_output_dict)
     doc = insert_animation(doc, animation_id, animation)
     return doc

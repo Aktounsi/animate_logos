@@ -23,11 +23,11 @@ def get_style_attributes_svg(file):
 def get_style_attributes_path(file, animation_id, attribute):
     """ Function to get style attributes of a specific path in a SVG file.
 
-    Example: get_style_attributes_svg('logos_svg/Air France.svg')
+    Example: get_style_attributes_path('svgs/Air France.svg', 0, "fill")
 
     Args:
         file (string): The path of the SVG file.
-        animation_id (string): Path ID.
+        animation_id (int): Path ID.
         attribute (string): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity
 
     Returns:
@@ -41,7 +41,7 @@ def get_style_attributes_path(file, animation_id, attribute):
 def parse_svg(file):
     """ Function to parse a SVG file.
 
-    Example: parse_svg('logos_svg/Air France.svg')
+    Example: parse_svg('svgs/Air France.svg')
 
     Args:
         file (string): The path of the SVG file.
@@ -74,8 +74,8 @@ def _get_local_style_attributes(file):
         print(file + ': Attributes not defined.')
     for i, attr in enumerate(attributes):
         animation_id = attr['animation_id']
-        fill = '#000000'
-        stroke = '#000000'
+        fill = 'none'
+        stroke = 'none'
         stroke_width = '0'
         opacity = '1.0'
         stroke_opacity = '1.0'
@@ -119,15 +119,15 @@ def get_global_style_attributes(file):
 def _get_global_style_attributes(file):
     doc = minidom.parse(file)
     style = doc.getElementsByTagName('style')
-    fill = ''
-    stroke = ''
-    stroke_width = ''
-    opacity = ''
-    stroke_opacity = ''
     for i, attr in enumerate(style):
         a = attr.toxml()
-        for i in range(0, len(a.split(';}')) - 1):
-            attr = a.split(';}')[i]
+        for j in range(0, len(a.split(';}')) - 1):
+            fill = ''
+            stroke = ''
+            stroke_width = ''
+            opacity = ''
+            stroke_opacity = ''
+            attr = a.split(';}')[j]
             class_ = attr.split('.', 1)[-1].split('{', 1)[0]
             if attr.find('fill:') != -1:
                 fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
