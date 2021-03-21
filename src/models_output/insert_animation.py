@@ -155,6 +155,7 @@ def insert_stroke_statement(doc, animation_id, model_output_dict):
 
 def insert_opacity_statement(doc, animation_id, model_output_dict):
     """ Function to insert opacity and stroke-opacity statement. """
+    model_output_dict["begin"] = 0
     animation = create_animation_statement(model_output_dict)
     doc = insert_animation(doc, animation_id, animation)
     return doc
