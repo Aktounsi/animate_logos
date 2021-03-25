@@ -58,6 +58,8 @@ def _get_local_style_attributes(folder):
                     class_ = ''
                 if a.find('fill') != -1:
                     fill = a.split('fill:', 1)[-1].split(';', 1)[0]
+                    if fill == 'none':
+                        fill = '#000000'
                 if a.find('stroke') != -1:
                     stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
                 if a.find('stroke-width') != -1:
@@ -67,7 +69,7 @@ def _get_local_style_attributes(folder):
                 if a.find('stroke-opacity') != -1:
                     stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
 
-                yield dict(file=file, animation_id=animation_id, class_=class_, fill=fill, stroke=stroke,
+                yield dict(filename=file.split('.svg')[0], animation_id=animation_id, class_=class_, fill=fill, stroke=stroke,
                            stroke_width=stroke_width,
                            opacity=opacity, stroke_opacity=stroke_opacity)
 
@@ -102,6 +104,8 @@ def _get_global_style_attributes(folder):
                     class_ = attr.split('.', 1)[-1].split('{', 1)[0]
                     if attr.find('fill:') != -1:
                         fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
+                        if fill == 'none':
+                            fill = '#000000'
                     if attr.find('stroke:') != -1:
                         stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
                     if attr.find('stroke-width:') != -1:
@@ -110,7 +114,7 @@ def _get_global_style_attributes(folder):
                         opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
                     if attr.find('stroke-opacity:') != -1:
                         stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
-                    yield dict(file=file, class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
+                    yield dict(filename=file.split('.svg')[0], class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
                                opacity=opacity, stroke_opacity=stroke_opacity)
 
 
@@ -123,8 +127,8 @@ def combine_style_attributes(df_global, df_local):
 
     Returns (pd.DataFrame): Dataframe with all style attributes.
     """
-    df = df_local.merge(df_global, how='left', on=['file', 'class_'])
-    df_styles = df[["file", "animation_id", "class_"]]
+    df = df_local.merge(df_global, how='left', on=['filename', 'class_'])
+    df_styles = df[["filename", "animation_id", "class_"]]
     df_styles["fill"] = _combine_columns(df, "fill")
     df_styles["stroke"] = _combine_columns(df, "stroke")
     df_styles["stroke_width"] = _combine_columns(df, "stroke_width")
