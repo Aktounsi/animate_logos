@@ -74,8 +74,8 @@ def _get_local_style_attributes(file):
         print(file + ': Attributes not defined.')
     for i, attr in enumerate(attributes):
         animation_id = attr['animation_id']
-        fill = 'none'
-        stroke = 'none'
+        fill = '#000000'
+        stroke = '#000000'
         stroke_width = '0'
         opacity = '1.0'
         stroke_opacity = '1.0'
