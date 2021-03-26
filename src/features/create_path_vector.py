@@ -9,13 +9,12 @@ import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
-def create_path_vectors(svg_folder, emb_length=15, style=True, size=True, number_paths=True, fitted_pca=None,
-                        use_ppa=False, emb_file_path=None):
+def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_length=15, use_ppa=False,
+                        style=True, avg_cols=['fill_r', 'fill_g', 'fill_b'], size=True, position=True, number_paths=True):
     if emb_file_path:
         with open(emb_file_path, 'rb') as f:
             df = pickle.load(f)
     df.dropna(inplace=True) # can be deleted if NaN rows do not exist anymore
-    #df['filename'] = df.apply(lambda row: row['filename'].split, 'RGB')[i], axis=1)
     #else:
     #    df = apply_embedding_model_to_svgs(data_folder="data/decomposed_svgs", save=False)
 
@@ -28,12 +27,17 @@ def create_path_vectors(svg_folder, emb_length=15, style=True, size=True, number
     if style:
         st = _get_transform_style_elements(svg_folder)
         df = df.merge(st, how='left', on=['filename', 'animation_id'])
+        if avg_cols:
+            df = _get_svg_avg(df, avg_cols)
 
-    if size:
-        df['rel_width'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
-                                                                  row['animation_id'])[0], axis=1)
-        df['rel_height'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
-                                                                   row['animation_id'])[0], axis=1)
+
+
+
+    #if size:
+    #    df['rel_width'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
+    #                                                              row['animation_id'])[0], axis=1)
+    #    df['rel_height'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
+    #                                                               row['animation_id'])[1], axis=1)
 
     return df
 
@@ -109,13 +113,15 @@ def _get_relative_path_position(svg_folder):
     pass
 
 
-if __name__ == '__main__':
-    #X = pd.DataFrame(np.random.normal(size=[300,256]))
-    #X_emb = X.iloc[:,:128]
-    #X_red = _reduce_dim(X_emb)[0]
-    #X_emb = pd.concat([X_emb.iloc[:,0:2], X_red], axis=1)
-    #print(X_emb)
+def _get_svg_avg(df, columns, diff=True):
+    for col in columns:
+        df[f'avg_{col}'] = df.groupby('filename')[col].transform('mean')
+       # if diff:
 
+    return df
+
+
+if __name__ == '__main__':
     df = create_path_vectors("../../data/svgs", emb_length=15, style=True, size=True, number_paths=True,
                              fitted_pca=None, use_ppa=False,
                              emb_file_path="../../data/path_embedding.pkl")
