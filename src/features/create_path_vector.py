@@ -1,6 +1,7 @@
 from sklearn.decomposition import PCA
 from src.features.get_style_attributes_folder import *
 from src.features.get_bbox_size import *
+from src.preprocessing.create_embedding import *
 from src.data.get_svg_meta_data import *
 from src.preprocessing.deepsvg import *
 from PIL import ImageColor
@@ -12,18 +13,30 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_length=15, use_ppa=False,
                         style=True, size=True, position=True, nr_commands=True,
-                        nr_paths_svg=True, avg_cols_svg=['fill_r', 'fill_g', 'fill_b'], avg_diff=True,):
+                        nr_paths_svg=True, avg_cols_svg=['fill_r', 'fill_g', 'fill_b',
+                                                         'stroke_r', 'stroke_g', 'stroke_b'], avg_diff=True,
+                        train=True, train_frc=0.8):
+
     if emb_file_path:
         with open(emb_file_path, 'rb') as f:
             df = pickle.load(f)
-    df.dropna(inplace=True) # can be deleted if NaN rows do not exist anymore
-    #else:
-    #    df = apply_embedding_model_to_svgs(data_folder="data/decomposed_svgs", save=False)
+    else:
+        df = apply_embedding_model_to_svgs(data_folder="../../data/decomposed_svgs", save=False)
+    df.dropna(inplace=True)  # can be deleted if NaN rows do not exist anymore
+
+    # train/test subsetting
+    split = round(len(np.unique(df['filename'])) * train_frc)
+    logos_train = np.unique(df['filename'])[:split]
+    logos_test = np.unique(df['filename'])[split:]
+    if train:
+        df = df.loc[df['filename'].isin(logos_train)]
+    else:
+        df = df.loc[df['filename'].isin(logos_test)]
 
     if emb_length:
         df_meta = df.iloc[:, :2].reset_index(drop=True)
         df_emb = df.iloc[:, 2:]
-        df_emb_red = _reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=emb_length, use_ppa=use_ppa)[0]
+        df_emb_red, fitted_pca = _reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=emb_length, use_ppa=use_ppa)
         df = pd.concat([df_meta, df_emb_red.reset_index(drop=True)], axis=1)
 
     if style:
@@ -32,12 +45,12 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_len
         if avg_cols_svg:
             df = _get_svg_avg(df, avg_cols_svg, avg_diff)
 
-    #if size:
-    #    df['rel_width'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
-    #                                                              row['animation_id'])[0], axis=1)
-    #    df['rel_height'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
-    #                                                               row['animation_id'])[1], axis=1)
-
+    # if size:
+    #     df['rel_width'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
+    #                                                               row['animation_id'])[0], axis=1)
+    #     df['rel_height'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
+    #                                                                row['animation_id'])[1], axis=1)
+    #
     # if position:
     #     df['rel_x_position'] = df.apply(lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
     #                                                                             row['animation_id'])[0], axis=1)
@@ -47,7 +60,10 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_len
     if nr_paths_svg:
         df_meta = get_svg_meta_data(data_folder=svg_folder)
 
-    return df_meta
+    if train:
+        return df_meta, fitted_pca
+    else:
+        return df
 
 
 def _reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=15, use_ppa=False, ppa_threshold=8):
@@ -76,10 +92,12 @@ def _reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=15, use_ppa=False, 
 
     # 2. PCA
     # PCA Dim Reduction
+    X = X - np.mean(X)
     if not fitted_pca:
         fitted_pca = PCA(n_components=new_dim, random_state=42)
-    X = X - np.mean(X)
-    X = fitted_pca.fit_transform(X)
+        X = fitted_pca.fit_transform(X)
+    else:
+        X = fitted_pca.transform(X)
 
     # 3. PPA #2
     if use_ppa:
@@ -132,7 +150,15 @@ def _get_svg_avg(df, columns, diff=True):
 
 
 if __name__ == '__main__':
-    df = create_path_vectors("../../data/svgs", emb_length=15, style=True, size=True, nr_paths_svg=True,
-                             fitted_pca=None, use_ppa=False,
-                             emb_file_path="../../data/path_embedding.pkl")
-    print(df)
+    # train_df, fitted_pca = create_path_vectors("../../data/svgs", emb_file_path="../../data/path_embedding.pkl",
+    #                                            train=True)
+    # train_df.to_csv('../../data/X_train_model1.csv')
+    # print('Train data created and saved.')
+    # test_df = create_path_vectors("../../data/svgs", emb_file_path="../../data/path_embedding.pkl",
+    #                               train=False, fitted_pca=fitted_pca)
+    # test_df.to_csv('../../data/X_test_model1.csv')
+    # print('Test data created and saved.')
+
+    df_meta, _ = create_path_vectors("../../data/svgs", emb_file_path="../../data/path_embedding.pkl",
+                                  train=True)
+    print(df_meta)
