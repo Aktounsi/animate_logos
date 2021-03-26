@@ -168,7 +168,7 @@ def _encode_svg(dataset, filename, model, device, cfg):
         svg = svg.canonicalize(normalize=True)
         svg = dataset.preprocess(svg)
         data = dataset.get(svg=svg)
-        print(f"{filename}: Simplify failed {e}")
+        #print(f"{filename}: Simplify failed {e}")
     model_args = batchify((data[key] for key in cfg.model_args), device)
     with torch.no_grad():
         z = model(*model_args, encode_mode=True)
