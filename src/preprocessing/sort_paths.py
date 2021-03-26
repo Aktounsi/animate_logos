@@ -5,7 +5,6 @@ from xml.dom import minidom
 from pathlib import Path
 from matplotlib import image
 from skimage.metrics import mean_squared_error
-
 from src.models.transform_model_output_to_animation_states import convert_svgs_in_folder
 
 dir_path_selection = './data/path_selection'
