@@ -28,11 +28,12 @@ def _get_svg_meta_data(svg_file, meta_data):
     filename = os.path.splitext(os.path.basename(svg_file))[0]
 
     svg = SVG.load_svg(svg_file)
-    svg.fill_(False)
-    svg.normalize()
-    svg.zoom(0.9)
-    svg.svg_path_groups = sorted(svg.svg_path_groups, key=lambda x: x.start_pos.tolist()[::-1])
-    # svg.canonicalize()
+    #svg.fill_(False)
+    #svg.normalize()
+    #svg.zoom(0.9)
+    #svg.svg_path_groups = sorted(svg.svg_path_groups, key=lambda x: x.start_pos.tolist()[::-1])
+
+    svg.canonicalize(normalize=True)
     # svg = svg.simplify_heuristic()
 
     len_groups = [path_group.total_len() for path_group in svg.svg_path_groups]
