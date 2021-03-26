@@ -92,15 +92,15 @@ def _get_global_style_attributes(folder):
         if file.endswith(".svg"):
             doc = minidom.parse(folder + '/' + file)
             style = doc.getElementsByTagName('style')
-            fill = ''
-            stroke = ''
-            stroke_width = ''
-            opacity = ''
-            stroke_opacity = ''
             for i, attr in enumerate(style):
                 a = attr.toxml()
-                for i in range(0, len(a.split(';}')) - 1):
-                    attr = a.split(';}')[i]
+                for j in range(0, len(a.split(';}')) - 1):
+                    fill = ''
+                    stroke = ''
+                    stroke_width = ''
+                    opacity = ''
+                    stroke_opacity = ''
+                    attr = a.split(';}')[j]
                     class_ = attr.split('.', 1)[-1].split('{', 1)[0]
                     if attr.find('fill:') != -1:
                         fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
