@@ -31,7 +31,7 @@ def get_style_attributes_path(file, animation_id, attribute):
         attribute (string): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity
 
     Returns:
-        (pd.DataFrame): List of dictionaries containing the attributes of each path.
+        (string): Specified attribute of the path.
     """
     styles = get_style_attributes_svg(file)
     styles_animation_id = styles[styles["animation_id"] == str(animation_id)]
