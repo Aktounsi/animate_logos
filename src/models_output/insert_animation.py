@@ -16,23 +16,26 @@ def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
     doc = svg_to_doc(file)
     for i in range(len(animation_id)):
         if model_output[i][-1] != -1:
-            output_dict = transform_animation_predictor_output(file, animation_id[i], model_output[i])
-            if output_dict["type"] == "translate":
-                doc = insert_translate_statement(doc, animation_id[i], output_dict)
-            if output_dict["type"] == "scale":
-                doc = insert_scale_statement(doc, animation_id[i], output_dict, file)
-            if output_dict["type"] == "rotate":
-                doc = insert_rotate_statement(doc, animation_id[i], output_dict)
-            if output_dict["type"] in ["skewX", "skewY"]:
-                doc = insert_skew_statement(doc, animation_id[i], output_dict)
-            if output_dict["type"] == "fill":
-                doc = insert_fill_statement(doc, animation_id[i], output_dict)
-            if output_dict["type"] in ["stroke", "stroke-width"]:
-                doc = insert_stroke_statement(doc, animation_id[i], output_dict)
-            if output_dict["type"] in ["opacity", "stroke-opacity"]:
-                doc = insert_opacity_statement(doc, animation_id[i], output_dict)
+            try:  # there are some paths that can't be embedded and don't have style attributes
+                output_dict = transform_animation_predictor_output(file, animation_id[i], model_output[i])
+                if output_dict["type"] == "translate":
+                    doc = insert_translate_statement(doc, animation_id[i], output_dict)
+                if output_dict["type"] == "scale":
+                    doc = insert_scale_statement(doc, animation_id[i], output_dict, file)
+                if output_dict["type"] == "rotate":
+                    doc = insert_rotate_statement(doc, animation_id[i], output_dict)
+                if output_dict["type"] in ["skewX", "skewY"]:
+                    doc = insert_skew_statement(doc, animation_id[i], output_dict)
+                if output_dict["type"] == "fill":
+                    doc = insert_fill_statement(doc, animation_id[i], output_dict)
+                if output_dict["type"] in ["stroke", "stroke-width"]:
+                    doc = insert_stroke_statement(doc, animation_id[i], output_dict)
+                if output_dict["type"] in ["opacity", "stroke-opacity"]:
+                    doc = insert_opacity_statement(doc, animation_id[i], output_dict)
+            except:
+                pass
 
-    filename = file.split('/')[-1].replace(".svg", "") + "_" + filename_suffix
+    filename = file.split('/')[-1].replace(".svg", "") + "_animation_" + filename_suffix
     save_animated_svg(doc, filename)
 
 
