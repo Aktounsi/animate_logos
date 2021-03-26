@@ -1,16 +1,18 @@
 from sklearn.decomposition import PCA
 from src.features.get_style_attributes_folder import *
 from src.features.get_bbox_size import *
+from src.data.get_svg_meta_data import *
+from src.preprocessing.deepsvg import *
 from PIL import ImageColor
 import numpy as np
-import os
 import pickle
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_length=15, use_ppa=False,
-                        style=True, avg_cols=['fill_r', 'fill_g', 'fill_b'], size=True, position=True, number_paths=True):
+                        style=True, size=True, position=True, nr_commands=True,
+                        nr_paths_svg=True, avg_cols_svg=['fill_r', 'fill_g', 'fill_b'], avg_diff=True,):
     if emb_file_path:
         with open(emb_file_path, 'rb') as f:
             df = pickle.load(f)
@@ -21,17 +23,14 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_len
     if emb_length:
         df_meta = df.iloc[:, :2].reset_index(drop=True)
         df_emb = df.iloc[:, 2:]
-        df_emb_red = _reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=emb_length)[0]
+        df_emb_red = _reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=emb_length, use_ppa=use_ppa)[0]
         df = pd.concat([df_meta, df_emb_red.reset_index(drop=True)], axis=1)
 
     if style:
         st = _get_transform_style_elements(svg_folder)
         df = df.merge(st, how='left', on=['filename', 'animation_id'])
-        if avg_cols:
-            df = _get_svg_avg(df, avg_cols)
-
-
-
+        if avg_cols_svg:
+            df = _get_svg_avg(df, avg_cols_svg, avg_diff)
 
     #if size:
     #    df['rel_width'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
@@ -39,7 +38,16 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_len
     #    df['rel_height'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
     #                                                               row['animation_id'])[1], axis=1)
 
-    return df
+    # if position:
+    #     df['rel_x_position'] = df.apply(lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
+    #                                                                             row['animation_id'])[0], axis=1)
+    #     df['rel_y_position'] = df.apply(lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
+    #                                                                             row['animation_id'])[1], axis=1)
+
+    if nr_paths_svg:
+        df_meta = get_svg_meta_data(data_folder=svg_folder)
+
+    return df_meta
 
 
 def _reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=15, use_ppa=False, ppa_threshold=8):
@@ -109,20 +117,22 @@ def _get_relative_size(file, animation_id):
     return path_width/svg_width, path_height/svg_height
 
 
-def _get_relative_path_position(svg_folder):
-    pass
+def _get_relative_path_position(file, animation_id):
+    svg_width, svg_height = get_svg_size(file)
+    x_midpoint, y_midpoint = get_midpoint_of_path_bbox(file, animation_id)
+    return x_midpoint/svg_width, y_midpoint/svg_height
 
 
 def _get_svg_avg(df, columns, diff=True):
     for col in columns:
-        df[f'avg_{col}'] = df.groupby('filename')[col].transform('mean')
-       # if diff:
-
+        df[f'svg_{col}'] = df.groupby('filename')[col].transform('mean')
+        if diff:
+            df[f'diff_{col}'] = df[col] - df[f'svg_{col}']
     return df
 
 
 if __name__ == '__main__':
-    df = create_path_vectors("../../data/svgs", emb_length=15, style=True, size=True, number_paths=True,
+    df = create_path_vectors("../../data/svgs", emb_length=15, style=True, size=True, nr_paths_svg=True,
                              fitted_pca=None, use_ppa=False,
                              emb_file_path="../../data/path_embedding.pkl")
     print(df)

@@ -12,6 +12,7 @@ def get_svg_meta_data(data_folder="data/svgs", workers=4):
     """
     with futures.ThreadPoolExecutor(max_workers=workers) as executor:
         svg_files = glob.glob(os.path.join(data_folder, "*.svg"))
+        print(len(svg_files))
         meta_data = {}
 
         with tqdm(total=len(svg_files)) as pbar:

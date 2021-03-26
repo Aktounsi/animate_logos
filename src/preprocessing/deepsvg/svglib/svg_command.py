@@ -1,6 +1,6 @@
 from __future__ import annotations
 from .geom import *
-from deepsvg.difflib.tensor import SVGTensor
+from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
 from .util_fns import get_roots
 from enum import Enum
 import torch
