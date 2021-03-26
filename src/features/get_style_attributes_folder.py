@@ -104,6 +104,8 @@ def _get_global_style_attributes(folder):
                     class_ = attr.split('.', 1)[-1].split('{', 1)[0]
                     if attr.find('fill:') != -1:
                         fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
+                        if fill == 'none':
+                            fill = '#000000'
                     if attr.find('stroke:') != -1:
                         stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
                     if attr.find('stroke-width:') != -1:
@@ -112,7 +114,7 @@ def _get_global_style_attributes(folder):
                         opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
                     if attr.find('stroke-opacity:') != -1:
                         stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
-                    yield dict(file=file, class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
+                    yield dict(filename=file.split('.svg')[0], class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
                                opacity=opacity, stroke_opacity=stroke_opacity)
 
 

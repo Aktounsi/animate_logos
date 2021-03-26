@@ -4,13 +4,13 @@ from concurrent import futures
 from tqdm import tqdm
 import pandas as pd
 
-from deepsvg.svglib.svg import SVG
-from deepsvg.difflib.tensor import SVGTensor
-from deepsvg.train import train
-from deepsvg import utils
-from deepsvg.svglib.geom import Bbox
-from deepsvg.svg_dataset import SVGDataset, load_dataset  # SVG Dataset
-from deepsvg.utils.utils import batchify, linear
+from src.preprocessing.deepsvg.svglib.svg import SVG
+from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
+from src.preprocessing.deepsvg.train import train
+from src.preprocessing.deepsvg import utils
+from src.preprocessing.deepsvg.svglib.geom import Bbox
+from src.preprocessing.deepsvg.svg_dataset import SVGDataset, load_dataset  # SVG Dataset
+from src.preprocessing.deepsvg.utils.utils import batchify, linear
 
 # Reproducibility
 utils.set_seed(42)

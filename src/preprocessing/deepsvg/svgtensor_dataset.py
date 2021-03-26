@@ -1,7 +1,7 @@
-from deepsvg.config import _Config
-from deepsvg.difflib.tensor import SVGTensor
-from deepsvg.svglib.svg import SVG
-from deepsvg.svglib.geom import Point
+from src.preprocessing.deepsvg.config import _Config
+from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
+from src.preprocessing.deepsvg.svglib.svg import SVG
+from src.preprocessing.deepsvg.svglib.geom import Point
 
 import math
 import torch

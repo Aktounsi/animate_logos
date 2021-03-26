@@ -18,10 +18,8 @@ def get_svg_meta_data(data_folder="data/svgs", workers=4):
             preprocess_requests = [
                 executor.submit(_get_svg_meta_data, svg_file, meta_data)
                 for svg_file in svg_files]
-
             for _ in futures.as_completed(preprocess_requests):
                 pbar.update(1)
-
     df = pd.DataFrame(meta_data.values())
     return df
 
