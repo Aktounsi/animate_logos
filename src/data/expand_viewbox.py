@@ -4,33 +4,34 @@ from svgpathtools import svg2paths
 import os
 
 
-def expand_viewbox_in_folder(folder, percent):
+def expand_viewbox_in_folder(old_folder, percent, new_folder="data/expanded_svgs"):
     """ Function to expand the viewboxes of all svgs in a folder.
 
-       Example: expand_viewbox_in_folder('logos_svg_id', 50)
+       Example: expand_viewbox_in_folder('data/svgs', 50, 'data/expanded_svgs')
 
        Args:
-           folder (string): The path of the folder with all SVGs.
+           old_folder (string): The path of the folder with all SVGs.
            percent (int): Percentage in %: How much do we want to expand the viewbox?
+           new_folder (string): The path of the folder with the expanded SVGs.
 
-       """
-    for file in os.listdir(folder):
+    """
+    for file in os.listdir(old_folder):
         if file.endswith(".svg"):
-            file = folder + '/' + file
-            expand_viewbox(file, percent)
+            expand_viewbox(old_folder + "/" + file, percent, new_folder)
 
 
-def expand_viewbox(logo, percent):
+def expand_viewbox(logo, percent, new_folder):
     """ Function to expand the viewbox for a given svg logo.
 
-    Example: expand_viewbox('logos_svg_id/BMW.svg', 50)
+    Example: expand_viewbox('data/svgs/BMW.svg', 50, 'data/expanded_svgs')
 
     Args:
         logo (svg): path to a logo in svg format
-        percent (int): Percentage: How much do we want to expand the viewbox?
+        percent (int): Percentage in %: How much do we want to expand the viewbox?
+        new_folder (string): The path of the folder with the expanded SVGs.
 
     """
-    Path("svgs_expanded").mkdir(parents=True, exist_ok=True)
+    Path(new_folder).mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')
     filename = pathelements[len(pathelements) - 1].replace('.svg', '')
 
@@ -90,7 +91,7 @@ def expand_viewbox(logo, percent):
     coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(v4 + y_new)
     doc.getElementsByTagName('svg')[0].setAttribute('viewBox', coordinates)
     # write to svg
-    textfile = open('C:/Users/jonat/OneDrive/Dokumente/1 Uni/2 Master/Semester 2 NOVA/Team Project/Github/data/svgs_expanded/' + filename + '.svg', 'wb')
+    textfile = open(new_folder + '/' + filename + '.svg', 'wb')
     textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
     textfile.close()
     doc.unlink()
