@@ -2,24 +2,23 @@ from xml.dom import minidom
 from pathlib import Path
 import os
 
-""" Must be run in animate_logos/data folder."""
 
-
-def insert_ids_in_folder(folder):
+def insert_ids_in_folder(old_folder, new_folder="data/svgs"):
     """ Function to add the attribute "animation_id" to all Logos in a folder.
 
-    Example: insert_ids_in_folder('svgs_without_ID')
+    Example: insert_ids_in_folder('data/svgs_without_ID', 'data/svgs_with_ID')
 
     Args:
-        folder (string): The path of the folder with all SVGs.
+        old_folder (string): The path of the folder with all SVGs.
+        new_folder (string): The path of the folder with the SVGs with ID.
 
     """
-    for file in os.listdir(folder):
+    for file in os.listdir(old_folder):
         if file.endswith(".svg"):
-            insert_id(folder + "/" + file)
+            insert_id(old_folder + "/" + file, new_folder)
 
 
-def insert_id(logo):
+def insert_id(logo, new_folder):
     """ Function to add the attribute "animation_id" to all elements of a Logo.
 
        Example: insert_id('svgs_without_ID/BMW.svg')
@@ -28,7 +27,7 @@ def insert_id(logo):
            logo (string): The path of the svg.
 
        """
-    Path("data/svgs").mkdir(parents=True, exist_ok=True)
+    Path(new_folder).mkdir(parents=True, exist_ok=True)
     filename = logo.replace('.svg', '').split("/")[-1]
     doc = minidom.parse(logo)
     # Store all elements in list
@@ -39,7 +38,7 @@ def insert_id(logo):
     for i in range(len(elements)):
         elements[i].setAttribute('animation_id', str(i))
     # write svg
-    textfile = open('data/svgs/' + filename + '.svg', 'wb')
+    textfile = open(new_folder + '/' + filename + '.svg', 'wb')
     textfile.write(doc.toprettyxml(encoding="iso-8859-1"))  # needed to handle "Umlaute"
     textfile.close()
     doc.unlink()
