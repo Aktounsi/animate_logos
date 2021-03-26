@@ -86,7 +86,9 @@
 			
 			
 			
-			<path animation_id="1" clip-rule="evenodd" d="M61.278,20.722c0.909,0.721,1.212,1.004,1.742,1.496l1.306,1.27    c1.269,1.361,2.385,2.764,3.616,4.732c1.186,1.895,2.304,4.416,2.989,6.59c0.323,1.02,1.155,4.068,1.326,6.738    c0.094,1.286,0.057,1.002,0.111,2.041v143.505H50.447V43.589c0-4.093-3.216-7.309-7.306-7.309c-4.094,0-7.308,3.216-7.308,7.309    v143.505H13.912V43.589c0-16.368,12.586-29.287,29.229-29.229C50.39,14.386,56.449,16.767,61.278,20.722z" fill="#225CAC" fill-rule="evenodd"/>
+			<path animation_id="1" clip-rule="evenodd" d="M61.278,20.722c0.909,0.721,1.212,1.004,1.742,1.496l1.306,1.27    c1.269,1.361,2.385,2.764,3.616,4.732c1.186,1.895,2.304,4.416,2.989,6.59c0.323,1.02,1.155,4.068,1.326,6.738    c0.094,1.286,0.057,1.002,0.111,2.041v143.505H50.447V43.589c0-4.093-3.216-7.309-7.306-7.309c-4.094,0-7.308,3.216-7.308,7.309    v143.505H13.912V43.589c0-16.368,12.586-29.287,29.229-29.229C50.39,14.386,56.449,16.767,61.278,20.722z" fill="#225CAC" fill-rule="evenodd">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "3.6324515407813407" from = "-158 43.14 100.72690273631812" to = "0 43.14 100.72690273631812" fill = "freeze"/>
+			</path>
 			
 			
 			
@@ -132,7 +134,7 @@
 			
 			
 			<path animation_id="2" clip-rule="evenodd" d="M421.116,20.722c0.906,0.721,1.211,1.004,1.741,1.496l1.307,1.27    c1.269,1.361,2.385,2.764,3.617,4.732c1.183,1.895,2.303,4.416,2.989,6.59c0.32,1.02,1.152,4.068,1.324,6.738    c0.094,1.286,0.058,1.002,0.109,2.041v143.505h-21.92V43.589c0-4.093-3.216-7.309-7.307-7.309c-4.093,0-7.306,3.216-7.306,7.309    v143.505H373.75V43.589c0-16.368,12.586-29.287,29.228-29.229C410.229,14.386,416.286,16.767,421.116,20.722z" fill="#225CAC" fill-rule="evenodd">
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "4.222109257625241" from = "-58 402.97650000000004 100.72690273631812" to = "0 402.97650000000004 100.72690273631812" fill = "freeze"/>
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.6197365498016572" from = "-142 402.97650000000004 100.72690273631812" to = "0 402.97650000000004 100.72690273631812" fill = "freeze"/>
 			</path>
 			
 			
@@ -142,7 +144,10 @@
 			
 			
 			
-			<circle animation_id="5" clip-rule="evenodd" cx="321.442" cy="96.044" fill="#225CAC" fill-rule="evenodd" r="12.058"/>
+			<circle animation_id="5" clip-rule="evenodd" cx="321.442" cy="96.044" fill="#225CAC" fill-rule="evenodd" r="12.058">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "3.3776874061001925" from = "321.442 96.044" to = "0 0" fill = "freeze"/>
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "3.3776874061001925" from = "0" to = "1" fill = "freeze" additive="sum" />
+			</circle>
 			
 			
 			

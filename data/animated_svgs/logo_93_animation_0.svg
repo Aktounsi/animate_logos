@@ -127,7 +127,7 @@
 						
 						
 						<path animation_id="0" d="M14.19,135.13h9.27c7.24,0,13.27,2.53,13.27,10.59c0,7.85-6.13,10.64-12.51,10.64h-4.96v14.14h-5.07V135.13z        M19.26,151.91h5.02c3.14,0,7.09-1.57,7.09-6.23c0-4.46-4.66-6.08-7.8-6.08h-4.31V151.91z">
-							<animate attributeName = "opacity" begin = "0" dur = "4.222109257625241" from = "0" to = "1.0" fill = "freeze"/>
+							<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
 						</path>
 						
 						
@@ -138,7 +138,7 @@
 						
 						
 						<path animation_id="1" d="M43.73,144.66h4.46v4h0.1c1.27-2.69,4-4.61,6.74-4.61c1.42,0,2.13,0.15,3.14,0.36v4.26c-0.86-0.35-1.82-0.46-2.63-0.46       c-4.26,0-7.04,4.05-7.04,10.54v11.75h-4.76V144.66z">
-							<animate attributeName = "opacity" begin = "0" dur = "4.540564425976676" from = "0" to = "1.0" fill = "freeze"/>
+							<animate attributeName = "opacity" begin = "0" dur = "1.6197365498016572" from = "0" to = "1.0" fill = "freeze"/>
 						</path>
 						
 						
@@ -166,9 +166,7 @@
 						
 						
 						
-						<path animation_id="4" d="M127.16,138.88h-5.37v-5.37h5.37V138.88z M122.1,144.66h4.76v25.84h-4.76V144.66z">
-							<animate attributeName = "opacity" begin = "0" dur = "2.0246706872520717" from = "0" to = "1.0" fill = "freeze"/>
-						</path>
+						<path animation_id="4" d="M127.16,138.88h-5.37v-5.37h5.37V138.88z M122.1,144.66h4.76v25.84h-4.76V144.66z"/>
 						
 						
 						
@@ -240,10 +238,7 @@
 						
 						
 						
-						<path animation_id="10" d="M219.84,186.14h8.79v8.4h-8.79V186.14z M219.84,200.71h8.79v33.8h-8.79V200.71z">
-							<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "1.2525317068122028" from = "-224.235 -210.325" to = "0 0" fill = "freeze"/>
-							<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "1.2525317068122028" from = "2" to = "1" fill = "freeze" additive="sum" />
-						</path>
+						<path animation_id="10" d="M219.84,186.14h8.79v8.4h-8.79V186.14z M219.84,200.71h8.79v33.8h-8.79V200.71z"/>
 						
 						
 						

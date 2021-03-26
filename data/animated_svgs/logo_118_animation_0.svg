@@ -116,9 +116,7 @@
 					
 					
 					
-					<path animation_id="2" class="st1" d="M99.81,384.36h17.62v4.9h-11.47v8.93h10.85v4.9h-10.85v9.89h11.95v4.9h-18.1V384.36z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "4.222109257625241" from = "-58 108.86000000000001 401.12" to = "0 108.86000000000001 401.12" fill = "freeze"/>
-					</path>
+					<path animation_id="2" class="st1" d="M99.81,384.36h17.62v4.9h-11.47v8.93h10.85v4.9h-10.85v9.89h11.95v4.9h-18.1V384.36z"/>
 					
 					
 					
@@ -182,7 +180,7 @@
 					
 					
 					<path animation_id="9" class="st1" d="M442.87,384.36h7.3l11.14,26.31h0.1v-26.31h5.57v33.51h-7.34l-11.09-26.11h-0.1v26.11h-5.57V384.36z">
-						<animate attributeName = "opacity" begin = "0" dur = "2.0246706872520717" from = "0" to = "1.0" fill = "freeze"/>
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
 					</path>
 					
 					
@@ -192,7 +190,10 @@
 					
 					
 					
-					<path animation_id="10" class="st1" d="M498.07,384.36h6.14v33.51h-6.14V384.36z"/>
+					<path animation_id="10" class="st1" d="M498.07,384.36h6.14v33.51h-6.14V384.36z">
+						<animate attributeName = "opacity" begin = "0" dur = "3.03181761176121" from = "0" to = "0" fill = "remove"/>
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.03181761176121" dur = "3.3776874061001925" from = "-92.33236014737601 -201.71435502987757" to = "0 0" fill = "freeze"/>
+					</path>
 					
 					
 					

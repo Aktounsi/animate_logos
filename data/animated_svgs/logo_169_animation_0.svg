@@ -98,10 +98,7 @@
 					
 					
 					
-					<path animation_id="0" class="st0" d="M131.44,343.62c3.92,0,7.83,0.4,11.93,1.32v4c-0.26,0-6.21-0.66-11-0.66c-5.24,0-6.25,3.43-6.25,11.71      c0,8.89,1.23,11.53,6.12,11.57c3.12,0.04,6.6-2.02,6.6-2.02v-6.87h-5.54v-3.3c1.85-0.66,4.31-1.06,7.66-1.06      c0.92,0,1.94,0,2.99,0.09v17.78h-3.7l-1.32-2.16c-1.5,1.19-3.65,2.29-7.44,2.38c-9.11,0.26-10.47-7.26-10.47-16.5      C121.01,350.75,122.68,343.62,131.44,343.62z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "4.222109257625241" from = "132.48497774937357 360.0132726308104" to = "0 0" fill = "freeze"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "4.222109257625241" from = "0" to = "1" fill = "freeze" additive="sum" />
-					</path>
+					<path animation_id="0" class="st0" d="M131.44,343.62c3.92,0,7.83,0.4,11.93,1.32v4c-0.26,0-6.21-0.66-11-0.66c-5.24,0-6.25,3.43-6.25,11.71      c0,8.89,1.23,11.53,6.12,11.57c3.12,0.04,6.6-2.02,6.6-2.02v-6.87h-5.54v-3.3c1.85-0.66,4.31-1.06,7.66-1.06      c0.92,0,1.94,0,2.99,0.09v17.78h-3.7l-1.32-2.16c-1.5,1.19-3.65,2.29-7.44,2.38c-9.11,0.26-10.47-7.26-10.47-16.5      C121.01,350.75,122.68,343.62,131.44,343.62z"/>
 					
 					
 					
@@ -128,7 +125,9 @@
 					
 					
 					
-					<path animation_id="3" class="st0" d="M245.04,343.97h23.28v4.8h-9.2v27.42h-5.1v-27.42h-8.98V343.97z"/>
+					<path animation_id="3" class="st0" d="M245.04,343.97h23.28v4.8h-9.2v27.42h-5.1v-27.42h-8.98V343.97z">
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
+					</path>
 					
 					
 					
@@ -201,7 +200,8 @@
 					
 					
 					<path animation_id="9" class="st0" d="M508.09,147.05c-13.52,0-25.53,6.49-33.07,16.54c7.54,10.04,19.55,16.53,33.07,16.53      c13.52,0,25.53-6.5,33.07-16.54C533.62,153.55,521.62,147.05,508.09,147.05z">
-						<animate attributeName = "opacity" begin = "0" dur = "2.0246706872520717" from = "0" to = "1.0" fill = "freeze"/>
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "3.6324515407813407" from = "508.09000000000015 163.585" to = "0 0" fill = "freeze"/>
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "3.6324515407813407" from = "0" to = "1" fill = "freeze" additive="sum" />
 					</path>
 					
 					
@@ -211,7 +211,10 @@
 					
 					
 					
-					<path animation_id="10" class="st0" d="M359.28,180.12c13.52,0,25.53-6.49,33.07-16.54c-7.54-10.04-19.55-16.54-33.07-16.54      c-13.52,0-25.53,6.49-33.07,16.54C333.75,173.63,345.75,180.12,359.28,180.12z"/>
+					<path animation_id="10" class="st0" d="M359.28,180.12c13.52,0,25.53-6.49,33.07-16.54c-7.54-10.04-19.55-16.54-33.07-16.54      c-13.52,0-25.53,6.49-33.07,16.54C333.75,173.63,345.75,180.12,359.28,180.12z">
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "1.6197365498016572" from = "359.28 163.58" to = "0 0" fill = "freeze"/>
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "1.6197365498016572" from = "0" to = "1" fill = "freeze" additive="sum" />
+					</path>
 					
 					
 					
