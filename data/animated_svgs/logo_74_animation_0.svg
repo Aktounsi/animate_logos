@@ -107,10 +107,7 @@
 				
 				
 				
-				<path animation_id="0" class="st2" d="M70.54,218.52l41.29,41.74l41.29-41.74v94.87h-17.17v-57.42l-24.12,25.01l-24.12-25.01v57.42H70.54V218.52z">
-					<animate attributeName = "opacity" begin = "0" dur = "3.789772014701512" from = "0" to = "0" fill = "remove"/>
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.789772014701512" dur = "4.222109257625241" from = "-46.15585437919596 -140.093476404759" to = "0 0" fill = "freeze"/>
-				</path>
+				<path animation_id="0" class="st2" d="M70.54,218.52l41.29,41.74l41.29-41.74v94.87h-17.17v-57.42l-24.12,25.01l-24.12-25.01v57.42H70.54V218.52z"/>
 				
 				
 				
@@ -128,7 +125,10 @@
 				
 				
 				
-				<path animation_id="2" class="st2" d="M273.59,284.08h-11.1V267.8h11.1v-47.36h44.25c20.72,0,33.45,13.62,33.45,31.82     c0,13.47-9.32,24.12-21.76,27.97l23.24,33.15h-21.61l-19.39-29.3h-21.02v29.3h-17.17V284.08z M290.76,267.8h25.75     c12.14,0,17.61-7.25,17.61-15.54c0-8.29-5.48-15.54-17.61-15.54h-25.75V267.8z"/>
+				<path animation_id="2" class="st2" d="M273.59,284.08h-11.1V267.8h11.1v-47.36h44.25c20.72,0,33.45,13.62,33.45,31.82     c0,13.47-9.32,24.12-21.76,27.97l23.24,33.15h-21.61l-19.39-29.3h-21.02v29.3h-17.17V284.08z M290.76,267.8h25.75     c12.14,0,17.61-7.25,17.61-15.54c0-8.29-5.48-15.54-17.61-15.54h-25.75V267.8z">
+					<animate attributeName = "opacity" begin = "0" dur = "3.03181761176121" from = "0" to = "0" fill = "remove"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.03181761176121" dur = "3.3776874061001925" from = "-92.31170875839192 -280.186952809518" to = "0 0" fill = "freeze"/>
+				</path>
 				
 				
 				
@@ -146,10 +146,7 @@
 				
 				
 				
-				<path animation_id="4" class="st2" d="M482.42,236.73h-27.23v-16.28h71.63v16.28h-27.23v76.66h-17.17V236.73z">
-					<animate attributeName = "fill" begin = "0" dur = "3.918992945173863" from = "#FFFFFF" to = "#4d7994" fill = "remove"/>
-					<animate attributeName = "fill" begin = "3.918992945173863" dur = "2.0246706872520717" from = "#4d7994" to = "#FFFFFF" fill = "freeze"/>
-				</path>
+				<path animation_id="4" class="st2" d="M482.42,236.73h-27.23v-16.28h71.63v16.28h-27.23v76.66h-17.17V236.73z"/>
 				
 				
 				
@@ -212,10 +209,7 @@
 				
 				
 				
-				<path animation_id="9" class="st2" d="M232.15,435.28v16.17h-4.87v-26.93l17.01,16.72v-16.17h4.87V452L232.15,435.28z">
-					<animate attributeName = "opacity" begin = "0" dur = "4.548731279841201" from = "0" to = "0" fill = "remove"/>
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "4.548731279841201" dur = "1.2525317068122028" from = "280.54664012548017 180.26723583761822" to = "0 0" fill = "freeze"/>
-				</path>
+				<path animation_id="9" class="st2" d="M232.15,435.28v16.17h-4.87v-26.93l17.01,16.72v-16.17h4.87V452L232.15,435.28z"/>
 				
 				
 				
@@ -225,8 +219,8 @@
 				
 				
 				<path animation_id="10" class="st2" d="M265.75,429.7h-7.73v-4.62h20.33v4.62h-7.73v21.76h-4.87V429.7z">
-					<animate attributeName = "fill" begin = "0" dur = "2.5234342790869513" from = "#FFFFFF" to = "#47c09d" fill = "remove"/>
-					<animate attributeName = "fill" begin = "2.5234342790869513" dur = "4.540564425976676" from = "#47c09d" to = "#FFFFFF" fill = "freeze"/>
+					<animate attributeName = "opacity" begin = "0" dur = "3.1351943561390905" from = "0" to = "0" fill = "remove"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.1351943561390905" dur = "1.6197365498016572" from = "-228.5899497510705 -27.199019884132078" to = "0 0" fill = "freeze"/>
 				</path>
 				
 				

@@ -30,10 +30,7 @@
 			
 			
 			
-			<path animation_id="0" clip-rule="evenodd" d="M335.095,51.4c0,20.773-16.859,37.634-37.633,37.634    c-20.775,0-37.635-16.86-37.635-37.634s16.859-37.634,37.635-37.634C318.235,13.767,335.095,30.627,335.095,51.4z" fill="#FBB908" fill-rule="evenodd">
-				<animate attributeName = "opacity" begin = "0" dur = "3.918992945173863" from = "0" to = "0" fill = "remove"/>
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.918992945173863" dur = "2.0246706872520717" from = "-117.08321367064038 -4.444729870430431" to = "0 0" fill = "freeze"/>
-			</path>
+			<path animation_id="0" clip-rule="evenodd" d="M335.095,51.4c0,20.773-16.859,37.634-37.633,37.634    c-20.775,0-37.635-16.86-37.635-37.634s16.859-37.634,37.635-37.634C318.235,13.767,335.095,30.627,335.095,51.4z" fill="#FBB908" fill-rule="evenodd"/>
 			
 			
 			
@@ -43,7 +40,8 @@
 			
 			
 			<path animation_id="1" clip-rule="evenodd" d="M203.423,28.817c0,8.31-6.746,15.054-15.055,15.054    c-8.31,0-15.054-6.744-15.054-15.054c0-8.311,6.744-15.055,15.054-15.055C196.677,13.763,203.423,20.507,203.423,28.817" fill="#FBB908" fill-rule="evenodd">
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewX" begin = "0" dur = "1.2525317068122028" from = "12" to = "0" fill = "freeze"/>
+				<animate attributeName = "fill" begin = "0" dur = "2.018747423269561" from = "#000000" to = "#47c09d" fill = "remove"/>
+				<animate attributeName = "fill" begin = "2.018747423269561" dur = "3.6324515407813407" from = "#47c09d" to = "#000000" fill = "freeze"/>
 			</path>
 			
 			
@@ -62,7 +60,9 @@
 			
 			
 			
-			<path animation_id="3" clip-rule="evenodd" d="M248.509,28.817c0,8.31-6.744,15.054-15.054,15.054    c-8.309,0-15.053-6.744-15.053-15.054c0-8.311,6.744-15.055,15.053-15.055C241.765,13.763,248.509,20.507,248.509,28.817" fill="#FBB908" fill-rule="evenodd"/>
+			<path animation_id="3" clip-rule="evenodd" d="M248.509,28.817c0,8.31-6.744,15.054-15.054,15.054    c-8.309,0-15.053-6.744-15.053-15.054c0-8.311,6.744-15.055,15.053-15.055C241.765,13.763,248.509,20.507,248.509,28.817" fill="#FBB908" fill-rule="evenodd">
+				<animate attributeName = "opacity" begin = "0" dur = "1.6197365498016572" from = "0" to = "1.0" fill = "freeze"/>
+			</path>
 			
 			
 			
@@ -72,8 +72,8 @@
 			
 			
 			<path animation_id="4" clip-rule="evenodd" d="M248.509,73.983c0,8.311-6.744,15.055-15.054,15.055    c-8.309,0-15.053-6.744-15.053-15.055c0-8.309,6.744-15.055,15.053-15.055C241.765,58.929,248.509,65.675,248.509,73.983" fill="#FBB908" fill-rule="evenodd">
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "4.540564425976676" from = "233.45549999999997 73.983" to = "0 0" fill = "freeze"/>
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "4.540564425976676" from = "0" to = "1" fill = "freeze" additive="sum" />
+				<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#000000" to = "#6b4282" fill = "remove"/>
+				<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#000000" fill = "freeze"/>
 			</path>
 			
 			
@@ -83,10 +83,7 @@
 			
 			
 			
-			<path animation_id="5" clip-rule="evenodd" d="M421.659,23.201c0,5.194-4.215,9.409-9.408,9.409    c-5.195,0-9.41-4.215-9.41-9.409s4.215-9.409,9.41-9.409C417.444,13.792,421.659,18.007,421.659,23.201" fill="#FBB908" fill-rule="evenodd">
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "4.222109257625241" from = "412.25 23.201" to = "0 0" fill = "freeze"/>
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "4.222109257625241" from = "0" to = "1" fill = "freeze" additive="sum" />
-			</path>
+			<path animation_id="5" clip-rule="evenodd" d="M421.659,23.201c0,5.194-4.215,9.409-9.408,9.409    c-5.195,0-9.41-4.215-9.41-9.409s4.215-9.409,9.41-9.409C417.444,13.792,421.659,18.007,421.659,23.201" fill="#FBB908" fill-rule="evenodd"/>
 			
 			
 			
@@ -141,7 +138,8 @@
 				
 				
 				<path animation_id="10" d="M56.011,152.152c0-8.819,3.794-13.065,11.766-13.065s11.766,4.246,11.766,13.065c0,8.818-3.794,13.065-11.766,13.065     S56.011,160.971,56.011,152.152z M67.776,163.366c4.783,0,5.772-5.443,5.772-11.214s-0.989-11.215-5.772-11.215     s-5.772,5.444-5.772,11.215S62.993,163.366,67.776,163.366z">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.5507378465966632" from = "287 67.777 152.152" to = "0 67.777 152.152" fill = "freeze"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "1.0020253654497622" from = "-67.777 -152.152" to = "0 0" fill = "freeze"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "1.0020253654497622" from = "2" to = "1" fill = "freeze" additive="sum" />
 				</path>
 				
 				

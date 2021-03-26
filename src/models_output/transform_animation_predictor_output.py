@@ -28,8 +28,8 @@ def transform_animation_predictor_output(file, animation_id, output):
 
     if output[0] == 1:
         animation["type"] = "translate"
-        xcoord = (output[8] * 2 - 1) * width/2
-        ycoord = (output[9] * 2 - 1) * height/2
+        xcoord = (output[8] * 2 - 1) * width
+        ycoord = (output[9] * 2 - 1) * height
         animation["from_"] = f"{str(xcoord)} {str(ycoord)}"
         animation["to"] = "0 0"
 

@@ -88,9 +88,7 @@
 				
 				
 				
-				<path animation_id="0" class="st0" d="M30.34,14.36h6.16l7.6,44.92h0.15l12.69-44.92h5.47l12.46,44.61h0.15l7.83-44.61h5.24L78.45,66.8h-6.99     L59.22,22.87h-0.15L47.06,66.8h-6.99L30.34,14.36z">
-					<animate attributeName = "opacity" begin = "0" dur = "4.222109257625241" from = "0" to = "1.0" fill = "freeze"/>
-				</path>
+				<path animation_id="0" class="st0" d="M30.34,14.36h6.16l7.6,44.92h0.15l12.69-44.92h5.47l12.46,44.61h0.15l7.83-44.61h5.24L78.45,66.8h-6.99     L59.22,22.87h-0.15L47.06,66.8h-6.99L30.34,14.36z"/>
 				
 				
 				
@@ -108,7 +106,9 @@
 				
 				
 				
-				<path animation_id="2" class="st0" d="M139.19,14.36h6.38v6.84h-6.38V14.36z M139.57,30.62h5.62V66.8h-5.62V30.62z"/>
+				<path animation_id="2" class="st0" d="M139.19,14.36h6.38v6.84h-6.38V14.36z M139.57,30.62h5.62V66.8h-5.62V30.62z">
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
+				</path>
 				
 				
 				
@@ -118,7 +118,8 @@
 				
 				
 				<path animation_id="3" class="st0" d="M182.81,59.81h-0.15c-0.76,2.43-3.8,7.83-10.49,7.83c-9.73,0-12.24-9.2-12.24-18.85c0-10.34,3.88-19,13-19     c6.76,0,8.89,5.09,9.73,7.3h0.15V14.36h5.62V66.8h-5.62V59.81z M173.46,63.84c5.62,0,9.35-6.76,9.35-15.81     c0-4.26-2.13-14.59-8.89-14.59c-5.93,0-7.68,8.13-7.68,15.73C166.24,56.24,167.69,63.84,173.46,63.84z">
-					<animate attributeName = "opacity" begin = "0" dur = "4.540564425976676" from = "0" to = "1.0" fill = "freeze"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "1.0020253654497622" from = "-174.17999999999998 -41.00000000000002" to = "0 0" fill = "freeze"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "1.0020253654497622" from = "2" to = "1" fill = "freeze" additive="sum" />
 				</path>
 				
 				
@@ -129,7 +130,7 @@
 				
 				
 				<path animation_id="4" class="st0" d="M229.7,66.19c-2.96,0.84-4.86,1.44-8.97,1.44c-10.79,0-17.86-6.69-17.86-19.99     c0-10.34,4.1-17.86,14.67-17.86c12.84,0,12.84,11.63,12.84,14.59h-21.21c0,7.98,2.74,19.61,13.91,19.61     c3.27,0,4.48-0.53,6.61-1.06V66.19z M224.54,41.04c0-3.12-0.91-8.21-7.37-8.21s-7.83,6.23-7.83,8.21H224.54z">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "2.0246706872520717" from = "-1" to = "0" fill = "freeze"/>
+					<animate attributeName = "opacity" begin = "0" dur = "3.6324515407813407" from = "0" to = "1.0" fill = "freeze"/>
 				</path>
 				
 				
@@ -139,7 +140,10 @@
 				
 				
 				
-				<path animation_id="5" class="st0" d="M244.6,30.62h5.47v8.89h0.15c2.2-4.56,5.85-9.73,13-9.73c6.31,0,8.66,5.47,8.66,9.5V66.8h-5.62V43.39     c0-3.88,0-8.97-5.02-8.97c-7.6,0-11.02,9.88-11.02,16.87v15.5h-5.62V30.62z"/>
+				<path animation_id="5" class="st0" d="M244.6,30.62h5.47v8.89h0.15c2.2-4.56,5.85-9.73,13-9.73c6.31,0,8.66,5.47,8.66,9.5V66.8h-5.62V43.39     c0-3.88,0-8.97-5.02-8.97c-7.6,0-11.02,9.88-11.02,16.87v15.5h-5.62V30.62z">
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "3.3776874061001925" from = "258.24000000000007 48.28999999999999" to = "0 0" fill = "freeze"/>
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "3.3776874061001925" from = "0" to = "1" fill = "freeze" additive="sum" />
+				</path>
 				
 				
 				
@@ -175,9 +179,7 @@
 				
 				
 				
-				<path animation_id="9" class="st0" d="M409.44,14.36h5.62v25.99h0.15c1.06-2.89,4.71-10.56,12.24-10.56c4.71,0,9.27,2.96,9.27,10.26V66.8h-5.62     V42.56c0-4.18-0.76-8.13-5.4-8.13c-6.76,0-10.64,9.73-10.64,16.34V66.8h-5.62V14.36z">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.2525317068122028" from = "347 423.08 40.58" to = "0 423.08 40.58" fill = "freeze"/>
-				</path>
+				<path animation_id="9" class="st0" d="M409.44,14.36h5.62v25.99h0.15c1.06-2.89,4.71-10.56,12.24-10.56c4.71,0,9.27,2.96,9.27,10.26V66.8h-5.62     V42.56c0-4.18-0.76-8.13-5.4-8.13c-6.76,0-10.64,9.73-10.64,16.34V66.8h-5.62V14.36z"/>
 				
 				
 				
