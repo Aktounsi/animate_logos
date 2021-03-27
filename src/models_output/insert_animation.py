@@ -10,7 +10,7 @@ def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
     Args:
         file (string): The path of the SVG file
         animation_id (list[int]): List of Path IDs that get animated
-        model_output (list[list[dict]]): List of 13 dimensional lists with animation predictor model output
+        model_output (ndarray): Array of 13 dimensional arrays with animation predictor model output
         filename_suffix  (string): Suffix of animated SVG
     """
     doc = svg_to_doc(file)
