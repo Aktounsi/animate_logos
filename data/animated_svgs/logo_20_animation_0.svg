@@ -105,9 +105,17 @@
 					
 					
 					
-					<path animation_id="1" class="st0" d="M93.8,101.4V16.15h53.63v17.02H113v15.62h31.75v17.02H113v18.56h34.43v17.02H93.8z">
-						<animate attributeName = "fill" begin = "0" dur = "2.018747423269561" from = "#003882" to = "#47c09d" fill = "remove"/>
-						<animate attributeName = "fill" begin = "2.018747423269561" dur = "3.6324515407813407" from = "#47c09d" to = "#003882" fill = "freeze"/>
+					<path animation_id="1" class="st0" d="M93.8,101.4V16.15h53.63v17.02H113v15.62h31.75v17.02H113v18.56h34.43v17.02H93.8z"/>
+					
+					
+					
+					
+				
+					
+					
+					
+					<path animation_id="2" class="st0" d="M185.19,73.49c0,7.42,2.43,11.78,11.9,11.78c6.14,0,14.59-0.77,22.02-2.05l2.69,16.77      c-8.45,1.79-16.13,2.69-24.71,2.69c-21.5,0-31.11-10.62-31.11-26.11V40.98c0-15.49,9.6-26.11,31.11-26.11      c8.58,0,16.26,0.9,24.71,2.69l-2.69,16.77c-7.42-1.28-15.87-2.05-22.02-2.05c-9.47,0-11.9,4.35-11.9,11.78V73.49z">
+						<animate attributeName = "opacity" begin = "0" dur = "1.6197365498016572" from = "0" to = "1.0" fill = "freeze"/>
 					</path>
 					
 					
@@ -117,19 +125,7 @@
 					
 					
 					
-					<path animation_id="2" class="st0" d="M185.19,73.49c0,7.42,2.43,11.78,11.9,11.78c6.14,0,14.59-0.77,22.02-2.05l2.69,16.77      c-8.45,1.79-16.13,2.69-24.71,2.69c-21.5,0-31.11-10.62-31.11-26.11V40.98c0-15.49,9.6-26.11,31.11-26.11      c8.58,0,16.26,0.9,24.71,2.69l-2.69,16.77c-7.42-1.28-15.87-2.05-22.02-2.05c-9.47,0-11.9,4.35-11.9,11.78V73.49z"/>
-					
-					
-					
-					
-				
-					
-					
-					
-					<path animation_id="3" class="st0" d="M241,16.15h19.2v85.25H241V16.15z M262.63,57.88l23.04-41.73h21.63l-23.94,41.73l25.73,43.52h-21.63      L262.63,57.88z">
-						<animate attributeName = "opacity" begin = "0" dur = "3.1351943561390905" from = "0" to = "0" fill = "remove"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.1351943561390905" dur = "1.6197365498016572" from = "-228.5860160055921 -5.275046534058999" to = "0 0" fill = "freeze"/>
-					</path>
+					<path animation_id="3" class="st0" d="M241,16.15h19.2v85.25H241V16.15z M262.63,57.88l23.04-41.73h21.63l-23.94,41.73l25.73,43.52h-21.63      L262.63,57.88z"/>
 					
 					
 					
@@ -176,7 +172,10 @@
 				
 				
 				
-				<rect animation_id="7" class="st0" height="22.68" width="22.68" x="452.5" y="90.02"/>
+				<rect animation_id="7" class="st0" height="22.68" width="22.68" x="452.5" y="90.02">
+					<animate attributeName = "fill" begin = "0" dur = "2.018747423269561" from = "#003882" to = "#47c09d" fill = "remove"/>
+					<animate attributeName = "fill" begin = "2.018747423269561" dur = "3.6324515407813407" from = "#47c09d" to = "#003882" fill = "freeze"/>
+				</rect>
 				
 				
 				

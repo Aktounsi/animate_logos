@@ -51,7 +51,10 @@
 			
 			
 			
-			<polygon animation_id="25" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    108.848,261.292 191.58,284.089 179.903,342.854 84.857,313.019   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0"/>
+			<polygon animation_id="25" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    108.848,261.292 191.58,284.089 179.903,342.854 84.857,313.019   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0">
+				<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#000000" to = "#6b4282" fill = "remove"/>
+				<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#000000" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -61,7 +64,9 @@
 			
 			
 			
-			<polygon animation_id="26" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    231.885,56.142 174.067,29.069 151.844,54.451 225.211,88.483   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0"/>
+			<polygon animation_id="26" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    231.885,56.142 174.067,29.069 151.844,54.451 225.211,88.483   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0">
+				<animate attributeName = "opacity" begin = "0" dur = "1.0020253654497622" from = "0" to = "1.0" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -71,7 +76,9 @@
 			
 			
 			
-			<polygon animation_id="27" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    250.668,32.149 295.921,18.651 328.932,39.681 279.271,66.677   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0"/>
+			<polygon animation_id="27" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    250.668,32.149 295.921,18.651 328.932,39.681 279.271,66.677   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.2405902772773305" from = "287 289.8 42.664" to = "0 289.8 42.664" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -81,7 +88,9 @@
 			
 			
 			
-			<polygon animation_id="28" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    351.664,26.343 398.374,14.312 435.263,39.331 358.994,49.885   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0"/>
+			<polygon animation_id="28" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    351.664,26.343 398.374,14.312 435.263,39.331 358.994,49.885   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewX" begin = "0" dur = "0.4028048322734632" from = "16" to = "0" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -99,9 +108,7 @@
 				
 				
 				
-				<path animation_id="0" d="M191.639,130.376h19.002v57.211h29.423v14.099h-48.425V130.376z">
-					<animate attributeName = "opacity" begin = "0" dur = "3.3776874061001925" from = "0" to = "1.0" fill = "freeze"/>
-				</path>
+				<path animation_id="0" d="M191.639,130.376h19.002v57.211h29.423v14.099h-48.425V130.376z"/>
 				
 				
 				
@@ -110,9 +117,7 @@
 				
 				
 				
-				<path animation_id="1" d="M263.251,130.376h50.262v13.484h-31.261v14.713h29.524v13.485h-29.524V188.2h32.386v13.485h-51.387V130.376z">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "skewX" begin = "0" dur = "1.2405902772773305" from = "7" to = "0" fill = "freeze"/>
-				</path>
+				<path animation_id="1" d="M263.251,130.376h50.262v13.484h-31.261v14.713h29.524v13.485h-29.524V188.2h32.386v13.485h-51.387V130.376z"/>
 				
 				
 				
@@ -121,10 +126,7 @@
 				
 				
 				
-				<path animation_id="2" d="M347.834,184.113c4.901,2.655,11.749,4.7,19.615,4.7c6.027,0,11.747-1.227,11.747-6.947     c0-13.281-33.714-4.904-33.714-30.853c0-17.163,16.756-21.863,31.058-21.863c6.845,0,13.589,1.022,18.391,2.655l-1.227,14.713     c-4.903-2.248-10.42-3.27-15.834-3.27c-4.803,0-12.771,0.408-12.771,6.641c0,11.543,33.713,3.779,33.713,29.524     c0,18.491-15.527,23.497-31.362,23.497c-6.64,0-14.915-1.021-21.252-3.064L347.834,184.113z">
-					<animate attributeName = "opacity" begin = "0" dur = "3.1351943561390905" from = "0" to = "0" fill = "remove"/>
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.1351943561390905" dur = "1.6197365498016572" from = "-234.16603396673293 -16.717497740347675" to = "0 0" fill = "freeze"/>
-				</path>
+				<path animation_id="2" d="M347.834,184.113c4.901,2.655,11.749,4.7,19.615,4.7c6.027,0,11.747-1.227,11.747-6.947     c0-13.281-33.714-4.904-33.714-30.853c0-17.163,16.756-21.863,31.058-21.863c6.845,0,13.589,1.022,18.391,2.655l-1.227,14.713     c-4.903-2.248-10.42-3.27-15.834-3.27c-4.803,0-12.771,0.408-12.771,6.641c0,11.543,33.713,3.779,33.713,29.524     c0,18.491-15.527,23.497-31.362,23.497c-6.64,0-14.915-1.021-21.252-3.064L347.834,184.113z"/>
 				
 				
 				
@@ -133,9 +135,7 @@
 				
 				
 				
-				<path animation_id="3" d="M490.956,200.051c-5.415,1.329-11.441,2.86-21.146,2.86c-19.003,0-40.969-9.604-40.969-36.573     c0-24.827,17.37-37.188,40.866-37.188c7.253,0,14.302,1.634,21.147,3.679l-1.531,15.426c-6.132-3.372-12.056-5.006-18.595-5.006     c-13.486,0-22.271,9.807-22.271,23.089c0,13.996,9.91,22.476,23.805,22.476c6.232,0,12.564-1.635,17.774-3.678L490.956,200.051z">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "skewX" begin = "0" dur = "1.0020253654497622" from = "12" to = "0" fill = "freeze"/>
-				</path>
+				<path animation_id="3" d="M490.956,200.051c-5.415,1.329-11.441,2.86-21.146,2.86c-19.003,0-40.969-9.604-40.969-36.573     c0-24.827,17.37-37.188,40.866-37.188c7.253,0,14.302,1.634,21.147,3.679l-1.531,15.426c-6.132-3.372-12.056-5.006-18.595-5.006     c-13.486,0-22.271,9.807-22.271,23.089c0,13.996,9.91,22.476,23.805,22.476c6.232,0,12.564-1.635,17.774-3.678L490.956,200.051z"/>
 				
 				
 				
@@ -144,9 +144,7 @@
 				
 				
 				
-				<path animation_id="4" d="M521.087,130.376h19.002v27.277h22.475v-27.277h19.003v71.31h-19.003V171.14h-22.475v30.546h-19.002V130.376z">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "3.6324515407813407" from = "-158 551.327 166.031" to = "0 551.327 166.031" fill = "freeze"/>
-				</path>
+				<path animation_id="4" d="M521.087,130.376h19.002v27.277h22.475v-27.277h19.003v71.31h-19.003V171.14h-22.475v30.546h-19.002V130.376z"/>
 				
 				
 				
@@ -363,7 +361,9 @@
 			
 			
 			
-			<polygon animation_id="29" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    80.361,101.015 158.109,86.991 168.179,126.39 70.349,139.479   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0"/>
+			<polygon animation_id="29" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    80.361,101.015 158.109,86.991 168.179,126.39 70.349,139.479   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.6324515407813407" from = "10" to = "0" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -373,7 +373,9 @@
 			
 			
 			
-			<polygon animation_id="30" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    13.709,195.415 82.477,167.509 127.547,197.501 47.897,242.696   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0"/>
+			<polygon animation_id="30" clip-rule="evenodd" fill="#EC6608" fill-rule="evenodd" points="    13.709,195.415 82.477,167.509 127.547,197.501 47.897,242.696   " stroke="#EC6608" stroke-miterlimit="3.8637" stroke-width="0">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
+			</polygon>
 			
 			
 			
