@@ -108,9 +108,7 @@
 						
 						
 						
-						<path animation_id="0" class="st0" d="M-33.89-3.51c8.3,8.89,13.24,21.56,13.24,21.56C-24.14,7.54-28.21,2.32-34.92-6.17L-33.89-3.51z">
-							<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
-						</path>
+						<path animation_id="0" class="st0" d="M-33.89-3.51c8.3,8.89,13.24,21.56,13.24,21.56C-24.14,7.54-28.21,2.32-34.92-6.17L-33.89-3.51z"/>
 						
 						
 						
@@ -137,9 +135,7 @@
 						
 						
 						
-						<path animation_id="3" class="st0" d="M-24.19,13.38c0.22,1.38,3.05,6.61,3.05,6.61l-2.18-2.93c0-1.49-0.15-3.5-0.38-4.96L-24.19,13.38z">
-							<animate attributeName = "opacity" begin = "0" dur = "3.6324515407813407" from = "0" to = "1.0" fill = "freeze"/>
-						</path>
+						<path animation_id="3" class="st0" d="M-24.19,13.38c0.22,1.38,3.05,6.61,3.05,6.61l-2.18-2.93c0-1.49-0.15-3.5-0.38-4.96L-24.19,13.38z"/>
 						
 						
 						
@@ -157,9 +153,7 @@
 						
 						
 						
-						<path animation_id="5" class="st0" d="M-26.04,10.33c0.3,2.27,1.73,9.83,1.73,9.83l-1.16-4.84c0-2.44,0.42-4.7,0.11-7.09L-26.04,10.33z">
-							<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
-						</path>
+						<path animation_id="5" class="st0" d="M-26.04,10.33c0.3,2.27,1.73,9.83,1.73,9.83l-1.16-4.84c0-2.44,0.42-4.7,0.11-7.09L-26.04,10.33z"/>
 						
 						
 						
@@ -195,10 +189,7 @@
 						
 						
 						
-						<path animation_id="9" class="st0" d="M-23.27,9.47c1.58,1.01,5.96,5.85,5.96,5.85l-2.63-3.88c-1.82-0.86-3.47-1.16-5.14-2.23L-23.27,9.47z">
-							<animate attributeName = "fill" begin = "0" dur = "3.6389850238729604" from = "#009036" to = "#facee6" fill = "remove"/>
-							<animate attributeName = "fill" begin = "3.6389850238729604" dur = "1.0020253654497622" from = "#facee6" to = "#009036" fill = "freeze"/>
-						</path>
+						<path animation_id="9" class="st0" d="M-23.27,9.47c1.58,1.01,5.96,5.85,5.96,5.85l-2.63-3.88c-1.82-0.86-3.47-1.16-5.14-2.23L-23.27,9.47z"/>
 						
 						
 						
@@ -1550,7 +1541,10 @@
 					
 					
 					
-					<path animation_id="134" class="st2" d="M14.87,27.65c0-7.44,6.29-13.48,14.04-13.48h85.31c7.75,0,14.04,6.04,14.04,13.48v43.91      c0,7.44-6.28,13.48-14.04,13.48H28.91c-7.75,0-14.04-6.04-14.04-13.48V27.65z"/>
+					<path animation_id="134" class="st2" d="M14.87,27.65c0-7.44,6.29-13.48,14.04-13.48h85.31c7.75,0,14.04,6.04,14.04,13.48v43.91      c0,7.44-6.28,13.48-14.04,13.48H28.91c-7.75,0-14.04-6.04-14.04-13.48V27.65z">
+						<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#00519E" to = "#6b4282" fill = "remove"/>
+						<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#00519E" fill = "freeze"/>
+					</path>
 					
 					
 					

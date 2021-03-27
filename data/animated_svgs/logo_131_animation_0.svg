@@ -51,7 +51,7 @@
 			
 			
 			<polygon animation_id="1" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" points="29.953,105.449 29.953,54.328 83.149,107.523     83.538,107.523 83.538,16.438 66.411,16.441 66.411,68.211 13.215,14.366 12.826,14.366 12.826,105.441   ">
-				<animate attributeName = "opacity" begin = "0" dur = "1.6197365498016572" from = "0" to = "1.0" fill = "freeze"/>
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
 			</polygon>
 			
 			
@@ -61,9 +61,7 @@
 			
 			
 			
-			<path animation_id="0" clip-rule="evenodd" d="M232.64,67.433l17.646,40.091h0.259l38.406-91.082l-18.745-0.004    l-20.958,52.422l-8.562-19.072l-8.047-18.288c-5.842,12.661-11.526,25.355-17.125,38.14l-21.01-53.201l-18.562,0.004    l38.665,91.082h0.259L232.64,67.433z" fill="#225CAC" fill-rule="evenodd">
-				<animate attributeName = "opacity" begin = "0" dur = "3.3776874061001925" from = "0" to = "1.0" fill = "freeze"/>
-			</path>
+			<path animation_id="0" clip-rule="evenodd" d="M232.64,67.433l17.646,40.091h0.259l38.406-91.082l-18.745-0.004    l-20.958,52.422l-8.562-19.072l-8.047-18.288c-5.842,12.661-11.526,25.355-17.125,38.14l-21.01-53.201l-18.562,0.004    l38.665,91.082h0.259L232.64,67.433z" fill="#225CAC" fill-rule="evenodd"/>
 			
 			
 			
@@ -72,7 +70,9 @@
 			
 			
 			
-			<polygon animation_id="2" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" points="371.931,105.449 371.931,54.328 425.127,107.523     425.517,107.523 425.519,16.438 408.39,16.441 408.39,68.211 355.193,14.366 354.804,14.366 354.796,105.441   "/>
+			<polygon animation_id="2" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" points="371.931,105.449 371.931,54.328 425.127,107.523     425.517,107.523 425.519,16.438 408.39,16.441 408.39,68.211 355.193,14.366 354.804,14.366 354.796,105.441   ">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.6197365498016572" from = "-142 390.1575 60.9445" to = "0 390.1575 60.9445" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -99,7 +99,9 @@
 			
 			
 			
-			<polygon animation_id="5" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" points="518.873,32.916 543.136,32.916 543.127,105.438     560.263,105.444 560.263,32.916 582.449,32.916 582.449,16.438 523.026,16.438   "/>
+			<polygon animation_id="5" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" points="518.873,32.916 543.136,32.916 543.127,105.438     560.263,105.444 560.263,32.916 582.449,32.916 582.449,16.438 523.026,16.438   ">
+				<animate attributeName = "opacity" begin = "0" dur = "3.6324515407813407" from = "0" to = "1.0" fill = "freeze"/>
+			</polygon>
 			
 			
 			
@@ -108,7 +110,10 @@
 			
 			
 			
-			<rect animation_id="6" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" height="14.272" width="32.436" x="296.883" y="65.356"/>
+			<rect animation_id="6" clip-rule="evenodd" fill="#225CAC" fill-rule="evenodd" height="14.272" width="32.436" x="296.883" y="65.356">
+				<animate attributeName = "fill" begin = "0" dur = "3.6389850238729604" from = "#000000" to = "#facee6" fill = "remove"/>
+				<animate attributeName = "fill" begin = "3.6389850238729604" dur = "1.0020253654497622" from = "#facee6" to = "#000000" fill = "freeze"/>
+			</rect>
 			
 			
 			

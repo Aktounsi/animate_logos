@@ -89,7 +89,10 @@
 				
 				
 				
-				<path animation_id="0" class="st0" d="M581.22,327.16c0,15.45-12.61,28.35-28.35,28.35H42.64c-15.73,0-28.35-12.9-28.35-28.35V43.7     c0-15.73,12.61-28.35,28.35-28.35h510.24c15.73,0,28.35,12.61,28.35,28.35V327.16z"/>
+				<path animation_id="0" class="st0" d="M581.22,327.16c0,15.45-12.61,28.35-28.35,28.35H42.64c-15.73,0-28.35-12.9-28.35-28.35V43.7     c0-15.73,12.61-28.35,28.35-28.35h510.24c15.73,0,28.35,12.61,28.35,28.35V327.16z">
+					<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#003D7C" to = "#6b4282" fill = "remove"/>
+					<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#003D7C" fill = "freeze"/>
+				</path>
 				
 				
 				
@@ -179,9 +182,7 @@
 					
 					
 					
-					<path animation_id="9" class="st1" d="M442.87,384.36h7.3l11.14,26.31h0.1v-26.31h5.57v33.51h-7.34l-11.09-26.11h-0.1v26.11h-5.57V384.36z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
-					</path>
+					<path animation_id="9" class="st1" d="M442.87,384.36h7.3l11.14,26.31h0.1v-26.31h5.57v33.51h-7.34l-11.09-26.11h-0.1v26.11h-5.57V384.36z"/>
 					
 					
 					
@@ -190,10 +191,7 @@
 					
 					
 					
-					<path animation_id="10" class="st1" d="M498.07,384.36h6.14v33.51h-6.14V384.36z">
-						<animate attributeName = "opacity" begin = "0" dur = "3.03181761176121" from = "0" to = "0" fill = "remove"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.03181761176121" dur = "3.3776874061001925" from = "-92.33236014737601 -201.71435502987757" to = "0 0" fill = "freeze"/>
-					</path>
+					<path animation_id="10" class="st1" d="M498.07,384.36h6.14v33.51h-6.14V384.36z"/>
 					
 					
 					
@@ -229,7 +227,9 @@
 					
 					
 					
-					<path animation_id="12" class="st2" d="M14.06,100.3h88.06c12.2,0,22.01,9.82,22.01,22.02v148.16h-22.01V122.31H80.1v148.16H58.09V122.31H36.07      v148.16H14.06V100.3z"/>
+					<path animation_id="12" class="st2" d="M14.06,100.3h88.06c12.2,0,22.01,9.82,22.01,22.02v148.16h-22.01V122.31H80.1v148.16H58.09V122.31H36.07      v148.16H14.06V100.3z">
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.6324515407813407" from = "10" to = "0" fill = "freeze"/>
+					</path>
 					
 					
 					
@@ -238,7 +238,9 @@
 					
 					
 					
-					<path animation_id="13" class="st2" d="M205.05,144.27h-22.02v127.98c-5.95-0.3-11.3-2.68-15.47-6.54c-4.17-3.87-6.55-9.52-6.55-15.47V100.3h22.02      v22.01h22.02V144.27z"/>
+					<path animation_id="13" class="st2" d="M205.05,144.27h-22.02v127.98c-5.95-0.3-11.3-2.68-15.47-6.54c-4.17-3.87-6.55-9.52-6.55-15.47V100.3h22.02      v22.01h22.02V144.27z">
+						<animate attributeName = "opacity" begin = "0" dur = "1.0020253654497622" from = "0" to = "1.0" fill = "freeze"/>
+					</path>
 					
 					
 					
@@ -247,7 +249,9 @@
 					
 					
 					
-					<path animation_id="14" class="st2" d="M230.93,100.3h88.06c12.2,0,22.02,9.82,22.02,22.02v148.16h-22.02V122.31h-22.02v148.16h-22.01V122.31      h-22.02v148.16h-22.01V100.3z"/>
+					<path animation_id="14" class="st2" d="M230.93,100.3h88.06c12.2,0,22.02,9.82,22.02,22.02v148.16h-22.02V122.31h-22.02v148.16h-22.01V122.31      h-22.02v148.16h-22.01V100.3z">
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
+					</path>
 					
 					
 					

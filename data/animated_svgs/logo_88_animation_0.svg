@@ -39,9 +39,7 @@
 				
 				
 				
-				<path animation_id="0" d="M207.362,36.171v70.307c0,11.301-0.376,13.561-1.255,17.076c-2.511,10.67-12.43,17.451-20.339,20.465     l-8.16-9.041c4.519-2.762,8.662-7.029,10.169-10.547c1.381-3.137,1.758-6.652,1.758-16.068V36.171H207.362z" fill="#1B3E90">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.6197365498016572" from = "-142 192.485 90.095" to = "0 192.485 90.095" fill = "freeze"/>
-				</path>
+				<path animation_id="0" d="M207.362,36.171v70.307c0,11.301-0.376,13.561-1.255,17.076c-2.511,10.67-12.43,17.451-20.339,20.465     l-8.16-9.041c4.519-2.762,8.662-7.029,10.169-10.547c1.381-3.137,1.758-6.652,1.758-16.068V36.171H207.362z" fill="#1B3E90"/>
 				
 				
 				
@@ -59,10 +57,7 @@
 				
 				
 				
-				<path animation_id="2" d="M382.118,55.757c-5.649-4.645-11.551-6.779-18.205-6.779c-5.147,0-9.541,1.506-12.555,4.395     c-5.901,5.648-7.408,15.064-7.408,28.123c0,12.428,2.137,20.463,6.53,24.857c3.264,3.139,8.035,4.896,13.685,4.896     c3.891,0,7.03-0.627,9.918-2.135V89.278h-13.309l-2.259-14.312h33.771v41.682c-8.913,5.273-18.706,7.783-29.001,7.783     c-13.057,0-22.725-4.268-29.755-13.307c-6.402-8.16-9.292-17.451-9.292-30.51c0-18.455,6.027-31.512,18.206-39.672     c6.403-4.27,12.932-6.152,21.217-6.152c10.547,0,20.088,3.389,27.747,10.043L382.118,55.757z" fill="#1B3E90">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "3.6324515407813407" from = "358.26199999999994 79.6105" to = "0 0" fill = "freeze"/>
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "3.6324515407813407" from = "0" to = "1" fill = "freeze" additive="sum" />
-				</path>
+				<path animation_id="2" d="M382.118,55.757c-5.649-4.645-11.551-6.779-18.205-6.779c-5.147,0-9.541,1.506-12.555,4.395     c-5.901,5.648-7.408,15.064-7.408,28.123c0,12.428,2.137,20.463,6.53,24.857c3.264,3.139,8.035,4.896,13.685,4.896     c3.891,0,7.03-0.627,9.918-2.135V89.278h-13.309l-2.259-14.312h33.771v41.682c-8.913,5.273-18.706,7.783-29.001,7.783     c-13.057,0-22.725-4.268-29.755-13.307c-6.402-8.16-9.292-17.451-9.292-30.51c0-18.455,6.027-31.512,18.206-39.672     c6.403-4.27,12.932-6.152,21.217-6.152c10.547,0,20.088,3.389,27.747,10.043L382.118,55.757z" fill="#1B3E90"/>
 				
 				
 				
@@ -99,8 +94,7 @@
 			
 			
 			<rect animation_id="5" fill="#EB5D0B" height="131.109" width="18.73" x="89.093" y="61.872">
-				<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#000000" to = "#6b4282" fill = "remove"/>
-				<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#000000" fill = "freeze"/>
+				<animate attributeName = "opacity" begin = "0" dur = "3.6324515407813407" from = "0" to = "1.0" fill = "freeze"/>
 			</rect>
 			
 			
@@ -110,7 +104,9 @@
 			
 			
 			
-			<rect animation_id="6" fill="#EB5D0B" height="131.109" width="18.73" x="126.552" y="61.872"/>
+			<rect animation_id="6" fill="#EB5D0B" height="131.109" width="18.73" x="126.552" y="61.872">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
+			</rect>
 			
 			
 			
@@ -119,7 +115,9 @@
 			
 			
 			
-			<rect animation_id="7" fill="#EB5D0B" height="131.109" width="18.729" x="51.633" y="61.872"/>
+			<rect animation_id="7" fill="#EB5D0B" height="131.109" width="18.729" x="51.633" y="61.872">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
+			</rect>
 			
 			
 			
@@ -128,7 +126,9 @@
 			
 			
 			
-			<rect animation_id="8" fill="#EB5D0B" height="131.109" width="18.729" x="14.174" y="61.872"/>
+			<rect animation_id="8" fill="#EB5D0B" height="131.109" width="18.729" x="14.174" y="61.872">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.0020253654497622" from = "347 23.5385 127.4265" to = "0 23.5385 127.4265" fill = "freeze"/>
+			</rect>
 			
 			
 			

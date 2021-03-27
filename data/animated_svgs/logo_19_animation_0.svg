@@ -105,7 +105,9 @@
 					
 					
 					
-					<path animation_id="1" class="st0" d="M93.77,101.36V16.11h53.63v17.02h-34.43v15.62h31.75v17.02h-31.75v18.56h34.43v17.02H93.77z"/>
+					<path animation_id="1" class="st0" d="M93.77,101.36V16.11h53.63v17.02h-34.43v15.62h31.75v17.02h-31.75v18.56h34.43v17.02H93.77z">
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "3.6324515407813407" from = "-158 120.58500000000001 58.735" to = "0 120.58500000000001 58.735" fill = "freeze"/>
+					</path>
 					
 					
 					
@@ -142,7 +144,7 @@
 					
 					
 					<path animation_id="5" class="st0" d="M507.89,118.4h-27.84l0.1-19.84l-16.33-14.17L447.6,98.56l0,19.84h-27.73l31.14-102.3h25.6L507.89,118.4z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
 					</path>
 					
 					
@@ -179,7 +181,10 @@
 				
 				
 				
-				<rect animation_id="8" class="st0" height="17.01" width="566.93" x="14.19" y="118.4"/>
+				<rect animation_id="8" class="st0" height="17.01" width="566.93" x="14.19" y="118.4">
+					<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#003882" to = "#6b4282" fill = "remove"/>
+					<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#003882" fill = "freeze"/>
+				</rect>
 				
 				
 				

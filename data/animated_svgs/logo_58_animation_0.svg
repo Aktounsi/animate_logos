@@ -89,8 +89,8 @@
 				
 				
 				<rect animation_id="9" class="st0" height="212.6" width="248.03" x="14.04" y="14.17">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "1.0020253654497622" from = "-138.055 -120.46999999999998" to = "0 0" fill = "freeze"/>
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "1.0020253654497622" from = "2" to = "1" fill = "freeze" additive="sum" />
+					<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#B6014C" to = "#6b4282" fill = "remove"/>
+					<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#B6014C" fill = "freeze"/>
 				</rect>
 				
 				
@@ -109,9 +109,17 @@
 					
 					
 					
-					<path animation_id="0" class="st1" d="M42.53,56.91h13.21v57.12h13.21V56.91h13.21v127.45H68.95v-57.12H55.74v57.12H42.53V56.91z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "1.6197365498016572" from = "62.345 120.635" to = "0 0" fill = "freeze"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "1.6197365498016572" from = "0" to = "1" fill = "freeze" additive="sum" />
+					<path animation_id="0" class="st1" d="M42.53,56.91h13.21v57.12h13.21V56.91h13.21v127.45H68.95v-57.12H55.74v57.12H42.53V56.91z"/>
+					
+					
+					
+					
+				
+					
+					
+					
+					<path animation_id="1" class="st1" d="M146.6,184.36h-26.42c-7.32,0-13.21-5.89-13.21-13.21v-48.73c0-7.32,5.89-13.21,13.21-13.21h13.21V95.47      h-23.56V82.26h23.56c7.32,0,13.21,5.89,13.21,13.21V184.36z M120.18,171.15h13.21v-48.73h-13.21V171.15z">
+						<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.6197365498016572" from = "-142 126.78500000000001 133.31" to = "0 126.78500000000001 133.31" fill = "freeze"/>
 					</path>
 					
 					
@@ -121,19 +129,7 @@
 					
 					
 					
-					<path animation_id="1" class="st1" d="M146.6,184.36h-26.42c-7.32,0-13.21-5.89-13.21-13.21v-48.73c0-7.32,5.89-13.21,13.21-13.21h13.21V95.47      h-23.56V82.26h23.56c7.32,0,13.21,5.89,13.21,13.21V184.36z M120.18,171.15h13.21v-48.73h-13.21V171.15z"/>
-					
-					
-					
-					
-				
-					
-					
-					
-					<path animation_id="2" class="st1" d="M211.03,184.36h-26.42c-7.32,0-13.21-5.89-13.21-13.21v-48.73c0-7.32,5.89-13.21,13.21-13.21h13.21V95.47      h-23.56V82.26h23.56c7.32,0,13.21,5.89,13.21,13.21V184.36z M184.61,171.15h13.21v-48.73h-13.21V171.15z">
-						<animate attributeName = "opacity" begin = "0" dur = "2.018747423269561" from = "0" to = "0" fill = "remove"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "2.018747423269561" dur = "3.6324515407813407" from = "-253.60477939912033 116.01743875346733" to = "0 0" fill = "freeze"/>
-					</path>
+					<path animation_id="2" class="st1" d="M211.03,184.36h-26.42c-7.32,0-13.21-5.89-13.21-13.21v-48.73c0-7.32,5.89-13.21,13.21-13.21h13.21V95.47      h-23.56V82.26h23.56c7.32,0,13.21,5.89,13.21,13.21V184.36z M184.61,171.15h13.21v-48.73h-13.21V171.15z"/>
 					
 					
 					
@@ -160,10 +156,7 @@
 					
 					
 					
-					<path animation_id="5" class="st0" d="M374.71,101c0-10.89,8.92-19.81,19.81-19.81c10.89,0,19.81,8.92,19.81,19.81v64.62      c0,10.89-8.92,19.81-19.81,19.81c-10.89,0-19.81-8.92-19.81-19.81V101z M387.92,171.15h13.21V95.47h-13.21V171.15z">
-						<animate attributeName = "opacity" begin = "0" dur = "3.03181761176121" from = "0" to = "0" fill = "remove"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "3.03181761176121" dur = "3.3776874061001925" from = "-92.33236014737594 -109.3408970721294" to = "0 0" fill = "freeze"/>
-					</path>
+					<path animation_id="5" class="st0" d="M374.71,101c0-10.89,8.92-19.81,19.81-19.81c10.89,0,19.81,8.92,19.81,19.81v64.62      c0,10.89-8.92,19.81-19.81,19.81c-10.89,0-19.81-8.92-19.81-19.81V101z M387.92,171.15h13.21V95.47h-13.21V171.15z"/>
 					
 					
 					
