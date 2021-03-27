@@ -4,6 +4,7 @@ import random
 
 def random_animation_vector(nr_animations, frac_animations=0.5, frac_animation_type=[1/6] * 6, seed=73):
     random.seed(seed)
+    np.random.seed(seed)
     animation_list = []
     for _ in range(nr_animations):
         animate = np.random.choice(a=[False, True], p=[1 - frac_animations, frac_animations])
@@ -17,3 +18,10 @@ def random_animation_vector(nr_animations, frac_animations=0.5, frac_animation_t
                 vec[i] = random.uniform(0, 1)
             animation_list.append(vec)
     return np.array(animation_list)
+
+
+if __name__ == '__main__':
+    a = random_animation_vector(3, seed=75)
+    b = random_animation_vector(3, seed=75)
+    print(a)
+    print(b)
