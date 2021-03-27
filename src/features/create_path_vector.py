@@ -26,9 +26,16 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_len
     df = df[df['filename'] != 'logo_126'].reset_index(drop=True) # drop logo_126 since there are problems with SVG metadata
 
     # train/test subsetting
-    split = round(len(np.unique(df['filename'])) * train_frc)
-    logos_train = np.unique(df['filename'])[:split]
-    logos_test = np.unique(df['filename'])[split:]
+
+    # do not use generic splitting since we do not want to allow logos from same company in both train and test data
+    # split = round(len(np.unique(df['filename'])) * train_frc)
+    #logos_train = np.unique(df['filename'])[:split]
+    #logos_test = np.unique(df['filename'])[split:]
+
+    # use manually splitting after inspecting the logos (ratio should be around 80/20)
+    logos_train = ['logo_{}'.format(i) for i in range(147)]
+    logos_test = ['logo_{}'.format(i) for i in range(147, 192)]
+
     if train:
         df = df.loc[df['filename'].isin(logos_train)]
     else:
