@@ -186,7 +186,10 @@
 			
 			
 			
-			<rect animation_id="11" clip-rule="evenodd" fill="#164194" fill-rule="evenodd" height="124.022" stroke="#164194" stroke-miterlimit="3.8637" stroke-width="0" width="35.434" x="258.593" y="14.335"/>
+			<rect animation_id="11" clip-rule="evenodd" fill="#164194" fill-rule="evenodd" height="124.022" stroke="#164194" stroke-miterlimit="3.8637" stroke-width="0" width="35.434" x="258.593" y="14.335">
+				<animate attributeName = "fill" begin = "0" dur = "3.03181761176121" from = "#000000" to = "#6b4282" fill = "remove"/>
+				<animate attributeName = "fill" begin = "3.03181761176121" dur = "3.3776874061001925" from = "#6b4282" to = "#000000" fill = "freeze"/>
+			</rect>
 			
 			
 			

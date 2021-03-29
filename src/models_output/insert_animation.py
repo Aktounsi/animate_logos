@@ -10,12 +10,12 @@ def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
     Args:
         file (string): The path of the SVG file
         animation_id (list[int]): List of Path IDs that get animated
-        model_output (list[list[dict]]): List of 13 dimensional lists with animation predictor model output
+        model_output (ndarray): Array of 13 dimensional arrays with animation predictor model output
         filename_suffix  (string): Suffix of animated SVG
     """
     doc = svg_to_doc(file)
     for i in range(len(animation_id)):
-        if model_output[i][-1] != -1:
+        if model_output[i][6] != -1:
             try:  # there are some paths that can't be embedded and don't have style attributes
                 output_dict = transform_animation_predictor_output(file, animation_id[i], model_output[i])
                 if output_dict["type"] == "translate":
@@ -28,9 +28,7 @@ def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
                     doc = insert_skew_statement(doc, animation_id[i], output_dict)
                 if output_dict["type"] == "fill":
                     doc = insert_fill_statement(doc, animation_id[i], output_dict)
-                if output_dict["type"] in ["stroke", "stroke-width"]:
-                    doc = insert_stroke_statement(doc, animation_id[i], output_dict)
-                if output_dict["type"] in ["opacity", "stroke-opacity"]:
+                if output_dict["type"] in ["opacity"]:
                     doc = insert_opacity_statement(doc, animation_id[i], output_dict)
             except:
                 pass
@@ -65,21 +63,23 @@ def save_animated_svg(doc, filename):
 
 def insert_translate_statement(doc, animation_id, model_output_dict):
     """ Function to insert translate statement. """
-    pre_animation_dict = {"type": "opacity",
-                          "begin": "0",
-                          "dur": model_output_dict["begin"],
-                          "from_": "0",
-                          "to": "0",
-                          "fill": "remove"}
+    pre_animations = []
+    opacity_dict_1, opacity_dict_2 = create_opacity_pre_animation_dicts(model_output_dict)
+    pre_animations.append(create_animation_statement(opacity_dict_1))
+    pre_animations.append(create_animation_statement(opacity_dict_2))
 
-    pre_animation = create_animation_statement(pre_animation_dict)
     animation = create_animation_statement(model_output_dict)
-    doc = insert_animation(doc, animation_id, animation, pre_animation)
+    doc = insert_animation(doc, animation_id, animation, pre_animations)
     return doc
 
 
 def insert_scale_statement(doc, animation_id, model_output_dict, file):
     """ Function to insert scale statement. """
+    pre_animations = []
+    opacity_dict_1, opacity_dict_2 = create_opacity_pre_animation_dicts(model_output_dict)
+    pre_animations.append(create_animation_statement(opacity_dict_1))
+    pre_animations.append(create_animation_statement(opacity_dict_2))
+
     x_midpoint, y_midpoint = get_midpoint_of_path_bbox(file, animation_id)
     if model_output_dict["from_"] > 1:
         model_output_dict["from_"] = 2
@@ -88,39 +88,46 @@ def insert_scale_statement(doc, animation_id, model_output_dict, file):
         model_output_dict["from_"] = 0
         pre_animation_from = f"{x_midpoint} {y_midpoint}"  # positive midpoint
 
-    pre_animation_dict = {"type": "translate",
-                          "begin": 0,
-                          "dur": model_output_dict["dur"],
-                          "from_": pre_animation_from,
-                          "to": "0 0",
-                          "fill": "freeze"}
+    translate_pre_animation_dict = {"type": "translate",
+                                    "begin": model_output_dict["begin"],
+                                    "dur": model_output_dict["dur"],
+                                    "from_": pre_animation_from,
+                                    "to": "0 0",
+                                    "fill": "freeze"}
+    pre_animations.append(create_animation_statement(translate_pre_animation_dict))
 
-    model_output_dict["begin"] = 0
-    pre_animation = create_animation_statement(pre_animation_dict)
     animation = create_animation_statement(model_output_dict) + ' additive="sum" '
-    doc = insert_animation(doc, animation_id, animation, pre_animation)
+    doc = insert_animation(doc, animation_id, animation, pre_animations)
     return doc
 
 
 def insert_rotate_statement(doc, animation_id, model_output_dict):
     """ Function to insert rotate statement. """
-    model_output_dict["begin"] = 0
+    pre_animations = []
+    opacity_dict_1, opacity_dict_2 = create_opacity_pre_animation_dicts(model_output_dict)
+    pre_animations.append(create_animation_statement(opacity_dict_1))
+    pre_animations.append(create_animation_statement(opacity_dict_2))
+
     animation = create_animation_statement(model_output_dict)
-    doc = insert_animation(doc, animation_id, animation)
+    doc = insert_animation(doc, animation_id, animation, pre_animations)
     return doc
 
 
 def insert_skew_statement(doc, animation_id, model_output_dict):
     """ Function to insert skew statement. """
-    model_output_dict["begin"] = 0
+    pre_animations = []
+    opacity_dict_1, opacity_dict_2 = create_opacity_pre_animation_dicts(model_output_dict)
+    pre_animations.append(create_animation_statement(opacity_dict_1))
+    pre_animations.append(create_animation_statement(opacity_dict_2))
+
     animation = create_animation_statement(model_output_dict)
-    doc = insert_animation(doc, animation_id, animation)
+    doc = insert_animation(doc, animation_id, animation, pre_animations)
     return doc
 
 
 def insert_fill_statement(doc, animation_id, model_output_dict):
     """ Function to insert fill statement. """
-    pre_animation = ""
+    pre_animations = []
     if model_output_dict['begin'] < 2:
         model_output_dict['begin'] = 0
     else:  # Wave
@@ -130,48 +137,37 @@ def insert_fill_statement(doc, animation_id, model_output_dict):
                               "from_": model_output_dict["to"],
                               "to": model_output_dict["from_"],
                               "fill": "remove"}
-        pre_animation = create_animation_statement(pre_animation_dict)
+        pre_animations.append(create_animation_statement(pre_animation_dict))
 
     animation = create_animation_statement(model_output_dict)
-    doc = insert_animation(doc, animation_id, animation, pre_animation)
-    return doc
-
-
-def insert_stroke_statement(doc, animation_id, model_output_dict):
-    """ Function to insert stroke and stroke-width statement. """
-    pre_animation = ""
-    if model_output_dict['begin'] < 2:
-        model_output_dict['begin'] = 0
-    else:  # Wave
-        pre_animation_dict = {"type": model_output_dict["type"],
-                              "begin": 0,
-                              "dur": model_output_dict["begin"],
-                              "from_": model_output_dict["to"],
-                              "to": model_output_dict["from_"],
-                              "fill": "remove"}
-        pre_animation = create_animation_statement(pre_animation_dict)
-
-    animation = create_animation_statement(model_output_dict)
-    doc = insert_animation(doc, animation_id, animation, pre_animation)
+    doc = insert_animation(doc, animation_id, animation, pre_animations)
     return doc
 
 
 def insert_opacity_statement(doc, animation_id, model_output_dict):
-    """ Function to insert opacity and stroke-opacity statement. """
-    model_output_dict["begin"] = 0
+    """ Function to insert opacity statement. """
+    pre_animations = []
+    opacity_pre_animation_dict = {"type": "opacity",
+                                  "begin": "0",
+                                  "dur": model_output_dict["begin"],
+                                  "from_": "0",
+                                  "to": "0",
+                                  "fill": "remove"}
+    pre_animations.append(create_animation_statement(opacity_pre_animation_dict))
+
     animation = create_animation_statement(model_output_dict)
-    doc = insert_animation(doc, animation_id, animation)
+    doc = insert_animation(doc, animation_id, animation, pre_animations)
     return doc
 
 
-def insert_animation(doc, animation_id, animation, pre_animation=""):
-    """ Function to insert one or two animation statements.
+def insert_animation(doc, animation_id, animation, pre_animations=None):
+    """ Function to insert animation statements including pre-animation statements.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file
         animation_id (int): Id of the element that gets animated
         animation (string): Animation that needs to be inserted
-        pre_animation (string): Animation that needs to be inserted before actual animation
+        pre_animations (list): List of animations that needs to be inserted before actual animation
 
     Returns (xml.dom.minidom.Document): Parsed file
     """
@@ -182,35 +178,30 @@ def insert_animation(doc, animation_id, animation, pre_animation=""):
 
     for element in elements:
         if element.getAttribute('animation_id') == str(animation_id):
-            if pre_animation != "":
-                element.appendChild(doc.createElement(pre_animation))
+            if pre_animations is not None:
+                for i in range(len(pre_animations)):
+                    element.appendChild(doc.createElement(pre_animations[i]))
             element.appendChild(doc.createElement(animation))
 
     return doc
 
 
 def create_animation_statement(animation_dict):
-    """ Function to set up animation statement from model output
+    """ Function to set up animation statement from a dictionary
 
     Args:
-        animation_dict (dict): 13 dimensional list with binary and numeric model output
+        animation_dict (dict): Dictionary that is transformed into animation statement
 
     Returns (string): Animation statement.
     """
     if animation_dict["type"] in ["translate", "scale", "rotate", "skewX", "skewY"]:
         return _create_animate_transform_statement(animation_dict)
-    elif animation_dict["type"] in ["fill", "stroke", "stroke-width", "opacity", "stroke-opacity"]:
+    elif animation_dict["type"] in ["fill", "opacity"]:
         return _create_animate_statement(animation_dict)
 
 
 def _create_animate_transform_statement(animation_dict):
-    """ Function to set up animation statement from model output for ANIMATETRANSFORM animations
-
-    Args:
-        animation_dict (dict): 13 dimensional list with binary and numeric model output
-
-    Returns (string): AnimateTransform Statement
-    """
+    """ Function to set up animation statement from model output for ANIMATETRANSFORM animations """
     animation = f'animateTransform attributeName = "transform" attributeType = "XML" ' \
                 f'type = "{animation_dict["type"]}" ' \
                 f'begin = "{str(animation_dict["begin"])}" ' \
@@ -223,13 +214,7 @@ def _create_animate_transform_statement(animation_dict):
 
 
 def _create_animate_statement(animation_dict):
-    """ Function to set up animation statement from model output for ANIMATE animations
-
-    Args:
-        animation_dict (dict): 13 dimensional list with binary and numeric model output
-
-    Returns (string): Animate Statement
-    """
+    """ Function to set up animation statement from model output for ANIMATE animations """
     animation = f'animate attributeName = "{animation_dict["type"]}" ' \
                 f'begin = "{str(animation_dict["begin"])}" ' \
                 f'dur = "{str(animation_dict["dur"])}" ' \
@@ -238,3 +223,28 @@ def _create_animate_statement(animation_dict):
                 f'fill = "{str(animation_dict["fill"])}"'
 
     return animation
+
+
+def create_opacity_pre_animation_dicts(animation_dict):
+    """ Function to set up pre_animation statements
+
+    Args:
+        animation_dict (dict): Dictionary from animation that is needed to set up opacity pre-animations
+
+    Returns (string): Animate Statement
+    """
+    opacity_pre_animation_dict_1 = {"type": "opacity",
+                                    "begin": "0",
+                                    "dur": animation_dict["begin"],
+                                    "from_": "0",
+                                    "to": "0",
+                                    "fill": "remove"}
+
+    opacity_pre_animation_dict_2 = {"type": "opacity",
+                                    "begin": animation_dict["begin"],
+                                    "dur": "1",
+                                    "from_": "0",
+                                    "to": "1",
+                                    "fill": "remove"}
+
+    return opacity_pre_animation_dict_1, opacity_pre_animation_dict_2

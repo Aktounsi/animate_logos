@@ -48,10 +48,7 @@
 				
 				
 				
-				<path animation_id="1" d="M263.608,96.104l-5.784,20.846h-18.918l24.702-81.217h24.101l25.305,81.217H293.13l-6.266-20.846H263.608     z M255.896,22.96c0-4.699,3.615-8.314,8.314-8.314c4.458,0,7.953,3.496,7.953,8.314c0,4.459-3.374,8.195-8.074,8.195     C259.511,31.155,255.896,27.419,255.896,22.96z M284.213,82.368l-5.062-17.232c-1.445-4.82-2.892-10.846-4.097-15.666h-0.24     c-1.205,4.82-2.41,10.967-3.736,15.666l-4.819,17.232H284.213z M280.959,22.96c0-4.699,3.495-8.314,8.194-8.314     c4.579,0,8.073,3.496,8.073,8.314c0,4.459-3.374,8.195-8.193,8.195C284.333,31.155,280.959,27.419,280.959,22.96z" fill="#1B3E90">
-					<animate attributeName = "fill" begin = "0" dur = "2.018747423269561" from = "#000000" to = "#47c09d" fill = "remove"/>
-					<animate attributeName = "fill" begin = "2.018747423269561" dur = "3.6324515407813407" from = "#47c09d" to = "#000000" fill = "freeze"/>
-				</path>
+				<path animation_id="1" d="M263.608,96.104l-5.784,20.846h-18.918l24.702-81.217h24.101l25.305,81.217H293.13l-6.266-20.846H263.608     z M255.896,22.96c0-4.699,3.615-8.314,8.314-8.314c4.458,0,7.953,3.496,7.953,8.314c0,4.459-3.374,8.195-8.074,8.195     C259.511,31.155,255.896,27.419,255.896,22.96z M284.213,82.368l-5.062-17.232c-1.445-4.82-2.892-10.846-4.097-15.666h-0.24     c-1.205,4.82-2.41,10.967-3.736,15.666l-4.819,17.232H284.213z M280.959,22.96c0-4.699,3.495-8.314,8.194-8.314     c4.579,0,8.073,3.496,8.073,8.314c0,4.459-3.374,8.195-8.193,8.195C284.333,31.155,280.959,27.419,280.959,22.96z" fill="#1B3E90"/>
 				
 				
 				
@@ -69,9 +66,7 @@
 				
 				
 				
-				<path animation_id="3" d="M484.468,82.608h-29.885v19.279h33.379v15.062h-51.694V35.733h50.008v15.062h-31.692v16.871h29.885     V82.608z" fill="#1B3E90">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.6197365498016572" from = "-142 462.115 76.341" to = "0 462.115 76.341" fill = "freeze"/>
-				</path>
+				<path animation_id="3" d="M484.468,82.608h-29.885v19.279h33.379v15.062h-51.694V35.733h50.008v15.062h-31.692v16.871h29.885     V82.608z" fill="#1B3E90"/>
 				
 				
 				
@@ -99,8 +94,7 @@
 			
 			
 			<rect animation_id="5" fill="#E83E33" height="40.184" width="40.181" x="174.903" y="152.101">
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "3.3776874061001925" from = "194.99349999999998 172.19299999999998" to = "0 0" fill = "freeze"/>
-				<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "3.3776874061001925" from = "0" to = "1" fill = "freeze" additive="sum" />
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "3.3776874061001925" from = "-10" to = "0" fill = "freeze"/>
 			</rect>
 			
 			
@@ -110,7 +104,9 @@
 			
 			
 			
-			<rect animation_id="6" fill="#E83E33" height="40.184" width="40.182" x="94.538" y="152.101"/>
+			<rect animation_id="6" fill="#E83E33" height="40.184" width="40.182" x="94.538" y="152.101">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "skewX" begin = "0" dur = "1.0020253654497622" from = "12" to = "0" fill = "freeze"/>
+			</rect>
 			
 			
 			
@@ -119,7 +115,9 @@
 			
 			
 			
-			<rect animation_id="7" fill="#E83E33" height="40.184" width="40.182" x="14.173" y="152.101"/>
+			<rect animation_id="7" fill="#E83E33" height="40.184" width="40.182" x="14.173" y="152.101">
+				<animate attributeName = "opacity" begin = "0" dur = "1.6197365498016572" from = "0" to = "1.0" fill = "freeze"/>
+			</rect>
 			
 			
 			
@@ -128,7 +126,9 @@
 			
 			
 			
-			<rect animation_id="8" fill="#E83E33" height="40.184" width="40.182" x="255.267" y="152.101"/>
+			<rect animation_id="8" fill="#E83E33" height="40.184" width="40.182" x="255.267" y="152.101">
+				<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "3.6324515407813407" from = "-158 275.358 172.19299999999998" to = "0 275.358 172.19299999999998" fill = "freeze"/>
+			</rect>
 			
 			
 			

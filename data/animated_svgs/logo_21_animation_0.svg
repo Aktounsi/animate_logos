@@ -105,10 +105,7 @@
 					
 					
 					
-					<path animation_id="1" class="st0" d="M185.19,73.49c0,7.42,2.43,11.78,11.9,11.78c6.14,0,14.59-0.77,22.02-2.05l2.69,16.77      c-8.45,1.79-16.13,2.69-24.71,2.69c-21.5,0-31.11-10.62-31.11-26.11V40.98c0-15.49,9.6-26.11,31.11-26.11      c8.58,0,16.26,0.9,24.71,2.69l-2.69,16.77c-7.42-1.28-15.87-2.05-22.02-2.05c-9.47,0-11.9,4.35-11.9,11.78V73.49z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "translate" begin = "0" dur = "3.6324515407813407" from = "193.89000000000004 58.77499999999999" to = "0 0" fill = "freeze"/>
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "scale" begin = "0" dur = "3.6324515407813407" from = "0" to = "1" fill = "freeze" additive="sum" />
-					</path>
+					<path animation_id="1" class="st0" d="M185.19,73.49c0,7.42,2.43,11.78,11.9,11.78c6.14,0,14.59-0.77,22.02-2.05l2.69,16.77      c-8.45,1.79-16.13,2.69-24.71,2.69c-21.5,0-31.11-10.62-31.11-26.11V40.98c0-15.49,9.6-26.11,31.11-26.11      c8.58,0,16.26,0.9,24.71,2.69l-2.69,16.77c-7.42-1.28-15.87-2.05-22.02-2.05c-9.47,0-11.9,4.35-11.9,11.78V73.49z"/>
 					
 					
 					
@@ -126,9 +123,7 @@
 					
 					
 					
-					<path animation_id="3" class="st0" d="M388.84,101.4h-36.35V16.15h33.67c17.79,0,24.32,7.17,24.32,18.69v8.7c0,6.14-2.69,10.5-9.47,13.44      c7.04,1.66,12.54,7.81,12.54,15.74v8.32C413.54,93.08,405.86,101.4,388.84,101.4z M391.27,37.65c0-3.71-2.3-6.02-7.68-6.02      h-11.9v19.46h11.9c5.12,0,7.68-2.56,7.68-6.02V37.65z M394.34,73.24c0-4.74-2.94-7.17-8.06-7.17h-14.59v19.84h11.9      c6.02,0,10.75-1.28,10.75-7.42V73.24z">
-						<animateTransform attributeName = "transform" attributeType = "XML" type = "skewY" begin = "0" dur = "1.6197365498016572" from = "-1" to = "0" fill = "freeze"/>
-					</path>
+					<path animation_id="3" class="st0" d="M388.84,101.4h-36.35V16.15h33.67c17.79,0,24.32,7.17,24.32,18.69v8.7c0,6.14-2.69,10.5-9.47,13.44      c7.04,1.66,12.54,7.81,12.54,15.74v8.32C413.54,93.08,405.86,101.4,388.84,101.4z M391.27,37.65c0-3.71-2.3-6.02-7.68-6.02      h-11.9v19.46h11.9c5.12,0,7.68-2.56,7.68-6.02V37.65z M394.34,73.24c0-4.74-2.94-7.17-8.06-7.17h-14.59v19.84h11.9      c6.02,0,10.75-1.28,10.75-7.42V73.24z"/>
 					
 					
 					
@@ -137,9 +132,7 @@
 					
 					
 					
-					<path animation_id="4" class="st0" d="M502.76,101.4h-19.97l-18.95-68.35l-18.82,68.35h-19.97l25.99-85.25h25.6L502.76,101.4z">
-						<animate attributeName = "opacity" begin = "0" dur = "3.3776874061001925" from = "0" to = "1.0" fill = "freeze"/>
-					</path>
+					<path animation_id="4" class="st0" d="M502.76,101.4h-19.97l-18.95-68.35l-18.82,68.35h-19.97l25.99-85.25h25.6L502.76,101.4z"/>
 					
 					
 					
@@ -175,27 +168,29 @@
 				
 				
 				
-				<rect animation_id="7" class="st0" height="17.02" width="53.63" x="93.8" y="16.15"/>
-				
-				
-				
-				
-			
-				
-				
-				
-				<rect animation_id="8" class="st0" height="17.02" width="53.63" x="93.8" y="48.77"/>
-				
-				
-				
-				
-			
-				
-				
-				
-				<rect animation_id="9" class="st0" height="17.02" width="53.63" x="93.8" y="84.37">
-					<animateTransform attributeName = "transform" attributeType = "XML" type = "skewX" begin = "0" dur = "1.0020253654497622" from = "12" to = "0" fill = "freeze"/>
+				<rect animation_id="7" class="st0" height="17.02" width="53.63" x="93.8" y="16.15">
+					<animate attributeName = "opacity" begin = "0" dur = "3.3776874061001925" from = "0" to = "1.0" fill = "freeze"/>
 				</rect>
+				
+				
+				
+				
+			
+				
+				
+				
+				<rect animation_id="8" class="st0" height="17.02" width="53.63" x="93.8" y="48.77">
+					<animateTransform attributeName = "transform" attributeType = "XML" type = "rotate" begin = "0" dur = "1.6197365498016572" from = "-142 120.61500000000001 57.28" to = "0 120.61500000000001 57.28" fill = "freeze"/>
+				</rect>
+				
+				
+				
+				
+			
+				
+				
+				
+				<rect animation_id="9" class="st0" height="17.02" width="53.63" x="93.8" y="84.37"/>
 				
 				
 				
