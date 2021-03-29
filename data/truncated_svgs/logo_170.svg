@@ -2,17 +2,8 @@
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg
   PUBLIC '-//W3C//DTD SVG 1.1//EN'
-  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
-	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
-	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
-	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
-	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
-	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
-	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
-]>
-<svg id="Ebene_1" style="enable-background:new 0 0 595.28 365.67;" version="1.1" viewBox="-148.82 -91.4175 892.92 548.505" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' []>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" id="Ebene_1" style="enable-background:new 0 0 595.28 365.67;" version="1.1" viewBox="-148.82 -91.4175 892.92 548.505" x="0px" xml:space="preserve" y="0px">
 	
 	
 	
@@ -243,7 +234,6 @@
 					
 					
 					
-					<path animation_id="13" class="st0" d="M494.35,137.51c-14.86,3.98-26.14,14.65-31.47,27.91c11.24,8.81,26.35,12.41,41.21,8.43      c14.86-3.98,26.14-14.65,31.47-27.91C524.31,137.13,509.21,133.52,494.35,137.51z"/>
 					
 					
 					
@@ -261,6 +251,7 @@
 					
 					
 					
+					<path animation_id="15" class="st0" d="M464.01,104.43c-10.88,10.88-15.31,25.76-13.3,39.9c14.14,2.01,29.02-2.42,39.9-13.3      c10.88-10.88,15.31-25.76,13.3-39.9C489.77,89.12,474.88,93.55,464.01,104.43z"/>
 					
 					
 					
@@ -277,6 +268,7 @@
 					
 					
 					
+					<path animation_id="17" class="st0" d="M490.61,224.13c-10.88-10.88-25.76-15.31-39.9-13.3c-2.01,14.14,2.42,29.03,13.3,39.9      c10.88,10.88,25.76,15.31,39.9,13.3C505.92,249.9,501.48,235.01,490.61,224.13z"/>
 					
 					
 					
@@ -294,7 +286,6 @@
 					
 					
 					
-					<path animation_id="19" class="st0" d="M504.08,181.32c-14.86-3.98-29.96-0.38-41.21,8.43c5.33,13.25,16.61,23.92,31.47,27.91      c14.86,3.98,29.97,0.38,41.21-8.43C530.22,195.97,518.94,185.3,504.08,181.32z"/>
 					
 					
 					

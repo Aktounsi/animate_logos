@@ -2,17 +2,8 @@
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg
   PUBLIC '-//W3C//DTD SVG 1.1//EN'
-  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
-	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
-	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
-	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
-	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
-	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
-	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
-]>
-<svg style="enable-background:new 0 0 595.28 257.95;" version="1.1" viewBox="-148.82 -64.4875 892.92 386.92499999999995" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' []>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" style="enable-background:new 0 0 595.28 257.95;" version="1.1" viewBox="-148.82 -64.4875 892.92 386.92499999999995" x="0px" xml:space="preserve" y="0px">
 	
 	
 	
@@ -249,7 +240,6 @@
 						
 						
 						
-						<path animation_id="15" d="M403.12,197.41c9.37,0,16.54,6.31,16.54,16.72c0,9.06-6.06,16.29-16.54,16.29c-10.41,0-16.47-7.23-16.47-16.29       C386.65,203.72,393.81,197.41,403.12,197.41z M403.12,224.06c6.31,0,7.96-5.63,7.96-10.9c0-4.84-2.57-9.37-7.96-9.37       c-5.33,0-7.9,4.65-7.9,9.37C395.22,218.36,396.87,224.06,403.12,224.06z"/>
 						
 						
 						
@@ -266,6 +256,7 @@
 						
 						
 						
+						<path animation_id="17" d="M464.92,197.41c9.37,0,16.54,6.31,16.54,16.72c0,9.06-6.06,16.29-16.54,16.29c-10.41,0-16.47-7.23-16.47-16.29       C448.44,203.72,455.61,197.41,464.92,197.41z M464.92,224.06c6.31,0,7.96-5.63,7.96-10.9c0-4.84-2.57-9.37-7.96-9.37       c-5.33,0-7.9,4.65-7.9,9.37C457.02,218.36,458.67,224.06,464.92,224.06z"/>
 						
 						
 						

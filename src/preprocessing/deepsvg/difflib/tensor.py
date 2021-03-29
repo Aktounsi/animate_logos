@@ -5,6 +5,57 @@ from typing import Union
 Num = Union[int, float]
 
 
+class AnimationTensor:
+
+    COMMANDS_SIMPLIFIED = ['a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9']
+
+    CMD_ARGS_MASK = torch.tensor([[0, 0, 0],  # a0
+                                  [0, 0, 0],  # a1
+                                  [0, 0, 0],  # a2
+                                  [1, 1, 1],  # a3
+                                  [0, 0, 0],  # a4
+                                  [0, 0, 0],  # a5
+                                  [0, 0, 0],  # a6
+                                  [0, 0, 0],  # a7
+                                  [1, 1, 1],  # a8
+                                  [0, 0, 0]])  # a9
+
+    class Index:
+        COMMAND = 0
+        DURATION = 1
+        FROM = 2
+        BEGIN = 3
+
+    class IndexArgs:
+        DURATION = 0
+        FROM = 1
+        BEGIN = 2
+
+    all_arg_keys = ['duration', 'from', 'begin']
+    cmd_arg_keys = ["commands", *all_arg_keys]
+    all_keys = ["commands", *all_arg_keys]
+
+    def __init__(self, commands, duration, from_, begin,
+                 seq_len=None, label=None, PAD_VAL=-1, ARGS_DIM=256, filling=0):
+
+        self.commands = commands.reshape(-1, 1).float()
+
+        self.duration = duration.float()
+        self.from_ = from_.float()
+        self.begin = begin.float()
+
+        self.seq_len = torch.tensor(len(commands)) if seq_len is None else seq_len
+        self.label = label
+
+        self.PAD_VAL = PAD_VAL
+        self.ARGS_DIM = ARGS_DIM
+
+        # self.sos_token = torch.Tensor([self.COMMANDS_SIMPLIFIED.index("SOS")]).unsqueeze(-1)
+        # self.eos_token = self.pad_token = torch.Tensor([self.COMMANDS_SIMPLIFIED.index("EOS")]).unsqueeze(-1)
+
+        self.filling = filling
+
+
 class SVGTensor:
     #                       0    1    2    3     4      5     6
     COMMANDS_SIMPLIFIED = ["m", "l", "c", "a", "EOS", "SOS", "z"]

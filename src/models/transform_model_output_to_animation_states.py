@@ -36,7 +36,7 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
     Path("./data/interpolated_logos").mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')
     filename = pathelements[len(pathelements)-1].replace('.svg','')
-    if os.path.exists('./data/interpolated_logos/' + filename + '_' + str(0).zfill(digits) + '.svg') == False:
+    if not os.path.exists('./data/interpolated_logos/' + filename + '_' + str(0).zfill(digits) + '.svg'):
         doc = minidom.parse(logo)
         for i in range(0, steps+1):
             # write svg

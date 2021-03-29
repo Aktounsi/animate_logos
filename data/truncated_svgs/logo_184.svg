@@ -2,17 +2,8 @@
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg
   PUBLIC '-//W3C//DTD SVG 1.1//EN'
-  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
-	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
-	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
-	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
-	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
-	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
-	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
-]>
-<svg id="Ebene_1" style="enable-background:new 0 0 595.28 136.06;" version="1.1" viewBox="-148.82 -34.015 892.92 204.09" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' []>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" id="Ebene_1" style="enable-background:new 0 0 595.28 136.06;" version="1.1" viewBox="-148.82 -34.015 892.92 204.09" x="0px" xml:space="preserve" y="0px">
 	
 	
 	
@@ -131,6 +122,7 @@
 				
 				
 				
+				<path animation_id="5" d="M269.35,58.46h4.03v6.55h0.11c1.62-3.36,4.31-7.17,9.58-7.17c4.65,0,6.38,4.03,6.38,7v20.27h-4.14V67.86     c0-2.86,0-6.61-3.7-6.61c-5.6,0-8.12,7.28-8.12,12.43v11.42h-4.14V58.46z"/>
 				
 				
 				
@@ -182,7 +174,6 @@
 				
 				
 				
-				<path animation_id="11" d="M435.84,72.06c0-8.51,3.36-14.22,11.31-14.22s11.59,5.71,11.59,14.22c0,8.62-3.64,13.66-11.59,13.66     S435.84,80.69,435.84,72.06z M447.15,83.49c5.77,0,6.94-5.77,6.94-11.26c0-5.82-1.18-12.15-6.94-12.15     c-5.71,0-6.66,6.33-6.66,12.15C440.49,77.72,441.44,83.49,447.15,83.49z"/>
 				
 				
 				
