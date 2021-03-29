@@ -2,7 +2,7 @@ import pickle
 
 
 def get_path_probabilities(filename, animation_ids, pkl_file="animation_path_label.pkl"):
-    """ Function to get path probabilties that specify how likely it is that a path gets animated.
+    """ Function to get path probabilities that specify how likely it is that a path gets animated.
 
     Args:
         filename (string): Name of SVG

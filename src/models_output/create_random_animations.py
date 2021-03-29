@@ -89,6 +89,7 @@ def _create_one_df(folder, nb_animations):
 
 def random_animation_vector(nr_animations, frac_animations, frac_animation_type=[1 / 6] * 6, seed=73):
     """ Function to generate random animation vectors.
+    Format of vectors: (translate scale rotate skew fill opacity duration begin from_1 from_2 from_3)
 
     Note: nr_animations must match length of frac_animations
     Example: random_animation_vector(nr_animations=2, frac_animations=[0.5, 0.5])
@@ -99,7 +100,7 @@ def random_animation_vector(nr_animations, frac_animations, frac_animation_type=
         frac_animation_type (list): Specifies probabilities of animation types (default=uniform)
         seed (int): Random seed
 
-    Returns (ndarray): Random animation vectors as array
+    Returns (ndarray): Array of 11 dimensional random animation vectors
     """
     random.seed(seed)
     np.random.seed(seed)
@@ -110,9 +111,15 @@ def random_animation_vector(nr_animations, frac_animations, frac_animation_type=
             animation_list.append(np.array([0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1]))
         else:
             vec = np.zeros(11)
+            vec[9] = -1
+            vec[10] = -1
             animation_type = np.random.choice(a=[0, 1, 2, 3, 4, 5], p=frac_animation_type)
             vec[animation_type] = 1
-            for j in range(6, 11):
+            for j in range(6, 9):  # all animation types have parameter duration, begin, from_1
                 vec[j] = random.uniform(0, 1)
+            if animation_type in [0, 3, 4]:  # only translate, skew and fill have parameter from_2
+                vec[9] = random.uniform(0, 1)
+            if animation_type == 4:  # only fill has parameter from_3
+                vec[10] = random.uniform(0, 1)
             animation_list.append(vec)
     return np.array(animation_list)
