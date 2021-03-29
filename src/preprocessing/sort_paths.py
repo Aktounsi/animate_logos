@@ -15,6 +15,7 @@ dir_truncated_svgs = './data/truncated_svgs'
 dir_selected_paths = './data/selected_paths'
 dir_decomposed_svgs = './data/decomposed_svgs'
 
+
 def get_elements(doc):
     return doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
         'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(
