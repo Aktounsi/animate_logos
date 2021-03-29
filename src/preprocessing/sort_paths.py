@@ -37,20 +37,24 @@ def delete_paths(logo):
     convert_svgs_in_folder(f'{dir_path_selection}/{logo}')
 
 
-def sort_by_relevance(path_selection_folder, nr_paths_trunc=8):
+def sort_by_relevance(path_selection_folder, not_embedded_paths, nr_paths_trunc=8):
     nr_paths = len([name for name in os.listdir(path_selection_folder) if os.path.isfile(os.path.join(path_selection_folder, name))]) - 1
     relevance_scores = []
     img_origin = image.imread(os.path.join(path_selection_folder, "original.png"))
+    logo = path_selection_folder.split('/')[-1]
     for i in range(nr_paths):
         img_reduced = image.imread(os.path.join(path_selection_folder, "without_id_{}.png".format(i)))
         try:
-            mse = mean_squared_error(img_origin, img_reduced)
+            decomposed_id = f'{logo}_{i}'
+            mse = mean_squared_error(img_origin, img_reduced) if decomposed_id not in not_embedded_paths else -1
         except ValueError as e:
             print(f'Could not calculate MSE for animation id {i} in logo {path_selection_folder} - Error message: {e}')
             mse = -1
         relevance_scores.append(mse)
     relevance_score_ordering = list(range(nr_paths))
     relevance_score_ordering.sort(key=lambda x: relevance_scores[x], reverse=True)
+    relevance_score_ordering = relevance_score_ordering[0:nr_paths_trunc]
+    relevance_score_ordering = [id_ if relevance_scores[id_] != -1 else -1 for id_ in relevance_score_ordering]
     return relevance_score_ordering[0:nr_paths_trunc], relevance_scores
 
 
