@@ -3,13 +3,13 @@ from datetime import datetime
 from src.models.genetic_algorithm import *
 
 
-def train_model_head(svg_dataset, hidden_sizes=[256, 192], out_size=21,
+def train_model_head(path_level_dataset, svg_level_dataset, hidden_sizes=[256, 192], out_size=21,
                      num_agents=100, top_parent_limit=10, generations=10):
 
     # Create model input from svg_dataset
-    filenames = svg_dataset.pop('filename')
-    animation_ids = svg_dataset.pop('animation_id')
-    model_input = torch.tensor(svg_dataset.to_numpy())
+    filenames = path_level_dataset.pop('filename')
+    animation_ids = path_level_dataset.pop('animation_id')
+    model_input = torch.tensor(path_level_dataset.to_numpy())
 
     # disable gradients as we will not use them
     torch.set_grad_enabled(False)
@@ -20,7 +20,7 @@ def train_model_head(svg_dataset, hidden_sizes=[256, 192], out_size=21,
 
     logger.info('Model summary')
     print('=' * 100)
-    print(f'Number of training instances: {len(svg_dataset)}')
+    print(f'Number of training instances: {len(path_level_dataset)}')
     print(f'Number of agents: {num_agents}')
     print(f'Top parent limit: {top_parent_limit}')
     print(f'Number of generations: {generations}')
@@ -32,7 +32,8 @@ def train_model_head(svg_dataset, hidden_sizes=[256, 192], out_size=21,
         start = datetime.now()
         rewards = compute_agent_rewards(agents=agents, X=model_input,
                                         filenames=filenames,
-                                        animation_ids=animation_ids)
+                                        animation_ids=animation_ids,
+                                        svg_embeddings=svg_level_dataset)
         sorted_parent_indexes = np.argsort(rewards)[::-1][:top_parent_limit].astype(int)
         logger.info(f'Results for generation {generation + 1}/{generations}')
         print('=' * 100)

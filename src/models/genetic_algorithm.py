@@ -1,5 +1,6 @@
-import torch
+import torch, random
 import numpy as np
+import pandas as pd
 import copy
 from os import listdir
 from os.path import isfile, join
@@ -8,8 +9,7 @@ from src.utils import utils
 from src.utils import logger
 
 from src.models.animation_prediction import AnimationPredictor
-from src.models.fitness_function import aesthetic_measure
-from src.models.transform_model_output_to_animation_states import interpolate_svg, convert_svgs_in_folder
+from src.models.surrogate_model import *
 
 
 def init_weights(m):
@@ -25,66 +25,52 @@ def create_random_agents(num_agents, hidden_sizes, out_size):
 
     for _ in range(num_agents):
 
-        agent = MLP(hidden_sizes, out_size)
+        agent = AnimationPredictor()
 
         for param in agent.parameters():
             param.requires_grad = False
 
-        init_weights(agent)
+        # init_weights(agent)
         agents.append(agent)
 
     return agents
 
 
-def return_award(path_output, filename, animation_id, idx):
-    if idx % 50 == 0:
-        logger.info(f'Current path index: {idx}')
-    try:
-        # Interpolate animation of the current path in its corresponding SVG file and convert interpolations to PNG
-        interpolate_svg(logo=f'./data/svgs/{filename}.svg',
-                        total_duration=5,
-                        steps=10,
-                        animation_id=animation_id,
-                        output=path_output)
-        convert_svgs_in_folder('./data/interpolated_logos')
-
-        # Compute aesthetic measure for the interpolated animation
-        interpolated_files = [join('./data/interpolated_logos', f) for f in listdir('./data/interpolated_logos') if
-                              isfile(join('./data/interpolated_logos', f))]
-        interpolated_files.sort()
-        award = aesthetic_measure(interpolated_files)
-        utils.delete_dir(['./data/interpolated_logos'])
-        return award
-    except KeyboardInterrupt:
-        raise
-    except Exception as e:
-        logger.error(f'Failed computing reward for file={filename} and animation id={animation_id}; '
-                     f'Return reward of -1')
-        logger.error(f'Raised exception: {e}')
-        utils.delete_dir(['./data/interpolated_logos'])
-        return -1
+def pad_list(list_):
+    return list_ + [[-1] * 13] * (8 - len(list_))
 
 
-def return_average_reward(model_output, filenames, animation_ids):
-    rewards = np.array([return_award(path_output=model_output[i],
-                                     filename=filenames[i],
-                                     animation_id=animation_ids[i],
-                                     idx=i)
-                        for i in range(model_output.shape[0])])
+def prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings):
+    model_output_list = [output.tolist() for output in model_output]
+    path_level_df = pd.DataFrame(
+        {'filename': filenames, 'animation_id': animation_ids, 'model_output': model_output_list})
+    concatenated_model_outputs = path_level_df.groupby('filename')['model_output'].apply(list)
+    surrogate_model_input = pd.merge(left=concatenated_model_outputs, right=svg_embeddings, on='filename')
+    surrogate_model_input['model_output'] = [pad_list(output) for output in surrogate_model_input['model_output']]
+    surrogate_model_input[[f'animation_output_{i}' for i in range(8)]] = pd.DataFrame(
+        surrogate_model_input['model_output'].tolist(), index=surrogate_model_input.index)
+    for i in range(8):
+        surrogate_model_input[[f'animation_output_{i}_{j}' for j in range(13)]] = pd.DataFrame(
+            surrogate_model_input[f'animation_output_{i}'].tolist(), index=surrogate_model_input.index)
+    surrogate_model_input.drop([f'animation_output_{i}' for i in range(8)], inplace=True, axis=1)
+    surrogate_model_input.drop('model_output', inplace=True, axis=1)
+    return surrogate_model_input
+
+
+def return_average_reward(model_output, filenames, animation_ids, svg_embeddings):
+    rewards = predict_svg_reward(prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings))
     return np.mean(rewards)
 
 
-def compute_agent_rewards(agents, X, filenames, animation_ids):
-    # Delete directories for animated and interpolated logos in case they haven't been deleted previously
-    utils.delete_dir(['./data/interpolated_logos'])
-
+def compute_agent_rewards(agents, X, filenames, animation_ids, svg_embeddings):
     agent_rewards = []
     num_agents = len(agents)
     for i, agent in enumerate(agents):
+
         model_output = agent(X)
-        # if i % 10 == 0:
-        logger.info(f'Compute rewards for agent {i+1}/{num_agents}')
-        agent_rewards.append(return_average_reward(model_output, filenames, animation_ids))
+        if i % 20 == 0:
+            logger.info(f'Compute rewards for agent {i + 1}/{num_agents}')
+        agent_rewards.append(return_average_reward(model_output, filenames, animation_ids, svg_embeddings))
     return agent_rewards
 
 
@@ -93,8 +79,8 @@ def crossover(agents, num_agents, hidden_sizes, out_size):
     for _ in range((num_agents - len(agents)) // 2):
         parent1 = np.random.choice(agents)
         parent2 = np.random.choice(agents)
-        child1 = MLP(hidden_sizes, out_size)
-        child2 = MLP(hidden_sizes, out_size)
+        child1 = AnimationPredictor()
+        child2 = AnimationPredictor()
 
         shapes = [param.shape for param in parent1.parameters()]
 
