@@ -7,7 +7,7 @@ class _DefaultConfig:
     """
     def __init__(self):
         self.args_dim = 256              # Coordinate numericalization, default: 256 (8-bit)
-        self.n_args = 4                 # Tensor nb of arguments, default: 11 (rx,ry,phi,fA,fS,qx1,qy1,qx2,qy2,x1,x2)
+        self.n_args = 11                 # Tensor nb of arguments, default: 11 (rx,ry,phi,fA,fS,qx1,qy1,qx2,qy2,x1,x2)
         self.n_commands = len(SVGTensor.COMMANDS_SIMPLIFIED)  # m, l, c, a, EOS, SOS, z
 
         self.dropout = 0.1                # Dropout rate used in basic layers and Transformers
