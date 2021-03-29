@@ -3,7 +3,7 @@
 <!DOCTYPE svg
   PUBLIC '-//W3C//DTD SVG 1.1//EN'
   'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
-<svg enable-background="new 0 0 595.275 155.905" height="155.905px" version="1.1" viewBox="-148.81875 -38.97625 892.9124999999999 233.85750000000002" width="595.275px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 595.275 155.905" height="155.905px" version="1.1" viewBox="-148.81875 -38.97625 892.9124999999999 233.85750000000002" width="595.275px" x="0px" xml:space="preserve" y="0px">
 	
 	
 	
@@ -94,7 +94,6 @@
 				
 				
 				
-				<path animation_id="4" d="M238.984,87.557l-1.377,8.721h-18.209v12.319h15.226v8.721h-15.072v14.231h20.122v9.181h-30.986V87.557     H238.984z" fill="#9D9D9C"/>
 				
 				
 				
@@ -164,6 +163,7 @@
 				
 				
 				
+				<path animation_id="10" d="M580.447,87.557l-1.377,8.721h-18.209v12.319h15.227v8.721h-15.072v14.231h20.122v9.181H550.15V87.557     H580.447z" fill="#9D9D9C"/>
 				
 				
 				

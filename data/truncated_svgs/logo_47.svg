@@ -2,17 +2,8 @@
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg
   PUBLIC '-//W3C//DTD SVG 1.1//EN'
-  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
-	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
-	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
-	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
-	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
-	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
-	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
-]>
-<svg style="enable-background:new 0 0 595.28 226.77;" version="1.1" viewBox="-148.82 -56.6925 892.92 340.15500000000003" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' []>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" style="enable-background:new 0 0 595.28 226.77;" version="1.1" viewBox="-148.82 -56.6925 892.92 340.15500000000003" x="0px" xml:space="preserve" y="0px">
 	
 	
 	
@@ -198,7 +189,23 @@
 					
 					
 					
-					<path animation_id="7" class="st2" d="M223.15,213.15l-5.33-9.4c-0.85-1.52-1.55-2.99-2.11-4.28c0.12,1.61,0.18,4.25,0.18,6.45v7.24h-3.98v-19.78      h5.3l5.04,8.79c0.91,1.58,1.7,3.22,2.43,4.75c-0.15-1.88-0.21-5.04-0.21-7.24v-6.3h3.98v19.78H223.15z"/>
+					
+					
+					
+					
+				
+					
+					
+					
+					
+					
+					
+					
+				
+					
+					
+					
+					<path animation_id="9" class="st2" d="M295.93,213.15l-5.33-9.4c-0.85-1.52-1.55-2.99-2.11-4.28c0.12,1.61,0.18,4.25,0.18,6.45v7.24h-3.98v-19.78      h5.3l5.04,8.79c0.91,1.58,1.7,3.22,2.43,4.75c-0.15-1.88-0.21-5.04-0.21-7.24v-6.3h3.98v19.78H295.93z"/>
 					
 					
 					
@@ -255,23 +262,7 @@
 					
 					
 					
-					<path animation_id="14" class="st2" d="M463.82,213.15l-5.33-9.4c-0.85-1.52-1.55-2.99-2.11-4.28c0.12,1.61,0.18,4.25,0.18,6.45v7.24h-3.98v-19.78      h5.3l5.04,8.79c0.91,1.58,1.7,3.22,2.43,4.75c-0.15-1.88-0.21-5.04-0.21-7.24v-6.3h3.98v19.78H463.82z"/>
-					
-					
-					
-					
-				
-					
-					
-					
-					
-					
-					
-					
-				
-					
-					
-					
+					<path animation_id="16" class="st2" d="M538.95,213.15l-5.33-9.4c-0.85-1.52-1.55-2.99-2.11-4.28c0.12,1.61,0.18,4.25,0.18,6.45v7.24h-3.98v-19.78      h5.3l5.04,8.79c0.91,1.58,1.7,3.22,2.43,4.75c-0.15-1.88-0.21-5.04-0.21-7.24v-6.3h3.98v19.78H538.95z"/>
 					
 					
 					
