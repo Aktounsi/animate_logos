@@ -167,6 +167,10 @@ class SVGDataset(torch.utils.data.Dataset):
 
         t_sep, fillings = svg.to_tensor(concat_groups=False, PAD_VAL=self.PAD_VAL), svg.to_fillings()
 
+        # SFS, 30.03.2021. Note: DeepSVG can only handle 30 sequences per path.
+        for i in range(len(t_sep)):
+            t_sep[i] = t_sep[i][0:30]
+
         label = self.get_label(idx)
 
         return self.get_data(t_sep, fillings, model_args=model_args, label=label)
@@ -184,6 +188,7 @@ class SVGDataset(torch.utils.data.Dataset):
 
         t_grouped = [SVGTensor.from_data(torch.cat(t_sep, dim=0), PAD_VAL=self.PAD_VAL).add_eos().add_sos().pad(
             seq_len=self.MAX_TOTAL_LEN + 2)]
+
         t_sep = [SVGTensor.from_data(t, PAD_VAL=self.PAD_VAL, filling=f).add_eos().add_sos().pad(seq_len=self.MAX_SEQ_LEN + 2) for
                  t, f in zip(t_sep, fillings)]
 

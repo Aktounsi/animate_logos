@@ -3,7 +3,7 @@ import glob
 from concurrent import futures
 from tqdm import tqdm
 import pandas as pd
-from ..preprocessing.deepsvg.svglib.svg import SVG
+from src.preprocessing.deepsvg.svglib.svg import SVG
 
 
 def get_svg_meta_data(data_folder="data/svgs", workers=4):
@@ -27,13 +27,16 @@ def get_svg_meta_data(data_folder="data/svgs", workers=4):
 def _get_svg_meta_data(svg_file, meta_data):
     filename = os.path.splitext(os.path.basename(svg_file))[0]
 
-    svg = SVG.load_svg(svg_file)
-    #svg.fill_(False)
-    #svg.normalize()
-    #svg.zoom(0.9)
-    #svg.svg_path_groups = sorted(svg.svg_path_groups, key=lambda x: x.start_pos.tolist()[::-1])
+    #svg = SVG.load_svg(svg_file)  # THIS ONE
+    # svg.fill_(False)
+    # svg.normalize()
+    # svg.zoom(0.9)
+    # svg.svg_path_groups = sorted(svg.svg_path_groups, key=lambda x: x.start_pos.tolist()[::-1])
 
-    svg.canonicalize(normalize=True)
+    #svg.canonicalize(normalize=True)  # THIS ONE
+
+    svg = _canonicalize(svg_file, normalize=True)
+
     # svg = svg.simplify_heuristic()
 
     len_groups = [path_group.total_len() for path_group in svg.svg_path_groups]
@@ -47,3 +50,29 @@ def _get_svg_meta_data(svg_file, meta_data):
         "max_len_group": max(len_groups),
         "start_pos": start_pos
     }
+
+
+def _canonicalize(svg_file, normalize=False):
+    svg = SVG.load_svg(svg_file)
+    svg.to_path().simplify_arcs()
+
+    if normalize:
+        svg.normalize()
+
+    #svg.split_paths()
+    svg.filter_consecutives()
+    svg.filter_empty()
+    svg._apply_to_paths("reorder")
+    svg.svg_path_groups = sorted(svg.svg_path_groups, key=lambda x: x.start_pos.tolist()[::-1])
+    svg._apply_to_paths("canonicalize")
+    svg.recompute_origins()
+
+    svg.drop_z()
+
+    return svg
+
+
+def _apply_to_paths_of_svg(svg, method, *args, **kwargs):
+    for path_group in svg.svg_path_groups:
+        getattr(path_group, method)(*args, **kwargs)
+    return svg

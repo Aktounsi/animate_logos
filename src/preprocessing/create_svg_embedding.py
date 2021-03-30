@@ -30,7 +30,7 @@ def _load_model(model_path="models/hierarchical_ordered.pth.tar",
     model.eval();
 
     cfg.data_dir = f"{data_folder}/"
-    cfg.meta_filepath = f"{data_folder}_meta.csv"
+    cfg.meta_filepath = f"data/meta_data/{data_folder.split('/')[-1]}_meta.csv"
 
     dataset = load_dataset(cfg)
 
@@ -77,7 +77,7 @@ def train_embedding_model(data_folder="./data/svgs",
     os.chdir("../..")
 
     cfg.data_dir = f"{data_folder}/"
-    cfg.meta_filepath = f"{data_folder}_meta.csv"
+    cfg.meta_filepath = f"data/meta_data/{data_folder.split('/')[-1]}_meta.csv"
     cfg.batch_size = batch_size
     cfg.num_epochs = num_epochs
 
@@ -97,15 +97,17 @@ def train_embedding_model(data_folder="./data/svgs",
 def encode_svg(filename,
                model_path="models/hierarchical_ordered.pth.tar",
                cfg_module="configs.deepsvg.hierarchical_ordered",
-               data_folder="data/svgs"):
+               data_folder="data/svgs",
+               split_paths=True):
     dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
 
-    return _encode_svg(dataset, filename, model, device, cfg)
+    return _encode_svg(dataset, filename, model, device, cfg, split_paths)
 
 
 def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.tar",
                                   cfg_module="configs.deepsvg.hierarchical_ordered",
                                   data_folder="data/svgs",
+                                  split_paths=True,
                                   workers=4,
                                   save=True):
     dataset, model, device, cfg = _load_model(model_path=model_path, cfg_module=cfg_module, data_folder=data_folder)
@@ -118,7 +120,7 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
         svg_list = []
         with tqdm(total=len(svg_files)) as pbar:
             embedding_requests = [
-                executor.submit(_apply_embedding_to_svg, dataset, svg_file, svg_list, model, device, cfg)
+                executor.submit(_apply_embedding_to_svg, dataset, svg_file, svg_list, model, device, cfg, split_paths)
                 for svg_file in svg_files]
 
             for _ in futures.as_completed(embedding_requests):
@@ -135,9 +137,9 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
         df['filename'] = df['filename'].apply(lambda row: "_".join(row.split('_')[0:-1]))
 
     if save:
-        model = model_path.split("/")[-1].replace("_svgs.pth.tar", "").replace("_decomposed", "")
+        model = model_path.split("/")[-1].replace("_svgs", "").replace("_decomposed", "").replace(".pth.tar", "")
         data = data_folder.split("/")[-1]
-        output = open(f'data/{model}_{data}_embedding.pkl', 'wb')
+        output = open(f'data/embeddings/{model}_{data}_embedding.pkl', 'wb')
         pickle.dump(df, output)
         output.close()
 
@@ -149,8 +151,8 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
     return df
 
 
-def _apply_embedding_to_svg(dataset, svg_file, svg_list, model, device, cfg):
-    z = _encode_svg(dataset, svg_file, model, device, cfg).numpy()[0][0][0]
+def _apply_embedding_to_svg(dataset, svg_file, svg_list, model, device, cfg, split_paths):
+    z = _encode_svg(dataset, svg_file, model, device, cfg, split_paths).numpy()[0][0][0]
     filename = os.path.splitext(os.path.basename(svg_file))[0]
 
     dict_data = {"filename": filename,
@@ -159,21 +161,36 @@ def _apply_embedding_to_svg(dataset, svg_file, svg_list, model, device, cfg):
     svg_list.append(dict_data)
 
 
-def _encode_svg(dataset, filename, model, device, cfg):
+def _encode_svg(dataset, filename, model, device, cfg, split_paths):
+    # Note: Only 30 segments per path are allowed. Paths are cut after the first 30 segments.
     svg = SVG.load_svg(filename)
-    try:
+    if split_paths:
         svg = dataset.simplify(svg)
         svg = dataset.preprocess(svg)
         data = dataset.get(svg=svg)
-    except Exception as e:
-        svg = svg.canonicalize(normalize=True)
+    else:  # Here: paths are not split
+        svg = _canonicalize_without_path_splitting(svg, normalize=True)
         svg = dataset.preprocess(svg)
         data = dataset.get(svg=svg)
-        # print(f"{filename}: Simplify failed {e}")
+
     model_args = batchify((data[key] for key in cfg.model_args), device)
     with torch.no_grad():
         z = model(*model_args, encode_mode=True)
         return z
+
+
+def _canonicalize_without_path_splitting(svg, normalize=False):
+    svg.to_path().simplify_arcs()
+    if normalize:
+        svg.normalize()
+    svg.filter_consecutives()
+    svg.filter_empty()
+    svg._apply_to_paths("reorder")
+    svg.svg_path_groups = sorted(svg.svg_path_groups, key=lambda x: x.start_pos.tolist()[::-1])
+    svg._apply_to_paths("canonicalize")
+    svg.recompute_origins()
+    svg.drop_z()
+    return svg
 
 
 def combine_embeddings(df_svg_embedding,
@@ -187,8 +204,8 @@ def combine_embeddings(df_svg_embedding,
         combined_embedding[col] = merged_embeddings[str(col) + "_x"] + merged_embeddings[str(col) + "_y"]
 
     if save:
-        model = model_path.split("/")[-1].replace("_svgs.pth.tar", "").replace("_decomposed", "")
-        output = open(f"data/{model}_combined_embedding.pkl", 'wb')
+        model = model_path.split("/")[-1].replace("_svgs", "").replace("_decomposed", "").replace(".pth.tar", "")
+        output = open(f"data/embeddings/{model}_combined_embedding.pkl", 'wb')
         pickle.dump(combined_embedding, output)
         output.close()
 
