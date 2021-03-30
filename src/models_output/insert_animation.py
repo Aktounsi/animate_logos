@@ -30,7 +30,8 @@ def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
                     doc = insert_fill_statement(doc, animation_id[i], output_dict)
                 if output_dict["type"] in ["opacity"]:
                     doc = insert_opacity_statement(doc, animation_id[i], output_dict)
-            except:
+            except Exception as e:
+                print(f"File {file}, animation {animation_id[i]} can't be animated. {e}")
                 pass
 
     filename = file.split('/')[-1].replace(".svg", "") + "_animation_" + filename_suffix
