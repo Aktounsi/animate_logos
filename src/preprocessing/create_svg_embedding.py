@@ -117,8 +117,9 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
         svg_files = glob.glob(os.path.join(cfg.data_dir, "*.svg"))
         svg_list = []
         with tqdm(total=len(svg_files)) as pbar:
-            embedding_requests = [executor.submit(_apply_embedding_to_svg, dataset, svg_file, svg_list, model, device, cfg)
-                                  for svg_file in svg_files]
+            embedding_requests = [
+                executor.submit(_apply_embedding_to_svg, dataset, svg_file, svg_list, model, device, cfg)
+                for svg_file in svg_files]
 
             for _ in futures.as_completed(embedding_requests):
                 pbar.update(1)
@@ -168,7 +169,7 @@ def _encode_svg(dataset, filename, model, device, cfg):
         svg = svg.canonicalize(normalize=True)
         svg = dataset.preprocess(svg)
         data = dataset.get(svg=svg)
-        #print(f"{filename}: Simplify failed {e}")
+        # print(f"{filename}: Simplify failed {e}")
     model_args = batchify((data[key] for key in cfg.model_args), device)
     with torch.no_grad():
         z = model(*model_args, encode_mode=True)
