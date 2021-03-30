@@ -136,6 +136,9 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
         df = df.reindex(columns=cols)
         df['filename'] = df['filename'].apply(lambda row: "_".join(row.split('_')[0:-1]))
 
+    df.dropna(inplace=True)
+    df.reset_index(drop=True, inplace=True)
+
     if save:
         model = model_path.split("/")[-1].replace("_svgs", "").replace("_decomposed", "").replace(".pth.tar", "")
         data = data_folder.split("/")[-1]
@@ -144,9 +147,6 @@ def apply_embedding_model_to_svgs(model_path="models/hierarchical_ordered.pth.ta
         output.close()
 
     logging.info("Embedding complete.")
-
-    df.dropna(inplace=True)
-    df.reset_index(drop=True, inplace=True)
 
     return df
 
