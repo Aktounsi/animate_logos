@@ -1,5 +1,3 @@
-from PIL import ImageColor
-import numpy as np
 from src.features.get_bbox_size import get_svg_size, get_midpoint_of_path_bbox
 from src.features.get_style_attributes import get_style_attributes_path
 
@@ -27,8 +25,8 @@ def transform_animation_predictor_output(file, animation_id, output):
 
     if output[0] == 1:
         animation["type"] = "translate"
-        x = (output[8] * 2 - 1) * width
-        y = (output[9] * 2 - 1) * height
+        x = (output[8] * 2 - 1) * width  # between -width and width
+        y = (output[9] * 2 - 1) * height  # between -height and height
         animation["from_"] = f"{str(x)} {str(y)}"
         animation["to"] = "0 0"
 
@@ -45,10 +43,10 @@ def transform_animation_predictor_output(file, animation_id, output):
     elif output[3] == 1:
         if output[8] > 0.5:
             animation["type"] = "skewX"
-            animation["from_"] = (output[9] * 2 - 1) * width/10  # between -20 and 20
+            animation["from_"] = (output[9] * 2 - 1) * width/10  # between -width/10 and width/10
         else:
             animation["type"] = "skewY"
-            animation["from_"] = (output[9] * 2 - 1) * height/10  # between -20 and 20
+            animation["from_"] = (output[9] * 2 - 1) * height/10  # between -height/10 and height/10
         animation["to"] = 0
 
     elif output[4] == 1:
@@ -58,9 +56,9 @@ def transform_animation_predictor_output(file, animation_id, output):
         else:
             color_hex = fill_style
         animation["to"] = color_hex
-        r = int(output[8] * 255)
-        g = int(output[9] * 255)
-        b = int(output[10] * 255)
+        r = int(output[8] * 255)  # between 0 and 255
+        g = int(output[9] * 255)  # between 0 and 255
+        b = int(output[10] * 255)  # between 0 and 255
         animation["from_"] = '#%02x%02x%02x' % (r, g, b)  # convert to hex
 
     elif output[5] == 1:
