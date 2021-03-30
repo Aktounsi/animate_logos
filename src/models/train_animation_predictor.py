@@ -16,7 +16,7 @@ def train_model_head(path_level_dataset, svg_level_dataset, hidden_sizes=[256, 1
 
     # initialize number of agents
     overall_start = datetime.now()
-    agents = create_random_agents(num_agents=num_agents, hidden_sizes=hidden_sizes, out_size=out_size)
+    agents = create_random_agents(num_agents=num_agents)
 
     logger.info('Model summary')
     print('=' * 100)
@@ -44,8 +44,7 @@ def train_model_head(path_level_dataset, svg_level_dataset, hidden_sizes=[256, 1
               f'| Mean rewards: {np.mean(rewards)} | Mean of top 10: {np.mean(top_rewards[:10])}')
         print(f'Top {top_parent_limit} agents: {sorted_parent_indexes}')
         print(f'Rewards for top {top_parent_limit} agents: {top_rewards}')
-        children_agents = crossover(agents=top_agents, num_agents=num_agents,
-                                    hidden_sizes=hidden_sizes, out_size=out_size)
+        children_agents = crossover(agents=top_agents, num_agents=num_agents)
         children_agents = [mutate(agent) for agent in children_agents]
         agents = children_agents
         stop = datetime.now()

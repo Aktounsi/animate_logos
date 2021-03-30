@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import time
 
+from src.models import config
+
 
 class AnimationPredictor(nn.Module):
     def __init__(self, embedding_size=256, hidden_sizes=[192,192,191], out_sizes=[1,10,3]):
@@ -24,7 +26,7 @@ class AnimationPredictor(nn.Module):
     # Forward Pass
     # X has to be single 2-dim tensor of size nr_paths x embedding_size
     def forward(self, X):
-        output = torch.zeros(X.shape[0], 13)
+        output = torch.zeros(X.shape[0], config.dim_animation_vector)
 
         # forward pass of first model: predict whether path is animated or not
         h_1 = torch.relu(self.hidden_1(X))
