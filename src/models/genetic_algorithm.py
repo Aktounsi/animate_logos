@@ -8,11 +8,13 @@ from os.path import isfile, join
 from src.utils import utils
 from src.utils import logger
 
-from src.models.animation_prediction import AnimationPredictor
+from src.models import config
 from src.models.surrogate_model import *
+from src.models.animation_prediction import AnimationPredictor
 
 
 def init_weights(m):
+    # Todo: Update to new model architecture
     for layer in m.hidden:
         torch.nn.init.xavier_uniform_(layer.weight)
         layer.bias.data.fill_(0.00)
@@ -20,12 +22,12 @@ def init_weights(m):
     m.out.bias.data.fill_(0.00)
 
 
-def create_random_agents(num_agents, hidden_sizes, out_size):
+def create_random_agents(num_agents):
     agents = []
 
     for _ in range(num_agents):
 
-        agent = AnimationPredictor()
+        agent = AnimationPredictor(config.a_embedding_size, config.a_hidden_sizes, config.a_out_size)
 
         for param in agent.parameters():
             param.requires_grad = False
@@ -37,22 +39,26 @@ def create_random_agents(num_agents, hidden_sizes, out_size):
 
 
 def pad_list(list_):
-    return list_ + [[-1] * 13] * (8 - len(list_))
+    return list_ + [[-1] * config.dim_animation_vector] * (config.n_paths - len(list_))
 
 
 def prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings):
     model_output_list = [output.tolist() for output in model_output]
     path_level_df = pd.DataFrame(
         {'filename': filenames, 'animation_id': animation_ids, 'model_output': model_output_list})
+    # Relatively expensive: 190345 per hit/ 8.8%
     concatenated_model_outputs = path_level_df.groupby('filename')['model_output'].apply(list)
+    # Relatively expensive: 106618 per hit/ 4.9%
     surrogate_model_input = pd.merge(left=concatenated_model_outputs, right=svg_embeddings, on='filename')
     surrogate_model_input['model_output'] = [pad_list(output) for output in surrogate_model_input['model_output']]
-    surrogate_model_input[[f'animation_output_{i}' for i in range(8)]] = pd.DataFrame(
+    # Relatively expensive: 65100 per hit/ 6%
+    surrogate_model_input[[f'animation_output_{i}' for i in range(config.n_paths)]] = pd.DataFrame(
         surrogate_model_input['model_output'].tolist(), index=surrogate_model_input.index)
-    for i in range(8):
-        surrogate_model_input[[f'animation_output_{i}_{j}' for j in range(13)]] = pd.DataFrame(
+    # Relatively expensive: 100916 per hit/ 74%
+    for i in range(config.n_paths):
+        surrogate_model_input[[f'animation_output_{i}_{j}' for j in range(config.dim_animation_vector)]] = pd.DataFrame(
             surrogate_model_input[f'animation_output_{i}'].tolist(), index=surrogate_model_input.index)
-    surrogate_model_input.drop([f'animation_output_{i}' for i in range(8)], inplace=True, axis=1)
+    surrogate_model_input.drop([f'animation_output_{i}' for i in range(config.n_paths)], inplace=True, axis=1)
     surrogate_model_input.drop('model_output', inplace=True, axis=1)
     return surrogate_model_input
 
@@ -74,13 +80,13 @@ def compute_agent_rewards(agents, X, filenames, animation_ids, svg_embeddings):
     return agent_rewards
 
 
-def crossover(agents, num_agents, hidden_sizes, out_size):
+def crossover(agents, num_agents):
     children = []
     for _ in range((num_agents - len(agents)) // 2):
         parent1 = np.random.choice(agents)
         parent2 = np.random.choice(agents)
-        child1 = AnimationPredictor()
-        child2 = AnimationPredictor()
+        child1 = AnimationPredictor(config.a_embedding_size, config.a_hidden_sizes, config.a_out_size)
+        child2 = AnimationPredictor(config.a_embedding_size, config.a_hidden_sizes, config.a_out_size)
 
         shapes = [param.shape for param in parent1.parameters()]
 
