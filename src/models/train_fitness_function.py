@@ -22,7 +22,7 @@ test_dataset = DatasetFF(train=False, path="../../data/fitness_function")
 
 # Scale training and test data
 scaler = StandardScaler()
-scaler.fit(train_dataset.X[:,FEATURES_TO_SCALE])
+scaler.fit(train_dataset.X[:,FEATURE_ID_TO_SCALE])
 train_dataset.scale(scaler)
 test_dataset.scale(scaler)
 
