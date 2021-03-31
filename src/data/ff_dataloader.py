@@ -6,13 +6,13 @@ import numpy as np
 class DatasetFF(torch.utils.data.Dataset):
 
     # Characterizes a dataset for PyTorch
-    def __init__(self, train=True):
+    def __init__(self, path, train=True):
 
         # Read csv file and load data into variables
         if train:
-            file_path = "../../data/fitness_function/train_ff.csv"
+            file_path = path + "/train_ff.csv"
         else:
-            file_path = "../../data/fitness_function/test_ff.csv"
+            file_path = path + "/test_ff.csv"
 
         file_out = pd.read_csv(file_path)
         X = file_out.iloc[0:file_out.shape[0], 0:-4].values

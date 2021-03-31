@@ -16,11 +16,9 @@ np.random.seed(73)
 
 # Load dataset
 # Replace by true labeled dataset if available
-train_dataset = DatasetFF(train=True)
-test_dataset = DatasetFF(train=False)
+train_dataset = DatasetFF(train=True, path="../../data/fitness_function")
+test_dataset = DatasetFF(train=False, path="../../data/fitness_function")
 
-print(train_dataset.X)
-print(train_dataset.y)
 
 # Scale training and test data
 scaler = StandardScaler()
@@ -39,7 +37,7 @@ fitness_function.to(device)
 
 # Loss and optimizer
 criterion = nn.MSELoss()
-optimizer = torch.optim.Adam(fitness_function.parameters())
+optimizer = torch.optim.Adam(fitness_function.parameters(), lr=0.001)
 
 
 # Data loader
@@ -56,7 +54,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
 
 
 # Train the model
-n_epochs = 100
+n_epochs = 1000
 
 
 # Stuff to store
