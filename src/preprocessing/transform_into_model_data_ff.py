@@ -15,3 +15,15 @@ def encode_classes(targets: np.ndarray):
         else:
             targets_encoded[i] = np.array([1, 1, 1, 1])
     return targets_encoded
+
+
+def decode_classes(targets_predicted: np.ndarray, threshold=0.5):
+    targets_encoded = np.zeros(shape=[targets_predicted.shape[0], 1], dtype=np.int_)
+    for i in range(targets_predicted.shape[0]):
+        targets_encoded[i] =next(x for x, val in enumerate(targets_predicted[i]) if val < threshold)
+    return targets_encoded
+
+
+if __name__ == '__main__':
+    ex = np.array([[0.9,0.8,0.4,0.2]])
+    print(decode_classes(ex))

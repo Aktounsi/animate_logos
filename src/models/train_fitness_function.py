@@ -1,11 +1,17 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from src.models.surrogate_model import *
 from src.data.ff_dataloader import *
 
+
+# Set seeds in order to reproduce results
+torch.manual_seed(73)
+random.seed(73)
+np.random.seed(73)
 
 # Load dataset
 # Replace by true labeled dataset if available
@@ -101,7 +107,7 @@ plt.legend()
 plt.show()
 
 # Save trained model
-torch.save(fitness_function.state_dict(), "../models/best_fitness_function.pth")
+torch.save(fitness_function.state_dict(), "../../models/best_fitness_function.pth")
 
 
 # n_correct = 0.
@@ -143,4 +149,15 @@ torch.save(fitness_function.state_dict(), "../models/best_fitness_function.pth")
 # test_acc = n_correct / n_total
 # print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
 
+
+# Load model and make predictions
+
+model = FitnessFunction(hidden_sizes=[98, 69])
+model.load_state_dict(torch.load("../../models/best_fitness_function.pth"))
+model.eval()
+
+random_input = torch.from_numpy(np.random.normal(size=[1, 98]).astype(np.float32))
+
+output = model(random_input)
+print(output)
 
