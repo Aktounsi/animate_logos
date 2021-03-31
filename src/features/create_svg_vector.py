@@ -120,21 +120,32 @@ def _reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=0.99, use_ppa=False
 
 
 if __name__ == '__main__':
-
-    with open('../../data/animated_svgs_dataframes/1646_animation_vectors.pkl', 'rb') as f:
-        svg_animation_df = pickle.load(f)
-
     with open('../../data/embeddings/truncated_svg_embedding.pkl', 'rb') as f:
         svg_embedding_df = pickle.load(f)
 
-    svg_df, fitted_pca = create_svg_vectors(svg_animation_df, svg_embedding_df, emb_variance=0.99, train=True)
+    with open('../../data/animation_label/animation_label.pkl', 'rb') as f:
+        svg_animation_df = pickle.load(f)
+
+    df_train, fitted_pca = create_svg_vectors(svg_animation_df, svg_embedding_df, emb_variance=0.99, train=True)
 
     # Check number of principal components and plot of cumulative explained variance
     explained_variance = fitted_pca.explained_variance_ratio_
     print(f"Number of principal components = {len(explained_variance)}")
-    plt.plot(np.cumsum(explained_variance))
-    plt.xlabel('number of components')
-    plt.ylabel('cumulative explained variance')
+    print(f"Explained variance = {explained_variance}")
+    #plt.plot(np.cumsum(explained_variance))
+    #plt.xlabel('number of components')
+    #plt.ylabel('cumulative explained variance')
+
+    output = open("data/animation_label/surrogate_model_train.pkl", 'wb')
+    pickle.dump(df_train, output)
+    output.close()
+    print('Train data created and saved.')
+
+    df_test = create_svg_vectors(svg_animation_df, svg_embedding_df, fitted_pca=fitted_pca, train=False)
+    output = open("data/animation_label/surrogate_model_test.pkl", 'wb')
+    pickle.dump(df_test, output)
+    output.close()
+    print('Test data created and saved.')
 
 
 
