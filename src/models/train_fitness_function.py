@@ -22,13 +22,13 @@ test_dataset = DatasetFF(train=False, path="../../data/fitness_function")
 
 # Scale training and test data
 scaler = StandardScaler()
-scaler.fit(train_dataset.X[:,6:])
+scaler.fit(train_dataset.X[:,FEATURES_TO_SCALE])
 train_dataset.scale(scaler)
 test_dataset.scale(scaler)
 
 
 # Build model and switch to GPU if available
-fitness_function = FitnessFunction(hidden_sizes=[98, 69])
+fitness_function = FitnessFunction(hidden_sizes=[120, 84])
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -113,11 +113,11 @@ torch.save(fitness_function.state_dict(), "../../models/best_fitness_function.pt
 
 # Load model and make predictions
 
-model = FitnessFunction(hidden_sizes=[98, 69])
+model = FitnessFunction(hidden_sizes=[120, 84])
 model.load_state_dict(torch.load("../../models/best_fitness_function.pth"))
 model.eval()
 
-random_input = torch.from_numpy(np.random.normal(size=[1, 98]).astype(np.float32))
+random_input = torch.from_numpy(np.random.normal(size=[1, 120]).astype(np.float32))
 
 output = model(random_input)
 print(output)

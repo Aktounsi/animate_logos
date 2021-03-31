@@ -2,6 +2,11 @@ import torch
 import pandas as pd
 import numpy as np
 
+COL_ID_TO_SCALE = [6,7,8,9,10,17,18,19,20,21,28,29,30,31,32,39,40,41,42,43,50,51,52,53,54,61,62,63,64,65,
+                   72,73,74,74,76,83,84,85,86,87]
+
+FEATURES_TO_SCALE = ["_".join([str(i), "x"]) for i in COL_ID_TO_SCALE] +\
+                    ["_".join(["emb", str(j)]) for j in range(32)]
 
 class DatasetFF(torch.utils.data.Dataset):
 
@@ -23,7 +28,7 @@ class DatasetFF(torch.utils.data.Dataset):
 
     def scale(self, fitted_scaler):
         sc = fitted_scaler
-        self.X[:,6:] = torch.from_numpy(sc.transform(self.X[:,6:]).astype(np.float32))
+        self.X[:, FEATURES_TO_SCALE] = torch.from_numpy(sc.transform(self.X[:, FEATURES_TO_SCALE]).astype(np.float32))
 
     def __len__(self):
         # Denotes the total number of samples
