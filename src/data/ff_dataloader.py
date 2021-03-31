@@ -19,7 +19,7 @@ class DatasetFF(torch.utils.data.Dataset):
         y = file_out.iloc[0:file_out.shape[0], -4:].values
 
         self.X = torch.from_numpy(X.astype(np.float32))
-        self.y = torch.from_numpy(y.astype(np.int_))
+        self.y = torch.from_numpy(y.astype(np.float32))
 
     def scale(self, fitted_scaler):
         sc = fitted_scaler

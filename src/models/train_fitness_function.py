@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from src.models.surrogate_model import *
-from src.data.ff_classes import *
+from src.data.ff_dataloader import *
 
 
 # Load dataset
