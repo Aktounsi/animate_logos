@@ -23,7 +23,7 @@ class DatasetFF(torch.utils.data.Dataset):
 
     def scale(self, fitted_scaler):
         sc = fitted_scaler
-        self.X = torch.from_numpy(sc.transform(self.X).astype(np.float32)) # TODO: adapt dimensionalities
+        self.X[:,6:] = torch.from_numpy(sc.transform(self.X[:,6:]).astype(np.float32))
 
     def __len__(self):
         # Denotes the total number of samples
@@ -33,6 +33,3 @@ class DatasetFF(torch.utils.data.Dataset):
         # Generates one sample of data
         # Select sample
         return self.X[index], self.y[index]
-
-
-

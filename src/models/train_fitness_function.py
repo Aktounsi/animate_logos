@@ -17,7 +17,7 @@ print(train_dataset.y)
 
 # Scale training and test data
 scaler = StandardScaler() # TODO: do not scale one-hot encoded features
-scaler.fit(train_dataset.X)
+scaler.fit(train_dataset.X[:,6:])
 train_dataset.scale(scaler)
 test_dataset.scale(scaler)
 
@@ -51,7 +51,6 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
 # Train the model
 n_epochs = 10
 
-# TODO: implement early stopping
 # TODO: more details on epoch information should be printed (e.g. test accuracy in each epoch)
 
 # Stuff to store
