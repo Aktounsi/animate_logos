@@ -16,7 +16,7 @@ print(train_dataset.X)
 print(train_dataset.y)
 
 # Scale training and test data
-scaler = StandardScaler() # TODO: do not scale one-hot encoded features
+scaler = StandardScaler()
 scaler.fit(train_dataset.X[:,6:])
 train_dataset.scale(scaler)
 test_dataset.scale(scaler)
@@ -49,9 +49,8 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
 
 
 # Train the model
-n_epochs = 10
+n_epochs = 100
 
-# TODO: more details on epoch information should be printed (e.g. test accuracy in each epoch)
 
 # Stuff to store
 train_losses = np.zeros(n_epochs)
@@ -101,44 +100,47 @@ plt.plot(test_losses, label='test loss')
 plt.legend()
 plt.show()
 
+# Save trained model
+torch.save(fitness_function.state_dict(), "../models/best_fitness_function.pth")
 
-n_correct = 0.
-n_total = 0.
-for inputs, targets in train_loader:
-    # move data to GPU
-    inputs, targets = inputs.to(device), targets.to(device)
 
-    # Forward pass
-    outputs = fitness_function(inputs)
-
-    # Get prediction
-    # torch.max returns both max and argmax
-    _, predictions = torch.max(outputs, 1)
-
-    # update counts
-    n_correct += (predictions == targets).sum().item()
-    n_total += targets.shape[0]
-
-train_acc = n_correct / n_total
-
-n_correct = 0.
-n_total = 0.
-for inputs, targets in test_loader:
-    # move data to GPU
-    inputs, targets = inputs.to(device), targets.to(device)
-
-    # Forward pass
-    outputs = fitness_function(inputs)
-
-    # Get prediction
-    # torch.max returns both max and argmax
-    _, predictions = torch.max(outputs, 1)
-
-    # update counts
-    n_correct += (predictions == targets).sum().item()
-    n_total += targets.shape[0]
-
-test_acc = n_correct / n_total
-print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
+# n_correct = 0.
+# n_total = 0.
+# for inputs, targets in train_loader:
+#     # move data to GPU
+#     inputs, targets = inputs.to(device), targets.to(device)
+#
+#     # Forward pass
+#     outputs = fitness_function(inputs)
+#
+#     # Get prediction
+#     # torch.max returns both max and argmax
+#     _, predictions = torch.max(outputs, 1)
+#
+#     # update counts
+#     n_correct += (predictions == targets).sum().item()
+#     n_total += targets.shape[0]
+#
+# train_acc = n_correct / n_total
+#
+# n_correct = 0.
+# n_total = 0.
+# for inputs, targets in test_loader:
+#     # move data to GPU
+#     inputs, targets = inputs.to(device), targets.to(device)
+#
+#     # Forward pass
+#     outputs = fitness_function(inputs)
+#
+#     # Get prediction
+#     # torch.max returns both max and argmax
+#     _, predictions = torch.max(outputs, 1)
+#
+#     # update counts
+#     n_correct += (predictions == targets).sum().item()
+#     n_total += targets.shape[0]
+#
+# test_acc = n_correct / n_total
+# print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
 
 
