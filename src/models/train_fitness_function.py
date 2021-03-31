@@ -16,14 +16,14 @@ print(train_dataset.X)
 print(train_dataset.y)
 
 # Scale training and test data
-scaler = StandardScaler()
+scaler = StandardScaler() # TODO: do not scale one-hot encoded features
 scaler.fit(train_dataset.X)
 train_dataset.scale(scaler)
 test_dataset.scale(scaler)
 
 
 # Build model and switch to GPU if available
-fitness_function = FitnessFunction(hidden_sizes=[360, 245])
+fitness_function = FitnessFunction(hidden_sizes=[98, 69])
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -31,7 +31,7 @@ fitness_function.to(device)
 
 
 # Loss and optimizer
-criterion = nn.CrossEntropyLoss()
+criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(fitness_function.parameters())
 
 

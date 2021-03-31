@@ -4,7 +4,8 @@ import numpy as np
 
 
 class FitnessFunction(nn.Module):
-    def __init__(self, hidden_sizes=[360, 245]):
+    # Ordinal Regression
+    def __init__(self, hidden_sizes=[98, 69]):
         super().__init__()
 
         # Hidden Layers
@@ -13,13 +14,13 @@ class FitnessFunction(nn.Module):
             self.hidden.append(nn.Linear(hidden_sizes[k], hidden_sizes[k + 1]))
 
         # Output Layers
-        self.out = nn.Linear(hidden_sizes[-1], 5)
+        self.out = nn.Linear(hidden_sizes[-1], 4)
 
     # Forward Pass
     def forward(self, X):
         for layer in self.hidden:
             X = torch.relu(layer(X))
-        output = self.out(X) # no softmax: CrossEntropyLoss()
+        output = torch.sigmoid(self.out(X))
         return output
 
 

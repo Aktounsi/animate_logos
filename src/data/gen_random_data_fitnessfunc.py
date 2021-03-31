@@ -1,3 +1,4 @@
+from src.preprocessing.transform_into_model_data_ff import encode_classes
 import numpy as np
 import pandas as pd
 import random
@@ -6,18 +7,20 @@ import random
 random.seed(96)
 
 
-X_train = np.random.normal(size=[5000, 360])
+X_train = np.random.normal(size=[5000, 98])
 
 y_train = np.random.choice([0, 1, 2, 3, 4], size=5000).reshape(-1, 1)
+y_train = encode_classes(y_train)
 
 train_data = pd.DataFrame(np.concatenate((X_train, y_train), axis=1))
 
 train_data.to_csv('../../data/fitness_function/train_ff.csv', index=False)
 
 
-X_test = np.random.normal(size=[1000, 360])
+X_test = np.random.normal(size=[1000, 98])
 
 y_test = np.random.choice([0, 1, 2, 3, 4], size=1000).reshape(-1,1)
+y_test = encode_classes(y_test)
 
 test_data = pd.DataFrame(np.concatenate((X_test, y_test),axis=1))
 
