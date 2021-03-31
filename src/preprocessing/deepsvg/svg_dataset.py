@@ -167,13 +167,16 @@ class SVGDataset(torch.utils.data.Dataset):
 
         t_sep, fillings = svg.to_tensor(concat_groups=False, PAD_VAL=self.PAD_VAL), svg.to_fillings()
 
-        # Note: DeepSVG can only handle 8 paths in a SVG.
-        t_sep = t_sep[0:8]
-        fillings = fillings[0:8]
+        # Note: DeepSVG can only handle 8 paths in a SVG and 30 sequences per path
+        if len(t_sep) > 8:
+            #print(f"SVG {id} has more than 30 segments.")
+            t_sep = t_sep[0:8]
+            fillings = fillings[0:8]
 
-        # Note: DeepSVG can only handle 30 sequences per path.
         for i in range(len(t_sep)):
-            t_sep[i] = t_sep[i][0:30]
+            if len(t_sep[i]) > 30:
+                #print(f"SVG {id}: Path nr {i} has more than 30 segments.")
+                t_sep[i] = t_sep[i][0:30]
 
         label = self.get_label(idx)
 
