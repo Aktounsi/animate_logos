@@ -19,6 +19,9 @@ def create_svg_vectors(animation_df, embedding_df, fitted_pca=None, emb_variance
 
     Returns (pd.DataFrame): Surrogate model input
     """
+    label_df = animation_df.copy(deep=True)
+    label_df.drop(['animation_ids', 'path_probabilities', 'model_output'], inplace=True, axis=1)
+
     animation_df['model_output'] = animation_df['model_output'].apply(lambda x: [item for sublist in x for item in sublist])
     animation_df = animation_df.set_index('file')
     animation_df = animation_df['model_output'].apply(pd.Series)
@@ -41,9 +44,15 @@ def create_svg_vectors(animation_df, embedding_df, fitted_pca=None, emb_variance
     cols = [cols[0], cols[-1]] + cols[1:-1]
     animation_df = animation_df.reindex(columns=cols)
 
-    len_animation_df = len(animation_df.columns)
+    # insert label and put it in first column
+    animation_df_label = pd.merge(animation_df, label_df, left_on='file', right_on='file') # insert label
+    cols = animation_df_label.columns.tolist()
+    cols = cols[-1:] + cols[:-1]
+    animation_df_label = animation_df_label[cols]
 
-    df = pd.merge(animation_df, svg_embedding, left_on='logo', right_on='filename')
+    len_animation_df = len(animation_df_label.columns)
+
+    df = pd.merge(animation_df_label, embedding_df, left_on='logo', right_on='filename')
 
     # use manually splitting after inspecting the logos (ratio should be around 80/20)
     logos_train = [f'logo_{i}' for i in range(147)]
@@ -54,11 +63,12 @@ def create_svg_vectors(animation_df, embedding_df, fitted_pca=None, emb_variance
     else:
         df = df.loc[df['logo'].isin(logos_test)]
 
-    df.drop(['logo', 'filename'], inplace=True, axis=1)
+    #df.drop(['logo', 'filename'], inplace=True, axis=1)
+    df.drop(['filename'], inplace=True, axis=1)
 
     if emb_variance:
-        df_meta = df.iloc[:, :(len_animation_df-1)].reset_index(drop=True)
-        df_emb = df.iloc[:, (len_animation_df-1):]
+        df_meta = df.iloc[:, :(len_animation_df)].reset_index(drop=True)
+        df_emb = df.iloc[:, (len_animation_df):]
         df_emb_red, fitted_pca = _reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=emb_variance, use_ppa=use_ppa)
         df = pd.concat([df_meta, df_emb_red.reset_index(drop=True)], axis=1)
 
@@ -110,21 +120,32 @@ def _reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=0.99, use_ppa=False
 
 
 if __name__ == '__main__':
-
-    with open('../../data/animated_svgs_dataframes/1646_animation_vectors.pkl', 'rb') as f:
-        animation_df = pickle.load(f)
-
     with open('../../data/embeddings/truncated_svg_embedding.pkl', 'rb') as f:
-        svg_embedding = pickle.load(f)
+        svg_embedding_df = pickle.load(f)
 
-    df, fitted_pca = create_svg_vectors(animation_df, svg_embedding, emb_variance=0.99, train=True)
+    with open('../../data/animation_label/animation_label.pkl', 'rb') as f:
+        svg_animation_df = pickle.load(f)
+
+    df_train, fitted_pca = create_svg_vectors(svg_animation_df, svg_embedding_df, emb_variance=0.99, train=True)
 
     # Check number of principal components and plot of cumulative explained variance
     explained_variance = fitted_pca.explained_variance_ratio_
     print(f"Number of principal components = {len(explained_variance)}")
-    plt.plot(np.cumsum(explained_variance))
-    plt.xlabel('number of components')
-    plt.ylabel('cumulative explained variance')
+    print(f"Explained variance = {explained_variance}")
+    #plt.plot(np.cumsum(explained_variance))
+    #plt.xlabel('number of components')
+    #plt.ylabel('cumulative explained variance')
+
+    output = open("data/animation_label/surrogate_model_train.pkl", 'wb')
+    pickle.dump(df_train, output)
+    output.close()
+    print('Train data created and saved.')
+
+    df_test = create_svg_vectors(svg_animation_df, svg_embedding_df, fitted_pca=fitted_pca, train=False)
+    output = open("data/animation_label/surrogate_model_test.pkl", 'wb')
+    pickle.dump(df_test, output)
+    output.close()
+    print('Test data created and saved.')
 
 
 
