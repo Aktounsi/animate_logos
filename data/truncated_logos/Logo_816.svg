@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="224.87999pt" height="225pt" viewBox="0 0 224.87999 225" version="1.2">
+	
+	
+
+	
+	<defs>
+		
+		
+
+		
+		<g>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-0">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-1">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-2">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-3">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-4">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-5">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-6">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph1-7">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-0">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-1">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-2">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-3">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-4">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-5">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-6">
+				
+
+				
+
+			</symbol>
+			
+			
+
+			
+			<symbol overflow="visible" id="glyph0-7">
+				
+
+				
+
+			</symbol>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<clipPath id="clip1">
+			
+			
+  
+			
+			<path d="M 0 0.0585938 L 224.761719 0.0585938 L 224.761719 224.9375 L 0 224.9375 Z M 0 0.0585938 " animation_id="0"/>
+			
+			
+
+		
+		</clipPath>
+		
+		
+
+		
+		<clipPath id="clip2">
+			
+			
+  
+			
+			<path d="M 28.121094 77.789062 L 196.332031 77.789062 L 196.332031 121.867188 L 28.121094 121.867188 Z M 28.121094 77.789062 " animation_id="1"/>
+			
+			
+
+		
+		</clipPath>
+		
+		
+
+		
+		<clipPath id="clip3">
+			
+			
+  
+			
+			<path d="M 28.121094 127.820312 L 196.78125 127.820312 L 196.78125 147.160156 L 28.121094 147.160156 Z M 28.121094 127.820312 " animation_id="2"/>
+			
+			
+
+		
+		</clipPath>
+		
+		
+
+		
+		<clipPath id="clip4">
+			
+			
+  
+			
+			<path d="M 35.164062 85.433594 L 63.949219 85.433594 L 63.949219 114.21875 L 35.164062 114.21875 Z M 35.164062 85.433594 " animation_id="3"/>
+			
+			
+
+		
+		</clipPath>
+		
+		
+
+	
+	</defs>
+	
+	
+
+	
+	<g id="surface1">
+		
+		
+
+		
+		<g clip-path="url(#clip1)" clip-rule="nonzero">
+			
+			
+
+			
+			<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 0 0.0585938 L 224.878906 0.0585938 L 224.878906 224.941406 L 0 224.941406 Z M 0 0.0585938 " animation_id="4"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g clip-path="url(#clip2)" clip-rule="nonzero">
+			
+			
+
+			
+			<path style=" stroke:none;fill-rule:nonzero;fill:rgb(26.669312%,85.099792%,90.19928%);fill-opacity:1;" d="M 28.121094 77.789062 L 196.332031 77.789062 L 196.332031 121.867188 L 28.121094 121.867188 Z M 28.121094 77.789062 " animation_id="5"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-0" x="72.465114" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-1" x="84.036565" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-2" x="89.023516" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-3" x="94.42065" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-4" x="104.999027" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-4" x="115.771697" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-2" x="126.544367" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-5" x="131.941501" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-6" x="142.757351" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-5" x="153.551612" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-5" x="164.367462" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph0-7" x="175.183313" y="109.331453"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g clip-path="url(#clip3)" clip-rule="nonzero">
+			
+			
+
+			
+			<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,17.649841%,22.749329%);fill-opacity:1;" d="M 28.121094 127.820312 L 196.78125 127.820312 L 196.78125 147.160156 L 28.121094 147.160156 Z M 28.121094 127.820312 " animation_id="6"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-1" x="87.078388" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-2" x="93.145" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-3" x="99.378475" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-4" x="104.652509" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-5" x="109.79246" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-3" x="115.424047" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-6" x="120.698081" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-3" x="124.297561" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-4" x="129.571596" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g style="fill:rgb(100%,100%,100%);fill-opacity:1;">
+			
+			
+  
+			
+			<use xlink:href="#glyph1-7" x="134.711547" y="139.763219"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+		
+		<g clip-path="url(#clip4)" clip-rule="nonzero">
+			
+			
+
+			
+			<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 49.558594 85.433594 C 41.609375 85.433594 35.164062 91.878906 35.164062 99.828125 C 35.164062 107.773438 41.609375 114.21875 49.558594 114.21875 C 57.507812 114.21875 63.949219 107.773438 63.949219 99.828125 C 63.949219 91.878906 57.507812 85.433594 49.558594 85.433594 Z M 45.902344 108.09375 L 45.902344 91.957031 L 57.707031 100.023438 Z M 45.902344 108.09375 " animation_id="7"/>
+			
+			
+
+		
+		</g>
+		
+		
+
+	
+	</g>
+	
+	
+
+
+</svg>
