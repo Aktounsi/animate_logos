@@ -1,7 +1,7 @@
 from xml.dom import minidom
 from pathlib import Path
 from src.features.get_bbox_size import get_midpoint_of_path_bbox
-from src.models_output.transform_animation_predictor_output import transform_animation_predictor_output
+from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 
 def create_animated_svg(file, animation_id, model_output, filename_suffix=""):

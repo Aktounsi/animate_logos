@@ -7,8 +7,8 @@ import pandas as pd
 from datetime import datetime
 from pathlib import Path
 
-from src.models_output.get_path_probabilities import get_path_probabilities
-from src.models_output.insert_animation import create_animated_svg
+from src.animations.get_path_probabilities import get_path_probabilities
+from src.animations.insert_animation import create_animated_svg
 from src.preprocessing.sort_paths import sort_by_relevance
 
 # Specify path to pkl file containing path labels
@@ -87,7 +87,7 @@ def _create_one_df(folder, nb_animations):
                            model_output=model_output)
 
 
-def random_animation_vector(nr_animations, frac_animations, frac_animation_type=[1 / 6] * 6, seed=73):
+def random_animation_vector(nr_animations, frac_animations, frac_animation_type=None, seed=73):
     """ Function to generate random animation vectors.
     Format of vectors: (translate scale rotate skew fill opacity duration begin from_1 from_2 from_3)
 
@@ -102,6 +102,9 @@ def random_animation_vector(nr_animations, frac_animations, frac_animation_type=
 
     Returns (ndarray): Array of 11 dimensional random animation vectors
     """
+    if frac_animation_type is None:
+        frac_animation_type = [1 / 6] * 6
+
     random.seed(seed)
     np.random.seed(seed)
     animation_list = []
