@@ -1,7 +1,6 @@
 from svgpathtools import svg2paths
 import pandas as pd
 import numpy as np
-import os
 from xml.dom import minidom
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -101,13 +100,13 @@ def _get_local_style_attributes(file):
             if 'fill' in attr:
                 fill = attr['fill']
             if 'stroke' in attr:
-                fill = attr['stroke']
+                stroke = attr['stroke']
             if 'stroke-width' in attr:
-                fill = attr['stroke-width']
+                stroke_width = attr['stroke-width']
             if 'opacity' in attr:
-                fill = attr['opacity']
+                opacity = attr['opacity']
             if 'stroke-opacity' in attr:
-                fill = attr['stroke-opacity']
+                stroke:opacity = attr['stroke-opacity']
 
         if 'class' in attr:
             class_ = attr['class']

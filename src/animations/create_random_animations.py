@@ -9,10 +9,13 @@ from pathlib import Path
 
 from src.animations.get_path_probabilities import get_path_probabilities
 from src.animations.insert_animation import create_animated_svg
-from src.preprocessing.sort_paths import sort_by_relevance
+from src.preprocessing.sort_paths import get_path_relevance
 
 # Specify path to pkl file containing path labels
-pkl_file = "animation_path_label.pkl"
+animation_path_label = "data/model_1/animation_path_label.pkl"
+
+# Specify path to pkl file containing path relevance order
+path_relevance_order = "data/meta_data/path_relevance_order.pkl"
 
 
 def create_random_animations(folder, nb_animations, split_df=True):
@@ -44,8 +47,8 @@ def create_multiple_df(folder, nb_animations):
 
 
 def _create_multiple_df(folder, file, nb_animations):
-    relevant_animation_ids, _ = sort_by_relevance(f"data/path_selection/{file.replace('.svg', '')}")
-    path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids, pkl_file=pkl_file)
+    relevant_animation_ids = get_path_relevance(file.replace('.svg', ''), pkl_file=path_relevance_order)
+    path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids, pkl_file=animation_path_label)
     file = folder + "/" + file
     for random_seed in range(nb_animations):
         model_output = random_animation_vector(nr_animations=len(relevant_animation_ids),
@@ -73,8 +76,9 @@ def create_one_df(folder, nb_animations):
 def _create_one_df(folder, nb_animations):
     for file in os.listdir(folder):
         if file.endswith(".svg"):
-            relevant_animation_ids, _ = sort_by_relevance(f"data/path_selection/{file.replace('.svg', '')}")
-            path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids, pkl_file=pkl_file)
+            relevant_animation_ids = get_path_relevance(file.replace('.svg', ''), pkl_file=path_relevance_order)
+            path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids,
+                                                pkl_file=animation_path_label)
             file = folder + "/" + file
             for random_seed in range(nb_animations):
                 model_output = random_animation_vector(nr_animations=len(relevant_animation_ids),
@@ -87,9 +91,10 @@ def _create_one_df(folder, nb_animations):
                            model_output=model_output)
 
 
-def random_animation_vector(nr_animations, frac_animations, frac_animation_type=None, seed=73):
+def random_animation_vector(nr_animations, frac_animations=None, frac_animation_type=None, seed=73):
     """ Function to generate random animation vectors.
-    Format of vectors: (translate scale rotate skew fill opacity duration begin from_1 from_2 from_3)
+    Format of vectors: (translate scale rotate skew fill opacity
+                    translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
 
     Note: nr_animations must match length of frac_animations
     Example: random_animation_vector(nr_animations=2, frac_animations=[0.5, 0.5])
@@ -102,6 +107,8 @@ def random_animation_vector(nr_animations, frac_animations, frac_animation_type=
 
     Returns (ndarray): Array of 11 dimensional random animation vectors
     """
+    if frac_animations is None:
+        frac_animations = [1 / 2] * nr_animations
     if frac_animation_type is None:
         frac_animation_type = [1 / 6] * 6
 
@@ -111,18 +118,20 @@ def random_animation_vector(nr_animations, frac_animations, frac_animation_type=
     for i in range(nr_animations):
         animate = np.random.choice(a=[False, True], p=[1 - frac_animations[i], frac_animations[i]])
         if not animate:
-            animation_list.append(np.array([0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1]))
+            animation_list.append(np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object))
         else:
-            vec = np.zeros(11)
-            vec[9] = -1
-            vec[10] = -1
+            vec = np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object)
             animation_type = np.random.choice(a=[0, 1, 2, 3, 4, 5], p=frac_animation_type)
             vec[animation_type] = 1
-            for j in range(6, 9):  # all animation types have parameter duration, begin, from_1
-                vec[j] = random.uniform(0, 1)
-            if animation_type in [0, 3, 4]:  # only translate, skew and fill have parameter from_2
+            if animation_type == 0:  # translate
+                vec[6] = random.uniform(0, 1)
+                vec[7] = random.uniform(0, 1)
+            if animation_type == 1:  # scale
+                vec[8] = random.uniform(0, 1)
+            if animation_type == 2:  # rotate
                 vec[9] = random.uniform(0, 1)
-            if animation_type == 4:  # only fill has parameter from_3
+            if animation_type == 3:  # skew
                 vec[10] = random.uniform(0, 1)
+                vec[11] = random.uniform(0, 1)
             animation_list.append(vec)
     return np.array(animation_list)
