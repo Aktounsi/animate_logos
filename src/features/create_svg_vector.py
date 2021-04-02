@@ -123,7 +123,7 @@ if __name__ == '__main__':
     with open('../../data/embeddings/truncated_svg_embedding.pkl', 'rb') as f:
         svg_embedding_df = pickle.load(f)
 
-    with open('../../data/animation_label/animation_label.pkl', 'rb') as f:
+    with open('../../data/surrogate_model/animation_label.pkl', 'rb') as f:
         svg_animation_df = pickle.load(f)
 
     df_train, fitted_pca = create_svg_vectors(svg_animation_df, svg_embedding_df, emb_variance=0.99, train=True)
