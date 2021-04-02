@@ -18,9 +18,9 @@ def get_svg_size(file):
     height = doc.getElementsByTagName('svg')[0].getAttribute('height')
     if width != "" and height != "":
         if not width[-1].isdigit():
-            width = width.replace('px', '')
+            width = width.replace('px', '').replace('pt', '')
         if not height[-1].isdigit():
-            height = height.replace('px', '')
+            height = height.replace('px', '').replace('pt', '')
     else:
         # get bounding box of svg
         xmin_svg, xmax_svg, ymin_svg, ymax_svg = 0, 0, 0, 0
@@ -83,3 +83,32 @@ def get_midpoint_of_path_bbox(file, animation_id):
     y_midpoint = (ymax + ymin) / 2
 
     return x_midpoint, y_midpoint
+
+
+def get_begin_values_by_bbox(file, animation_ids, start=1, step=0.5):
+    """ Function to get begin ordering by considering bounding box of path.
+
+    Example: get_begin_ordering_by_bbox('data/svgs/logo_1.svg', [0, 6, 2])
+
+    Args:
+        file (string): The path of the SVG file
+        animation_ids (list(int)): List of animation_ids
+        start (float): First begin value
+        step (float): Time between begin values
+
+    Returns (list): Begin values of animation ids
+    """
+    midpoint_list = []
+    begin_list = []
+    begin = start
+    for i in range(len(animation_ids)):
+        x, y = get_midpoint_of_path_bbox(file, animation_ids[i])
+        midpoint_list.append([x, y])
+        begin_list.append(begin)
+        begin = begin + step
+
+    animation_id_order = [z for _, z in
+                          sorted(zip(midpoint_list, range(len(midpoint_list))), key=lambda x: (x[0], -x[1]))]
+    begin_values = [z for _, z in sorted(zip(animation_id_order, begin_list))]
+
+    return begin_values

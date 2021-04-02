@@ -1,38 +1,40 @@
 import numpy as np
 from xml.dom import minidom
 from pathlib import Path
-from src.features.get_bbox_size import get_midpoint_of_path_bbox
+from src.features.get_bbox_size import get_midpoint_of_path_bbox, get_begin_values_by_bbox
 from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 
-def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
+def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
     """ Function to insert multiple animation statements.
 
     Args:
         file (string): The path of the SVG file
-        animation_id (list[int]): List of Path IDs that get animated
+        animation_ids (list[int]): List of Path IDs that get animated
         model_output (ndarray): Array of 13 dimensional arrays with animation predictor model output
         filename_suffix  (string): Suffix of animated SVG
     """
     doc = svg_to_doc(file)
-    for i in range(len(animation_id)):
+    begin_values = get_begin_values_by_bbox(file, animation_ids, start=1, step=0.25)
+    for i in range(len(animation_ids)):
         if not (model_output[i][:6] == np.array([0] * 6)).all():
             try:  # there are some paths that can't be embedded and don't have style attributes
-                output_dict = transform_animation_predictor_output(file, animation_id[i], model_output[i])
+                output_dict = transform_animation_predictor_output(file, animation_ids[i], model_output[i])
+                output_dict["begin"] = begin_values[i]
                 if output_dict["type"] == "translate":
-                    doc = insert_translate_statement(doc, animation_id[i], output_dict)
+                    doc = insert_translate_statement(doc, animation_ids[i], output_dict)
                 if output_dict["type"] == "scale":
-                    doc = insert_scale_statement(doc, animation_id[i], output_dict, file)
+                    doc = insert_scale_statement(doc, animation_ids[i], output_dict, file)
                 if output_dict["type"] == "rotate":
-                    doc = insert_rotate_statement(doc, animation_id[i], output_dict)
+                    doc = insert_rotate_statement(doc, animation_ids[i], output_dict)
                 if output_dict["type"] in ["skewX", "skewY"]:
-                    doc = insert_skew_statement(doc, animation_id[i], output_dict)
+                    doc = insert_skew_statement(doc, animation_ids[i], output_dict)
                 if output_dict["type"] == "fill":
-                    doc = insert_fill_statement(doc, animation_id[i], output_dict)
+                    doc = insert_fill_statement(doc, animation_ids[i], output_dict)
                 if output_dict["type"] in ["opacity"]:
-                    doc = insert_opacity_statement(doc, animation_id[i], output_dict)
+                    doc = insert_opacity_statement(doc, animation_ids[i], output_dict)
             except Exception as e:
-                print(f"File {file}, animation {animation_id[i]} can't be animated. {e}")
+                print(f"File {file}, animation {animation_ids[i]} can't be animated. {e}")
                 pass
 
     filename = file.split('/')[-1].replace(".svg", "") + "_animation_" + filename_suffix
@@ -246,7 +248,7 @@ def create_opacity_pre_animation_dicts(animation_dict):
 
     opacity_pre_animation_dict_2 = {"type": "opacity",
                                     "begin": animation_dict["begin"],
-                                    "dur": "1",
+                                    "dur": "0.5",
                                     "from_": "0",
                                     "to": "1",
                                     "fill": "remove"}

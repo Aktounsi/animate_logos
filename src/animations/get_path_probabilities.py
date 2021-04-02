@@ -20,7 +20,7 @@ def get_path_probabilities(filename, animation_ids, pkl_file="data/model_1/anima
             probability = df[(df['filename'] == f"{filename}") & (df['animation_id'] == animation_ids[i])].iloc[0]['animate']
         except Exception as e:
             probability = 0.5
-            print(f"No probability for path {i} in logo {filename}. Probability is set to 0.5. {e}")
+            print(f"No probability given for path with animation ID {animation_ids[i]} in logo {filename}. Probability is set to 0.5. {e}")
         l.append(probability)
 
     return l
