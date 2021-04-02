@@ -1,7 +1,7 @@
 import numpy as np
 from xml.dom import minidom
 from pathlib import Path
-from src.features.get_bbox_size import get_midpoint_of_path_bbox, get_begin_values_by_bbox
+from src.features.get_bbox_size import get_midpoint_of_path_bbox, get_begin_values_by_starting_pos
 from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 
@@ -15,7 +15,7 @@ def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
         filename_suffix  (string): Suffix of animated SVG
     """
     doc = svg_to_doc(file)
-    begin_values = get_begin_values_by_bbox(file, animation_ids, start=1, step=0.25)
+    begin_values = get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.25)
     for i in range(len(animation_ids)):
         if not (model_output[i][:6] == np.array([0] * 6)).all():
             try:  # there are some paths that can't be embedded and don't have style attributes
