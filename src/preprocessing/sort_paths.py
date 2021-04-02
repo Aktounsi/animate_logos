@@ -1,3 +1,4 @@
+import pickle
 import os
 from os import listdir
 from os.path import isfile, join
@@ -142,3 +143,10 @@ class Selector:
                     file.write(doc.toprettyxml(encoding='iso-8859-1'))
             doc.unlink()
         logger.info(f'Time: {datetime.now() - start}')
+
+
+def get_path_relevance(logo, pkl_file='data/meta_data/path_relevance_order.pkl'):
+    with open(pkl_file, 'rb') as f:
+        df = pickle.load(f)
+    path_relevance_order = df[df['logo'] == logo]
+    return path_relevance_order.iloc[0]['relevance_order']

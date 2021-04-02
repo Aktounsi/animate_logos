@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from xml.dom import minidom
 import os
+pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def parse_svg(file):
@@ -48,30 +49,38 @@ def _get_local_style_attributes(folder):
                 stroke_width = '0'
                 opacity = '1.0'
                 stroke_opacity = '1.0'
-                try:
+                class_ = ''
+                if 'style' in attr:
                     a = attr['style']
-                except:
-                    a = ''
-                try:
-                    class_ = attr['class']
-                except:
-                    class_ = ''
-                if a.find('fill') != -1:
-                    fill = a.split('fill:', 1)[-1].split(';', 1)[0]
-                    if fill == 'none':
-                        fill = '#000000'
-                if a.find('stroke') != -1:
-                    stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
-                if a.find('stroke-width') != -1:
-                    stroke_width = a.split('stroke-width:', 1)[-1].split(';', 1)[0]
-                if a.find('opacity') != -1:
-                    opacity = a.split('opacity:', 1)[-1].split(';', 1)[0]
-                if a.find('stroke-opacity') != -1:
-                    stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+                    if a.find('fill') != -1:
+                        fill = a.split('fill:', 1)[-1].split(';', 1)[0]
+                        if fill == 'none':
+                            fill = '#000000'
+                    if a.find('stroke') != -1:
+                        stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
+                    if a.find('stroke-width') != -1:
+                        stroke_width = a.split('stroke-width:', 1)[-1].split(';', 1)[0]
+                    if a.find('opacity') != -1:
+                        opacity = a.split('opacity:', 1)[-1].split(';', 1)[0]
+                    if a.find('stroke-opacity') != -1:
+                        stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+                else:
+                    if 'fill' in attr:
+                        fill = attr['fill']
+                    if 'stroke' in attr:
+                        fill = attr['stroke']
+                    if 'stroke-width' in attr:
+                        fill = attr['stroke-width']
+                    if 'opacity' in attr:
+                        fill = attr['opacity']
+                    if 'stroke-opacity' in attr:
+                        fill = attr['stroke-opacity']
 
-                yield dict(filename=file.split('.svg')[0], animation_id=animation_id, class_=class_, fill=fill, stroke=stroke,
-                           stroke_width=stroke_width,
-                           opacity=opacity, stroke_opacity=stroke_opacity)
+                if 'class' in attr:
+                    class_ = attr['class']
+
+                yield dict(filename=file.split('.svg')[0], animation_id=animation_id, class_=class_, fill=fill,
+                           stroke=stroke, stroke_width=stroke_width, opacity=opacity, stroke_opacity=stroke_opacity)
 
 
 def get_global_style_attributes(folder):
@@ -114,8 +123,8 @@ def _get_global_style_attributes(folder):
                         opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
                     if attr.find('stroke-opacity:') != -1:
                         stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
-                    yield dict(filename=file.split('.svg')[0], class_=class_, fill=fill, stroke=stroke, stroke_width=stroke_width,
-                               opacity=opacity, stroke_opacity=stroke_opacity)
+                    yield dict(filename=file.split('.svg')[0], class_=class_, fill=fill, stroke=stroke,
+                               stroke_width=stroke_width, opacity=opacity, stroke_opacity=stroke_opacity)
 
 
 def combine_style_attributes(df_global, df_local):

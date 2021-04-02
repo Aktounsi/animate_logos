@@ -1,7 +1,8 @@
+import numpy as np
 from xml.dom import minidom
 from pathlib import Path
 from src.features.get_bbox_size import get_midpoint_of_path_bbox
-from src.models_output.transform_animation_predictor_output import transform_animation_predictor_output
+from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 
 def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
@@ -15,7 +16,7 @@ def create_animated_svg(file, animation_id, model_output, filename_suffix=""):
     """
     doc = svg_to_doc(file)
     for i in range(len(animation_id)):
-        if model_output[i][6] != -1:
+        if not (model_output[i][:6] == np.array([0] * 6)).all():
             try:  # there are some paths that can't be embedded and don't have style attributes
                 output_dict = transform_animation_predictor_output(file, animation_id[i], model_output[i])
                 if output_dict["type"] == "translate":
@@ -129,12 +130,14 @@ def insert_skew_statement(doc, animation_id, model_output_dict):
 def insert_fill_statement(doc, animation_id, model_output_dict):
     """ Function to insert fill statement. """
     pre_animations = []
+    model_output_dict['begin'] = 3  # new to force wave
+    model_output_dict['dur'] = 2
     if model_output_dict['begin'] < 2:
         model_output_dict['begin'] = 0
     else:  # Wave
         pre_animation_dict = {"type": "fill",
-                              "begin": 0,
-                              "dur": model_output_dict["begin"],
+                              "begin": 1,
+                              "dur": 2,  # model_output_dict["begin"],
                               "from_": model_output_dict["to"],
                               "to": model_output_dict["from_"],
                               "fill": "remove"}

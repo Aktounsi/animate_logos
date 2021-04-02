@@ -2,18 +2,19 @@ from svgpathtools import svg2paths
 import pandas as pd
 import numpy as np
 from xml.dom import minidom
+pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def get_style_attributes_svg(file):
     """ Function to get style attributes of a SVG file.
 
-    Example: get_style_attributes_svg('svgs/Air France.svg')
+    Example: get_style_attributes_svg('data/svgs/logo_1.svg')
 
     Args:
         file (string): The path of the SVG file.
 
     Returns:
-        (pd.DataFrame): List of dictionaries containing the attributes of each path.
+        (pd.DataFrame): Dataframe containing the attributes of each path.
     """
     global_styles = get_global_style_attributes(file)
     local_styles = get_local_style_attributes(file)
@@ -79,26 +80,36 @@ def _get_local_style_attributes(file):
         stroke_width = '0'
         opacity = '1.0'
         stroke_opacity = '1.0'
-        try:
+        class_ = ''
+
+        if 'style' in attr:
             a = attr['style']
-        except:
-            a = ''
-        try:
+            if a.find('fill') != -1:
+                fill = a.split('fill:', 1)[-1].split(';', 1)[0]
+                if fill == 'none':
+                    fill = '#000000'
+            if a.find('stroke') != -1:
+                stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
+            if a.find('stroke-width') != -1:
+                stroke_width = a.split('stroke-width:', 1)[-1].split(';', 1)[0]
+            if a.find('opacity') != -1:
+                opacity = a.split('opacity:', 1)[-1].split(';', 1)[0]
+            if a.find('stroke-opacity') != -1:
+                stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+        else:
+            if 'fill' in attr:
+                fill = attr['fill']
+            if 'stroke' in attr:
+                stroke = attr['stroke']
+            if 'stroke-width' in attr:
+                stroke_width = attr['stroke-width']
+            if 'opacity' in attr:
+                opacity = attr['opacity']
+            if 'stroke-opacity' in attr:
+                stroke:opacity = attr['stroke-opacity']
+
+        if 'class' in attr:
             class_ = attr['class']
-        except:
-            class_ = ''
-        if a.find('fill') != -1:
-            fill = a.split('fill:', 1)[-1].split(';', 1)[0]
-            if fill == 'none':
-                fill = '#000000'
-        if a.find('stroke') != -1:
-            stroke = a.split('stroke:', 1)[-1].split(';', 1)[0]
-        if a.find('stroke-width') != -1:
-            stroke_width = a.split('stroke-width:', 1)[-1].split(';', 1)[0]
-        if a.find('opacity') != -1:
-            opacity = a.split('opacity:', 1)[-1].split(';', 1)[0]
-        if a.find('stroke-opacity') != -1:
-            stroke_opacity = a.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
 
         yield dict(filename=file.split('.svg')[0], animation_id=animation_id, class_=class_, fill=fill, stroke=stroke,
                    stroke_width=stroke_width,
