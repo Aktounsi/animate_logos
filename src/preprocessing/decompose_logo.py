@@ -54,6 +54,7 @@ def decompose_logo(file):
             parent.removeChild(element)
         # Add outline to element (to handle white elements on white background)
         elements_temp[i].setAttribute('stroke', 'black')
+        elements_temp[i].setAttribute('stroke-width', '2')
         # If there is a style attribute, remove stroke:none
         if len(elements_temp[i].getAttribute('style')) > 0:
             elements_temp[i].attributes['style'].value = elements_temp[i].attributes['style'].value.replace('stroke:none', '')
