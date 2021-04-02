@@ -85,10 +85,10 @@ def get_midpoint_of_path_bbox(file, animation_id):
     return x_midpoint, y_midpoint
 
 
-def get_begin_values_by_bbox(file, animation_ids, start=1, step=0.5):
-    """ Function to get begin ordering by considering bounding box of path.
+def get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.5):
+    """ Function to get begin values by sorting from left to right.
 
-    Example: get_begin_ordering_by_bbox('data/svgs/logo_1.svg', [0, 6, 2])
+    Example: get_begin_values_by_bbox('data/svgs/logo_1.svg', [0, 6, 2])
 
     Args:
         file (string): The path of the SVG file
@@ -98,17 +98,16 @@ def get_begin_values_by_bbox(file, animation_ids, start=1, step=0.5):
 
     Returns (list): Begin values of animation ids
     """
-    midpoint_list = []
+    starting_point_list = []
     begin_list = []
     begin = start
     for i in range(len(animation_ids)):
-        x, y = get_midpoint_of_path_bbox(file, animation_ids[i])
-        midpoint_list.append([x, y])
+        x, _, _, _ = get_path_bbox(file, animation_ids[i])  # get x value of upper left corner
+        starting_point_list.append(x)
         begin_list.append(begin)
         begin = begin + step
 
-    animation_id_order = [z for _, z in
-                          sorted(zip(midpoint_list, range(len(midpoint_list))), key=lambda x: (x[0], -x[1]))]
+    animation_id_order = [z for _, z in sorted(zip(starting_point_list, range(len(starting_point_list))))]
     begin_values = [z for _, z in sorted(zip(animation_id_order, begin_list))]
 
     return begin_values
