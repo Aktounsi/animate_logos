@@ -48,17 +48,28 @@ def create_multiple_df(folder, nb_animations):
 
 def _create_multiple_df(folder, file, nb_animations):
     relevant_animation_ids = get_path_relevance(file.replace('.svg', ''), pkl_file=path_relevance_order)
-    path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids, pkl_file=animation_path_label)
+    path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids,
+                                        pkl_file=animation_path_label)
     file = folder + "/" + file
     for random_seed in range(nb_animations):
-        model_output = random_animation_vector(nr_animations=len(relevant_animation_ids),
-                                               frac_animations=path_probs,
-                                               seed=random_seed)
-        create_animated_svg(file, relevant_animation_ids, model_output, str(random_seed))
-        yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
-                   animation_ids=relevant_animation_ids,
-                   path_probabilities=path_probs,
-                   model_output=model_output)
+        animation_vectors, animated_order_ids, backend_mapping = random_animation_vector(
+            nr_animations=len(relevant_animation_ids),
+            path_probs=path_probs,
+            seed=random_seed)
+        # Create list of animation IDs that were animated
+        animated_animation_ids = []
+        for i in range(len(animated_order_ids)):
+            animated_animation_ids.append(relevant_animation_ids[animated_order_ids[i]])
+        create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
+        for j in range(len(relevant_animation_ids)):
+            yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
+                       animation_id=relevant_animation_ids[j],
+                       order_id=j,
+                       path_prob=path_probs[j],
+                       model_output=animation_vectors[j],
+                       animated_animation_ids=animated_animation_ids,
+                       animated_order_ids=animated_order_ids,
+                       backend_mapping=backend_mapping)
 
 
 def create_one_df(folder, nb_animations):
@@ -81,17 +92,27 @@ def _create_one_df(folder, nb_animations):
                                                 pkl_file=animation_path_label)
             file = folder + "/" + file
             for random_seed in range(nb_animations):
-                model_output = random_animation_vector(nr_animations=len(relevant_animation_ids),
-                                                       frac_animations=path_probs,
-                                                       seed=random_seed)
-                create_animated_svg(file, relevant_animation_ids, model_output, str(random_seed))
-                yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
-                           animation_ids=relevant_animation_ids,
-                           path_probabilities=path_probs,
-                           model_output=model_output)
+                animation_vectors, animated_order_ids, backend_mapping = random_animation_vector(
+                    nr_animations=len(relevant_animation_ids),
+                    path_probs=path_probs,
+                    seed=random_seed)
+                # Create list of animation IDs that were animated
+                animated_animation_ids = []
+                for i in range(len(animated_order_ids)):
+                    animated_animation_ids.append(relevant_animation_ids[animated_order_ids[i]])
+                create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
+                for j in range(len(animated_animation_ids)):
+                    yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
+                               animation_id=animated_animation_ids[j],
+                               order_id=j,
+                               path_prob=path_probs[j],
+                               model_output=animation_vectors[j],
+                               animated_animation_ids=animated_animation_ids,
+                               animated_order_ids=animated_order_ids,
+                               backend_mapping=backend_mapping)
 
 
-def random_animation_vector(nr_animations, frac_animations=None, frac_animation_type=None, seed=73):
+def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=None, seed=73):
     """ Function to generate random animation vectors.
     Format of vectors: (translate scale rotate skew fill opacity
                     translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
@@ -101,27 +122,32 @@ def random_animation_vector(nr_animations, frac_animations=None, frac_animation_
 
     Args:
         nr_animations (int): Number of animation vectors that are generated
-        frac_animations (list): Specifies how likely it is that a path gets animated
-        frac_animation_type (list): Specifies probabilities of animation types (default=uniform)
+        path_probs (list): Specifies how likely it is that a path gets animated
+        animation_type_prob (list): Specifies probabilities of animation types (default=uniform)
         seed (int): Random seed
 
-    Returns (ndarray): Array of 11 dimensional random animation vectors
+    Returns
+        np.array(vec_list) (ndarray): Array of 11 dimensional random animation vectors
+        animated_order_ids (list): List of IDs that were animated
     """
-    if frac_animations is None:
-        frac_animations = [1 / 2] * nr_animations
-    if frac_animation_type is None:
-        frac_animation_type = [1 / 6] * 6
+    if path_probs is None:
+        path_probs = [1 / 2] * nr_animations
+    if animation_type_prob is None:
+        animation_type_prob = [1 / 6] * 6
 
     random.seed(seed)
     np.random.seed(seed)
-    animation_list = []
+    vec_list = []
+    animated_order_ids = []
+    backend_mapping = []
     for i in range(nr_animations):
-        animate = np.random.choice(a=[False, True], p=[1 - frac_animations[i], frac_animations[i]])
+        animate = np.random.choice(a=[False, True], p=[1 - path_probs[i], path_probs[i]])
         if not animate:
-            animation_list.append(np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object))
+            # vec_list.append(np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object))
+            backend_mapping.append(0)
         else:
             vec = np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object)
-            animation_type = np.random.choice(a=[0, 1, 2, 3, 4, 5], p=frac_animation_type)
+            animation_type = np.random.choice(a=[0, 1, 2, 3, 4, 5], p=animation_type_prob)
             vec[animation_type] = 1
             if animation_type == 0:  # translate
                 vec[6] = random.uniform(0, 1)
@@ -133,5 +159,24 @@ def random_animation_vector(nr_animations, frac_animations=None, frac_animation_
             if animation_type == 3:  # skew
                 vec[10] = random.uniform(0, 1)
                 vec[11] = random.uniform(0, 1)
-            animation_list.append(vec)
-    return np.array(animation_list)
+            vec_list.append(vec)
+            animated_order_ids.append(i)
+            backend_mapping.append(1)
+    return np.array(vec_list), animated_order_ids, backend_mapping
+
+
+def combine_dataframes(folder):
+    df_list = []
+    for file in os.listdir(folder):
+        if file.endswith(".pkl"):
+            with open(f'{folder}/{file}', 'rb') as f:
+                df_list.append(pickle.load(f))
+    return pd.concat(df_list).reset_index(drop=True)
+
+
+def create_backend_mapping_df(df):
+    df = df.set_index('file')
+    df = df['backend_mapping'].apply(pd.Series)
+    df = df[~df.index.duplicated(keep='first')]
+    df = df.reset_index(col_level=1)
+    return df

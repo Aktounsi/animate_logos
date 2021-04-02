@@ -47,10 +47,10 @@ def transform_animation_predictor_output(file, animation_id, output):
     elif output[3] == 1:
         if output[10] > 0.5:
             animation["type"] = "skewX"
-            animation["from_"] = (output[11] * 2 - 1) * width/10  # between -width/10 and width/10
+            animation["from_"] = (output[11] * 2 - 1) * width/20  # between -width/20 and width/20
         else:
             animation["type"] = "skewY"
-            animation["from_"] = (output[11] * 2 - 1) * height/10  # between -height/10 and height/10
+            animation["from_"] = (output[11] * 2 - 1) * height/20  # between -height/20 and height/20
         animation["to"] = 0
 
     elif output[4] == 1:
