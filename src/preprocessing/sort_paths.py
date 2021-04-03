@@ -99,7 +99,7 @@ class Selector:
             logger.warning(f'Number of missed relevant paths due to embedding: {len(missed_relevant_scores)}')
         if counter > 0:
             logger.warning(f'Could not calculate MSE for {counter}/{nr_paths} paths')
-        relevance_score_ordering = [id_ if relevance_scores[id_] != -1 else -1 for id_ in relevance_score_ordering]
+        relevance_score_ordering = [id_ for id_ in relevance_score_ordering if relevance_scores[id_] != -1]
         return relevance_score_ordering, relevance_scores, missed_relevant_scores, missed_relevant_paths
 
     def select_paths(self, svgs_folder, not_embedded_paths):

@@ -1,4 +1,5 @@
 from xml.dom import minidom
+from src.utils import logger
 from src.features.get_bbox_size import *
 
 def get_clip_paths(file):
@@ -23,9 +24,6 @@ def get_clip_paths(file):
     return(clip_paths)
 
 
-print(get_clip_paths("../../data/scraped_svgs/logo_245.svg"))
-
-
 
 def get_background_paths(file):
     """ Function to decompose one Logo.
@@ -46,10 +44,11 @@ def get_background_paths(file):
     width, height = get_svg_size(file)
     surface_svg = width * height
     for i in range(len(elements)):
-        xmin, xmax, ymin, ymax = get_path_bbox(file,i)
-        surface_path = (xmax-xmin)*(ymax-ymin)
-        if surface_path > (0.98*surface_svg):
-            background_paths.append(elements[i].attributes['animation_id'].value)
+        try:
+            xmin, xmax, ymin, ymax = get_path_bbox(file,i)
+            surface_path = (xmax-xmin)*(ymax-ymin)
+            if surface_path > (0.98*surface_svg):
+                background_paths.append(elements[i].attributes['animation_id'].value)
+        except Exception as e:
+            logger.error(f'Could not retrieve bbox for animation ID {i} in file {file}: {e}')
     return background_paths
-
-print(get_background_paths("../../data/scraped_svgs/logo_245.svg"))
