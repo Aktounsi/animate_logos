@@ -64,8 +64,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_var
                                                                    row['animation_id'])[1], axis=1)
 
     if position:
-        df['rel_x_position'] = df.apply(
-            lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
+        df['rel_x_position'] = df.apply(lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
                                                     row['animation_id'])[0], axis=1)
         df['rel_y_position'] = df.apply(
             lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
@@ -174,8 +173,9 @@ def _get_svg_avg(df, columns, diff=True):
 
 
 if __name__ == '__main__':
+    path_embedding_pkl = "../../data/embeddings/path_embedding.pkl"
     train_df, fitted_pca = create_path_vectors("../../data/svgs",
-                                               emb_file_path="../../data/path_embedding.pkl",
+                                               emb_file_path=path_embedding_pkl,
                                                emb_variance=0.99,
                                                train=True)
 
@@ -186,12 +186,12 @@ if __name__ == '__main__':
     plt.xlabel('number of components')
     plt.ylabel('cumulative explained variance')
 
-    train_df.to_csv('../../data/X_train_model1.csv')
+    train_df.to_csv('../../data/model_1/model_1_train.csv')
     print('Train data created and saved.')
 
     test_df = create_path_vectors("../../data/svgs",
-                                  emb_file_path="../../data/path_embedding.pkl",
+                                  emb_file_path=path_embedding_pkl,
                                   train=False,
                                   fitted_pca=fitted_pca)
-    test_df.to_csv('../../data/X_test_model1.csv')
+    test_df.to_csv('../../data/model_1/model_1_test.csv')
     print('Test data created and saved.')

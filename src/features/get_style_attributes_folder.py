@@ -68,13 +68,13 @@ def _get_local_style_attributes(folder):
                     if 'fill' in attr:
                         fill = attr['fill']
                     if 'stroke' in attr:
-                        fill = attr['stroke']
+                        stroke = attr['stroke']
                     if 'stroke-width' in attr:
-                        fill = attr['stroke-width']
+                        stroke_width = attr['stroke-width']
                     if 'opacity' in attr:
-                        fill = attr['opacity']
+                        opacity = attr['opacity']
                     if 'stroke-opacity' in attr:
-                        fill = attr['stroke-opacity']
+                        stroke_opacity = attr['stroke-opacity']
 
                 if 'class' in attr:
                     class_ = attr['class']
