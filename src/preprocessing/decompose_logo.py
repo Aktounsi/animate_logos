@@ -50,8 +50,10 @@ def decompose_logo(file):
         # select all elements besides one
         elements_temp_remove = elements_temp[:i] + elements_temp[i + 1:]
         for element in elements_temp_remove:
-            parent = element.parentNode
-            parent.removeChild(element)
+            # Check if current element is referenced clip path
+            if not element.parentNode.nodeName == "clipPath":
+                parent = element.parentNode
+                parent.removeChild(element)
         # Add outline to element (to handle white elements on white background)
         elements_temp[i].setAttribute('stroke', 'black')
         elements_temp[i].setAttribute('stroke-width', '2')
