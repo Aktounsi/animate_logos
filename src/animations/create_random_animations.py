@@ -62,9 +62,9 @@ def _create_multiple_df(folder, file, nb_animations):
         for i in range(len(animated_order_ids)):
             animated_animation_ids.append(relevant_animation_ids[animated_order_ids[i]])
         begin_values = create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
-        for j in range(len(relevant_animation_ids)):
+        for j in range(len(animated_animation_ids)):
             yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
-                       animation_id=relevant_animation_ids[j],
+                       animation_id=animated_animation_ids[j],
                        order_id=j,
                        path_prob=path_probs[j],
                        begin_value=begin_values[j],
