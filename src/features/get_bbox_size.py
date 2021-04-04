@@ -53,15 +53,21 @@ def get_path_bbox(file, animation_id):
     Returns:
         xmin, xmax, ymin, ymax (float, float, float, float): Size of bounding box of path.
     """
-    paths, attributes = svg2paths(file)
+    # TODO: Make it work for all paths
+    try:
+        paths, attributes = svg2paths(file)
+    except Exception as e1:
+        print(f"{file}, animation ID {animation_id}: svg2path fails and path bbox cannot be computed. {e1}")
+        return 0, 0, 0, 0
     xmin, ymin = 0, 0  # upper left corner
     xmax, ymax = 0, 0  # lower right corner
     for i, path in enumerate(paths):
         if attributes[i]["animation_id"] == str(animation_id):
             try:
                 xmin, xmax, ymin, ymax = path.bbox()
-            except:
-                xmin, xmax, ymin, ymax = 0, 0, 0, 0
+            except Exception as e2:
+                print(f"{file}, animation ID {animation_id}: svg2path fails and path bbox cannot be computed. {e2}")
+                return 0, 0, 0, 0
 
     return xmin, xmax, ymin, ymax
 
