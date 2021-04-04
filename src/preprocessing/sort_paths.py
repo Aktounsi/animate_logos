@@ -1,4 +1,4 @@
-import pickle
+import pickle5
 import os
 from os import listdir
 from os.path import isfile, join
@@ -147,6 +147,6 @@ class Selector:
 
 def get_path_relevance(logo, pkl_file='data/meta_data/path_relevance_order.pkl'):
     with open(pkl_file, 'rb') as f:
-        df = pickle.load(f)
+        df = pickle5.load(f)
     path_relevance_order = df[df['logo'] == logo]
     return path_relevance_order.iloc[0]['relevance_order']
