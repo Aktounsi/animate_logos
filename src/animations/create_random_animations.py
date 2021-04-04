@@ -12,7 +12,7 @@ from src.animations.insert_animation import create_animated_svg
 from src.preprocessing.sort_paths import get_path_relevance
 
 # Specify path to pkl file containing path labels
-animation_path_label = "data/model_1/animation_path_label.pkl"
+animation_path_label = "data/model_1/model_1_path_label.pkl"
 
 # Specify path to pkl file containing path relevance order
 path_relevance_order = "data/meta_data/path_relevance_order.pkl"

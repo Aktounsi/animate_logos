@@ -1,7 +1,7 @@
 import pickle
 
 
-def get_path_probabilities(filename, animation_ids, pkl_file="data/model_1/animation_path_label.pkl"):
+def get_path_probabilities(filename, animation_ids, pkl_file="data/model_1/model_1_path_label.pkl"):
     """ Function to get path probabilities that specify how likely it is that a path gets animated.
 
     Args:
@@ -19,8 +19,8 @@ def get_path_probabilities(filename, animation_ids, pkl_file="data/model_1/anima
         try:
             probability = df[(df['filename'] == f"{filename}") & (df['animation_id'] == animation_ids[i])].iloc[0]['animate']
         except Exception as e:
-            probability = 0.5
-            print(f"No probability given for path with animation ID {animation_ids[i]} in logo {filename}. Probability is set to 0.5. {e}")
+            probability = 0.2
+            print(f"No probability given for path with animation ID {animation_ids[i]} in logo {filename}. Probability is set to 0.2. {e}")
         l.append(probability)
 
     return l
