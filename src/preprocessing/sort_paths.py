@@ -59,8 +59,8 @@ class Selector:
         logger.info(f'Time: {datetime.now() - start}')
 
     @staticmethod
-    def sort_by_relevance(path_selection_folder, not_embedded_paths, nr_paths_trunc=8, maximize=True):
-        # Todo: Include not_embedded_paths = None
+    def sort_by_relevance(path_selection_folder, excluded_paths, nr_paths_trunc=8, maximize=True):
+        # Todo: Include excluded_paths = None
         nr_paths = len([name for name in os.listdir(path_selection_folder)
                         if os.path.isfile(os.path.join(path_selection_folder, name))]) - 1
         relevance_scores = []
@@ -72,7 +72,7 @@ class Selector:
             img_reduced = image.imread(os.path.join(path_selection_folder, "without_id_{}.png".format(i)))
             try:
                 decomposed_id = f'{logo}_{i}'
-                if decomposed_id in not_embedded_paths:
+                if decomposed_id in excluded_paths:
                     missed_mse = mean_squared_error(img_origin, img_reduced)
                     missed_scores.append(missed_mse)
                     missed_paths.append(decomposed_id)
@@ -102,7 +102,7 @@ class Selector:
         relevance_score_ordering = [id_ for id_ in relevance_score_ordering if relevance_scores[id_] != -1]
         return relevance_score_ordering, relevance_scores, missed_relevant_scores, missed_relevant_paths
 
-    def select_paths(self, svgs_folder, not_embedded_paths):
+    def select_paths(self, svgs_folder, excluded_paths):
         Path(self.dir_selected_paths).mkdir(parents=True, exist_ok=True)
         logos = [f[:-4] for f in listdir(svgs_folder) if isfile(join(svgs_folder, f))]
         start = datetime.now()
@@ -111,7 +111,7 @@ class Selector:
             if i % 20 == 0:
                 logger.info(f'Current logo: {i}/{len(logos)}')
             sorted_ids, sorted_mses, missed_relevant_scores, missed_relevant_paths = \
-                self.sort_by_relevance(f'{self.dir_path_selection}/{logo}', not_embedded_paths)
+                self.sort_by_relevance(f'{self.dir_path_selection}/{logo}', excluded_paths)
             missed_scores.append(len(missed_relevant_scores))
             missed_paths.extend(missed_relevant_paths)
             copyfile(f'{svgs_folder}/{logo}.svg', f'{self.dir_selected_paths}/{logo}_path_full.svg')
@@ -122,7 +122,7 @@ class Selector:
         logger.info(f'Time: {datetime.now() - start}')
         return missed_paths
 
-    def truncate_svgs(self, svgs_folder, logos=None, not_embedded_paths=list(), nr_paths_trunc=8):
+    def truncate_svgs(self, svgs_folder, logos=None, excluded_paths=list(), nr_paths_trunc=8):
         Path(self.dir_truncated_svgs).mkdir(parents=True, exist_ok=True)
         start = datetime.now()
         logos = [f[:-4] for f in listdir(svgs_folder) if isfile(join(svgs_folder, f))] if logos is None else logos
@@ -130,7 +130,7 @@ class Selector:
             if i % 20 == 0:
                 logger.info(f'Current logo {i}/{len(logos)}: {logo}')
             sorted_ids, _, _, _ = self.sort_by_relevance(f'{self.dir_path_selection}/{logo}',
-                                                         not_embedded_paths, nr_paths_trunc)
+                                                         excluded_paths, nr_paths_trunc)
             doc = minidom.parse(f'{svgs_folder}/{logo}.svg')
             original_elements = self.get_elements(doc)
             nb_original_elements = len(original_elements)
