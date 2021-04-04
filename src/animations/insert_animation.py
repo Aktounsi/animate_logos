@@ -13,6 +13,8 @@ def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
         animation_ids (list[int]): List of Path IDs that get animated
         model_output (ndarray): Array of 13 dimensional arrays with animation predictor model output
         filename_suffix  (string): Suffix of animated SVG
+
+    Returns (list(float)): List of begin values of animation IDs.
     """
     doc = svg_to_doc(file)
     begin_values = get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.25)
@@ -34,11 +36,13 @@ def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
                 if output_dict["type"] in ["opacity"]:
                     doc = insert_opacity_statement(doc, animation_ids[i], output_dict)
             except Exception as e:
-                print(f"File {file}, animation {animation_ids[i]} can't be animated. {e}")
+                print(f"File {file}, animation ID {animation_ids[i]} can't be animated. {e}")
                 pass
 
     filename = file.split('/')[-1].replace(".svg", "") + "_animation_" + filename_suffix
     save_animated_svg(doc, filename)
+
+    return begin_values
 
 
 def svg_to_doc(file):
@@ -132,7 +136,6 @@ def insert_skew_statement(doc, animation_id, model_output_dict):
 def insert_fill_statement(doc, animation_id, model_output_dict):
     """ Function to insert fill statement. """
     pre_animations = []
-    model_output_dict['begin'] = 3  # new to force wave
     model_output_dict['dur'] = 2
     if model_output_dict['begin'] < 2:
         model_output_dict['begin'] = 0
