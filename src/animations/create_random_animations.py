@@ -65,7 +65,7 @@ def _create_multiple_df(folder, file, nb_animations):
         for j in range(len(animated_animation_ids)):
             yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
                        animation_id=animated_animation_ids[j],
-                       order_id=j,
+                       order_id=animated_order_ids[j],
                        path_prob=path_probs[j],
                        begin_value=begin_values[j],
                        model_output=animation_vectors[j],
@@ -106,7 +106,7 @@ def _create_one_df(folder, nb_animations):
                 for j in range(len(animated_animation_ids)):
                     yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
                                animation_id=animated_animation_ids[j],
-                               order_id=j,
+                               order_id=animated_order_ids[j],
                                path_prob=path_probs[j],
                                begin_value=begin_values[j],
                                model_output=animation_vectors[j],
