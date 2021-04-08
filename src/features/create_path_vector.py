@@ -1,10 +1,11 @@
 from sklearn.decomposition import PCA
-from src.features.get_style_attributes_folder import *
+from src.features.get_style_attributes_folder import get_style_attributes_folder
 from src.features.get_bbox_size import *
 from src.preprocessing.create_svg_embedding import *
 from src.data.get_svg_meta_data import *
 import matplotlib.pyplot as plt
 from PIL import ImageColor
+from itertools import chain
 import numpy as np
 import pickle
 import pandas as pd
@@ -13,9 +14,8 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_variance=0.99, use_ppa=False,
-                        style=True, size=True, position=True, nr_commands=True,
-                        nr_paths_svg=True, avg_cols_svg=None, avg_diff=True,
-                        train=True):
+                        style=True, size=True, position=True, nr_commands=True, nr_paths_svg=True,
+                        avg_cols_svg=None, avg_diff=True, train=True):
     if avg_cols_svg is None:
         avg_cols_svg = ['fill_r', 'fill_g', 'fill_b',
                         'stroke_r', 'stroke_g', 'stroke_b']
@@ -36,8 +36,8 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_var
     # logos_test = np.unique(df['filename'])[split:]
 
     # use manually splitting after inspecting the logos (ratio should be around 80/20)
-    logos_train = ['logo_{}'.format(i) for i in range(147)]
-    logos_test = ['logo_{}'.format(i) for i in range(147, 192)]
+    logos_train = ['logo_{}'.format(i) for i in chain(range(147), range(192, 395))]  # 350
+    logos_test = ['logo_{}'.format(i) for i in chain(range(147, 192), range(395, 437))]  # 87
 
     if train:
         df = df.loc[df['filename'].isin(logos_train)]
@@ -64,8 +64,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_var
                                                                    row['animation_id'])[1], axis=1)
 
     if position:
-        df['rel_x_position'] = df.apply(
-            lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
+        df['rel_x_position'] = df.apply(lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
                                                     row['animation_id'])[0], axis=1)
         df['rel_y_position'] = df.apply(
             lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
@@ -134,9 +133,7 @@ def _reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=0.99, use_ppa=False
 
 def _get_transform_style_elements(svg_folder):
     # get local and global style elements and combine
-    sty_local = get_local_style_attributes(svg_folder)
-    sty_global = get_global_style_attributes(svg_folder)
-    st = combine_style_attributes(sty_global, sty_local)
+    st = get_style_attributes_folder(svg_folder)
     st.dropna(inplace=True)
     # transform 'fill' hexacode into RGB channels
     for i, c in enumerate(['r', 'g', 'b']):
@@ -174,9 +171,11 @@ def _get_svg_avg(df, columns, diff=True):
 
 
 if __name__ == '__main__':
+    path_embedding_pkl = "../../data/embeddings/path_embedding.pkl"
     train_df, fitted_pca = create_path_vectors("../../data/svgs",
-                                               emb_file_path="../../data/path_embedding.pkl",
+                                               emb_file_path=path_embedding_pkl,
                                                emb_variance=0.99,
+                                               nr_commands=False,  # "list index out of range"
                                                train=True)
 
     # Check number of principal components and plot of cumulative explained variance
@@ -186,12 +185,13 @@ if __name__ == '__main__':
     plt.xlabel('number of components')
     plt.ylabel('cumulative explained variance')
 
-    train_df.to_csv('../../data/X_train_model1.csv')
+    train_df.to_csv('../../data/model_1/model_1_train.csv')
     print('Train data created and saved.')
 
     test_df = create_path_vectors("../../data/svgs",
-                                  emb_file_path="../../data/path_embedding.pkl",
-                                  train=False,
-                                  fitted_pca=fitted_pca)
-    test_df.to_csv('../../data/X_test_model1.csv')
+                                  emb_file_path=path_embedding_pkl,
+                                  fitted_pca=fitted_pca,
+                                  nr_commands=False,  # "list index out of range"
+                                  train=False)
+    test_df.to_csv('../../data/model_1/model_1_test.csv')
     print('Test data created and saved.')

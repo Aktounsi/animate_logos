@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="224.87999pt" height="225pt" viewBox="0 0 224.87999 225" version="1.2">
+	
+	
+	
+
+	
+	
+	<defs>
+		
+		
+		
+
+		
+		
+		<g>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph0-0">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph0-1">
+				
+				
+				
+
+				
+				
+				<path style="stroke:none;" d="M 23.421875 0 L 18.953125 -15.640625 L 14.5 0 L 7.4375 0 L -0.5 -27.875 L 6.5625 -27.875 L 11.328125 -8.75 L 11.484375 -8.75 L 16.5625 -27.875 L 21.359375 -27.875 L 26.421875 -8.75 L 26.59375 -8.75 L 31.359375 -27.875 L 38.390625 -27.875 L 30.453125 0 Z M 23.421875 0 " animation_id="1"/>
+				
+				
+				
+
+			
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph0-2">
+				
+				
+				
+
+				
+				
+				<path style="stroke:none;" d="M 25.078125 0 L 23.765625 -16.53125 L 23.59375 -16.53125 L 17.875 -0.171875 L 14.09375 -0.171875 L 8.375 -16.53125 L 8.21875 -16.53125 L 6.890625 0 L 0.546875 0 L 3.046875 -27.875 L 9.796875 -27.875 L 15.984375 -11.796875 L 22.171875 -27.875 L 28.9375 -27.875 L 31.4375 0 Z M 25.078125 0 " animation_id="2"/>
+				
+				
+				
+
+			
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-0">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-1">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-2">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-3">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-4">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-5">
+				
+				
+				
+
+				
+				
+				<path style="stroke:none;" d="M 2.890625 -4.96875 L 4.890625 0 L 3.671875 0 L 3.3125 -1 L 1.421875 -1 L 1.046875 0 L -0.171875 0 L 1.84375 -4.96875 Z M 2.921875 -1.984375 L 2.375 -3.4375 L 2.359375 -3.4375 L 1.796875 -1.984375 Z M 2.921875 -1.984375 " animation_id="8"/>
+				
+				
+				
+
+			
+			
+			</symbol>
+			
+			
+			
+
+			
+			
+			<symbol overflow="visible" id="glyph1-6">
+				
+				
+
+				
+				
+				
+
+			
+			</symbol>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<clipPath id="clip1">
+			
+			
+			
+  
+			
+			
+			<path d="M 0 0.0585938 L 224.761719 0.0585938 L 224.761719 224.9375 L 0 224.9375 Z M 0 0.0585938 " animation_id="10"/>
+			
+			
+			
+
+		
+		
+		</clipPath>
+		
+		
+		
+
+		
+		
+		<clipPath id="clip2">
+			
+			
+			
+  
+			
+			
+			<path d="M 72.542969 55.597656 L 152.75 55.597656 L 152.75 170.285156 L 72.542969 170.285156 Z M 72.542969 55.597656 " animation_id="11"/>
+			
+			
+			
+
+		
+		
+		</clipPath>
+		
+		
+		
+
+	
+	
+	</defs>
+	
+	
+	
+
+	
+	
+	<g id="surface1">
+		
+		
+		
+
+		
+		
+		<g clip-path="url(#clip1)" clip-rule="nonzero">
+			
+			
+			
+
+			
+			
+			
+
+			
+			
+			<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;" d="M 0 0.0585938 L 224.878906 0.0585938 L 224.878906 224.941406 L 0 224.941406 Z M 0 0.0585938 " animation_id="13"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 158.644531 56.28125 L 158.644531 49.535156 L 66.566406 49.535156 L 66.566406 176.363281 L 158.644531 176.363281 Z M 156.742188 56.28125 L 156.742188 174.460938 L 68.464844 174.460938 L 68.464844 51.4375 L 156.742188 51.4375 Z M 156.742188 56.28125 " animation_id="14"/>
+		
+		
+		
+
+		
+		
+		<g clip-path="url(#clip2)" clip-rule="nonzero">
+			
+			
+			
+
+			
+			
+			<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 55.21875 55.597656 L 169.976562 55.597656 L 169.976562 170.355469 L 55.21875 170.355469 Z M 55.21875 55.597656 " animation_id="15"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph0-1" x="92.293979" y="96.775509"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph0-2" x="94.396307" y="156.979041"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-1" x="90.408407" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-2" x="99.762339" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-3" x="104.214199" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-4" x="110.215665" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-5" x="118.514415" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-6" x="125.83637" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+		
+		
+		<g style="fill:rgb(100%,38.038635%,29.40979%);fill-opacity:1;">
+			
+			
+			
+  
+			
+			
+			<use xlink:href="#glyph1-5" x="132.748307" y="115.648443"/>
+			
+			
+			
+
+		
+		
+		</g>
+		
+		
+		
+
+	
+	
+	</g>
+	
+	
+	
+
+
+
+</svg>

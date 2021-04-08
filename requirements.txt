@@ -46,7 +46,7 @@ jupyter-core @ file:///C:/ci/jupyter_core_1612213516947/work
 jupyterlab-pygments @ file:///tmp/build/80754af9/jupyterlab_pygments_1601490720602/work
 jupyterlab-widgets @ file:///tmp/build/80754af9/jupyterlab_widgets_1609884341231/work
 kiwisolver @ file:///C:/ci/kiwisolver_1612282618948/work
-lxml==4.6.2
+lxml==4.6.3
 MarkupSafe @ file:///C:/ci/markupsafe_1594405949945/work
 matplotlib @ file:///C:/ci/matplotlib-suite_1613408055530/work
 mccabe==0.6.1

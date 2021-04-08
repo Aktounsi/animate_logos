@@ -1,4 +1,4 @@
-from ..preprocessing.deepsvg.svglib.svg import SVG
+from src.preprocessing.deepsvg.svglib.svg import SVG
 # Not needed anymore ?
 
 

@@ -18,9 +18,9 @@ def get_svg_size(file):
     height = doc.getElementsByTagName('svg')[0].getAttribute('height')
     if width != "" and height != "":
         if not width[-1].isdigit():
-            width = width.replace('px', '')
+            width = width.replace('px', '').replace('pt', '')
         if not height[-1].isdigit():
-            height = height.replace('px', '')
+            height = height.replace('px', '').replace('pt', '')
     else:
         # get bounding box of svg
         xmin_svg, xmax_svg, ymin_svg, ymax_svg = 0, 0, 0, 0
@@ -53,15 +53,21 @@ def get_path_bbox(file, animation_id):
     Returns:
         xmin, xmax, ymin, ymax (float, float, float, float): Size of bounding box of path.
     """
-    paths, attributes = svg2paths(file)
+    # TODO: Make it work for all paths
+    try:
+        paths, attributes = svg2paths(file)
+    except Exception as e1:
+        print(f"{file}, animation ID {animation_id}: svg2path fails and path bbox cannot be computed. {e1}")
+        return 0, 0, 0, 0
     xmin, ymin = 0, 0  # upper left corner
     xmax, ymax = 0, 0  # lower right corner
     for i, path in enumerate(paths):
         if attributes[i]["animation_id"] == str(animation_id):
             try:
                 xmin, xmax, ymin, ymax = path.bbox()
-            except:
-                xmin, xmax, ymin, ymax = 0, 0, 0, 0
+            except Exception as e2:
+                print(f"{file}, animation ID {animation_id}: svg2path fails and path bbox cannot be computed. {e2}")
+                return 0, 0, 0, 0
 
     return xmin, xmax, ymin, ymax
 
@@ -83,3 +89,31 @@ def get_midpoint_of_path_bbox(file, animation_id):
     y_midpoint = (ymax + ymin) / 2
 
     return x_midpoint, y_midpoint
+
+
+def get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.5):
+    """ Function to get begin values by sorting from left to right.
+
+    Example: get_begin_values_by_bbox('data/svgs/logo_1.svg', [0, 6, 2])
+
+    Args:
+        file (string): The path of the SVG file
+        animation_ids (list(int)): List of animation_ids
+        start (float): First begin value
+        step (float): Time between begin values
+
+    Returns (list): Begin values of animation ids
+    """
+    starting_point_list = []
+    begin_list = []
+    begin = start
+    for i in range(len(animation_ids)):
+        x, _, _, _ = get_path_bbox(file, animation_ids[i])  # get x value of upper left corner
+        starting_point_list.append(x)
+        begin_list.append(begin)
+        begin = begin + step
+
+    animation_id_order = [z for _, z in sorted(zip(starting_point_list, range(len(starting_point_list))))]
+    begin_values = [z for _, z in sorted(zip(animation_id_order, begin_list))]
+
+    return begin_values

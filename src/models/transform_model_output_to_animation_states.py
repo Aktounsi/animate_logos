@@ -2,7 +2,7 @@ from xml.dom import minidom
 from pathlib import Path
 import os, math
 from cairosvg import svg2png
-from src.models_output.transform_animation_predictor_output import transform_animation_predictor_output
+from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 
 def interpolate_svg(logo, total_duration, steps, animation_id, output):
@@ -31,7 +31,7 @@ def interpolate_svg(logo, total_duration, steps, animation_id, output):
     digits = int(math.log10(steps))+1
 
     # Transform binary output to values
-    type, begin, dur, repeatCount, fill, from_, to, fromY, toY = transform_binary_model_output(output)
+    type, begin, dur, repeatCount, fill, from_, to, fromY, toY = transform_animation_predictor_output(output)
     # Create folder and one svg per frame
     Path("./data/interpolated_logos").mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')

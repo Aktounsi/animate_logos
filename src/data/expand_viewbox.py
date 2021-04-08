@@ -42,9 +42,9 @@ def expand_viewbox(logo, percent, new_folder):
         width = doc.getElementsByTagName('svg')[0].getAttribute('width')
         height = doc.getElementsByTagName('svg')[0].getAttribute('height')
         if not width[-1].isdigit():
-            width = width.replace('px', '')
+            width = width.replace('px', '').replace('pt', '')
         if not height[-1].isdigit():
-            height = height.replace('px', '')
+            height = height.replace('px', '').replace('pt', '')
         x = float(width)
         y = float(height)
         check = True
@@ -77,10 +77,10 @@ def expand_viewbox(logo, percent, new_folder):
         x_new = x * (100 + percent) / 100
         y_new = y * (100 + percent) / 100
     else:
-        v1 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[0].replace('px', '').replace(',', ''))
-        v2 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[1].replace('px', '').replace(',', ''))
-        v3 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[2].replace('px', '').replace(',', ''))
-        v4 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[3].replace('px', '').replace(',', ''))
+        v1 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[0].replace('px', '').replace('pt', '').replace(',', ''))
+        v2 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[1].replace('px', '').replace('pt', '').replace(',', ''))
+        v3 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[2].replace('px', '').replace('pt', '').replace(',', ''))
+        v4 = float(doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[3].replace('px', '').replace('pt', '').replace(',', ''))
         x = v3
         y = v4
         # Calculate new viewBox values
