@@ -5,7 +5,7 @@ import numpy as np
 
 class FitnessFunction(nn.Module):
     # Ordinal Regression
-    def __init__(self, hidden_sizes=[120, 84]):
+    def __init__(self, hidden_sizes=[36, 28]):
         super().__init__()
 
         # Hidden Layers
