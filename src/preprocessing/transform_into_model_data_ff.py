@@ -20,7 +20,7 @@ def encode_classes(targets: np.ndarray):
 def decode_classes(targets_predicted: np.ndarray, threshold=0.5):
     targets_encoded = np.zeros(shape=[targets_predicted.shape[0], 1], dtype=np.int_)
     for i in range(targets_predicted.shape[0]):
-        targets_encoded[i] =next(x for x, val in enumerate(targets_predicted[i]) if val < threshold)
+        targets_encoded[i] = next(x for x, val in enumerate(targets_predicted[i]) if val < threshold)
     return targets_encoded
 
 
