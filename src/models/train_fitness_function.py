@@ -108,13 +108,13 @@ plt.show()
 
 # Save trained model
 
-torch.save(fitness_function.state_dict(), "../../models/best_fitness_function.pth")
+torch.save(fitness_function.state_dict(), "../../models/best_fitness_function_svg.pth")
 
 
 # Load model and make predictions
 
 model = FitnessFunction(hidden_sizes=[120, 84])
-model.load_state_dict(torch.load("../../models/best_fitness_function.pth"))
+model.load_state_dict(torch.load("../../models/best_fitness_function_svg.pth"))
 model.eval()
 
 random_input = torch.from_numpy(np.random.normal(size=[1, 120]).astype(np.float32))
