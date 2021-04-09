@@ -17,15 +17,16 @@ def get_style_attributes_folder(folder):
 
     Returns (pd.DataFrame): Dataframe containing the attributes of each path of all SVGs.
     """
-    global_styles = get_global_style_attributes(folder)
     local_styles = get_local_style_attributes(folder)
-    return combine_style_attributes(global_styles, local_styles)
+    global_styles = get_global_style_attributes(folder)
+    global_group_styles = get_global_group_style_attributes(folder)
+    return combine_style_attributes(local_styles, global_styles, global_group_styles)
 
 
 def parse_svg(file):
     """ Function to parse a SVG file.
 
-    Example: parse_svg('logos_svg/Air France.svg')
+    Example: parse_svg('data/svgs/logo_1.svg')
 
     Args:
         file (string): The path of the SVG file.
@@ -57,7 +58,7 @@ def _get_local_style_attributes(folder):
             try:
                 _, attributes = parse_svg(folder + '/' + file)
             except:
-                print(file + ': Attributes not defined.')
+                print(f'{file}: Attributes not defined.')
             for i, attr in enumerate(attributes):
                 animation_id = attr['animation_id']
                 fill = '#000000'
@@ -99,9 +100,8 @@ def _get_local_style_attributes(folder):
                 if '#' not in stroke and stroke != '':
                     stroke = transform_to_hex(stroke)
 
-                # TODO: Bug fix. Fix properly later
+                # Cannot handle colors defined with linearGradient
                 if 'url' in fill:
-                    print(fill)
                     fill = '#000000'
 
                 yield dict(filename=file.split('.svg')[0], animation_id=animation_id, class_=class_, fill=fill,
@@ -153,12 +153,85 @@ def _get_global_style_attributes(folder):
                     if '#' not in stroke and stroke != '':
                         stroke = transform_to_hex(stroke)
 
-                    # TODO: Bug fix. Fix properly later
+                    # Cannot handle colors defined with linearGradient
                     if 'url' in fill:
-                        print(fill)
                         fill = ''
 
                     yield dict(filename=file.split('.svg')[0], class_=class_, fill=fill, stroke=stroke,
                                stroke_width=stroke_width, opacity=opacity, stroke_opacity=stroke_opacity)
+
+
+def get_global_group_style_attributes(folder):
+    """ Function to generate dataframe containing global style attributes defined through <g> tags of all SVG files in a folder.
+
+    Example: get_global_style_attributes_from_groups('data/svgs')
+
+    Args:
+        folder (string): The path of the folder containing all SVG file.
+
+    Returns (pd.DataFrame): A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
+    """
+    df_group_animation_id_matching = pd.DataFrame.from_records(_get_group_animation_id_matching(folder))
+
+    df_group_attributes = pd.DataFrame.from_records(_get_global_group_style_attributes(folder))
+    df_group_attributes.drop_duplicates(inplace=True)
+
+    df_group_attributes.replace("", float("NaN"), inplace=True)
+    df_group_attributes.dropna(subset=["href"], inplace=True)
+
+    if df_group_attributes.empty:
+        return df_group_attributes
+    else:
+        return df_group_animation_id_matching.merge(df_group_attributes, how='left', on=['filename', 'href'])
+
+
+def _get_global_group_style_attributes(folder):
+    for file in os.listdir(folder):
+        if file.endswith(".svg"):
+            doc = minidom.parse(folder + '/' + file)
+            groups = doc.getElementsByTagName('g')
+            for i, _ in enumerate(groups):
+                style = groups[i].getAttribute('style')
+                href = ''
+                fill = ''
+                stroke = ''
+                stroke_width = ''
+                opacity = ''
+                stroke_opacity = ''
+                if style != '':
+                    href = groups[i].getElementsByTagName('use')[0].getAttribute('xlink:href')
+                    attributes = style.split(';')
+                    for j, _ in enumerate(attributes):
+                        attr = attributes[j]
+                        if attr.find('fill:') != -1:
+                            fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
+                        if attr.find('stroke:') != -1:
+                            stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
+                        if attr.find('stroke-width:') != -1:
+                            stroke_width = attr.split('stroke-width:', 1)[-1].split(';', 1)[0]
+                        if attr.find('opacity:') != -1:
+                            opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
+                        if attr.find('stroke-opacity:') != -1:
+                            stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+
+                # transform None and RGB to hex
+                if '#' not in fill and fill != '':
+                    fill = transform_to_hex(fill)
+                if '#' not in stroke and stroke != '':
+                    stroke = transform_to_hex(stroke)
+
+                yield dict(filename=file.split('.svg')[0], href=href.replace('#', ''), fill=fill, stroke=stroke,
+                           stroke_width=stroke_width, opacity=opacity, stroke_opacity=stroke_opacity)
+
+
+def _get_group_animation_id_matching(folder):
+    for file in os.listdir(folder):
+        if file.endswith(".svg"):
+            doc = minidom.parse(folder + '/' + file)
+            symbol = doc.getElementsByTagName('symbol')
+            for i, _ in enumerate(symbol):
+                href = symbol[i].getAttribute('id')
+                animation_id = symbol[i].getElementsByTagName('path')[0].getAttribute('animation_id')
+                yield dict(filename=file.split('.svg')[0], href=href, animation_id=animation_id)
 
 
