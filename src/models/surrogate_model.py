@@ -28,7 +28,7 @@ class FitnessFunction(nn.Module):
     def forward(self, X):
         for layer in self.hidden:
             X = torch.relu(layer(X))
-        logits = self.weights(X) + self.coral_bias
+        logits = self.coral_weights(X) + self.coral_bias
         return logits
 
 
