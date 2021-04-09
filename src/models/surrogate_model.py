@@ -5,23 +5,31 @@ import numpy as np
 
 class FitnessFunction(nn.Module):
     # Ordinal Regression
-    def __init__(self, hidden_sizes=[36, 28]):
+    def __init__(self, num_classes, layer_sizes = [36, 28], preinit_bias=True):
         super().__init__()
 
         # Hidden Layers
         self.hidden = nn.ModuleList()
-        for k in range(len(hidden_sizes) - 1):
-            self.hidden.append(nn.Linear(hidden_sizes[k], hidden_sizes[k + 1]))
+        for k in range(len(layer_sizes) - 1):
+            self.hidden.append(nn.Linear(layer_sizes[k], layer_sizes[k + 1]))
+
+        self.coral_weights = nn.Linear(layer_sizes[-1], 1, bias=False)
+        if preinit_bias:
+            self.coral_bias = torch.nn.Parameter(
+                torch.arange(num_classes - 1, 0, -1).float() / (num_classes - 1))
+        else:
+            self.coral_bias = torch.nn.Parameter(
+                torch.zeros(num_classes - 1).float())
 
         # Output Layers
-        self.out = nn.Linear(hidden_sizes[-1], 4)
+        #self.out = nn.Linear(hidden_sizes[-1], 4)
 
     # Forward Pass
     def forward(self, X):
         for layer in self.hidden:
             X = torch.relu(layer(X))
-        output = torch.sigmoid(self.out(X))
-        return output
+        logits = self.weights(X) + self.coral_bias
+        return logits
 
 
 def predict_svg_reward(X):
