@@ -28,7 +28,7 @@ test_dataset.scale(scaler)
 
 
 # Build model and switch to GPU if available
-fitness_function = FitnessFunction(hidden_sizes=[120, 84])
+fitness_function = OrdinalClassifierFNN(hidden_sizes=[120, 84])
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -113,7 +113,7 @@ torch.save(fitness_function.state_dict(), "../../models/best_fitness_function_sv
 
 # Load model and make predictions
 
-model = FitnessFunction(hidden_sizes=[120, 84])
+model = OrdinalClassifierFNN(hidden_sizes=[120, 84])
 model.load_state_dict(torch.load("../../models/best_fitness_function_svg.pth"))
 model.eval()
 

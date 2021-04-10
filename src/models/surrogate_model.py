@@ -3,7 +3,7 @@ import torch.nn as nn
 import numpy as np
 
 
-class FitnessFunction(nn.Module):
+class OrdinalClassifierFNN(nn.Module):
     # Ordinal Regression
     def __init__(self, num_classes, layer_sizes = [36, 28, 28], preinit_bias=True):
         super().__init__()
