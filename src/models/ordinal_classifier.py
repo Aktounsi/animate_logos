@@ -36,5 +36,5 @@ class OrdinalClassifier():
     def predict(self, X):
         return np.argmax(self.predict_proba(X), axis=1)
 
-    def get_params(self):
-        return self.clf.get_params()
+    def get_params(self, deep=True):
+        return self.clf.get_params(deep)
