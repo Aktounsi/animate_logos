@@ -9,7 +9,7 @@ from src.utils import utils
 from src.utils import logger
 
 from src.models import config
-from src.models.surrogate_model import *
+from src.models.ordinal_classifier_fnn import *
 from src.models.animation_prediction import AnimationPredictor
 
 

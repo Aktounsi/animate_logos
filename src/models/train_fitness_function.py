@@ -4,7 +4,7 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
-from src.models.surrogate_model import *
+from src.models.ordinal_classifier_fnn import *
 from src.data.ff_dataloader import *
 from src.preprocessing.transform_into_model_data_ff import *
 
