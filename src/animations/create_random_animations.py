@@ -1,6 +1,5 @@
 import os
 import pickle
-import pickle5
 import random
 
 import numpy as np
@@ -19,7 +18,7 @@ animation_path_label = "data/model_1/model_1_path_label.pkl"
 path_relevance_order = "data/meta_data/path_relevance_order.pkl"
 
 
-def create_random_animations(folder, nb_animations, split_df=True):
+def create_random_animations(folder, nb_animations, split_df=True, very_random=False):
     """ Function to create random animations. Animation vectors are saved in data/animated_svgs_dataframes.
 
     Args:
@@ -32,27 +31,29 @@ def create_random_animations(folder, nb_animations, split_df=True):
     """
     Path("data/animated_svgs_dataframes").mkdir(parents=True, exist_ok=True)
     if split_df:
-        create_multiple_df(folder, nb_animations)
+        create_multiple_df(folder, nb_animations, very_random)
     else:
-        return create_one_df(folder, nb_animations)
+        return create_one_df(folder, nb_animations, very_random)
 
 
-def create_multiple_df(folder, nb_animations):
+def create_multiple_df(folder, nb_animations, very_random):
     """ Function to create random animations. Animation vectors are saved to one dataframe per logo."""
     for file in os.listdir(folder):
         if file.endswith(".svg"):
-            df = pd.DataFrame.from_records(_create_multiple_df(folder, file, nb_animations))
+            df = pd.DataFrame.from_records(_create_multiple_df(folder, file, nb_animations, very_random))
             output = open(f"data/animated_svgs_dataframes/{file.replace('.svg', '')}_animation_vectors.pkl", 'wb')
             pickle.dump(df, output)
             output.close()
 
 
-def _create_multiple_df(folder, file, nb_animations):
+def _create_multiple_df(folder, file, nb_animations, very_random):
     relevant_animation_ids = get_path_relevance(file.replace('.svg', ''), pkl_file=path_relevance_order)
     path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids,
                                         pkl_file=animation_path_label)
     file = folder + "/" + file
     for random_seed in range(nb_animations):
+        if very_random:
+            random_seed = random.randint(0, 1000)
         animation_vectors, animated_order_ids, backend_mapping = random_animation_vector(
             nr_animations=len(relevant_animation_ids),
             path_probs=path_probs,
@@ -74,9 +75,9 @@ def _create_multiple_df(folder, file, nb_animations):
                        backend_mapping=backend_mapping)
 
 
-def create_one_df(folder, nb_animations):
+def create_one_df(folder, nb_animations, very_random):
     """ Function to create random animations. Animation vectors are saved to one dataframe."""
-    df = pd.DataFrame.from_records(_create_one_df(folder, nb_animations))
+    df = pd.DataFrame.from_records(_create_one_df(folder, nb_animations, very_random))
 
     date_time = datetime.now().strftime('%H%M')
     output = open(f"data/animated_svgs_dataframes/{date_time}_animation_vectors.pkl", 'wb')
@@ -86,7 +87,7 @@ def create_one_df(folder, nb_animations):
     return df
 
 
-def _create_one_df(folder, nb_animations):
+def _create_one_df(folder, nb_animations, very_random):
     for file in os.listdir(folder):
         if file.endswith(".svg"):
             relevant_animation_ids = get_path_relevance(file.replace('.svg', ''), pkl_file=path_relevance_order)
@@ -94,6 +95,8 @@ def _create_one_df(folder, nb_animations):
                                                 pkl_file=animation_path_label)
             file = folder + "/" + file
             for random_seed in range(nb_animations):
+                if very_random:
+                    random_seed = random.randint(0, 1000)
                 animation_vectors, animated_order_ids, backend_mapping = random_animation_vector(
                     nr_animations=len(relevant_animation_ids),
                     path_probs=path_probs,
