@@ -25,8 +25,9 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_var
     else:
         df = apply_embedding_model_to_svgs(data_folder="../../data/decomposed_svgs", save=False)
     df.dropna(inplace=True)  # can be deleted if NaN rows do not exist anymore
-    df = df[df['filename'] != 'logo_126'].reset_index(
-        drop=True)  # drop logo_126 since there are problems with SVG metadata
+
+    # drop logo_126 since there are problems with SVG metadata
+    #df = df[df['filename'] != 'logo_126'].reset_index(drop=True)
 
     # train/test subsetting
 
@@ -58,17 +59,12 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_var
             df = _get_svg_avg(df, avg_cols_svg, avg_diff)
 
     if size:
-        df['rel_width'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
-                                                                  row['animation_id'])[0], axis=1)
-        df['rel_height'] = df.apply(lambda row: _get_relative_size(svg_folder + '/' + row['filename'] + '.svg',
-                                                                   row['animation_id'])[1], axis=1)
+        df['rel_width'] = df.apply(lambda row: get_relative_path_size(f"{svg_folder}/{row['filename']}.svg", row['animation_id'])[0], axis=1)
+        df['rel_height'] = df.apply(lambda row: get_relative_path_size(f"{svg_folder}/{row['filename']}.svg", row['animation_id'])[1], axis=1)
 
     if position:
-        df['rel_x_position'] = df.apply(lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
-                                                    row['animation_id'])[0], axis=1)
-        df['rel_y_position'] = df.apply(
-            lambda row: _get_relative_path_position(svg_folder + '/' + row['filename'] + '.svg',
-                                                    row['animation_id'])[1], axis=1)
+        df['rel_x_position'] = df.apply(lambda row: get_relative_path_pos(f"{svg_folder}/{row['filename']}.svg", row['animation_id'])[0], axis=1)
+        df['rel_y_position'] = df.apply(lambda row: get_relative_path_pos(f"{svg_folder}/{row['filename']}.svg", row['animation_id'])[1], axis=1)
 
     if nr_paths_svg:
         meta_df = get_svg_meta_data(data_folder=svg_folder)
@@ -78,10 +74,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, emb_var
 
     if nr_commands:
         meta_df = get_svg_meta_data(data_folder=svg_folder)
-        df['nr_commands'] = df.apply(
-            lambda row: meta_df[meta_df['id'] == row['filename']].reset_index()['len_groups'][0][
-                int(row['animation_id'])],
-            axis=1)
+        df['nr_commands'] = df.apply(lambda row: meta_df[meta_df['id'] == row['filename']].reset_index()['len_groups'][0][int(row['animation_id'])], axis=1)
 
     if train:
         return df, fitted_pca
@@ -148,20 +141,6 @@ def _get_transform_style_elements(svg_folder):
     return st
 
 
-def _get_relative_size(file, animation_id):
-    svg_width, svg_height = get_svg_size(file)
-    path_xmin, path_xmax, path_ymin, path_ymax = get_path_bbox(file, animation_id)
-    path_width = float(path_xmax - path_xmin)
-    path_height = float(path_ymax - path_ymin)
-    return path_width / svg_width, path_height / svg_height
-
-
-def _get_relative_path_position(file, animation_id):
-    svg_width, svg_height = get_svg_size(file)
-    x_midpoint, y_midpoint = get_midpoint_of_path_bbox(file, animation_id)
-    return x_midpoint / svg_width, y_midpoint / svg_height
-
-
 def _get_svg_avg(df, columns, diff=True):
     for col in columns:
         df[f'svg_{col}'] = df.groupby('filename')[col].transform('mean')
@@ -172,7 +151,7 @@ def _get_svg_avg(df, columns, diff=True):
 
 if __name__ == '__main__':
     path_embedding_pkl = "../../data/embeddings/path_embedding.pkl"
-    train_df, fitted_pca = create_path_vectors("../../data/svgs",
+    train_df, fitted_pca = create_path_vectors("../../data/initial_svgs",
                                                emb_file_path=path_embedding_pkl,
                                                emb_variance=0.99,
                                                nr_commands=False,  # "list index out of range"
@@ -181,14 +160,14 @@ if __name__ == '__main__':
     # Check number of principal components and plot of cumulative explained variance
     explained_variance = fitted_pca.explained_variance_ratio_
     print(f"Number of principal components = {len(explained_variance)}")
-    plt.plot(np.cumsum(explained_variance))
-    plt.xlabel('number of components')
-    plt.ylabel('cumulative explained variance')
+    #plt.plot(np.cumsum(explained_variance))
+    #plt.xlabel('number of components')
+    #plt.ylabel('cumulative explained variance')
 
     train_df.to_csv('../../data/model_1/model_1_train.csv')
     print('Train data created and saved.')
 
-    test_df = create_path_vectors("../../data/svgs",
+    test_df = create_path_vectors("../../data/initial_svgs",
                                   emb_file_path=path_embedding_pkl,
                                   fitted_pca=fitted_pca,
                                   nr_commands=False,  # "list index out of range"
