@@ -1,11 +1,12 @@
 import numpy as np
 from sklearn.base import clone
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier
 
 
 class OrdinalClassifier():
 
-    def __init__(self, clf):
-        self.clf = clf
+    def __init__(self, **kwargs):
+        self.clf = RandomForestClassifier(**kwargs)
         self.clfs = {}
 
     def fit(self, X, y):
@@ -35,6 +36,10 @@ class OrdinalClassifier():
 
     def predict(self, X):
         return np.argmax(self.predict_proba(X), axis=1)
+
+    def set_params(self, **params):
+        self.clf.set_params(**params)
+        return self
 
     def get_params(self, deep=True):
         return self.clf.get_params(deep)
