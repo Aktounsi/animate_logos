@@ -5,8 +5,8 @@ from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, Gradi
 
 class OrdinalClassifier():
 
-    def __init__(self, **kwargs):
-        self.clf = RandomForestClassifier(**kwargs)
+    def __init__(self):
+        self.clf = RandomForestClassifier()  # this is just a place holder that will be overwritten by inheritance
         self.clfs = {}
 
     def fit(self, X, y):
@@ -19,8 +19,8 @@ class OrdinalClassifier():
                 clf.fit(X, binary_y)
                 self.clfs[i] = clf
 
-    def predict_proba(self, X):
-        clfs_predict = {k: self.clfs[k].predict_proba(X) for k in self.clfs}
+    def predict_proba(self, x):
+        clfs_predict = {k: self.clfs[k].predict_proba(x) for k in self.clfs}
         predicted = []
         for i, y in enumerate(self.unique_class):
             if i == 0:
@@ -34,8 +34,8 @@ class OrdinalClassifier():
                 predicted.append(clfs_predict[y - 1][:, 1])
         return np.vstack(predicted).T
 
-    def predict(self, X):
-        return np.argmax(self.predict_proba(X), axis=1)
+    def predict(self, x):
+        return np.argmax(self.predict_proba(x), axis=1)
 
     def set_params(self, **params):
         self.clf.set_params(**params)
@@ -43,3 +43,21 @@ class OrdinalClassifier():
 
     def get_params(self, deep=True):
         return self.clf.get_params(deep)
+
+
+class RandomForestOC(OrdinalClassifier):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.clf = RandomForestClassifier(**kwargs)
+
+
+class GradientBoostingOC(OrdinalClassifier):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.clf = GradientBoostingClassifier(**kwargs)
+
+
+class ExtraTreesOC(OrdinalClassifier):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.clf = GradientBoostingClassifier(**kwargs)
