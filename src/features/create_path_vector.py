@@ -164,6 +164,10 @@ if __name__ == '__main__':
     #plt.xlabel('number of components')
     #plt.ylabel('cumulative explained variance')
 
+    # save PCA
+    pickle.dump(fitted_pca, open("../../models/pca_path_embedding.sav", 'wb'))
+    print(f"Fitted PCA saved.")
+
     train_df.to_csv('../../data/model_1/model_1_train.csv')
     print('Train data created and saved.')
 
