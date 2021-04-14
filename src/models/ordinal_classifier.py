@@ -60,4 +60,4 @@ class GradientBoostingOC(OrdinalClassifier):
 class ExtraTreesOC(OrdinalClassifier):
     def __init__(self, **kwargs):
         super().__init__()
-        self.clf = GradientBoostingClassifier(**kwargs)
+        self.clf = ExtraTreesClassifier(**kwargs)

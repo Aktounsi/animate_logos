@@ -5,7 +5,7 @@ import numpy as np
 
 class OrdinalClassifierFNN(nn.Module):
     # Ordinal Regression
-    def __init__(self, num_classes, layer_sizes = [36, 28, 28], preinit_bias=True):
+    def __init__(self, num_classes, layer_sizes = [36, 28], preinit_bias=True):
         super().__init__()
 
         # Hidden Layers
