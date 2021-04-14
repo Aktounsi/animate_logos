@@ -1,16 +1,16 @@
-from xml.dom import minidom
 from src.utils import logger
-from src.features.get_bbox_size import *
+from src.features.get_svg_size_pos import *
+
 
 def get_clip_paths(file):
-    """ Function to find Clip Paths one Logo.
+    """ Function to identify clip paths in SVG.
 
-    Example: get_clip_paths('../../data/scraped_svgs/logo_192.svg')
+    Example: get_clip_paths('data/svgs/logo_192.svg')
 
     Args:
-        List: Animation Ids of all paths which have a clip-path as a parent node
-            -> Should identify all clip-paths
+        file (string): The path of the SVG file
 
+    Returns (list): Animation IDs of all paths that have a clip-path as a parent node
     """
     doc = minidom.parse(file)
     # store all elements in list
@@ -21,19 +21,15 @@ def get_clip_paths(file):
     for i in range(len(elements)):
         if elements[i].parentNode.nodeName == "clipPath":
             clip_paths.append(elements[i].attributes['animation_id'].value)
-    return(clip_paths)
-
+    return clip_paths
 
 
 def get_background_paths(file):
-    """ Function to decompose one Logo.
+    """ Function to identify background by checking if its bbox size is nearly as big as the complete SVG
 
-        Example: get_background_paths('../../data/scraped_svgs/logo_192.svg')
+    Example: get_background_paths('data/svgs/logo_1.svg')
 
-        Args:
-            List: Animation Ids of all paths which have a bbox size nearly as big as the svg
-            -> Should identify background
-
+    Returns (list): Animation IDs of all background candidates
     """
     doc = minidom.parse(file)
     # store all elements in list

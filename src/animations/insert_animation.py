@@ -1,7 +1,7 @@
 import numpy as np
 from xml.dom import minidom
 from pathlib import Path
-from src.features.get_bbox_size import get_midpoint_of_path_bbox, get_begin_values_by_starting_pos
+from src.features.get_svg_size_pos import get_midpoint_of_path_bbox, get_begin_values_by_starting_pos
 from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 

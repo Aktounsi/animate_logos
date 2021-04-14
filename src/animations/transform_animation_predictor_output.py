@@ -1,4 +1,4 @@
-from src.features.get_bbox_size import get_svg_size, get_midpoint_of_path_bbox
+from src.features.get_svg_size_pos import get_svg_size, get_midpoint_of_path_bbox
 from src.features.get_style_attributes import get_style_attributes_path
 from src.features.get_svg_color_tendency import get_svg_color_tendencies
 
