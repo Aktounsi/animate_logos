@@ -1,4 +1,4 @@
-## animate_logos
+## Logo Animation
 ==============================
 
-We build a model, that automatically animates SVG Logos. 
+We build a model, that automatically animates logos in SVG format. 

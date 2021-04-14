@@ -1,6 +1,6 @@
 from sklearn.decomposition import PCA
 from src.features.get_style_attributes_folder import get_style_attributes_folder
-from src.features.get_bbox_size import *
+from src.features.get_svg_size_pos import *
 from src.preprocessing.create_svg_embedding import *
 from src.data.get_svg_meta_data import *
 import matplotlib.pyplot as plt
