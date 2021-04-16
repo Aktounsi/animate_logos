@@ -63,7 +63,7 @@ def train_animation_predictor(path_vectors, hidden_sizes=config.a_hidden_sizes, 
     return top_agents[0]
 
 
-def main(data_path='../../data/model_1/model_1_train.csv'):
+def main(data_path='../../data/model_1/model_1_train.csv', drop=True):
     info(f'Data source: {data_path}')
     input_data = pd.read_csv(data_path)
     drop_columns = ['filename', 'animation_id',
@@ -71,12 +71,9 @@ def main(data_path='../../data/model_1/model_1_train.csv'):
                     'diff_stroke_r', 'svg_stroke_g', 'diff_stroke_g', 'svg_stroke_b', 'diff_stroke_b', 'href']
     input_data.drop(drop_columns, axis=1, inplace=True)
 
-    # Change order of input data
-    col_order = ['']
-
     # Create model input
     model_one_path_vectors = torch.tensor(input_data.to_numpy(), dtype=torch.float)
-    model_one = pickle.load(open('../../models/model_1_extra_trees_classifier.sav', 'rb'))
+    model_one = pickle.load(open(config.m1_path, 'rb'))
     path_predictions = model_one.predict(model_one_path_vectors)
 
     info(f'Number of animated paths: {sum(path_predictions)}/{len(path_predictions)}')
@@ -85,11 +82,13 @@ def main(data_path='../../data/model_1/model_1_train.csv'):
     input_data['add_feature_1'] = [random.uniform(0, 1) for _ in range(len(input_data))]
     input_data['add_feature_2'] = [random.uniform(0, 1) for _ in range(len(input_data))]
     sm_path_vectors = torch.tensor(input_data.to_numpy(), dtype=torch.float)
-    sm_path_vectors = torch.tensor([list(sm_path_vectors[i])
-                                    for i in range(sm_path_vectors.shape[0]) if path_predictions[i] == 1])
+    if drop:
+        info("Not animated paths won't be used for training")
+        sm_path_vectors = torch.tensor([list(sm_path_vectors[i])
+                                        for i in range(sm_path_vectors.shape[0]) if path_predictions[i] == 1])
 
     top_model = train_animation_predictor(path_vectors=sm_path_vectors,
-                                          num_agents=100, top_parent_limit=20, generations=10)
+                                          num_agents=20, top_parent_limit=20, generations=3)
     torch.save(top_model, '../../models/ap_best_model.pkl')
     torch.save(top_model.state_dict(), '../../models/ap_best_model_state_dict.pth')
     return top_model
