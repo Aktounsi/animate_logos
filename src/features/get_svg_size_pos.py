@@ -120,11 +120,15 @@ def get_midpoint_of_path_bbox(file, animation_id):
     Returns:
         x_midpoint, y_midpoint (float, float): Midpoint of bounding box of path
     """
-    xmin, xmax, ymin, ymax = get_path_bbox(file, animation_id)
-    x_midpoint = (xmin + xmax) / 2
-    y_midpoint = (ymin + ymax) / 2
+    try:
+        xmin, xmax, ymin, ymax = get_path_bbox(file, animation_id)
+        x_midpoint = (xmin + xmax) / 2
+        y_midpoint = (ymin + ymax) / 2
 
-    return x_midpoint, y_midpoint
+        return x_midpoint, y_midpoint
+    except Exception as e:
+        print(f'Could not get midpoint for file {file} and animation ID {animation_id}: {e}')
+        return 0, 0
 
 
 def get_bbox_of_multiple_paths(file, animation_ids):
