@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-import numpy as np
+
+from src.preprocessing.sm_label_transformer import *
 
 
 class OrdinalClassifierFNN(nn.Module):
@@ -32,10 +33,8 @@ class OrdinalClassifierFNN(nn.Module):
         return logits
 
 
-def predict_svg_reward(X):
-    surrogate_model = torch.load('./models/surrogate_model.pkl')
-    X.drop('filename', inplace=True, axis=1)
-    surrogate_model_input = torch.tensor(X.to_numpy(), dtype=torch.float)
-    output = surrogate_model(surrogate_model_input)
-    rewards = [np.argmax(out) for out in output.detach().numpy()]
-    return rewards
+def predict(animation_vectors):
+    sm = OrdinalClassifierFNN(num_classes=5, layer_sizes=[38, 28])
+    sm.load_state_dict(torch.load("../../models/sm_fnn.pth"))
+    sm_output = sm(animation_vectors)
+    return decode_classes(sm_output)
