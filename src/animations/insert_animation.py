@@ -141,8 +141,8 @@ def insert_fill_statement(doc, animation_id, model_output_dict):
         model_output_dict['begin'] = 0
     else:  # Wave
         pre_animation_dict = {"type": "fill",
-                              "begin": 1,
-                              "dur": 2,  # model_output_dict["begin"],
+                              "begin": 0,
+                              "dur": model_output_dict["begin"],
                               "from_": model_output_dict["to"],
                               "to": model_output_dict["from_"],
                               "fill": "remove"}

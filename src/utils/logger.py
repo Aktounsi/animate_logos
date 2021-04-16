@@ -13,7 +13,7 @@ Examples:
 
 
 def _write_message(level, message):
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}::{level}::{message}")
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}::{level}::{message}", flush=True)
 
 
 def info(message):
