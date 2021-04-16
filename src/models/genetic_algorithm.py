@@ -4,13 +4,15 @@ import pandas as pd
 import copy
 from os import listdir
 from os.path import isfile, join
+from datetime import datetime
+from collections import Counter
 
-from src.utils import utils
-from src.utils import logger
+from src.utils.logger import *
 
 from src.models import config
 from src.models.ordinal_classifier_fnn import *
 from src.models.animation_prediction import AnimationPredictor
+from src.models.train_animation_predictor import *
 
 
 def init_weights(m):
@@ -27,7 +29,7 @@ def create_random_agents(num_agents):
 
     for _ in range(num_agents):
 
-        agent = AnimationPredictor(config.a_embedding_size, config.a_hidden_sizes, config.a_out_size)
+        agent = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)
 
         for param in agent.parameters():
             param.requires_grad = False
@@ -38,45 +40,59 @@ def create_random_agents(num_agents):
     return agents
 
 
-def pad_list(list_):
-    return list_ + [[-1] * config.dim_animation_vector] * (config.n_paths - len(list_))
+def create_animation_vector(animation_prediction):
+    # Todo: Maybe put this function to another directory?
+    if animation_prediction[0] == 1:
+        for i in [8, 9, 10, 11]:
+            animation_prediction[i] = -1
+
+    if animation_prediction[1] == 1:
+        for i in [6, 7, 9, 10, 11]:
+            animation_prediction[i] = -1
+
+    if animation_prediction[2] == 1:
+        for i in [6, 7, 8, 10, 11]:
+            animation_prediction[i] = -1
+
+    if animation_prediction[3] == 1:
+        for i in [6, 7, 8, 9]:
+            animation_prediction[i] = -1
+
+    if animation_prediction[4] == 1:
+        for i in [6, 7, 8, 9, 10, 11]:
+            animation_prediction[i] = -1
+
+    if animation_prediction[5] == 1:
+        for i in [6, 7, 8, 9, 10, 11]:
+            animation_prediction[i] = -1
+    return animation_prediction
 
 
-def prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings):
-    model_output_list = [output.tolist() for output in model_output]
-    path_level_df = pd.DataFrame(
-        {'filename': filenames, 'animation_id': animation_ids, 'model_output': model_output_list})
-    # Relatively expensive: 190345 per hit/ 8.8%
-    concatenated_model_outputs = path_level_df.groupby('filename')['model_output'].apply(list)
-    # Relatively expensive: 106618 per hit/ 4.9%
-    surrogate_model_input = pd.merge(left=concatenated_model_outputs, right=svg_embeddings, on='filename')
-    surrogate_model_input['model_output'] = [pad_list(output) for output in surrogate_model_input['model_output']]
-    # Relatively expensive: 65100 per hit/ 6%
-    surrogate_model_input[[f'animation_output_{i}' for i in range(config.n_paths)]] = pd.DataFrame(
-        surrogate_model_input['model_output'].tolist(), index=surrogate_model_input.index)
-    # Relatively expensive: 100916 per hit/ 74%
-    for i in range(config.n_paths):
-        surrogate_model_input[[f'animation_output_{i}_{j}' for j in range(config.dim_animation_vector)]] = pd.DataFrame(
-            surrogate_model_input[f'animation_output_{i}'].tolist(), index=surrogate_model_input.index)
-    surrogate_model_input.drop([f'animation_output_{i}' for i in range(config.n_paths)], inplace=True, axis=1)
-    surrogate_model_input.drop('model_output', inplace=True, axis=1)
-    return surrogate_model_input
+def prepare_sm_input(path_vectors, animation_predictions):
+    return torch.tensor([list(torch.cat((create_animation_vector(animation_predictions[i]),
+                                         path_vectors[i]), 0).detach().numpy())
+                         for i in range(path_vectors.shape[0])])
 
 
-def return_average_reward(model_output, filenames, animation_ids, svg_embeddings):
-    rewards = predict_svg_reward(prepare_surrogate_model_input(model_output, filenames, animation_ids, svg_embeddings))
+def return_average_reward(path_vectors, animation_predictions):
+    # types = list()
+    # for i in range(animation_predictions.shape[0]):
+    #     types.append(np.argmax(animation_predictions[i][:6].detach().numpy()))
+    # info(f'Type distribution: {Counter(types)}')
+    rewards = predict(prepare_sm_input(path_vectors, animation_predictions))
     return np.mean(rewards)
 
 
-def compute_agent_rewards(agents, X, filenames, animation_ids, svg_embeddings):
+def compute_agent_rewards(agents, path_vectors, verbose=5):
+    steps = len(agents) // verbose
     agent_rewards = []
     num_agents = len(agents)
     for i, agent in enumerate(agents):
-
-        model_output = agent(X)
-        if i % 20 == 0:
-            logger.info(f'Compute rewards for agent {i + 1}/{num_agents}')
-        agent_rewards.append(return_average_reward(model_output, filenames, animation_ids, svg_embeddings))
+        animation_predictions = agent(path_vectors)
+        avg_rewards = return_average_reward(path_vectors, animation_predictions)
+        if i % steps == 0:
+            info(f'Computed avg rewards for agent {i + 1}/{num_agents}: {avg_rewards}')
+        agent_rewards.append(avg_rewards)
     return agent_rewards
 
 
@@ -85,8 +101,8 @@ def crossover(agents, num_agents):
     for _ in range((num_agents - len(agents)) // 2):
         parent1 = np.random.choice(agents)
         parent2 = np.random.choice(agents)
-        child1 = AnimationPredictor(config.a_embedding_size, config.a_hidden_sizes, config.a_out_size)
-        child2 = AnimationPredictor(config.a_embedding_size, config.a_hidden_sizes, config.a_out_size)
+        child1 = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)
+        child2 = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)
 
         shapes = [param.shape for param in parent1.parameters()]
 
