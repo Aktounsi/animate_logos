@@ -169,7 +169,7 @@ if __name__ == '__main__':
     pickle.dump(fitted_pca, open("../../models/pca_path_embedding.sav", 'wb'))
     print(f"Fitted PCA saved.")
 
-    train_df.to_csv('../../data/model_1/model_1_train.csv')
+    train_df.to_csv('../../data/model_1/model_1_train.csv', index=False)
     print('Train data created and saved.')
 
     test_df = create_path_vectors("../../data/initial_svgs",
@@ -177,5 +177,5 @@ if __name__ == '__main__':
                                   fitted_pca=fitted_pca,
                                   nr_commands=False,  # "list index out of range"
                                   train=False)
-    test_df.to_csv('../../data/model_1/model_1_test.csv')
+    test_df.to_csv('../../data/model_1/model_1_test.csv', index=False)
     print('Test data created and saved.')
