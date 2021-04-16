@@ -6,46 +6,35 @@ from src.models import config
 
 
 class AnimationPredictor(nn.Module):
-    def __init__(self, embedding_size=256, hidden_sizes=[192,192,191], out_sizes=[1,10,3]):
+    def __init__(self, input_size=config.a_input_size, hidden_sizes=config.a_hidden_sizes, out_sizes=config.a_out_sizes):
         super().__init__()
 
-        self.embedding_size = embedding_size
+        self.input_size = input_size
         self.hidden_sizes = hidden_sizes
         self.out_sizes = out_sizes
 
         # Hidden Layers
-        self.hidden_1 = nn.Linear(self.embedding_size, self.hidden_sizes[0])
-        self.hidden_2 = nn.Linear(self.embedding_size, self.hidden_sizes[1])
-        self.hidden_3 = nn.Linear(self.embedding_size + self.out_sizes[1], self.hidden_sizes[2])
+        self.hidden_1 = nn.Linear(self.input_size, self.hidden_sizes[0])
+        self.hidden_2 = nn.Linear(self.input_size + self.out_sizes[0], self.hidden_sizes[1])
 
         # Output Layers
         self.out_1 = nn.Linear(self.hidden_sizes[0], self.out_sizes[0])
         self.out_2 = nn.Linear(self.hidden_sizes[1], self.out_sizes[1])
-        self.out_3 = nn.Linear(self.hidden_sizes[2], self.out_sizes[2])
 
     # Forward Pass
     # X has to be single 2-dim tensor of size nr_paths x embedding_size
     def forward(self, X):
-        output = torch.zeros(X.shape[0], config.dim_animation_vector)
-
-        # forward pass of first model: predict whether path is animated or not
+        # forward pass of model two: predict type of animation (choice out of 6)
         h_1 = torch.relu(self.hidden_1(X))
-        y_1 = torch.sigmoid(self.out_1(h_1))
-
-        # forward pass of second model: predict type of animation (10 possibilities)
-        h_2 = torch.relu(self.hidden_2(X))
-        y_2 = nn.functional.softmax(self.out_2(h_2), dim=0)
-        max_indices = y_2.argmax(1)
-        y_2 = torch.tensor([[1 if j == max_indices[i] else 0 for j in range(self.out_sizes[1])]
+        y_1 = nn.functional.softmax(self.out_1(h_1), dim=1)
+        max_indices = y_1.argmax(1)
+        y_1 = torch.tensor([[1 if j == max_indices[i] else 0 for j in range(self.out_sizes[0])]
                             for i in range(X.shape[0])])
 
-        # forward pass of third model: predict value of parameters that define animation of type chosen in model 2
-        h_3 = torch.relu(self.hidden_3(torch.cat((X, y_2), 1)))
-        y_3 = torch.sigmoid(self.out_3(h_3))
-
-        output = torch.tensor([list(torch.cat((y_2[i], y_3[i]), 0).detach().numpy()) if y_1[i][0] > 0.5
-                               else [0,0,0,0,0,0,0,0,0,0,-1,-1,-1] for i in range(X.shape[0])])
-        return output
+        # forward pass of model three: predict animation parameters
+        h_2 = torch.relu(self.hidden_2(torch.cat((X, y_1), 1)))
+        y_2 = torch.sigmoid(self.out_2(h_2))
+        return torch.cat((y_1, y_2), 1)
 
 
 if __name__ == "__main__":
