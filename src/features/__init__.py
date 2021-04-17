@@ -3,3 +3,7 @@ from .get_svg_size_pos import get_svg_size, get_svg_bbox, get_path_bbox, get_mid
     get_relative_path_size, get_begin_values_by_starting_pos
 
 from .get_style_attributes import get_style_attributes_svg, get_style_attributes_path
+
+from .get_style_attributes_folder import get_style_attributes_folder
+
+from .create_path_vector import reduce_dim

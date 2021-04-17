@@ -4,15 +4,13 @@ import pandas as pd
 import numpy as np
 from xml.dom import minidom
 from PIL import ImageColor
+from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
 from src.preprocessing.deepsvg.svglib.svg import SVG
 from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
 from src.preprocessing.deepsvg.utils.utils import batchify
 from src.preprocessing.deepsvg import utils
-from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
-from src.features.create_path_vector import reduce_dim
-from src.features import get_svg_size, get_svg_bbox, get_path_bbox, get_midpoint_of_path_bbox, \
-    get_bbox_of_multiple_paths, get_relative_path_pos, get_relative_pos_to_bounding_box_of_animated_paths, \
-    get_relative_path_size, get_style_attributes_path
+from src.features import get_svg_size, get_svg_bbox, get_relative_path_pos, get_relative_path_size,\
+    get_style_attributes_path, reduce_dim
 
 # Reproducibility
 utils.set_seed(42)
@@ -28,12 +26,28 @@ class Logo:
         self.width, self.height = get_svg_size(data_dir)
         self.xmin_svg, self.xmax_svg, self.ymin_svg, self.ymax_svg = get_svg_bbox(data_dir)
 
+    def print_logo_information(self, print_deepSVG=False):
+        print('--------------------------- Logo Information ---------------------------')
+        print(f'data_dir: {self.data_dir}')
+        print(f'parsed_doc: {self.parsed_doc}')
+        print(f'nr_paths: {self.nr_paths}')
+        print(f'animation_ids: {self.animation_ids}')
+        if print_deepSVG:
+            print(f'deepSVG: {self.deepSVG}')
+        print(f'width, height: {self.width}, {self.height}')
+        print(f'bbox: {self.xmin_svg}, {self.xmax_svg}, {self.ymin_svg}, {self.ymax_svg}')
+
     def insert_id(self):
         """ Add the attribute "animation_id" to all elements in a SVG. """
-        elements = self._store_svg_elements()
+        elements = self._store_svg_elements(self.parsed_doc)
         for i in range(len(elements)):
             elements[i].setAttribute('animation_id', str(i))
-        return self.parsed_doc
+        
+        # create new file and update data_dir
+        textfile = open(f"{self.data_dir.replace('.svg', '')}_preprocessed.svg", 'wb')
+        textfile.write(self.parsed_doc.toprettyxml(encoding="iso-8859-1"))
+        textfile.close()
+        self.data_dir = f"{self.data_dir.replace('.svg', '')}_preprocessed.svg"
 
     def decompose_svg(self):
         """ Decompose a SVG into its paths. """
@@ -64,20 +78,20 @@ class Logo:
                parsed_doc.getElementsByTagName('polygon') + parsed_doc.getElementsByTagName('polyline') + \
                parsed_doc.getElementsByTagName('rect') + parsed_doc.getElementsByTagName('text')
 
-    def create_svg_embedding(self):
+    def create_svg_embedding(self, embedding_model="models/deepSVG_hierarchical_ordered.pth.tar"):
         """ Create SVG embedding. """
-        return Logo._create_embedding(self.parsed_doc.toxml())
+        return Logo._create_embedding(self.parsed_doc.toxml(), embedding_model)
 
-    def create_path_embedding(self):
+    def create_path_embedding(self, embedding_model="models/deepSVG_hierarchical_ordered.pth.tar"):
         """ Create path embedding. """
         decomposed_docs = self.decompose_svg()
         embeddings = []
         for doc in decomposed_docs:
-            embeddings.append(Logo._create_embedding(doc))
+            embeddings.append(Logo._create_embedding(doc, embedding_model))
         return embeddings
 
     @staticmethod
-    def _create_embedding(parsed_doc_xml):
+    def _create_embedding(parsed_doc_xml, embedding_model):
         """ Create embedding according to deepSVG. """
         # The following parameters are defined in the deepSVG config:
         model_args = ['commands', 'args', 'commands', 'args']
@@ -94,10 +108,9 @@ class Logo:
 
         # Load pretrained model
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        pretrained_path = "models/deepSVG_hierarchical_ordered.pth.tar"
         cfg = Config()
         model = cfg.make_model().to(device)
-        utils.load_model(pretrained_path, model)
+        utils.load_model(embedding_model, model)
         model.eval();
 
         t_sep, fillings = deep_svg.to_tensor(concat_groups=False, PAD_VAL=PAD_VAL), deep_svg.to_fillings()

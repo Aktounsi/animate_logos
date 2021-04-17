@@ -201,7 +201,7 @@ def _get_global_group_style_attributes(file):
         stroke_width = ''
         opacity = ''
         stroke_opacity = ''
-        if style != '':
+        if style != '' and len(groups[i].getElementsByTagName('use')) != 0:
             href = groups[i].getElementsByTagName('use')[0].getAttribute('xlink:href')
             attributes = style.split(';')
             for j, _ in enumerate(attributes):

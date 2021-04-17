@@ -9,7 +9,7 @@ from datetime import datetime
 from shutil import copyfile
 from skimage.metrics import mean_squared_error
 from src.utils import logger
-from src.models.transform_model_output_to_animation_states import convert_svgs_in_folder
+from src.data.svg_to_png import convert_svgs_in_folder
 
 # Todo: Rewrite functions to be able to compute MSEs only once
 
