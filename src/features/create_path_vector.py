@@ -48,8 +48,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
     if new_dim:
         df_meta = df.iloc[:, :2].reset_index(drop=True)
         df_emb = df.iloc[:, 2:]
-        df_emb_red, fitted_pca = reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=new_dim,
-                                             use_ppa=use_ppa)
+        df_emb_red, fitted_pca = reduce_dim(df_emb, fitted_pca=fitted_pca, new_dim=new_dim, use_ppa=use_ppa)
         df = pd.concat([df_meta, df_emb_red.reset_index(drop=True)], axis=1)
 
     if style:
@@ -82,7 +81,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
         return df
 
 
-def reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=0.99, use_ppa=False, ppa_threshold=8):
+def reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=None, use_ppa=False, ppa_threshold=8):
     # 1. PPA #1
     # PCA to get Top Components
 
