@@ -13,9 +13,30 @@ import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
-def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim=0.99, use_ppa=False,
+def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim=10, use_ppa=False,
                         style=True, size=True, position=True, nr_commands=True, nr_paths_svg=True,
                         avg_cols_svg=None, avg_diff=True, train=True):
+    """ Creates path-level model input vectors from a given folder of SVG files.
+
+    Args:
+        svg_folder (str): Path of folder that contains initial SVG files with animation IDs.
+        emb_file_path (str): Path of path embedding file.
+        fitted_pca (object): Fitted PCA model to apply on path embeddings.
+        new_dim (float): Scalar that defines number of PCs to keep, or alternatively variance that should be explained
+                         by the kept PCs.
+        use_ppa (bool): If True, Principal Polynomial Analysis (PPA) is integrated in the dimension reduction step.
+        style (bool): If True, style attributes of paths (colors, stroke, opacity) are integrated in path vectors.
+        size (bool): If True, size of path is integrated in path vectors.
+        position (bool): If True, relative position of path is integrated in path vectors.
+        nr_commands (bool): If True, number of commands the path consists of is integrated in path vectors.
+        nr_paths_svg (bool): If True, number of paths in the respective SVG is integrated in path vectors.
+        avg_cols_svg (bool): If True, the average color of the SVG is integrated in path vectors.
+        avg_diff (bool): If True, the difference between the path color and the average SVG color is integrated in path vectors.
+        train (bool): If True, training data is considered, else test data.
+
+    Returns (pd.DataFrame): Dataframe which contains path vectors that can be used as model input.
+
+    """
     if avg_cols_svg is None:
         avg_cols_svg = ['fill_r', 'fill_g', 'fill_b',
                         'stroke_r', 'stroke_g', 'stroke_b']
@@ -25,16 +46,6 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
     else:
         df = apply_embedding_model_to_svgs(data_folder="../../data/decomposed_svgs", save=False)
     df.dropna(inplace=True)  # can be deleted if NaN rows do not exist anymore
-
-    # drop logo_126 since there are problems with SVG metadata
-    #df = df[df['filename'] != 'logo_126'].reset_index(drop=True)
-
-    # train/test subsetting
-
-    # do not use generic splitting since we do not want to allow logos from same company in both train and test data
-    # split = round(len(np.unique(df['filename'])) * train_frc)
-    # logos_train = np.unique(df['filename'])[:split]
-    # logos_test = np.unique(df['filename'])[split:]
 
     # use manually splitting after inspecting the logos (ratio should be around 80/20)
     logos_train = ['logo_{}'.format(i) for i in chain(range(147), range(192, 395))]  # 350
@@ -82,6 +93,19 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
 
 
 def reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=None, use_ppa=False, ppa_threshold=8):
+    """ Reduces dimensionality of path embeddings.
+
+    Args:
+        data (pd.Dataframe): Path embedding data.
+        fitted_pca (object): Fitted PCA model to apply on path embeddings.
+        new_dim (float): Scalar that defines number of PCs to keep, or alternatively variance that should be explained
+                         by the kept PCs.
+        use_ppa: If True, Principal Polynomial Analysis (PPA) is integrated in the dimension reduction step.
+        ppa_threshold (int): PPA threshold.
+
+    Returns (tuple): Dimension-reduced path embeddings (pd.DataFrame) and fitted PCA model (object)
+
+    """
     # 1. PPA #1
     # PCA to get Top Components
 
