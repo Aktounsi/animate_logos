@@ -16,9 +16,9 @@ from src.features import get_svg_bbox, get_relative_path_pos, get_midpoint_of_pa
 """ 
 Data Augmentation
 
-Scaling: SVG is scaled by a random factor in the interval [0.8, 1.2].
-Translation: SVG is translated by a random translation vector t where tx and ty are sampled independently 
-in the interval [-10, 10].
+Scaling:        Path is scaled by a random factor in the interval [0.8, 1.2].
+Translation:    Path is translated by a random translation vector t where tx and ty are
+                sampled independently in the interval [-10, 10].
 """
 
 
@@ -27,13 +27,19 @@ def augment_data(folder='data/svgs',
                  df_dir='data/data_augmentation/data_for_data_augmentation.csv',
                  embedding_model="models/deepSVG_hierarchical_ordered.pth.tar",
                  pca_model="models/pca_path_embedding.sav",
+                 introduce_noise_to_animation_vectors=False,
+                 seed=None,
                  save=True):
+    # Set seed for reproducibility
+    if seed is not None:
+        random.seed(seed)
+
     df_original = pd.read_csv(df_dir)
     df_original.drop(['emb_0', 'emb_1', 'emb_2', 'emb_3', 'emb_4', 'emb_5', 'emb_6', 'emb_7', 'emb_8', 'emb_9'],
                      axis=1, inplace=True)
 
     df_embed_aug = pd.DataFrame.from_records(
-        _get_embedding_of_augmented_data(folder, embedding_model, nb_augmentations))
+        _get_embedding_of_augmented_data(folder, embedding_model, nb_augmentations, seed))
 
     # Drop rows where embedding contains nan values
     df_embed_aug['temp'] = df_embed_aug['embedding'].apply(lambda row: np.isnan(row.numpy()).any())
@@ -69,6 +75,12 @@ def augment_data(folder='data/svgs',
     df_full.drop(['filename', 'animation_id', 'nb_augmentation', 'translate_x', 'translate_y', 'scale',
                   'translation_factor', 'translation_factor_x', 'translation_factor_y'], axis=1)
 
+    # Introduce noise to animation vectors for model stability
+    if introduce_noise_to_animation_vectors:
+        for i in range(6, 12):
+            df_full[f'an_vec_{i}'] = df_full[f'an_vec_{i}'].apply(
+                lambda row: row + (0.2 * random.random() - 0.1) if 0.1 < row < 0.9 else row)
+
     col_order = [f'an_vec_{i}' for i in range(12)] + [f'emb_{i}' for i in range(10)] \
                 + ['fill_r', 'fill_g', 'fill_b', 'svg_fill_r', 'svg_fill_g', 'svg_fill_b',
                    'diff_fill_r', 'diff_fill_g', 'diff_fill_b', 'rel_height', 'rel_width',
@@ -78,12 +90,12 @@ def augment_data(folder='data/svgs',
     df_full = df_full[col_order]
 
     if save:
-        df_full.to_csv('data/data_augmentation/sm_train_with_data_augmentation.csv', index=False)
+        df_full.to_csv(f'data/data_augmentation/sm_train_nb_augmentations_{nb_augmentations}.csv', index=False)
 
     return df_full
 
 
-def _get_embedding_of_augmented_data(folder, embedding_model, nb_augmentations):
+def _get_embedding_of_augmented_data(folder, embedding_model, nb_augmentations, seed=None):
     """ Get embedding and augmentation parameters. """
     # Load pretrained model
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -109,7 +121,7 @@ def _get_embedding_of_augmented_data(folder, embedding_model, nb_augmentations):
                     MAX_TOTAL_LEN = 50
                     PAD_VAL = -1
 
-                    svg_aug, dx, dy, factor = _preprocess(svg)
+                    svg_aug, dx, dy, factor = _preprocess(svg, seed=seed)
 
                     t_sep, fillings = svg_aug.to_tensor(concat_groups=False, PAD_VAL=PAD_VAL), svg_aug.to_fillings()
                     # Note: DeepSVG can only handle 8 paths in a SVG and 30 sequences per path
@@ -200,10 +212,10 @@ def _simplify(svg, normalize=True):
     return svg.normalize()
 
 
-def _preprocess(svg, augment=True):
+def _preprocess(svg, augment=True, seed=None):
     dx = dy = factor = 0
     if augment:
-        svg, dx, dy, factor = _augment(svg)
+        svg, dx, dy, factor = _augment(svg, seed)
     return svg.numericalize(256), dx, dy, factor
 
 
@@ -235,4 +247,7 @@ def _get_translation_factor(file, animation_id, dx, dy):
 
 if __name__ == '__main__':
     os.chdir('../..')
-    df = augment_data(folder='data/augment_svgs', nb_augmentations=2, save=True)
+    df = augment_data(folder='data/augment_svgs',
+                      nb_augmentations=3,
+                      introduce_noise_to_animation_vectors=True,
+                      save=True)
