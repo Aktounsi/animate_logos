@@ -1,5 +1,6 @@
 import torch
 import pickle
+import random
 import pandas as pd
 import numpy as np
 from xml.dom import minidom
@@ -10,10 +11,11 @@ from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
 from src.preprocessing.deepsvg.utils.utils import batchify
 from src.preprocessing.deepsvg import utils
 from src.features import get_svg_size, get_svg_bbox, get_relative_path_pos, get_relative_path_size,\
-    get_style_attributes_path, reduce_dim
+    get_style_attributes_path, reduce_dim, get_begin_values_by_starting_pos
+from src.animations import *
 
 # Reproducibility
-utils.set_seed(42)
+# utils.set_seed(42)
 
 
 class Logo:
@@ -37,17 +39,30 @@ class Logo:
         print(f'width, height: {self.width}, {self.height}')
         print(f'bbox: {self.xmin_svg}, {self.xmax_svg}, {self.ymin_svg}, {self.ymax_svg}')
 
+    def animate(self, nb_animations=6):
+        """ Automatically animates logo (currently randomly but is updated later)
+
+        Args:
+              nb_animations (int, default=6): Number of animations
+        """
+        if 'preprocessed' not in self.data_dir:
+            self.insert_id()
+        for i in range(nb_animations):
+            animation_vectors, animated_animation_ids = Logo.random_animation_vector(self.animation_ids)
+            self._insert_animation(animated_animation_ids, animation_vectors, filename_suffix=str(i))
+
     def insert_id(self):
         """ Add the attribute "animation_id" to all elements in a SVG. """
-        elements = self._store_svg_elements(self.parsed_doc)
-        for i in range(len(elements)):
-            elements[i].setAttribute('animation_id', str(i))
-        
-        # create new file and update data_dir
-        textfile = open(f"{self.data_dir.replace('.svg', '')}_preprocessed.svg", 'wb')
-        textfile.write(self.parsed_doc.toprettyxml(encoding="iso-8859-1"))
-        textfile.close()
-        self.data_dir = f"{self.data_dir.replace('.svg', '')}_preprocessed.svg"
+        if 'preprocessed' not in self.data_dir:
+            elements = self._store_svg_elements(self.parsed_doc)
+            for i in range(len(elements)):
+                elements[i].setAttribute('animation_id', str(i))
+
+            # create new file and update data_dir
+            textfile = open(f"{self.data_dir.replace('.svg', '')}_preprocessed.svg", 'wb')
+            textfile.write(self.parsed_doc.toprettyxml(encoding="iso-8859-1"))
+            textfile.close()
+            self.data_dir = f"{self.data_dir.replace('.svg', '')}_preprocessed.svg"
 
     def decompose_svg(self):
         """ Decompose a SVG into its paths. """
@@ -219,6 +234,68 @@ class Logo:
                  'svg_stroke_b', 'diff_stroke_b'], axis=1, inplace=True)
 
         return df
+
+    def _insert_animation(self, animation_ids, model_output, filename_suffix=""):
+        """ Function to insert multiple animation statements. """
+        doc_temp = minidom.parse(self.data_dir)
+        begin_values = get_begin_values_by_starting_pos(self.data_dir, animation_ids, start=1, step=0.25)
+        for i, animation_id in enumerate(animation_ids):
+            if not (model_output[i][:6] == np.array([0] * 6)).all():
+                try:  # there are some paths that can't be embedded and don't have style attributes
+                    output_dict = transform_animation_predictor_output(self.data_dir, animation_id, model_output[i])
+                    output_dict["begin"] = begin_values[i]
+                    if output_dict["type"] == "translate":
+                        doc_temp = insert_translate_statement(doc_temp, animation_id, output_dict)
+                    if output_dict["type"] == "scale":
+                        doc_temp = insert_scale_statement(doc_temp, animation_id, output_dict, self.data_dir)
+                    if output_dict["type"] == "rotate":
+                        doc_temp = insert_rotate_statement(doc_temp, animation_id, output_dict)
+                    if output_dict["type"] in ["skewX", "skewY"]:
+                        doc_temp = insert_skew_statement(doc_temp, animation_id, output_dict)
+                    if output_dict["type"] == "fill":
+                        doc_temp = insert_fill_statement(doc_temp, animation_id, output_dict)
+                    if output_dict["type"] in ["opacity"]:
+                        doc_temp = insert_opacity_statement(doc_temp, animation_id, output_dict)
+                except Exception as e:
+                    print(f"Logo {self.data_dir.split('/')[-1]}, animation ID {animation_id} can't be animated. {e}")
+                    pass
+
+        # Save animated SVG
+        with open(f"{self.data_dir.replace('preprocessed.svg', '')}animated_{filename_suffix}.svg", 'wb') as f:
+            f.write(doc_temp.toprettyxml(encoding="iso-8859-1"))
+
+    @staticmethod
+    def random_animation_vector(animation_ids, path_probs=None, animation_type_prob=None, seed=None):
+        """ Function to generate random animation vectors. Can be deleted later. """
+        if path_probs is None:
+            path_probs = [1 / 2] * len(animation_ids)
+        if animation_type_prob is None:
+            animation_type_prob = [1 / 6] * 6
+        if seed is not None:
+            random.seed(seed)
+            np.random.seed(seed)
+
+        vec_list = []
+        animated_animation_ids = []
+        for i, animation_id in enumerate(animation_ids):
+            animate = np.random.choice(a=[False, True], p=[1 - path_probs[i], path_probs[i]])
+            if animate:
+                vec = np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object)
+                animation_type = np.random.choice(a=[0, 1, 2, 3, 4, 5], p=animation_type_prob)
+                vec[animation_type] = 1
+                if animation_type == 0:  # translate
+                    vec[6] = random.uniform(0, 1)
+                    vec[7] = random.uniform(0, 1)
+                if animation_type == 1:  # scale
+                    vec[8] = random.uniform(0, 1)
+                if animation_type == 2:  # rotate
+                    vec[9] = random.uniform(0, 1)
+                if animation_type == 3:  # skew
+                    vec[10] = random.uniform(0, 1)
+                    vec[11] = random.uniform(0, 1)
+                vec_list.append(vec)
+                animated_animation_ids.append(animation_id)
+        return np.array(vec_list), animated_animation_ids
 
 
 if __name__ == '__main__':
