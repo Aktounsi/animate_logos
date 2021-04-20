@@ -32,10 +32,10 @@ def retrieve_animation_midpoints(input_data, drop=True):
                       inplace=True)
 
     if drop:
-        info("Not animated paths won't be used for training")
+        info("Non-animated paths won't be used for training")
         input_data = input_data[input_data['animated'] == 1]
     else:
-        info("Not animated paths will be used for training")
+        info("Non-animated paths will be used for training")
     input_data.reset_index(drop=True, inplace=True)
     info('Start extraction midpoint of animated paths as feature')
     input_data["rel_position_to_animations"] = input_data.apply(
@@ -129,6 +129,11 @@ def main(data_path='data/model_1/model_1_train.csv', drop=True,
 
     # Retrieve features describing the midpoint of animated paths
     input_data = retrieve_animation_midpoints(input_data, drop=drop)
+
+    # Scale input data for surrogate model
+    scaler = pickle.load(open(config.scaler_path, 'rb'))
+    input_data[config.sm_features] = scaler.transform(input_data[config.sm_features])
+    info('Scaled input data for surrogate model')
 
     # Prepare path vectors for animation prediction
     path_vectors = torch.tensor(input_data[config.sm_features].to_numpy(), dtype=torch.float)
