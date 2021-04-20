@@ -1,18 +1,19 @@
-import os
 from entmoot.space.space import Space
 from entmoot.optimizer.gurobi_utils import get_core_gurobi_model
 import pandas as pd
 from src.models.blackbox_sm_fnn import *
+from entmoot.optimizer.entmoot_minimize import entmoot_minimize
+
 
 # Load data
 initial_data = pd.read_csv('../../data/surrogate_model/sm_train_data_scaled.csv')
 
-X_train = initial_data.iloc[:,:-4]
+X_train = initial_data.iloc[:100,:-4]
 X_train.replace(to_replace=-1, value=0, inplace=True
                )
-y_train = initial_data.iloc[:,-4:]
+y_train = initial_data.iloc[:100,-4:]
 
-y_train = pd.Series(decode_classes(y_train.to_numpy()).flatten())
+y_train = pd.Series(decode_classes(y_train.to_numpy()).flatten()) * -1
 
 X_train = X_train.values.tolist()
 y_train = y_train.values.tolist()
@@ -93,11 +94,6 @@ core_model.addConstr(rel_y_position_to_animations == 1)
 core_model.addConstr(nr_paths_svg == 1)
 
 core_model.update()
-core_model
-
-from entmoot.optimizer.entmoot_minimize import entmoot_minimize
-
-# cont_var_dict contains all continuous variabl
 
 # specify the model core in `acq_optimizer_kwargs`
 res = entmoot_minimize(
@@ -123,4 +119,6 @@ res = entmoot_minimize(
     },
     verbose = True,
 )
-print("hi")
+
+print(res['x_iters'][-1])
+print(res['func_vals'][-1])
