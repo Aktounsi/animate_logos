@@ -1,2 +1,4 @@
 from .create_random_animations import create_random_animations
-from .insert_animation import create_animated_svg
+from .insert_animation import create_animated_svg, insert_translate_statement, insert_scale_statement, \
+    insert_rotate_statement, insert_skew_statement, insert_fill_statement, insert_opacity_statement
+from .transform_animation_predictor_output import transform_animation_predictor_output
