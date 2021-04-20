@@ -7,7 +7,7 @@ class DatasetSM(torch.utils.data.Dataset):
     """Surrogate model dataset."""
 
     # Characterizes a dataset for PyTorch
-    def __init__(self, path, train=True):
+    def __init__(self, path, train=True, augmented=True):
         """
         Args:
             path (str): Path of the folder that contains the data for the surrogate model.
@@ -15,7 +15,10 @@ class DatasetSM(torch.utils.data.Dataset):
         """
         # Read csv file and load data into variables
         if train:
-            file_path = path + "/sm_train_data.csv"
+            if augmented:
+                file_path = path + "/sm_train_data_augmented.csv"
+            else:
+                file_path = path + "/sm_train_data.csv"
         else:
             file_path = path + "/sm_test_data.csv"
 
