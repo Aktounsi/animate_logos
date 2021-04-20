@@ -13,10 +13,10 @@ class SurrogateModelFNN(BenchmarkFunction):
 
         # Load surrogate model
         self.func = OrdinalClassifierFNN(num_classes=5, layer_sizes=[38, 28])
-        self.func.load_state_dict(torch.load("models/sm_fnn.pth"))
+        self.func.load_state_dict(torch.load("../../models/sm_fnn.pth"))
         self.func.eval()
 
-    def get_bounds(self, n_dim=28):
+    def get_bounds(self, n_dim=26):
         return self.an_statement_dims + self.an_parameters_dims + [(-10.0, 10.0) for _ in range(n_dim)]
 
     def get_X_opt(self):
@@ -25,5 +25,5 @@ class SurrogateModelFNN(BenchmarkFunction):
     def _eval_point(self, x):
         x = torch.tensor(x)
         logits = self.func(x)
-        output = decode_classes(torch.sigmoid(logits))[0][0]
-        return output
+        output = decode_classes(torch.sigmoid(logits).reshape(1,-1))[0][0]
+        return -output
