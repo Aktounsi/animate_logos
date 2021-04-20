@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+from src.models import config
 from src.preprocessing.sm_label_transformer import *
 
 
@@ -35,6 +36,6 @@ class OrdinalClassifierFNN(nn.Module):
 
 def predict(animation_vectors):
     sm = OrdinalClassifierFNN(num_classes=5, layer_sizes=[38, 28])
-    sm.load_state_dict(torch.load("../../models/sm_fnn.pth"))
+    sm.load_state_dict(torch.load(config.sm_path))
     sm_output = sm(animation_vectors)
     return decode_classes(sm_output)
