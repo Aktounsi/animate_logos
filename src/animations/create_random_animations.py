@@ -123,8 +123,8 @@ def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=
     Format of vectors: (translate scale rotate skew fill opacity
                     translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
 
-    Note: nr_animations must match length of frac_animations
-    Example: random_animation_vector(nr_animations=2, frac_animations=[0.5, 0.5])
+    Note: nr_animations must match length of path_probs
+    Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])
 
     Args:
         nr_animations (int): Number of animation vectors that are generated
