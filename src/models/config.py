@@ -16,6 +16,9 @@ a_input_size = 26
 a_hidden_sizes = [15, 20]
 a_out_sizes = [dim_animation_types, dim_animation_parameters]
 
+# Scaler
+scaler_path = 'models/sm_train_standard_scaler.pkl'
+
 # Surrogate model
 s_hidden_sizes = [360, 245]
 sm_path = 'models/sm_fnn.pth'
