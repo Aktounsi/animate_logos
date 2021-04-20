@@ -36,31 +36,31 @@ def create_random_agents(num_agents):
     return agents
 
 
-def create_animation_vector(animation_prediction):
+def create_animation_vector(animation_prediction, value=-1):
     # Todo: Maybe put this function to another directory?
     if animation_prediction[0] == 1:
         for i in [8, 9, 10, 11]:
-            animation_prediction[i] = -1
+            animation_prediction[i] = value
 
     if animation_prediction[1] == 1:
         for i in [6, 7, 9, 10, 11]:
-            animation_prediction[i] = -1
+            animation_prediction[i] = value
 
     if animation_prediction[2] == 1:
         for i in [6, 7, 8, 10, 11]:
-            animation_prediction[i] = -1
+            animation_prediction[i] = value
 
     if animation_prediction[3] == 1:
         for i in [6, 7, 8, 9]:
-            animation_prediction[i] = -1
+            animation_prediction[i] = value
 
     if animation_prediction[4] == 1:
         for i in [6, 7, 8, 9, 10, 11]:
-            animation_prediction[i] = -1
+            animation_prediction[i] = value
 
     if animation_prediction[5] == 1:
         for i in [6, 7, 8, 9, 10, 11]:
-            animation_prediction[i] = -1
+            animation_prediction[i] = value
     return animation_prediction
 
 
@@ -76,7 +76,7 @@ def prepare_sm_input(path_vectors, animation_predictions, convert=True):
 
 def return_average_reward(path_vectors, animation_predictions):
     rewards = predict(prepare_sm_input(path_vectors, animation_predictions))
-    info(f'Reward distribution: {sorted(Counter(rewards.flatten().tolist()).items())}')
+    # info(f'Reward distribution: {sorted(Counter(rewards.flatten().tolist()).items())}')
     return np.mean(rewards)
 
 
