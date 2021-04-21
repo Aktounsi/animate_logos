@@ -8,7 +8,7 @@ class SurrogateModelFNN(BenchmarkFunction):
 
     def __init__(self):
         self.sm = OrdinalClassifierFNN(num_classes=5, layer_sizes=[38, 28])
-        self.sm.load_state_dict(torch.load("../../models/sm_fnn.pth"))
+        self.sm.load_state_dict(torch.load("models/sm_fnn.pth"))
         self.sm.eval()
         self.an_statement_dims = [Integer(low=0, high=1) for _ in range(6)]
         self.an_parameters_dims = [(0.0, 1.0) for _ in range(6)]
