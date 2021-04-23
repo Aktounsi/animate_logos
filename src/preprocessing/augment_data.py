@@ -4,6 +4,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import random
+from datetime import datetime
 from xml.dom import minidom
 from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
 from src.preprocessing.deepsvg.svglib.geom import Point
@@ -90,7 +91,8 @@ def augment_data(folder='data/svgs',
     df_full = df_full[col_order]
 
     if save:
-        df_full.to_csv(f'data/data_augmentation/sm_train_nb_augmentations_{nb_augmentations}.csv', index=False)
+        date_time = datetime.now().strftime('%H%M')
+        df_full.to_csv(f'data/data_augmentation/sm_train_nb_augmentations_{nb_augmentations}_{date_time}.csv', index=False)
 
     return df_full
 
@@ -248,6 +250,6 @@ def _get_translation_factor(file, animation_id, dx, dy):
 if __name__ == '__main__':
     os.chdir('../..')
     df = augment_data(folder='data/augment_svgs',
-                      nb_augmentations=3,
+                      nb_augmentations=5,
                       introduce_noise_to_animation_vectors=True,
                       save=True)
