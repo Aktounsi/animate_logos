@@ -15,12 +15,9 @@ class DatasetSM(torch.utils.data.Dataset):
         """
         # Read csv file and load data into variables
         if train:
-            if augmented:
-                file_path = path + "/sm_train_data_augmented.csv"
-            else:
-                file_path = path + "/sm_train_data.csv"
+            file_path = path + "/sm_train_23042021.csv"
         else:
-            file_path = path + "/sm_test_data.csv"
+            file_path = path + "/sm_test_23042021.csv"
 
         file_out = pd.read_csv(file_path)
         X = file_out.iloc[0:file_out.shape[0], 0:-4].values
