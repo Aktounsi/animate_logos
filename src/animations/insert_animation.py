@@ -5,7 +5,7 @@ from src.features.get_svg_size_pos import get_midpoint_of_path_bbox, get_begin_v
 from src.animations.transform_animation_predictor_output import transform_animation_predictor_output
 
 
-def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
+def create_animated_svg(file, animation_ids, model_output, filename_suffix="", save=True):
     """ Function to insert multiple animation statements.
 
     Args:
@@ -39,10 +39,11 @@ def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
                 print(f"File {file}, animation ID {animation_ids[i]} can't be animated. {e}")
                 pass
 
-    filename = file.split('/')[-1].replace(".svg", "") + "_animation_" + filename_suffix
-    save_animated_svg(doc, filename)
+    if save:
+        filename = file.split('/')[-1].replace(".svg", "") + "_animation_" + filename_suffix
+        save_animated_svg(doc, filename)
 
-    return begin_values
+    return begin_values, doc
 
 
 def svg_to_doc(file):

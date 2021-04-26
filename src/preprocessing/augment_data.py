@@ -25,7 +25,7 @@ Translation:    Path is translated by a random translation vector t where tx and
 
 def augment_data(folder='data/svgs',
                  nb_augmentations=2,
-                 df_dir='data/data_augmentation/data_for_data_augmentation.csv',
+                 df_dir='data/data_augmentation/data_for_data_augmentation_23042021.csv',
                  embedding_model="models/deepSVG_hierarchical_ordered.pth.tar",
                  pca_model="models/pca_path_embedding.sav",
                  introduce_noise_to_animation_vectors=False,
@@ -62,7 +62,7 @@ def augment_data(folder='data/svgs',
     df_full['rel_height'] = df_full.apply(lambda row: row['scale'] * row['rel_height'], axis=1)
 
     df_full['translation_factor'] = df_full.apply(
-        lambda row: _get_translation_factor(f"{folder}/{row['filename']}.svg", row['animation_id'], row['translate_x'], row['translate_x']),
+        lambda row: _get_translation_factor(f"{folder}/{row['filename']}.svg", row['animation_id'], row['translate_x'], row['translate_y']),
         axis=1)
     df_full['translation_factor_x'] = df_full['translation_factor'].apply(lambda row: row[0])
     df_full['translation_factor_y'] = df_full['translation_factor'].apply(lambda row: row[1])
@@ -250,6 +250,6 @@ def _get_translation_factor(file, animation_id, dx, dy):
 if __name__ == '__main__':
     os.chdir('../..')
     df = augment_data(folder='data/augment_svgs',
-                      nb_augmentations=5,
+                      nb_augmentations=2,
                       introduce_noise_to_animation_vectors=True,
                       save=True)
