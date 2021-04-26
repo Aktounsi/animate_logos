@@ -1,6 +1,9 @@
 from src.pipeline import *
 from src.models.train_animation_predictor import *
 from src.models import config
+from xml.dom import minidom
+import os
+
 from src.models.entmoot_functions import *
 
 
@@ -28,7 +31,7 @@ def create_animation_entmoot(svg_file_path):
     # Load surrogate model for function evaluations
     func = SurrogateModelFNN()
 
-    # Predict animation vectors
+    # Predict and store animation vectors
     an_vec_preds = []
     score_preds = []
     for i in range(len(path_vectors)):
@@ -39,10 +42,24 @@ def create_animation_entmoot(svg_file_path):
     df['animation_vector'] = an_vec_preds
     df['reward'] = score_preds
 
+    gb = [df.groupby('filename')[column].apply(list) for column in
+          'animation_id animation_vector reward'.split()]
+    svg_animations = pd.concat(gb, axis=1).reset_index()
+
+    for i, row in svg_animations.iterrows():
+        try:
+            _, doc = create_animated_svg(f"data/svgs/{row['filename']}.svg", row['animation_id'], row['animation_vector'],
+                                "", save=False)
+        except FileNotFoundError:
+            print(f"File not found: {row['filename']}")
+            pass
+
+    return doc.toprettyxml(encoding="iso-8859-1")
+
 
 if __name__ == '__main__':
-    import os
     os.chdir('..')
-    create_animation_entmoot('data/svgs/logo_0.svg')
+    animated_svg = create_animation_entmoot('data/svgs/logo_0.svg')
+
 
 
