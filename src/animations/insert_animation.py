@@ -245,7 +245,8 @@ def create_opacity_pre_animation_dicts(animation_dict):
     Args:
         animation_dict (dict): Dictionary from animation that is needed to set up opacity pre-animations
 
-    Returns (string): Animate Statement
+    Returns:
+        (string): Animate Statement
     """
     opacity_pre_animation_dict_1 = {"type": "opacity",
                                     "begin": "0",

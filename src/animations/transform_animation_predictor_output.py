@@ -16,7 +16,8 @@ def transform_animation_predictor_output(file, animation_id, output):
         output (list): 12-dimensional list of numeric values of which first 6 determine the animation to be used and
                         the last 6 determine the attribute from
 
-    Returns (dict): animation statement as dictionary
+    Returns:
+        (dict): animation statement as dictionary
     """
     animation = {}
     width, height = get_svg_size(file)
