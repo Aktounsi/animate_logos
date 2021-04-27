@@ -1,0 +1,1299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Logo Pipeline &mdash; SVG Logo Animation 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> SVG Logo Animation
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Logo Pipeline</a></li>
+<li><a class="reference internal" href="#module-src.data.expand_viewbox">Data Manipulation</a></li>
+<li><a class="reference internal" href="#data-preprocessing">Data Preprocessing</a></li>
+<li><a class="reference internal" href="#feature-generation">Feature Generation</a></li>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#animation-creation">Animation Creation</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">SVG Logo Animation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Logo Pipeline</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <ul class="simple">
+<li><p><a class="reference internal" href="#logo-pipeline"><span class="std std-ref">Logo Pipeline</span></a></p></li>
+<li><p><a class="reference internal" href="#module-src.data.expand_viewbox"><span class="std std-ref">Data Manipulation</span></a></p></li>
+<li><p><a class="reference internal" href="#data-preprocessing"><span class="std std-ref">Data Preprocessing</span></a></p></li>
+<li><p><a class="reference internal" href="#feature-generation"><span class="std std-ref">Feature Generation</span></a></p></li>
+<li><p><a class="reference internal" href="#models"><span class="std std-ref">Models</span></a></p></li>
+<li><p><a class="reference internal" href="#animation-creation"><span class="std std-ref">Animation Creation</span></a></p></li>
+</ul>
+<span class="target" id="module-src.pipeline"></span><div class="section" id="logo-pipeline">
+<h1>Logo Pipeline<a class="headerlink" href="#logo-pipeline" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>You can create animations of a SVG logo by using the following lines of code:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.pipeline</span> <span class="kn">import</span> <span class="n">Logo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logo</span> <span class="o">=</span> <span class="n">Logo</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="s1">&#39;path/to/my/logo.svg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logo</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">nb_animations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="py class">
+<dt id="src.pipeline.Logo">
+<em class="property">class </em><code class="sig-prename descclassname">src.pipeline.</code><code class="sig-name descname">Logo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dir</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="src.pipeline.Logo.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dir</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.print_logo_information">
+<code class="sig-name descname">print_logo_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">print_deepSVG</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.print_logo_information" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.animate">
+<code class="sig-name descname">animate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nb_animations</span><span class="o">=</span><span class="default_value">6</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.animate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically animates logo (currently randomly but is updated later)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nb_animations</strong> (<em>int</em><em>, </em><em>default=6</em>) – Number of animations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.insert_id">
+<code class="sig-name descname">insert_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.insert_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the attribute “animation_id” to all elements in a SVG.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.decompose_svg">
+<code class="sig-name descname">decompose_svg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.decompose_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decompose a SVG into its paths.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.create_svg_embedding">
+<code class="sig-name descname">create_svg_embedding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">embedding_model</span><span class="o">=</span><span class="default_value">'models/deepSVG_hierarchical_ordered.pth.tar'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.create_svg_embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create SVG embedding.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.create_path_embedding">
+<code class="sig-name descname">create_path_embedding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">embedding_model</span><span class="o">=</span><span class="default_value">'models/deepSVG_hierarchical_ordered.pth.tar'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.create_path_embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create path embedding.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.create_df">
+<code class="sig-name descname">create_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pca_model</span><span class="o">=</span><span class="default_value">'models/pca_path_embedding.sav'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.create_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.pipeline.Logo.random_animation_vector">
+<em class="property">static </em><code class="sig-name descname">random_animation_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">animation_ids</span></em>, <em class="sig-param"><span class="n">path_probs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">animation_type_prob</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.random_animation_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate random animation vectors. Can be deleted later.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-src.data"></span><div class="section" id="module-src.data.expand_viewbox">
+<span id="data-manipulation"></span><h1>Data Manipulation<a class="headerlink" href="#module-src.data.expand_viewbox" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="src.data.expand_viewbox.expand_viewbox_in_folder">
+<code class="sig-prename descclassname">src.data.expand_viewbox.</code><code class="sig-name descname">expand_viewbox_in_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_folder</span></em>, <em class="sig-param"><span class="n">percent</span></em>, <em class="sig-param"><span class="n">new_folder</span><span class="o">=</span><span class="default_value">'data/expanded_svgs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.expand_viewbox.expand_viewbox_in_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to expand the viewboxes of all svgs in a folder.</p>
+<p>Example: expand_viewbox_in_folder(‘data/svgs’, 50, ‘data/expanded_svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_folder</strong> (<em>string</em>) – The path of the folder with all SVGs.</p></li>
+<li><p><strong>percent</strong> (<em>int</em>) – Percentage in %: How much do we want to expand the viewbox?</p></li>
+<li><p><strong>new_folder</strong> (<em>string</em>) – The path of the folder with the expanded SVGs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.data.expand_viewbox.expand_viewbox">
+<code class="sig-prename descclassname">src.data.expand_viewbox.</code><code class="sig-name descname">expand_viewbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logo</span></em>, <em class="sig-param"><span class="n">percent</span></em>, <em class="sig-param"><span class="n">new_folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.expand_viewbox.expand_viewbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to expand the viewbox for a given svg logo.</p>
+<p>Example: expand_viewbox(‘data/svgs/BMW.svg’, 50, ‘data/expanded_svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>logo</strong> (<em>svg</em>) – path to a logo in svg format</p></li>
+<li><p><strong>percent</strong> (<em>int</em>) – Percentage in %: How much do we want to expand the viewbox?</p></li>
+<li><p><strong>new_folder</strong> (<em>string</em>) – The path of the folder with the expanded SVGs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-src.data.get_svg_meta_data"></span><dl class="py function">
+<dt id="src.data.get_svg_meta_data.get_svg_meta_data">
+<code class="sig-prename descclassname">src.data.get_svg_meta_data.</code><code class="sig-name descname">get_svg_meta_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.get_svg_meta_data.get_svg_meta_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get meta data of SVGs.</p>
+<p>Example: get_svg_meta_data(data_folder=”data/svgs”)</p>
+<p>Note: There are some elements (like text tags or matrices or clip paths) that can’t be processed here. The meta
+file only considers “normal” paths.</p>
+</dd></dl>
+
+<span class="target" id="module-src.data.insert_ids"></span><dl class="py function">
+<dt id="src.data.insert_ids.insert_ids_in_folder">
+<code class="sig-prename descclassname">src.data.insert_ids.</code><code class="sig-name descname">insert_ids_in_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_folder</span></em>, <em class="sig-param"><span class="n">new_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.insert_ids.insert_ids_in_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to add the attribute “animation_id” to all Logos in a folder.</p>
+<p>Example: insert_ids_in_folder(‘data/svgs_without_ID’, ‘data/svgs_with_ID’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_folder</strong> (<em>string</em>) – The path of the folder with all SVGs.</p></li>
+<li><p><strong>new_folder</strong> (<em>string</em>) – The path of the folder with the SVGs with ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.data.insert_ids.insert_id">
+<code class="sig-prename descclassname">src.data.insert_ids.</code><code class="sig-name descname">insert_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logo</span></em>, <em class="sig-param"><span class="n">new_folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.insert_ids.insert_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to add the attribute “animation_id” to all elements of a Logo.</p>
+<p>Example: insert_id(‘svgs_without_ID/BMW.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>logo</strong> (<em>string</em>) – The path of the svg.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-src.data.rename_logos"></span><dl class="py function">
+<dt id="src.data.rename_logos.rename_logos">
+<code class="sig-prename descclassname">src.data.rename_logos.</code><code class="sig-name descname">rename_logos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_folder</span></em>, <em class="sig-param"><span class="n">new_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">start_with</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.rename_logos.rename_logos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to rename all logos in a folder.</p>
+<p>Example: rename_logos(“data/svgs_expanded”, “data/svgs”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_folder</strong> (<em>string</em>) – The path of the folder with all SVGs.</p></li>
+<li><p><strong>new_folder</strong> (<em>string</em>) – The path of the folder with the renamed SVGs.</p></li>
+<li><p><strong>start_with</strong> (<em>int</em>) – First value of renamed logos.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-src.data.sm_dataloader"></span><dl class="py class">
+<dt id="src.data.sm_dataloader.DatasetSM">
+<em class="property">class </em><code class="sig-prename descclassname">src.data.sm_dataloader.</code><code class="sig-name descname">DatasetSM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="src.data.sm_dataloader.DatasetSM.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.data.sm_dataloader.DatasetSM.scale">
+<code class="sig-name descname">scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fitted_scaler</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-src.data.svg_to_png"></span><dl class="py function">
+<dt id="src.data.svg_to_png.convert_svgs_in_folder">
+<code class="sig-prename descclassname">src.data.svg_to_png.</code><code class="sig-name descname">convert_svgs_in_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.svg_to_png.convert_svgs_in_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to convert all svgs in a folder. svgs get deleted after pngs have been created
+Example: convert_svgs_in_folder(‘interpolated_logos’)
+:param folder: The path of the folder with all SVGs that need to be converted.
+:type folder: string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.data.svg_to_png.convert_svg">
+<code class="sig-prename descclassname">src.data.svg_to_png.</code><code class="sig-name descname">convert_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.svg_to_png.convert_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to convert one svg to png. Requires Cairosvg.
+Example: convert_svg(‘./data/interpolated_logos/BMW_0.svg’)
+:param file: The path of the SVG file that needs to be converted.
+:type file: string</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-src.preprocessing"></span><div class="section" id="data-preprocessing">
+<h1>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-src.preprocessing.augment_data"></span><dl class="py function">
+<dt id="src.preprocessing.augment_data.augment_data">
+<code class="sig-prename descclassname">src.preprocessing.augment_data.</code><code class="sig-name descname">augment_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">nb_augmentations</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">df_dir</span><span class="o">=</span><span class="default_value">'data/data_augmentation/data_for_data_augmentation_23042021.csv'</span></em>, <em class="sig-param"><span class="n">embedding_model</span><span class="o">=</span><span class="default_value">'models/deepSVG_hierarchical_ordered.pth.tar'</span></em>, <em class="sig-param"><span class="n">pca_model</span><span class="o">=</span><span class="default_value">'models/pca_path_embedding.sav'</span></em>, <em class="sig-param"><span class="n">introduce_noise_to_animation_vectors</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.augment_data.augment_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.preprocessing.create_svg_embedding"></span><dl class="py function">
+<dt id="src.preprocessing.create_svg_embedding.encode_svg">
+<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">encode_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">split_paths</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.encode_svg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocessing.create_svg_embedding.decode_z">
+<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">decode_z</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">do_display</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_svg</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_png</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.decode_z" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocessing.create_svg_embedding.apply_embedding_model_to_svgs">
+<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">apply_embedding_model_to_svgs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">split_paths</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.apply_embedding_model_to_svgs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.preprocessing.decompose_logo"></span><dl class="py function">
+<dt id="src.preprocessing.decompose_logo.decompose_logos_in_folder">
+<code class="sig-prename descclassname">src.preprocessing.decompose_logo.</code><code class="sig-name descname">decompose_logos_in_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.decompose_logo.decompose_logos_in_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to decompose all Logos in a folder.</p>
+<p>Example: decompose_logos_in_folder(‘data/svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – The path of the folder with all SVGs that need to be decomposed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocessing.decompose_logo.decompose_logo">
+<code class="sig-prename descclassname">src.preprocessing.decompose_logo.</code><code class="sig-name descname">decompose_logo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.decompose_logo.decompose_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to decompose one Logo.</p>
+<p>Example: decompose_logo(‘data/svgs/Air France.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file that needs to be decomposed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-src.preprocessing.get_parent_node"></span><dl class="py function">
+<dt id="src.preprocessing.get_parent_node.get_clip_paths">
+<code class="sig-prename descclassname">src.preprocessing.get_parent_node.</code><code class="sig-name descname">get_clip_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.get_parent_node.get_clip_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to identify clip paths in SVG.</p>
+<p>Example: get_clip_paths(‘data/svgs/logo_192.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p>
+</dd>
+</dl>
+<p>Returns (list): Animation IDs of all paths that have a clip-path as a parent node</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocessing.get_parent_node.get_background_paths">
+<code class="sig-prename descclassname">src.preprocessing.get_parent_node.</code><code class="sig-name descname">get_background_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.get_parent_node.get_background_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to identify background by checking if its bbox size is nearly as big as the complete SVG</p>
+<p>Example: get_background_paths(‘data/svgs/logo_1.svg’)</p>
+<p>Returns (list): Animation IDs of all background candidates</p>
+</dd></dl>
+
+<span class="target" id="module-src.preprocessing.sm_label_transformer"></span><dl class="py function">
+<dt id="src.preprocessing.sm_label_transformer.encode_classes">
+<code class="sig-prename descclassname">src.preprocessing.sm_label_transformer.</code><code class="sig-name descname">encode_classes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">targets</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sm_label_transformer.encode_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocessing.sm_label_transformer.decode_classes">
+<code class="sig-prename descclassname">src.preprocessing.sm_label_transformer.</code><code class="sig-name descname">decode_classes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">targets_predicted</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sm_label_transformer.decode_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.preprocessing.sort_paths"></span><dl class="py class">
+<dt id="src.preprocessing.sort_paths.Selector">
+<em class="property">class </em><code class="sig-prename descclassname">src.preprocessing.sort_paths.</code><code class="sig-name descname">Selector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dir_svgs</span><span class="o">=</span><span class="default_value">'./data/svgs'</span></em>, <em class="sig-param"><span class="n">dir_path_selection</span><span class="o">=</span><span class="default_value">'./data/path_selection'</span></em>, <em class="sig-param"><span class="n">dir_truncated_svgs</span><span class="o">=</span><span class="default_value">'./data/truncated_svgs'</span></em>, <em class="sig-param"><span class="n">dir_selected_paths</span><span class="o">=</span><span class="default_value">'./data/selected_paths'</span></em>, <em class="sig-param"><span class="n">dir_decomposed_svgs</span><span class="o">=</span><span class="default_value">'./data/decomposed_svgs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dir_svgs</span><span class="o">=</span><span class="default_value">'./data/svgs'</span></em>, <em class="sig-param"><span class="n">dir_path_selection</span><span class="o">=</span><span class="default_value">'./data/path_selection'</span></em>, <em class="sig-param"><span class="n">dir_truncated_svgs</span><span class="o">=</span><span class="default_value">'./data/truncated_svgs'</span></em>, <em class="sig-param"><span class="n">dir_selected_paths</span><span class="o">=</span><span class="default_value">'./data/selected_paths'</span></em>, <em class="sig-param"><span class="n">dir_decomposed_svgs</span><span class="o">=</span><span class="default_value">'./data/decomposed_svgs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.get_elements">
+<em class="property">static </em><code class="sig-name descname">get_elements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.get_elements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.delete_paths">
+<code class="sig-name descname">delete_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logo</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.delete_paths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.delete_paths_in_logos">
+<code class="sig-name descname">delete_paths_in_logos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.delete_paths_in_logos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.sort_by_relevance">
+<em class="property">static </em><code class="sig-name descname">sort_by_relevance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_selection_folder</span></em>, <em class="sig-param"><span class="n">excluded_paths</span></em>, <em class="sig-param"><span class="n">nr_paths_trunc</span><span class="o">=</span><span class="default_value">8</span></em>, <em class="sig-param"><span class="n">maximize</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.sort_by_relevance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.select_paths">
+<code class="sig-name descname">select_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svgs_folder</span></em>, <em class="sig-param"><span class="n">excluded_paths</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.select_paths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.preprocessing.sort_paths.Selector.truncate_svgs">
+<code class="sig-name descname">truncate_svgs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svgs_folder</span></em>, <em class="sig-param"><span class="n">logos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">excluded_paths</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">nr_paths_trunc</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.Selector.truncate_svgs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocessing.sort_paths.get_path_relevance">
+<code class="sig-prename descclassname">src.preprocessing.sort_paths.</code><code class="sig-name descname">get_path_relevance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logo</span></em>, <em class="sig-param"><span class="n">pkl_file</span><span class="o">=</span><span class="default_value">'data/meta_data/path_relevance_order.pkl'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.sort_paths.get_path_relevance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<span class="target" id="module-src.features"></span><div class="section" id="feature-generation">
+<h1>Feature Generation<a class="headerlink" href="#feature-generation" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-src.features.create_path_vector"></span><dl class="py function">
+<dt id="src.features.create_path_vector.create_path_vectors">
+<code class="sig-prename descclassname">src.features.create_path_vector.</code><code class="sig-name descname">create_path_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svg_folder</span></em>, <em class="sig-param"><span class="n">emb_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fitted_pca</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_dim</span><span class="o">=</span><span class="default_value">0.99</span></em>, <em class="sig-param"><span class="n">use_ppa</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">style</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nr_commands</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nr_paths_svg</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">avg_cols_svg</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">avg_diff</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.create_path_vector.create_path_vectors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.features.create_path_vector.reduce_dim">
+<code class="sig-prename descclassname">src.features.create_path_vector.</code><code class="sig-name descname">reduce_dim</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">fitted_pca</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_dim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_ppa</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ppa_threshold</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.create_path_vector.reduce_dim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.features.get_style_attributes"></span><dl class="py function">
+<dt id="src.features.get_style_attributes.get_style_attributes_svg">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">get_style_attributes_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.get_style_attributes_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get style attributes of a SVG file.</p>
+<p>Example: get_style_attributes_svg(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe containing the attributes of each path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.get_style_attributes_path">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">get_style_attributes_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">attribute</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.get_style_attributes_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get style attributes of a specific path in a SVG file.</p>
+<p>Example: get_style_attributes_path(‘data/svgs/logo_1.svg’, 0, “fill”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Path ID.</p></li>
+<li><p><strong>attribute</strong> (<em>string</em>) – One of the following: fill, stroke, stroke_width, opacity, stroke_opacity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Specified attribute of the path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.parse_svg">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">parse_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.parse_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to parse a SVG file.</p>
+<p>Example: parse_svg(‘svgs/Air France.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of path objects and list of dictionaries containing the attributes of each path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>paths, attrs (list, list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.get_local_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">get_local_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.get_local_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate dataframe containing local style attributes of one SVG file.</p>
+<p>Example: get_local_style_attributes(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.get_global_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">get_global_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.get_global_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate dataframe containing global style attributes of one SVG file.</p>
+<p>Example: get_global_style_attributes(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – the path of the SVG file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.get_global_group_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">get_global_group_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.get_global_group_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate dataframe containing global style attributes defined through &lt;g&gt; tags of one SVG file.</p>
+<p>Example: get_global_style_attributes_from_groups(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – the path of the SVG file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.combine_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">combine_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df_local</span></em>, <em class="sig-param"><span class="n">df_global</span></em>, <em class="sig-param"><span class="n">df_global_groups</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.combine_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to combine local und global style attributes. Global attributes have priority.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_local</strong> (<em>pd.DataFrame</em>) – Dataframe with local style attributes.</p></li>
+<li><p><strong>df_global</strong> (<em>pd.DataFrame</em>) – Dataframe with global style attributes.</p></li>
+<li><p><strong>df_global_groups</strong> (<em>pd.DataFrame</em>) – Dataframe with global style attributes defined through &lt;g&gt; tags.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with all style attributes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes.transform_to_hex">
+<code class="sig-prename descclassname">src.features.get_style_attributes.</code><code class="sig-name descname">transform_to_hex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rgb</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes.transform_to_hex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.features.get_style_attributes_folder"></span><dl class="py function">
+<dt id="src.features.get_style_attributes_folder.get_style_attributes_folder">
+<code class="sig-prename descclassname">src.features.get_style_attributes_folder.</code><code class="sig-name descname">get_style_attributes_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes_folder.get_style_attributes_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get style attributes of all SVGs in a folder.</p>
+<p>Example: get_style_attributes_folder(‘data/svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – The path of the folder containing all SVGs.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe containing the attributes of each path of all SVGs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes_folder.parse_svg">
+<code class="sig-prename descclassname">src.features.get_style_attributes_folder.</code><code class="sig-name descname">parse_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes_folder.parse_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to parse a SVG file.</p>
+<p>Example: parse_svg(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of path objects.
+attrs (list): List of dictionaries containing the attributes of each path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>paths (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes_folder.get_local_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes_folder.</code><code class="sig-name descname">get_local_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes_folder.get_local_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate dataframe containing local style attributes of all SVG file in a folder.</p>
+<p>Example: get_local_style_attributes(‘data/svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – The path of the folder containing all SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes_folder.get_global_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes_folder.</code><code class="sig-name descname">get_global_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes_folder.get_global_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate dataframe containing global style attributes of all SVG file in a folder.</p>
+<p>Example: get_global_style_attributes(‘data/svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – The path of the folder containing all SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_style_attributes_folder.get_global_group_style_attributes">
+<code class="sig-prename descclassname">src.features.get_style_attributes_folder.</code><code class="sig-name descname">get_global_group_style_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_style_attributes_folder.get_global_group_style_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate dataframe containing global style attributes defined through &lt;g&gt; tags of all SVG files in a folder.</p>
+<p>Example: get_global_style_attributes_from_groups(‘data/svgs’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – The path of the folder containing all SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-src.features.get_svg_color_tendency"></span><dl class="py function">
+<dt id="src.features.get_svg_color_tendency.get_svg_color_tendencies">
+<code class="sig-prename descclassname">src.features.get_svg_color_tendency.</code><code class="sig-name descname">get_svg_color_tendencies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_color_tendency.get_svg_color_tendencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.features.get_svg_size_pos"></span><dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_svg_size">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_svg_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_svg_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get width and height of a SVG file.</p>
+<p>Example: get_svg_size(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Size of SVG file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>width, height (float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_svg_bbox">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_svg_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_svg_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get bbox of a SVG file.</p>
+<p>Example: get_svg_bbox(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bounding box of SVG.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xmin, xmax, ymin, ymax (float, float, float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_path_bbox">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_path_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_path_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Function to get bbox of a path in a SVG file.</dt><dd><p>xmin, ymin: upper left corner
+xmax, ymax: lower right corner</p>
+</dd>
+</dl>
+<p>Example: get_path_bbox(‘data/svgs/logo_1.svg’, 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Path ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bounding box of path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xmin, xmax, ymin, ymax (float, float, float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_midpoint_of_path_bbox">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_midpoint_of_path_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_midpoint_of_path_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get midpoint of bounding box of path.</p>
+<p>Example: get_midpoint_of_path_bbox(‘svgs/Air France.svg’, 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Path ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Midpoint of bounding box of path</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>x_midpoint, y_midpoint (float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_bbox_of_multiple_paths">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_bbox_of_multiple_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_ids</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_bbox_of_multiple_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get bounding box of multiple paths in a SVG file.</p>
+<p>Example: get_bbox_of_multiple_paths(‘data/svgs/logo_1.svg’, [1, 4, 5])</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p></li>
+<li><p><strong>animation_ids</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – List of path IDs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bounding box of given paths.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xmin, xmax, ymin, ymax (float, float, float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_relative_path_pos">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_relative_path_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_relative_path_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get relative position of a path in a SVG file.</p>
+<p>Example: get_relative_path_pos(‘data/svgs/logo_1.svg’, 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Path ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative position of path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rel_x_position, rel_y_position (float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_relative_pos_to_bounding_box_of_animated_paths">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_relative_pos_to_bounding_box_of_animated_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">animated_animation_ids</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_relative_pos_to_bounding_box_of_animated_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get relative position of a path to the bounding box of all animated paths (aka Tims feature).</p>
+<p>Example: get_relative_pos_to_bounding_box_of_animated_paths(‘data/svgs/logo_1.svg’, 1, [1, 3, 5, 6])</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Path ID</p></li>
+<li><p><strong>animated_animation_ids</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – List of animated path IDs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative position of path to bounding box of all animated paths.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rel_x_position, rel_y_position (float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_relative_path_size">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_relative_path_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_relative_path_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get relative size of a path in a SVG file.</p>
+<p>Example: get_relative_path_size(‘data/svgs/logo_1.svg’, 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Path ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative size of path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rel_width, rel_height (float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.features.get_svg_size_pos.get_begin_values_by_starting_pos">
+<code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_begin_values_by_starting_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_ids</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_begin_values_by_starting_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get begin values by sorting from left to right.</p>
+<p>Example: get_begin_values_by_bbox(‘data/svgs/logo_1.svg’, [0, 6, 2])</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p></li>
+<li><p><strong>animation_ids</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – List of animation_ids</p></li>
+<li><p><strong>start</strong> (<em>float</em>) – First begin value</p></li>
+<li><p><strong>step</strong> (<em>float</em>) – Time between begin values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Begin values of animation ids</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-src.models"></span><div class="section" id="models">
+<h1>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
+<dl class="py attribute">
+<dt id="src.models.animation_prediction">
+<code class="sig-prename descclassname">src.models.</code><code class="sig-name descname">animation_prediction</code><a class="headerlink" href="#src.models.animation_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#src.models.animation_prediction" title="src.models.animation_prediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.models.animation_prediction</span></code></a></p>
+</dd></dl>
+
+<span class="target" id="module-src.models.coral_loss"></span><dl class="py function">
+<dt id="src.models.coral_loss.coral_loss">
+<code class="sig-prename descclassname">src.models.coral_loss.</code><code class="sig-name descname">coral_loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logits</span></em>, <em class="sig-param"><span class="n">levels</span></em>, <em class="sig-param"><span class="n">importance_weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'mean'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.coral_loss.coral_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.models.genetic_algorithm"></span><dl class="py function">
+<dt id="src.models.genetic_algorithm.init_weights">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">init_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">agent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.init_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.create_random_agents">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">create_random_agents</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_agents</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.create_random_agents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.create_animation_vector">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">create_animation_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">animation_prediction</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.create_animation_vector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.prepare_sm_input">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">prepare_sm_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_vectors</span></em>, <em class="sig-param"><span class="n">animation_predictions</span></em>, <em class="sig-param"><span class="n">convert</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.prepare_sm_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.return_average_reward">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">return_average_reward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_vectors</span></em>, <em class="sig-param"><span class="n">animation_predictions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.return_average_reward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.compute_agent_rewards">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">compute_agent_rewards</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">agents</span></em>, <em class="sig-param"><span class="n">path_vectors</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.compute_agent_rewards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.crossover">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">crossover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">agents</span></em>, <em class="sig-param"><span class="n">num_agents</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.crossover" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.genetic_algorithm.mutate">
+<code class="sig-prename descclassname">src.models.genetic_algorithm.</code><code class="sig-name descname">mutate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">agent</span></em>, <em class="sig-param"><span class="n">mutation_power</span><span class="o">=</span><span class="default_value">0.02</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.genetic_algorithm.mutate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="src.models.ordinal_classifier_fnn">
+<code class="sig-prename descclassname">src.models.</code><code class="sig-name descname">ordinal_classifier_fnn</code><a class="headerlink" href="#src.models.ordinal_classifier_fnn" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#src.models.ordinal_classifier_fnn" title="src.models.ordinal_classifier_fnn"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.models.ordinal_classifier_fnn</span></code></a></p>
+</dd></dl>
+
+<span class="target" id="module-src.models.train_animation_predictor"></span><dl class="py function">
+<dt id="src.models.train_animation_predictor.retrieve_m1_predictions">
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">retrieve_m1_predictions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.retrieve_m1_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.train_animation_predictor.retrieve_animation_midpoints">
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">retrieve_animation_midpoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_data</span></em>, <em class="sig-param"><span class="n">drop</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.retrieve_animation_midpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.train_animation_predictor.train_animation_predictor">
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">train_animation_predictor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_vectors</span></em>, <em class="sig-param"><span class="n">hidden_sizes</span><span class="o">=</span><span class="default_value">[15, 20]</span></em>, <em class="sig-param"><span class="n">out_size</span><span class="o">=</span><span class="default_value">[6, 6]</span></em>, <em class="sig-param"><span class="n">num_agents</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">top_parent_limit</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">generations</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.train_animation_predictor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.train_animation_predictor.main">
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_path</span><span class="o">=</span><span class="default_value">'data/model_1/model_1_train.csv'</span></em>, <em class="sig-param"><span class="n">drop</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">num_agents</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">top_parent_limit</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">generations</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<span class="target" id="module-src.animations"></span><div class="section" id="animation-creation">
+<h1>Animation Creation<a class="headerlink" href="#animation-creation" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-src.animations.create_random_animations"></span><dl class="py function">
+<dt id="src.animations.create_random_animations.create_random_animations">
+<code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_random_animations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">nb_animations</span></em>, <em class="sig-param"><span class="n">split_df</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">very_random</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_random_animations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create random animations. Animation vectors are saved in data/animated_svgs_dataframes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<em>string</em>) – The path of the folder with all SVG files</p></li>
+<li><p><strong>nb_animations</strong> (<em>int</em>) – Number of random animations per logo</p></li>
+<li><p><strong>split_df</strong> (<em>boolean</em>) – if true, animation vectors are saved to multiple dataframes (one dataframe per logo)
+if false, animation vectors are saved to one dataframe and returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe containing all animation vectors</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.create_random_animations.create_multiple_df">
+<code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_multiple_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">nb_animations</span></em>, <em class="sig-param"><span class="n">very_random</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_multiple_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create random animations. Animation vectors are saved to one dataframe per logo.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.create_random_animations.create_one_df">
+<code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_one_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">nb_animations</span></em>, <em class="sig-param"><span class="n">very_random</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_one_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create random animations. Animation vectors are saved to one dataframe.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.create_random_animations.random_animation_vector">
+<code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">random_animation_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nr_animations</span></em>, <em class="sig-param"><span class="n">path_probs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">animation_type_prob</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">73</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.random_animation_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate random animation vectors.
+Format of vectors: (translate scale rotate skew fill opacity</p>
+<blockquote>
+<div><p>translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)</p>
+</div></blockquote>
+<p>Note: nr_animations must match length of path_probs
+Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nr_animations</strong> (<em>int</em>) – Number of animation vectors that are generated</p></li>
+<li><p><strong>path_probs</strong> (<em>list</em>) – Specifies how likely it is that a path gets animated</p></li>
+<li><p><strong>animation_type_prob</strong> (<em>list</em>) – Specifies probabilities of animation types (default=uniform)</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array of 11 dimensional random animation vectors; List of IDs that were animated</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array(vec_list), animated_order_ids (ndarray, list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.create_random_animations.combine_dataframes">
+<code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">combine_dataframes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.combine_dataframes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.create_random_animations.create_backend_mapping_df">
+<code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_backend_mapping_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_backend_mapping_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-src.animations.get_path_probabilities"></span><dl class="py function">
+<dt id="src.animations.get_path_probabilities.get_path_probabilities">
+<code class="sig-prename descclassname">src.animations.get_path_probabilities.</code><code class="sig-name descname">get_path_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">animation_ids</span></em>, <em class="sig-param"><span class="n">pkl_file</span><span class="o">=</span><span class="default_value">'data/model_1/model_1_path_label.pkl'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.get_path_probabilities.get_path_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get path probabilities that specify how likely it is that a path gets animated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – Name of SVG</p></li>
+<li><p><strong>animation_ids</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – List of animation IDs</p></li>
+<li><p><strong>pkl_file</strong> (<em>string</em>) – Path of pkl file which contains path labeling</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns (list(float)): List of probabilities</p>
+</dd></dl>
+
+<span class="target" id="module-src.animations.insert_animation"></span><dl class="py function">
+<dt id="src.animations.insert_animation.create_animated_svg">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_animated_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_ids</span></em>, <em class="sig-param"><span class="n">model_output</span></em>, <em class="sig-param"><span class="n">filename_suffix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_animated_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert multiple animation statements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p></li>
+<li><p><strong>animation_ids</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – List of Path IDs that get animated</p></li>
+<li><p><strong>model_output</strong> (<em>ndarray</em>) – Array of 13 dimensional arrays with animation predictor model output</p></li>
+<li><p><strong>filename_suffix</strong> (<em>string</em>) – Suffix of animated SVG</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of begin values of animation IDs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list(float))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.svg_to_doc">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">svg_to_doc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.svg_to_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to parse a SVG file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(xml.dom.minidom.Document)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.save_animated_svg">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">save_animated_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.save_animated_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to save animated logo to folder animated_logos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – Name of output file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_translate_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_translate_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_translate_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert translate statement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_scale_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_scale_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em>, <em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_scale_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert scale statement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_rotate_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_rotate_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_rotate_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert rotate statement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_skew_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_skew_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_skew_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert skew statement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_fill_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_fill_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_fill_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert fill statement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_opacity_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_opacity_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_opacity_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert opacity statement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.insert_animation">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_animation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">animation</span></em>, <em class="sig-param"><span class="n">pre_animations</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to insert animation statements including pre-animation statements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – Id of the element that gets animated</p></li>
+<li><p><strong>animation</strong> (<em>string</em>) – Animation that needs to be inserted</p></li>
+<li><p><strong>pre_animations</strong> (<em>list</em>) – List of animations that needs to be inserted before actual animation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(xml.dom.minidom.Document)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.create_animation_statement">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_animation_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">animation_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_animation_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to set up animation statement from a dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>animation_dict</strong> (<em>dict</em>) – Dictionary that is transformed into animation statement</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Animation statement.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.animations.insert_animation.create_opacity_pre_animation_dicts">
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_opacity_pre_animation_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">animation_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_opacity_pre_animation_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to set up pre_animation statements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>animation_dict</strong> (<em>dict</em>) – Dictionary from animation that is needed to set up opacity pre-animations</p>
+</dd>
+</dl>
+<p>Returns (string): Animate Statement</p>
+</dd></dl>
+
+<span class="target" id="module-src.animations.transform_animation_predictor_output"></span><dl class="py function">
+<dt id="src.animations.transform_animation_predictor_output.transform_animation_predictor_output">
+<code class="sig-prename descclassname">src.animations.transform_animation_predictor_output.</code><code class="sig-name descname">transform_animation_predictor_output</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">output</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.transform_animation_predictor_output.transform_animation_predictor_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to translate the numeric model output to animation commands</p>
+<p>Format of output: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)</p>
+<p>Example: transform_animation_predictor_output(“data/svgs/logo_1.svg”, 0, [0,0,1,0,0,0,-1,-1,-1,0.42,-1,-1])</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>string</em>) – Name of logo that gets animated</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of the path in the SVG that gets animated</p></li>
+<li><p><strong>output</strong> (<em>list</em>) – 12-dimensional list of numeric values of which first 6 determine the animation to be used and
+the last 6 determine the attribute from</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns (dict): animation statement as dictionary</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, SVG Logo Animation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
