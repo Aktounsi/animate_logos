@@ -1,3 +1,19 @@
+"""
+Logo Pipeline
+=================
+
+    You can create animations of a SVG logo by using the following lines of code:
+
+        >>> from src.pipeline import Logo
+        >>> logo = Logo(data_dir='path/to/my/logo.svg')
+        >>> logo.animate(nb_animations=2)
+
+
+.. autoclass:: Logo
+    :members:
+
+"""
+
 import torch
 import pickle
 import random

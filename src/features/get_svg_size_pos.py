@@ -254,7 +254,8 @@ def get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.5):
         start (float): First begin value
         step (float): Time between begin values
 
-    Returns (list): Begin values of animation ids
+    Returns:
+        (list): Begin values of animation ids
     """
     starting_point_list = []
     begin_list = []

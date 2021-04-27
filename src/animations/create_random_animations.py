@@ -27,7 +27,8 @@ def create_random_animations(folder, nb_animations, split_df=True, very_random=F
         split_df (boolean): if true, animation vectors are saved to multiple dataframes (one dataframe per logo)
                             if false, animation vectors are saved to one dataframe and returned
 
-    Returns (pd.DataFrame): Dataframe containing all animation vectors
+    Returns:
+        (pd.DataFrame): Dataframe containing all animation vectors
     """
     Path("data/animated_svgs_dataframes").mkdir(parents=True, exist_ok=True)
     if split_df:
@@ -132,9 +133,8 @@ def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=
         animation_type_prob (list): Specifies probabilities of animation types (default=uniform)
         seed (int): Random seed
 
-    Returns
-        np.array(vec_list) (ndarray): Array of 11 dimensional random animation vectors
-        animated_order_ids (list): List of IDs that were animated
+    Returns:
+        np.array(vec_list), animated_order_ids (ndarray, list): Array of 11 dimensional random animation vectors; List of IDs that were animated
     """
     if path_probs is None:
         path_probs = [1 / 2] * nr_animations

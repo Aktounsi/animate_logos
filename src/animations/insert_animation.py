@@ -14,7 +14,8 @@ def create_animated_svg(file, animation_ids, model_output, filename_suffix=""):
         model_output (ndarray): Array of 13 dimensional arrays with animation predictor model output
         filename_suffix  (string): Suffix of animated SVG
 
-    Returns (list(float)): List of begin values of animation IDs.
+    Returns:
+        (list(float)): List of begin values of animation IDs.
     """
     doc = svg_to_doc(file)
     begin_values = get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.25)
@@ -51,7 +52,8 @@ def svg_to_doc(file):
     Args:
         file (string): The path of the SVG file
 
-    Returns (xml.dom.minidom.Document): Parsed file
+    Returns:
+        (xml.dom.minidom.Document): Parsed file
     """
     return minidom.parse(file)
 
@@ -178,7 +180,8 @@ def insert_animation(doc, animation_id, animation, pre_animations=None):
         animation (string): Animation that needs to be inserted
         pre_animations (list): List of animations that needs to be inserted before actual animation
 
-    Returns (xml.dom.minidom.Document): Parsed file
+    Returns:
+        (xml.dom.minidom.Document): Parsed file
     """
     elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
         'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(
@@ -201,7 +204,8 @@ def create_animation_statement(animation_dict):
     Args:
         animation_dict (dict): Dictionary that is transformed into animation statement
 
-    Returns (string): Animation statement.
+    Returns:
+        (string): Animation statement.
     """
     if animation_dict["type"] in ["translate", "scale", "rotate", "skewX", "skewY"]:
         return _create_animate_transform_statement(animation_dict)
