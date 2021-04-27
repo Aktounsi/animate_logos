@@ -5,8 +5,8 @@ from src.features.get_svg_color_tendency import get_svg_color_tendencies
 
 def transform_animation_predictor_output(file, animation_id, output):
     """ Function to translate the numeric model output to animation commands
-    Format of output: (translate scale rotate skew fill opacity
-                    translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
+
+    Format of output: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
 
     Example: transform_animation_predictor_output("data/svgs/logo_1.svg", 0, [0,0,1,0,0,0,-1,-1,-1,0.42,-1,-1])
 
