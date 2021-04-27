@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath('../'))
 # -- Project information -----------------------------------------------------
 
 project = 'SVG Logo Animation'
-copyright = '2021, SVG Logo Animation'
+copyright = '2021, Armbruster, Rebecca; Baumert, Jonathan; Bleil, Tim; Langenbahn, Jakob; Schwedhelm, Jan-Christian; Sester, Sarah'
 author = 'Armbruster, Rebecca; Baumert, Jonathan; Bleil, Tim; Langenbahn, Jakob; Schwedhelm, Jan-Christian; Sester, Sarah'
 
 # The full version, including alpha/beta/rc tags

@@ -158,15 +158,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <ul class="simple">
-<li><p><a class="reference internal" href="#logo-pipeline"><span class="std std-ref">Logo Pipeline</span></a></p></li>
-<li><p><a class="reference internal" href="#module-src.data.expand_viewbox"><span class="std std-ref">Data Manipulation</span></a></p></li>
-<li><p><a class="reference internal" href="#data-preprocessing"><span class="std std-ref">Data Preprocessing</span></a></p></li>
-<li><p><a class="reference internal" href="#feature-generation"><span class="std std-ref">Feature Generation</span></a></p></li>
-<li><p><a class="reference internal" href="#models"><span class="std std-ref">Models</span></a></p></li>
-<li><p><a class="reference internal" href="#animation-creation"><span class="std std-ref">Animation Creation</span></a></p></li>
-</ul>
-<span class="target" id="module-src.pipeline"></span><div class="section" id="logo-pipeline">
+  <span class="target" id="module-src.pipeline"></span><div class="section" id="logo-pipeline">
 <h1>Logo Pipeline<a class="headerlink" href="#logo-pipeline" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><p>You can create animations of a SVG logo by using the following lines of code:</p>
@@ -327,17 +319,32 @@ file only considers “normal” paths.</p>
 
 <span class="target" id="module-src.data.sm_dataloader"></span><dl class="py class">
 <dt id="src.data.sm_dataloader.DatasetSM">
-<em class="property">class </em><code class="sig-prename descclassname">src.data.sm_dataloader.</code><code class="sig-name descname">DatasetSM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<em class="property">class </em><code class="sig-prename descclassname">src.data.sm_dataloader.</code><code class="sig-name descname">DatasetSM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">augmented</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Surrogate model dataset.</p>
+<dl class="py method">
 <dt id="src.data.sm_dataloader.DatasetSM.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">augmented</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path of the folder that contains the data for the surrogate model.</p></li>
+<li><p><strong>train</strong> (<em>bool</em>) – True if training data should be loaded, else False.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="src.data.sm_dataloader.DatasetSM.scale">
 <code class="sig-name descname">scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fitted_scaler</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM.scale" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Scale the numeric data in the dataset based on the given fitted scaler object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fitted_scaler</strong> (<em>object</em>) – Fitted scaler.</p>
+</dd>
+</dl>
+<p>Returns: None</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -488,13 +495,49 @@ Example: convert_svg(‘./data/interpolated_logos/BMW_0.svg’)
 <h1>Feature Generation<a class="headerlink" href="#feature-generation" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-src.features.create_path_vector"></span><dl class="py function">
 <dt id="src.features.create_path_vector.create_path_vectors">
-<code class="sig-prename descclassname">src.features.create_path_vector.</code><code class="sig-name descname">create_path_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svg_folder</span></em>, <em class="sig-param"><span class="n">emb_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fitted_pca</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_dim</span><span class="o">=</span><span class="default_value">0.99</span></em>, <em class="sig-param"><span class="n">use_ppa</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">style</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nr_commands</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nr_paths_svg</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">avg_cols_svg</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">avg_diff</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.create_path_vector.create_path_vectors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">src.features.create_path_vector.</code><code class="sig-name descname">create_path_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svg_folder</span></em>, <em class="sig-param"><span class="n">emb_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fitted_pca</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_dim</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">use_ppa</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">style</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nr_commands</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nr_paths_svg</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">avg_cols_svg</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">avg_diff</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.create_path_vector.create_path_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates path-level model input vectors from a given folder of SVG files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>svg_folder</strong> (<em>str</em>) – Path of folder that contains initial SVG files with animation IDs.</p></li>
+<li><p><strong>emb_file_path</strong> (<em>str</em>) – Path of path embedding file.</p></li>
+<li><p><strong>fitted_pca</strong> (<em>object</em>) – Fitted PCA model to apply on path embeddings.</p></li>
+<li><p><strong>new_dim</strong> (<em>float</em>) – Scalar that defines number of PCs to keep, or alternatively variance that should be explained
+by the kept PCs.</p></li>
+<li><p><strong>use_ppa</strong> (<em>bool</em>) – If True, Principal Polynomial Analysis (PPA) is integrated in the dimension reduction step.</p></li>
+<li><p><strong>style</strong> (<em>bool</em>) – If True, style attributes of paths (colors, stroke, opacity) are integrated in path vectors.</p></li>
+<li><p><strong>size</strong> (<em>bool</em>) – If True, size of path is integrated in path vectors.</p></li>
+<li><p><strong>position</strong> (<em>bool</em>) – If True, relative position of path is integrated in path vectors.</p></li>
+<li><p><strong>nr_commands</strong> (<em>bool</em>) – If True, number of commands the path consists of is integrated in path vectors.</p></li>
+<li><p><strong>nr_paths_svg</strong> (<em>bool</em>) – If True, number of paths in the respective SVG is integrated in path vectors.</p></li>
+<li><p><strong>avg_cols_svg</strong> (<em>bool</em>) – If True, the average color of the SVG is integrated in path vectors.</p></li>
+<li><p><strong>avg_diff</strong> (<em>bool</em>) – If True, the difference between the path color and the average SVG color is integrated in path vectors.</p></li>
+<li><p><strong>train</strong> (<em>bool</em>) – If True, training data is considered, else test data.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns (pd.DataFrame): Dataframe which contains path vectors that can be used as model input.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="src.features.create_path_vector.reduce_dim">
 <code class="sig-prename descclassname">src.features.create_path_vector.</code><code class="sig-name descname">reduce_dim</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">fitted_pca</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_dim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_ppa</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ppa_threshold</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.create_path_vector.reduce_dim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Reduces dimensionality of path embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.Dataframe</em>) – Path embedding data.</p></li>
+<li><p><strong>fitted_pca</strong> (<em>object</em>) – Fitted PCA model to apply on path embeddings.</p></li>
+<li><p><strong>new_dim</strong> (<em>float</em>) – Scalar that defines number of PCs to keep, or alternatively variance that should be explained
+by the kept PCs.</p></li>
+<li><p><strong>use_ppa</strong> – If True, Principal Polynomial Analysis (PPA) is integrated in the dimension reduction step.</p></li>
+<li><p><strong>ppa_threshold</strong> (<em>int</em>) – PPA threshold.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns (tuple): Dimension-reduced path embeddings (pd.DataFrame) and fitted PCA model (object)</p>
+</dd></dl>
 
 <span class="target" id="module-src.features.get_style_attributes"></span><dl class="py function">
 <dt id="src.features.get_style_attributes.get_style_attributes_svg">
@@ -1093,7 +1136,7 @@ Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])</p>
 
 <span class="target" id="module-src.animations.insert_animation"></span><dl class="py function">
 <dt id="src.animations.insert_animation.create_animated_svg">
-<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_animated_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_ids</span></em>, <em class="sig-param"><span class="n">model_output</span></em>, <em class="sig-param"><span class="n">filename_suffix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_animated_svg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_animated_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_ids</span></em>, <em class="sig-param"><span class="n">model_output</span></em>, <em class="sig-param"><span class="n">filename_suffix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_animated_svg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert multiple animation statements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1262,7 +1305,7 @@ the last 6 determine the attribute from</p></li>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, SVG Logo Animation.
+        &#169; Copyright 2021, Armbruster, Rebecca; Baumert, Jonathan; Bleil, Tim; Langenbahn, Jakob; Schwedhelm, Jan-Christian; Sester, Sarah.
 
     </p>
   </div>

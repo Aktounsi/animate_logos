@@ -1,12 +1,5 @@
 """
 
-* :ref:`Logo Pipeline`
-* :ref:`Data Manipulation`
-* :ref:`Data Preprocessing`
-* :ref:`Feature Generation`
-* :ref:`Models`
-* :ref:`Animation Creation`
-
 .. automodule:: src.pipeline
 
 .. automodule:: src.data
