@@ -15,7 +15,8 @@ def get_style_attributes_folder(folder):
     Args:
         folder (string): The path of the folder containing all SVGs.
 
-    Returns (pd.DataFrame): Dataframe containing the attributes of each path of all SVGs.
+    Returns:
+        (pd.DataFrame): Dataframe containing the attributes of each path of all SVGs.
     """
     local_styles = get_local_style_attributes(folder)
     global_styles = get_global_style_attributes(folder)
@@ -47,7 +48,8 @@ def get_local_style_attributes(folder):
     Args:
         folder (string): The path of the folder containing all SVG file.
 
-    Returns (pd.DataFrame): A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+    Returns:
+        (pd.DataFrame): A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
     return pd.DataFrame.from_records(_get_local_style_attributes(folder))
 
@@ -116,7 +118,8 @@ def get_global_style_attributes(folder):
     Args:
         folder (string): The path of the folder containing all SVG file.
 
-    Returns (pd.DataFrame): A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+    Returns:
+        (pd.DataFrame): A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
     return pd.DataFrame.from_records(_get_global_style_attributes(folder))
 
@@ -169,7 +172,8 @@ def get_global_group_style_attributes(folder):
     Args:
         folder (string): The path of the folder containing all SVG file.
 
-    Returns (pd.DataFrame): A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
+    Returns:
+        (pd.DataFrame): A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
     df_group_animation_id_matching = pd.DataFrame.from_records(_get_group_animation_id_matching(folder))
 
