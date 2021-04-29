@@ -8,9 +8,10 @@ def get_clip_paths(file):
     Example: get_clip_paths('data/svgs/logo_192.svg')
 
     Args:
-        file (string): The path of the SVG file
+        file (string): Path of the SVG file.
 
-    Returns (list): Animation IDs of all paths that have a clip-path as a parent node
+    Returns:
+        (list): Animation IDs of all paths that have a clip-path as a parent node.
     """
     doc = minidom.parse(file)
     # store all elements in list

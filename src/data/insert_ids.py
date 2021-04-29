@@ -9,9 +9,8 @@ def insert_ids_in_folder(old_folder, new_folder="data/svgs"):
     Example: insert_ids_in_folder('data/svgs_without_ID', 'data/svgs_with_ID')
 
     Args:
-        old_folder (string): The path of the folder with all SVGs.
-        new_folder (string): The path of the folder with the SVGs with ID.
-
+        old_folder (string): Path of folder containing all SVG files.
+        new_folder (string): Path of folder containing all SVG files with animation ID.
     """
     for file in os.listdir(old_folder):
         if file.endswith(".svg"):
@@ -24,8 +23,7 @@ def insert_id(logo, new_folder):
        Example: insert_id('svgs_without_ID/BMW.svg')
 
        Args:
-           logo (string): The path of the svg.
-
+           logo (string): Path of SVG.
        """
     Path(new_folder).mkdir(parents=True, exist_ok=True)
     filename = logo.replace('.svg', '').split("/")[-1]

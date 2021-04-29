@@ -14,14 +14,6 @@ from src.preprocessing.deepsvg.utils.utils import batchify
 from src.preprocessing.deepsvg import utils
 from src.features import get_svg_bbox, get_relative_path_pos, get_midpoint_of_path_bbox, reduce_dim
 
-""" 
-Data Augmentation
-
-Scaling:        Path is scaled by a random factor in the interval [0.8, 1.2].
-Translation:    Path is translated by a random translation vector t where tx and ty are
-                sampled independently in the interval [-10, 10].
-"""
-
 
 def augment_data(folder='data/svgs',
                  nb_augmentations=2,
@@ -31,6 +23,28 @@ def augment_data(folder='data/svgs',
                  introduce_noise_to_animation_vectors=False,
                  seed=None,
                  save=True):
+    """
+    Data augmentation by randomly scaling and translating each path in an SVG.
+
+    Scaling: Path is scaled by a random factor in the interval [0.8, 1.2].
+
+    Translation: Path is translated by a random translation vector t where tx and ty are sampled independently in the
+    interval [-10, 10].
+
+    Args:
+        folder (string): Path of folder containing all SVGs.
+        nb_augmentations (int): Number of augmentations per path.
+        df_dir (string): Directory of data that is augmented.
+        embedding_model (string): Path of embedding model.
+        pca_model (string): Path of PCA model.
+        introduce_noise_to_animation_vectors (bool): If true, random noise is added to animation vectors to introduce
+                                                    more variance to data and increase model stability.
+        seed (int): Random seed.
+        save (bool): If true, resulting dataframe is saved.
+
+    Returns:
+        (pd.DataFrame): Dataframe containing metadata of SVGs.
+    """
     # Set seed for reproducibility
     if seed is not None:
         random.seed(seed)

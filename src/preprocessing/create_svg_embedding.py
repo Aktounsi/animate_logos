@@ -33,6 +33,16 @@ def _load_model_and_dataset(data_folder="data/svgs"):
 
 
 def encode_svg(filename, data_folder="data/svgs", split_paths=True):
+    """
+    Args:
+        filename (string): SVG filename.
+        data_folder (string): Path of folder containing all SVGs.
+        split_paths (bool): If true, additional preprocessing step is carried out, where paths consisting of multiple
+                            paths are is split into multiple paths.
+
+    Returns:
+        (tensor): SVG embedding.
+    """
     dataset, model, device, cfg = _load_model_and_dataset(data_folder=data_folder)
     return _encode_svg(dataset, filename, model, device, cfg, split_paths)
 
