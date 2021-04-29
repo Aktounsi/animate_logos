@@ -190,8 +190,9 @@ def get_global_group_style_attributes(file):
 
     df_group_attributes = pd.DataFrame.from_records(_get_global_group_style_attributes(file))
     df_group_attributes.drop_duplicates(inplace=True)
-
     df_group_attributes.replace("", float("NaN"), inplace=True)
+    df_group_attributes.dropna(thresh=3, inplace=True)
+
     if "href" in df_group_attributes.columns:
         df_group_attributes.dropna(subset=["href"], inplace=True)
 
@@ -212,21 +213,28 @@ def _get_global_group_style_attributes(file):
         stroke_width = ''
         opacity = ''
         stroke_opacity = ''
-        if style != '' and len(groups[i].getElementsByTagName('use')) != 0:
+        if len(groups[i].getElementsByTagName('use')) != 0:
             href = groups[i].getElementsByTagName('use')[0].getAttribute('xlink:href')
-            attributes = style.split(';')
-            for j, _ in enumerate(attributes):
-                attr = attributes[j]
-                if attr.find('fill:') != -1:
-                    fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
-                if attr.find('stroke:') != -1:
-                    stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
-                if attr.find('stroke-width:') != -1:
-                    stroke_width = attr.split('stroke-width:', 1)[-1].split(';', 1)[0]
-                if attr.find('opacity:') != -1:
-                    opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
-                if attr.find('stroke-opacity:') != -1:
-                    stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+            if style != '':
+                attributes = style.split(';')
+                for j, _ in enumerate(attributes):
+                    attr = attributes[j]
+                    if attr.find('fill:') != -1:
+                        fill = attr.split('fill:', 1)[-1].split(';', 1)[0]
+                    if attr.find('stroke:') != -1:
+                        stroke = attr.split('stroke:', 1)[-1].split(';', 1)[0]
+                    if attr.find('stroke-width:') != -1:
+                        stroke_width = attr.split('stroke-width:', 1)[-1].split(';', 1)[0]
+                    if attr.find('opacity:') != -1:
+                        opacity = attr.split('opacity:', 1)[-1].split(';', 1)[0]
+                    if attr.find('stroke-opacity:') != -1:
+                        stroke_opacity = attr.split('stroke-opacity:', 1)[-1].split(';', 1)[0]
+            else:
+                fill = groups[i].getAttribute('fill')
+                stroke = groups[i].getAttribute('stroke')
+                stroke_width = groups[i].getAttribute('stroke-width')
+                opacity = groups[i].getAttribute('opacity')
+                stroke_opacity = groups[i].getAttribute('stroke-opacity')
 
         # transform None and RGB to hex
         if '#' not in fill and fill != '':
@@ -240,11 +248,18 @@ def _get_global_group_style_attributes(file):
 
 def _get_group_animation_id_matching(file):
     doc = minidom.parse(file)
-    symbol = doc.getElementsByTagName('symbol')
-    for i, _ in enumerate(symbol):
-        href = symbol[i].getAttribute('id')
-        animation_id = symbol[i].getElementsByTagName('path')[0].getAttribute('animation_id')
-        yield dict(filename=file.split('.svg')[0], href=href, animation_id=animation_id)
+    try:
+        symbol = doc.getElementsByTagName('symbol')
+        for i, _ in enumerate(symbol):
+            href = symbol[i].getAttribute('id')
+            animation_id = symbol[i].getElementsByTagName('path')[0].getAttribute('animation_id')
+            yield dict(filename=file.split('.svg')[0], href=href, animation_id=animation_id)
+    except:
+        defs = doc.getElementsByTagName('defs')
+        for i, _ in enumerate(defs):
+            href = defs[i].getElementsByTagName('symbol')[0].getAttribute('id')
+            animation_id = defs[i].getElementsByTagName('clipPath')[0].getElementsByTagName('path')[0].getAttribute('animation_id')
+            yield dict(filename=file.split('.svg')[0], href=href, animation_id=animation_id)
 
 
 def combine_style_attributes(df_local, df_global, df_global_groups):
