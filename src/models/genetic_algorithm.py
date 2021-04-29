@@ -95,7 +95,7 @@ def compute_agent_rewards(agents, path_vectors, verbose=5):
 
 
 def crossover(agents, num_agents):
-    children, before, after = list(), list(), list()
+    children = list()
 
     for _ in range((num_agents - len(agents)) // 2):
         parent1 = np.random.choice(agents)
@@ -127,18 +127,10 @@ def crossover(agents, num_agents):
             genes2_unflat.append(genes_child2_flat[index: (index + shape_flat)].reshape(shape))
             index += shape_flat
 
-        for i, param in enumerate(child1.parameters()):
-            if i == 0:
-                before.append(list(param[0].detach().numpy()))
-                break
         c1_state_dict = child1.state_dict()
         for i, (name, param) in enumerate(c1_state_dict.items()):
             transformed_param = torch.tensor(genes1_unflat[i])
             c1_state_dict[name].copy_(transformed_param)
-        for i, param in enumerate(child1.parameters()):
-            if i == 0:
-                after.append(list(param[0].detach().numpy()))
-                break
 
         c2_state_dict = child2.state_dict()
         for i, (name, param) in enumerate(c2_state_dict.items()):
@@ -148,7 +140,7 @@ def crossover(agents, num_agents):
         children.append(child1)
         children.append(child2)
     agents.extend(children)
-    return agents, before, after
+    return agents
 
 
 def mutate(agent, mutation_power=0.02):
