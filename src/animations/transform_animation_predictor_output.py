@@ -17,7 +17,7 @@ def transform_animation_predictor_output(file, animation_id, output):
                         the last 6 determine the attribute from
 
     Returns:
-        (dict): animation statement as dictionary
+        dict: Animation statement as dictionary.
     """
     animation = {}
     width, height = get_svg_size(file)

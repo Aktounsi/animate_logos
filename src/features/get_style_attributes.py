@@ -12,10 +12,11 @@ def get_style_attributes_svg(file):
     Example: get_style_attributes_svg('data/svgs/logo_1.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
-        (pd.DataFrame): Dataframe containing the attributes of each path.
+        pd.DataFrame: Dataframe containing the attributes of each path.
+
     """
     local_styles = get_local_style_attributes(file)
     global_styles = get_global_style_attributes(file)
@@ -29,12 +30,13 @@ def get_style_attributes_path(file, animation_id, attribute):
     Example: get_style_attributes_path('data/svgs/logo_1.svg', 0, "fill")
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
         animation_id (int): Path ID.
-        attribute (string): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity
+        attribute (str): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity.
 
     Returns:
-        (string): Specified attribute of the path.
+        str: Specified attribute of the path.
+
     """
     styles = get_style_attributes_svg(file)
     styles_animation_id = styles[styles["animation_id"] == str(animation_id)]
@@ -47,10 +49,11 @@ def parse_svg(file):
     Example: parse_svg('svgs/Air France.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
-        paths, attrs (list, list): List of path objects and list of dictionaries containing the attributes of each path.
+        list, list: List of path objects, list of dictionaries containing the attributes of each path.
+
     """
     paths, attrs = svg2paths(file)
     return paths, attrs
@@ -62,10 +65,11 @@ def get_local_style_attributes(file):
     Example: get_local_style_attributes('data/svgs/logo_1.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
-        (pd.DataFrame): Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+        pd.DataFrame: Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+
     """
     return pd.DataFrame.from_records(_get_local_style_attributes(file))
 
@@ -127,10 +131,11 @@ def get_global_style_attributes(file):
     Example: get_global_style_attributes('data/svgs/logo_1.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
-        (pd.DataFrame): Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+        pd.DataFrame: Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+
     """
     return pd.DataFrame.from_records(_get_global_style_attributes(file))
 
@@ -175,10 +180,11 @@ def get_global_group_style_attributes(file):
     Example: get_global_style_attributes_from_groups('data/svgs/logo_1.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
-        (pd.DataFrame): A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
+        pd.DataFrame: Dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
+
     """
     df_group_animation_id_matching = pd.DataFrame.from_records(_get_group_animation_id_matching(file))
 
@@ -186,7 +192,8 @@ def get_global_group_style_attributes(file):
     df_group_attributes.drop_duplicates(inplace=True)
 
     df_group_attributes.replace("", float("NaN"), inplace=True)
-    df_group_attributes.dropna(subset=["href"], inplace=True)
+    if "href" in df_group_attributes.columns:
+        df_group_attributes.dropna(subset=["href"], inplace=True)
 
     if df_group_attributes.empty:
         return df_group_attributes
@@ -249,7 +256,8 @@ def combine_style_attributes(df_local, df_global, df_global_groups):
         df_global_groups (pd.DataFrame): Dataframe with global style attributes defined through <g> tags.
 
     Returns:
-        (pd.DataFrame): Dataframe with all style attributes.
+        pd.DataFrame: Dataframe with all style attributes.
+
     """
     if df_global.empty and df_global_groups.empty:
         df_local.insert(loc=3, column='href', value="")
@@ -287,10 +295,11 @@ def transform_to_hex(rgb):
     """ Function to transform RGB to hex.
 
     Args:
-        rgb (string): RGB code.
+        rgb (str): RGB code.
 
     Returns:
-        (string): Hex code.
+        str: Hex code.
+
     """
     if rgb == 'none':
         return '#000000'
