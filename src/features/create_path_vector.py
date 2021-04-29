@@ -35,7 +35,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
         train (bool): If True, training data is considered, else test data.
 
     Returns:
-        (pd.DataFrame): Dataframe which contains path vectors that can be used as model input.
+        pd.DataFrame: Dataframe which contains path vectors that can be used as model input.
 
     """
     if avg_cols_svg is None:
@@ -46,7 +46,6 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
             df = pickle.load(f)
     else:
         df = apply_embedding_model_to_svgs(data_folder="../../data/decomposed_svgs", save=False)
-    df.dropna(inplace=True)  # can be deleted if NaN rows do not exist anymore
 
     # use manually splitting after inspecting the logos (ratio should be around 80/20)
     logos_train = ['logo_{}'.format(i) for i in chain(range(147), range(192, 395))]  # 350
