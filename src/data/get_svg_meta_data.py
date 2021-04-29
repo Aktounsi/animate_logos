@@ -6,15 +6,21 @@ import pandas as pd
 from src.preprocessing.deepsvg.svglib.svg import SVG
 
 
-def get_svg_meta_data(data_folder="data/svgs", workers=4):
+def get_svg_meta_data(data_folder="data/svgs"):
     """ Function to get meta data of SVGs.
 
     Example: get_svg_meta_data(data_folder="data/svgs")
 
     Note: There are some elements (like text tags or matrices or clip paths) that can't be processed here. The meta
     file only considers "normal" paths.
+
+    Args:
+        data_folder (string): Path of the folder containing all SVGs.
+
+    Returns:
+        (pd.DataFrame): Dataframe containing metadata of SVGs.
     """
-    with futures.ThreadPoolExecutor(max_workers=workers) as executor:
+    with futures.ThreadPoolExecutor(max_workers=-1) as executor:
         svg_files = glob.glob(os.path.join(data_folder, "*.svg"))
         meta_data = {}
 

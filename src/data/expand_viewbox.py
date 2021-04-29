@@ -5,15 +5,14 @@ import os
 
 
 def expand_viewbox_in_folder(old_folder, percent, new_folder="data/expanded_svgs"):
-    """ Function to expand the viewboxes of all svgs in a folder.
+    """ Function to expand the viewboxes of all SVGs in a folder.
 
        Example: expand_viewbox_in_folder('data/svgs', 50, 'data/expanded_svgs')
 
        Args:
-           old_folder (string): The path of the folder with all SVGs.
+           old_folder (string): Path of folder containing all SVG files.
            percent (int): Percentage in %: How much do we want to expand the viewbox?
-           new_folder (string): The path of the folder with the expanded SVGs.
-
+           new_folder (string): Path of folder containing the expanded SVGs.
     """
     for file in os.listdir(old_folder):
         if file.endswith(".svg"):
@@ -26,10 +25,9 @@ def expand_viewbox(logo, percent, new_folder):
     Example: expand_viewbox('data/svgs/BMW.svg', 50, 'data/expanded_svgs')
 
     Args:
-        logo (svg): path to a logo in svg format
+        logo (svg): Path of SVG file.
         percent (int): Percentage in %: How much do we want to expand the viewbox?
-        new_folder (string): The path of the folder with the expanded SVGs.
-
+        new_folder (string): Path of folder containing the expanded SVGs.
     """
     Path(new_folder).mkdir(parents=True, exist_ok=True)
     pathelements = logo.split('/')

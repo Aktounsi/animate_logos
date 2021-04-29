@@ -3,10 +3,12 @@ from cairosvg import svg2png
 
 
 def convert_svgs_in_folder(folder):
-    """ Function to convert all svgs in a folder. svgs get deleted after pngs have been created
+    """ Function to convert all SVGs in a folder. SVGs get deleted after pngs have been created
+
     Example: convert_svgs_in_folder('interpolated_logos')
+
     Args:
-        folder (string): The path of the folder with all SVGs that need to be converted.
+        folder (string): Path of folder containing all SVG files.
     """
     paths_list = []
     for file in os.listdir(folder):
@@ -20,12 +22,13 @@ def convert_svgs_in_folder(folder):
 
 
 def convert_svg(file):
-    """ Function to convert one svg to png. Requires Cairosvg.
-    Example: convert_svg('./data/interpolated_logos/BMW_0.svg')
-    Args:
-        file (string): The path of the SVG file that needs to be converted.
-    """
+    """ Function to convert one SVG to PNG. Requires Cairosvg.
 
+    Example: convert_svg('./data/interpolated_logos/BMW_0.svg')
+
+    Args:
+        file (string): Path of SVG file that needs to be converted.
+    """
     # Change name and path for writing element pngs
     filename = file.replace('.svg', '')
     # Convert svg to png

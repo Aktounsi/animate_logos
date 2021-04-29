@@ -12,7 +12,7 @@ def get_style_attributes_svg(file):
     Example: get_style_attributes_svg('data/svgs/logo_1.svg')
 
     Args:
-        file (string): The path of the SVG file.
+        file (string): Path of SVG file.
 
     Returns:
         (pd.DataFrame): Dataframe containing the attributes of each path.
@@ -29,7 +29,7 @@ def get_style_attributes_path(file, animation_id, attribute):
     Example: get_style_attributes_path('data/svgs/logo_1.svg', 0, "fill")
 
     Args:
-        file (string): The path of the SVG file.
+        file (string): Path of SVG file.
         animation_id (int): Path ID.
         attribute (string): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity
 
@@ -47,7 +47,7 @@ def parse_svg(file):
     Example: parse_svg('svgs/Air France.svg')
 
     Args:
-        file (string): The path of the SVG file.
+        file (string): Path of SVG file.
 
     Returns:
         paths, attrs (list, list): List of path objects and list of dictionaries containing the attributes of each path.
@@ -62,10 +62,10 @@ def get_local_style_attributes(file):
     Example: get_local_style_attributes('data/svgs/logo_1.svg')
 
     Args:
-        file (string): The path of the SVG file.
+        file (string): Path of SVG file.
 
     Returns:
-        (pd.DataFrame): A dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+        (pd.DataFrame): Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
     return pd.DataFrame.from_records(_get_local_style_attributes(file))
 
@@ -127,10 +127,10 @@ def get_global_style_attributes(file):
     Example: get_global_style_attributes('data/svgs/logo_1.svg')
 
     Args:
-        file (string): the path of the SVG file
+        file (string): Path of SVG file.
 
     Returns:
-        (pd.DataFrame): A dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+        (pd.DataFrame): Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
     """
     return pd.DataFrame.from_records(_get_global_style_attributes(file))
 
@@ -175,7 +175,7 @@ def get_global_group_style_attributes(file):
     Example: get_global_style_attributes_from_groups('data/svgs/logo_1.svg')
 
     Args:
-        file (string): the path of the SVG file
+        file (string): Path of SVG file.
 
     Returns:
         (pd.DataFrame): A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
@@ -284,6 +284,14 @@ def _combine_columns(df, col_name):
 
 
 def transform_to_hex(rgb):
+    """ Function to transform RGB to hex.
+
+    Args:
+        rgb (string): RGB code.
+
+    Returns:
+        (string): Hex code.
+    """
     if rgb == 'none':
         return '#000000'
     if 'rgb' in rgb:

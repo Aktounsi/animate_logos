@@ -1,12 +1,10 @@
 import os
 import pickle
 import random
-
 import numpy as np
 import pandas as pd
 from datetime import datetime
 from pathlib import Path
-
 from src.animations.get_path_probabilities import get_path_probabilities
 from src.animations.insert_animation import create_animated_svg
 from src.preprocessing.sort_paths import get_path_relevance
@@ -22,13 +20,13 @@ def create_random_animations(folder, nb_animations, split_df=True, very_random=F
     """ Function to create random animations. Animation vectors are saved in data/animated_svgs_dataframes.
 
     Args:
-        folder (string): The path of the folder with all SVG files
-        nb_animations (int): Number of random animations per logo
-        split_df (boolean): if true, animation vectors are saved to multiple dataframes (one dataframe per logo)
-                            if false, animation vectors are saved to one dataframe and returned
+        folder (string): Path of folder containing all SVG files.
+        nb_animations (int): Number of random animations per logo.
+        split_df (boolean): If true, animation vectors are saved to multiple dataframes (one dataframe per logo).
+                            If false, animation vectors are saved to one dataframe and returned.
 
     Returns:
-        (pd.DataFrame): Dataframe containing all animation vectors
+        pd.DataFrame: Dataframe containing all animation vectors.
     """
     Path("data/animated_svgs_dataframes").mkdir(parents=True, exist_ok=True)
     if split_df:
@@ -121,10 +119,11 @@ def _create_one_df(folder, nb_animations, very_random):
 
 def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=None, seed=73):
     """ Function to generate random animation vectors.
-    Format of vectors: (translate scale rotate skew fill opacity
-                    translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
+
+    Format of vectors: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
 
     Note: nr_animations must match length of path_probs
+
     Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])
 
     Args:
