@@ -17,14 +17,13 @@ from src.features import get_svg_bbox, get_relative_path_pos, get_midpoint_of_pa
 
 def augment_data(folder='data/svgs',
                  nb_augmentations=2,
-                 df_dir='data/data_augmentation/data_for_data_augmentation_23042021.csv',
-                 embedding_model="models/deepSVG_hierarchical_ordered.pth.tar",
-                 pca_model="models/pca_path_embedding.sav",
+                 df_dir='data/data_augmentation/data_for_data_augmentation_09042021.csv',
+                 embedding_model='models/deepSVG_hierarchical_ordered.pth.tar',
+                 pca_model='models/pca_path_embedding.sav',
                  introduce_noise_to_animation_vectors=False,
                  seed=None,
                  save=True):
-    """
-    Data augmentation by randomly scaling and translating each path in an SVG.
+    """ Data augmentation by randomly scaling and translating each path in an SVG.
 
     Scaling: Path is scaled by a random factor in the interval [0.8, 1.2].
 
@@ -32,18 +31,19 @@ def augment_data(folder='data/svgs',
     interval [-10, 10].
 
     Args:
-        folder (string): Path of folder containing all SVGs.
+        folder (str): Path of folder containing all SVGs.
         nb_augmentations (int): Number of augmentations per path.
-        df_dir (string): Directory of data that is augmented.
-        embedding_model (string): Path of embedding model.
-        pca_model (string): Path of PCA model.
+        df_dir (str): Directory of data that is augmented.
+        embedding_model (str): Path of embedding model.
+        pca_model (str): Path of PCA model.
         introduce_noise_to_animation_vectors (bool): If true, random noise is added to animation vectors to introduce
                                                     more variance to data and increase model stability.
         seed (int): Random seed.
         save (bool): If true, resulting dataframe is saved.
 
     Returns:
-        (pd.DataFrame): Dataframe containing metadata of SVGs.
+        pd.DataFrame: Dataframe containing metadata of SVGs.
+
     """
     # Set seed for reproducibility
     if seed is not None:
@@ -87,8 +87,10 @@ def augment_data(folder='data/svgs',
     df_full['rel_x_position_to_animations'] = df_full.apply(lambda row: row['translation_factor_x'] * row['rel_x_position_to_animations'], axis=1)
     df_full['rel_y_position_to_animations'] = df_full.apply(lambda row: row['translation_factor_y'] * row['rel_y_position_to_animations'], axis=1)
 
-    df_full.drop(['filename', 'animation_id', 'nb_augmentation', 'translate_x', 'translate_y', 'scale',
-                  'translation_factor', 'translation_factor_x', 'translation_factor_y'], axis=1)
+    #df_full.drop(['filename', 'animation_id', 'nb_augmentation', 'translate_x', 'translate_y', 'scale',
+                  #'translation_factor', 'translation_factor_x', 'translation_factor_y'], axis=1)
+
+    df_full.drop(['translate_x', 'translate_y', 'scale', 'translation_factor', 'translation_factor_x', 'translation_factor_y'], axis=1)
 
     # Introduce noise to animation vectors for model stability
     if introduce_noise_to_animation_vectors:
@@ -192,7 +194,7 @@ def _get_embedding_of_augmented_data(folder, embedding_model, nb_augmentations, 
 
 
 def _decompose_svg(file):
-    """ Decompose a SVG into its paths. """
+    """ Decompose an SVG into its paths. """
     svg_doc = minidom.parse(file)
     elements = _store_svg_elements(svg_doc)
     num_elements = len(elements)
@@ -245,18 +247,23 @@ def _augment(svg, seed=None):
 
 
 def _get_translation_factor(file, animation_id, dx, dy):
-    """ Function to get relative position of a path in a SVG file."""
-    initial_x, initial_y = get_relative_path_pos(file, animation_id)
+    """ Function to get relative position of a path in an SVG file."""
+    try:
+        initial_x, initial_y = get_relative_path_pos(file, animation_id)
 
-    path_midpoint_x, path_midpoint_y = get_midpoint_of_path_bbox(file, animation_id)
-    path_midpoint_x = path_midpoint_x + dx
-    path_midpoint_y = path_midpoint_y + dy
-    svg_xmin, svg_xmax, svg_ymin, svg_ymax = get_svg_bbox(file)
-    new_x = (path_midpoint_x - svg_xmin) / (svg_xmax - svg_xmin)
-    new_y = (path_midpoint_y - svg_ymin) / (svg_ymax - svg_ymin)
+        path_midpoint_x, path_midpoint_y = get_midpoint_of_path_bbox(file, animation_id)
+        path_midpoint_x = path_midpoint_x + dx
+        path_midpoint_y = path_midpoint_y + dy
+        svg_xmin, svg_xmax, svg_ymin, svg_ymax = get_svg_bbox(file)
+        new_x = (path_midpoint_x - svg_xmin) / (svg_xmax - svg_xmin)
+        new_y = (path_midpoint_y - svg_ymin) / (svg_ymax - svg_ymin)
 
-    factor_x = new_x / initial_x
-    factor_y = new_y / initial_y
+        factor_x = new_x / initial_x
+        factor_y = new_y / initial_y
+    except Exception as e:
+        print(f'File {file}, animation ID {animation_id}: Translation factor cannot be computed and is set to 0.01. {e}.')
+        factor_x = 0.01
+        factor_y = 0.01
 
     return factor_x, factor_y
 

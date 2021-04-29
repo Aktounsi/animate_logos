@@ -13,10 +13,11 @@ def get_style_attributes_folder(folder):
     Example: get_style_attributes_folder('data/svgs')
 
     Args:
-        folder (string): Path of folder containing all SVGs.
+        folder (str): Path of folder containing all SVGs.
 
     Returns:
-        (pd.DataFrame): Dataframe containing the attributes of each path of all SVGs.
+        pd.DataFrame: Dataframe containing the attributes of each path of all SVGs.
+
     """
     local_styles = get_local_style_attributes(folder)
     global_styles = get_global_style_attributes(folder)
@@ -33,8 +34,8 @@ def parse_svg(file):
         file (string): Path of SVG file.
 
     Returns:
-        paths (list): List of path objects.
-        attrs (list): List of dictionaries containing the attributes of each path.
+        list, list: List of path objects, list of dictionaries containing the attributes of each path.
+
     """
     paths, attrs = svg2paths(file)
     return paths, attrs
@@ -46,10 +47,11 @@ def get_local_style_attributes(folder):
     Example: get_local_style_attributes('data/svgs')
 
     Args:
-        folder (string): Path of folder containing all SVG files.
+        folder (str): Path of folder containing all SVG files.
 
     Returns:
-        (pd.DataFrame): Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+        pd.DataFrame: Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+
     """
     return pd.DataFrame.from_records(_get_local_style_attributes(folder))
 
@@ -119,7 +121,8 @@ def get_global_style_attributes(folder):
         folder (string): Path of folder containing all SVG files.
 
     Returns:
-        (pd.DataFrame): Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+        pd.DataFrame: Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.
+
     """
     return pd.DataFrame.from_records(_get_global_style_attributes(folder))
 
@@ -170,10 +173,11 @@ def get_global_group_style_attributes(folder):
     Example: get_global_style_attributes_from_groups('data/svgs')
 
     Args:
-        folder (string): Path of folder containing all SVG file.
+        folder (str): Path of folder containing all SVG file.
 
     Returns:
-        (pd.DataFrame): A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
+        pd.DataFrame: Dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.
+
     """
     df_group_animation_id_matching = pd.DataFrame.from_records(_get_group_animation_id_matching(folder))
 

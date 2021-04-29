@@ -20,13 +20,15 @@ def create_random_animations(folder, nb_animations, split_df=True, very_random=F
     """ Function to create random animations. Animation vectors are saved in data/animated_svgs_dataframes.
 
     Args:
-        folder (string): Path of folder containing all SVG files.
-        nb_animations (int): Number of random animations per logo.
-        split_df (boolean): If true, animation vectors are saved to multiple dataframes (one dataframe per logo).
+        folder (str): Path of folder containing all SVG files.
+        nb_animations (int): Number of random animations per SVG file.
+        split_df (bool): If true, animation vectors are saved to multiple dataframes (one dataframe per logo).
                             If false, animation vectors are saved to one dataframe and returned.
+        very_random (bool): If true, random seed is shuffled.
 
     Returns:
         pd.DataFrame: Dataframe containing all animation vectors.
+
     """
     Path("data/animated_svgs_dataframes").mkdir(parents=True, exist_ok=True)
     if split_df:
@@ -36,7 +38,14 @@ def create_random_animations(folder, nb_animations, split_df=True, very_random=F
 
 
 def create_multiple_df(folder, nb_animations, very_random):
-    """ Function to create random animations. Animation vectors are saved to one dataframe per logo."""
+    """ Function to create random animations. Animation vectors are saved to one dataframe per logo.
+
+    Args:
+        folder (str): Path of folder containing all SVG files.
+        nb_animations (int): Number of random animations per SVG file.
+        very_random (bool): If true, random seed is shuffled.
+
+    """
     for file in os.listdir(folder):
         if file.endswith(".svg"):
             df = pd.DataFrame.from_records(_create_multiple_df(folder, file, nb_animations, very_random))
@@ -75,7 +84,14 @@ def _create_multiple_df(folder, file, nb_animations, very_random):
 
 
 def create_one_df(folder, nb_animations, very_random):
-    """ Function to create random animations. Animation vectors are saved to one dataframe."""
+    """ Function to create random animations. Animation vectors are saved to one dataframe.
+
+    Args:
+        folder (str): Path of folder containing all SVG files.
+        nb_animations (int): Number of random animations per SVG file.
+        very_random (bool): If true, random seed is shuffled.
+
+    """
     df = pd.DataFrame.from_records(_create_one_df(folder, nb_animations, very_random))
 
     date_time = datetime.now().strftime('%H%M')
@@ -122,18 +138,19 @@ def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=
 
     Format of vectors: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
 
-    Note: nr_animations must match length of path_probs
+    Note: nr_animations must match length of path_probs.
 
     Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])
 
     Args:
-        nr_animations (int): Number of animation vectors that are generated
-        path_probs (list): Specifies how likely it is that a path gets animated
-        animation_type_prob (list): Specifies probabilities of animation types (default=uniform)
-        seed (int): Random seed
+        nr_animations (int): Number of animation vectors that are generated.
+        path_probs (list): Specifies how likely it is that a path gets animated.
+        animation_type_prob (list, default=uniform): Specifies probabilities of animation types.
+        seed (int): Random seed.
 
     Returns:
-        np.array(vec_list), animated_order_ids (ndarray, list): Array of 11 dimensional random animation vectors; List of IDs that were animated
+        ndarray, list: Array of 11 dimensional random animation vectors, list of IDs that were animated.
+
     """
     if path_probs is None:
         path_probs = [1 / 2] * nr_animations
@@ -171,6 +188,15 @@ def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=
 
 
 def combine_dataframes(folder):
+    """ Function to combine all dataframes saved as pkl in a given folder.
+
+    Args:
+        folder (str): Path of folder containing dataframes.
+
+    Returns:
+        pd.DataFrame: Concatenated dataframe.
+
+    """
     df_list = []
     for file in os.listdir(folder):
         if file.endswith(".pkl"):
@@ -180,6 +206,15 @@ def combine_dataframes(folder):
 
 
 def create_backend_mapping_df(df):
+    """ Function to create backend mapping for labeling website.
+
+    Args:
+        df (pd.DataFrame): Unprocessed dataframe containing backend mapping.
+
+    Returns:
+        pd.DataFrame: Processed dataframe containing backend mapping.
+
+    """
     df = df.set_index('file')
     df = df['backend_mapping'].apply(pd.Series)
     df = df[~df.index.duplicated(keep='first')]
