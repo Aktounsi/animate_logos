@@ -8,10 +8,10 @@ def get_svg_size(file):
     Example: get_svg_size('data/svgs/logo_1.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
-        float, float: Size of SVG file (width, height).
+        float, float: Width and height of SVG file.
 
     """
     doc = minidom.parse(file)
@@ -48,7 +48,7 @@ def get_svg_bbox(file):
     Example: get_svg_bbox('data/svgs/logo_1.svg')
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
 
     Returns:
          float, float, float, float: Bounding box of SVG (xmin, xmax, ymin, ymax).
@@ -81,13 +81,14 @@ def get_svg_bbox(file):
 
 def get_path_bbox(file, animation_id):
     """ Function to get bbox of a path in a SVG file.
-        xmin, ymin: upper left corner
-        xmax, ymax: lower right corner
+
+    xmin, ymin: Upper left corner.
+    xmax, ymax: Lower right corner.
 
     Example: get_path_bbox('data/svgs/logo_1.svg', 1)
 
     Args:
-        file (string): Path of SVG file.
+        file (str): Path of SVG file.
         animation_id (int): Path ID.
 
     Returns:
@@ -113,7 +114,7 @@ def get_path_bbox(file, animation_id):
 def get_midpoint_of_path_bbox(file, animation_id):
     """ Function to get midpoint of bounding box of path.
 
-    Example: get_midpoint_of_path_bbox('svgs/Air France.svg', 1)
+    Example: get_midpoint_of_path_bbox('data/svgs/logo_1.svg', 1)
 
     Args:
         file (string): Path of SVG file.
@@ -144,8 +145,7 @@ def get_bbox_of_multiple_paths(file, animation_ids):
         animation_ids (list(int)): List of path IDs.
 
     Returns:
-         float, float, float, float: Bounding box of given paths (xmin, xmax, ymin, ymax).
-
+        float, float, float, float: Bounding box of given paths (xmin, xmax, ymin, ymax).
     """
     try:
         paths, attributes = svg2paths(file)
@@ -183,7 +183,7 @@ def get_relative_path_pos(file, animation_id):
         animation_id (int): Path ID.
 
     Returns:
-         float, float: Relative position of path (rel_x_position, rel_y_position).
+        float, float: Relative x- and y-position of path.
 
     """
     path_midpoint_x, path_midpoint_y = get_midpoint_of_path_bbox(file, animation_id)
@@ -204,7 +204,7 @@ def get_relative_pos_to_bounding_box_of_animated_paths(file, animation_id, anima
         animated_animation_ids (list(int)): List of animated path IDs.
 
     Returns:
-         float, float: Relative position of path to bounding box of all animated paths (rel_x_position, rel_y_position).
+        float, float: Relative x- and y-position of path to bounding box of all animated paths.
 
     """
     path_midpoint_x, path_midpoint_y = get_midpoint_of_path_bbox(file, animation_id)
@@ -233,7 +233,7 @@ def get_relative_path_size(file, animation_id):
         animation_id (int): Path ID.
 
     Returns:
-         float, float: Relative size of path (rel_width, rel_height).
+        float, float: Relative width and height of path.
 
     """
     svg_xmin, svg_xmax, svg_ymin, svg_ymax = get_svg_bbox(file)
@@ -278,3 +278,5 @@ def get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.5):
     begin_values = [z for _, z in sorted(zip(animation_id_order, begin_list))]
 
     return begin_values
+
+
