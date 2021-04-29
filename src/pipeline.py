@@ -15,7 +15,7 @@ Logo Pipeline
 """
 
 import torch
-import pickle
+import pickle5
 import random
 import pandas as pd
 import numpy as np
@@ -76,7 +76,7 @@ class Logo:
         df = retrieve_animation_midpoints(df, data_dir=os.path.dirname(self.data_dir), drop=True)
 
         # Scale features
-        scaler = pickle.load(open(config.scaler_path, 'rb'))
+        scaler = pickle5.load(open(config.scaler_path, 'rb'))
         df[config.sm_features] = scaler.transform(df[config.sm_features])
 
         svg_animations = pd.DataFrame({'filename': [], 'animation_id': [], 'animation_vector': [], 'model': []})
@@ -105,7 +105,7 @@ class Logo:
 
         # Load ENTMOOT optimizer to data
         with open("models/entmoot_optimizer.pkl", "rb") as f:
-            optimizer = pickle.load(f)
+            optimizer = pickle5.load(f)
 
         # Load surrogate model for function evaluations
         func = SurrogateModelFNN()
@@ -293,7 +293,7 @@ class Logo:
 
         # Apply PCA to embedding
         df_emb = df['embedding'].apply(lambda row: row.numpy()[0][0][0]).apply(pd.Series)
-        fitted_pca = pickle.load(open(pca_model, 'rb'))
+        fitted_pca = pickle5.load(open(pca_model, 'rb'))
         df_emb_red, _ = reduce_dim(df_emb, fitted_pca=fitted_pca)
 
         # Concatenate dataframes and drop unnecessary columns
