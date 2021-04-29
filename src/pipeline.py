@@ -14,7 +14,7 @@ Logo Pipeline
 
 """
 
-import torch
+#import torch
 import pickle
 import random
 import pandas as pd
@@ -105,7 +105,7 @@ class Logo:
         path_vectors = df[config.sm_features].values.tolist()
 
         # Load ENTMOOT optimizer to data
-        with open("models/entmoot_optimizer.pkl", "rb") as f:
+        with open("models/entmoot_optimizer_100_old.pkl", "rb") as f:
             optimizer = pickle.load(f)
 
         # Load surrogate model for function evaluations
