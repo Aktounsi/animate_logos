@@ -7,7 +7,7 @@ def coral_loss(logits, levels, importance_weights=None, reduction='mean'):
     Cao, Mirjalili, and Raschka (2020)
     *Rank Consistent Ordinal Regression for Neural Networks
        with Application to Age Estimation*
-    Pattern Recognition Letters, https://doi.org/10.1016/j.patrec.2020.11.008
+    Pattern Recognition Letters, https://doi.org/10.1016/j.patrec.2020.11.008.
 
     Args:
         logits (torch.Tensor): Outputs of the CORAL layer (shape: (num_examples, num_classes-1)).
