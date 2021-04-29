@@ -29,6 +29,9 @@ from src.preprocessing.deepsvg import utils
 from src.features import get_svg_size, get_svg_bbox, get_relative_path_pos, get_relative_path_size,\
     get_style_attributes_path, reduce_dim, get_begin_values_by_starting_pos
 from src.animations import *
+from src.models.train_animation_predictor import *
+from src.models.entmoot_functions import *
+from src.models import config
 
 # Reproducibility
 # utils.set_seed(42)
@@ -55,17 +58,91 @@ class Logo:
         print(f'width, height: {self.width}, {self.height}')
         print(f'bbox: {self.xmin_svg}, {self.xmax_svg}, {self.ymin_svg}, {self.ymax_svg}')
 
-    def animate(self, nb_animations=6):
+    def animate(self, model):
         """ Automatically animates logo (currently randomly but is updated later)
 
         Args:
-              nb_animations (int, default=6): Number of animations
+              model (str): Chosen model for generation of animations. Should be 'opt' for entmoot optimization,
+              'ga' for genetic algorithm, or 'all' if both models should be applied to generate animations
         """
         if 'preprocessed' not in self.data_dir:
             self.insert_id()
-        for i in range(nb_animations):
-            animation_vectors, animated_animation_ids = Logo.random_animation_vector(self.animation_ids)
-            self._insert_animation(animated_animation_ids, animation_vectors, filename_suffix=str(i))
+
+        # Create input for model 1
+        df = self.create_df(pca_model=config.pca_path)
+
+        # Retrieve model 1 prediction and extract relative position to midpoint of animated paths of SVG
+        df = retrieve_m1_predictions(df)
+        df = retrieve_animation_midpoints(df, data_dir=os.path.dirname(self.data_dir), drop=True)
+
+        # Scale features
+        scaler = pickle.load(open(config.scaler_path, 'rb'))
+        df[config.sm_features] = scaler.transform(df[config.sm_features])
+
+        svg_animations = pd.DataFrame({'filename': [], 'animation_id': [], 'animation_vector': [], 'model': []})
+
+        if (model == 'opt') | (model == 'all'):
+            entmoot_animations = Logo._create_animation_entmoot(df)
+            svg_animations = svg_animations.append(entmoot_animations)
+            svg_animations = svg_animations.fillna('entmoot')
+
+        if (model == 'ga') | (model == 'all'):
+            ga_animations = Logo._create_animation_ga(df)
+            svg_animations = svg_animations.append(ga_animations)
+            svg_animations = svg_animations.fillna('ga')
+
+        for i, row in svg_animations.iterrows():
+            try:
+                print(row['model'])
+                self._insert_animation(row['animation_id'], row['animation_vector'], filename_suffix=row['model'])
+            except FileNotFoundError:
+                print(f"File not found: {row['filename']}")
+                pass
+
+    @staticmethod
+    def _create_animation_entmoot(df):
+        # Extract path vectors as list
+        path_vectors = df[config.sm_features].values.tolist()
+
+        # Load ENTMOOT optimizer to data
+        with open("models/entmoot_optimizer.pkl", "rb") as f:
+            optimizer = pickle.load(f)
+
+        # Load surrogate model for function evaluations
+        func = SurrogateModelFNN()
+
+        # Predict and store animation vectors
+        an_vec_preds = []
+        for i in range(len(path_vectors)):
+            opt_x, opt_y = entmoot_predict(optimizer, func, path_vectors[i])
+            an_vec_preds.append(opt_x)
+
+        df['animation_vector'] = an_vec_preds
+
+        gb = [df.groupby('filename')[column].apply(list) for column in
+              'animation_id animation_vector'.split()]
+        svg_animations = pd.concat(gb, axis=1).reset_index()
+
+        return svg_animations
+
+    @staticmethod
+    def _create_animation_ga(df):
+        # Extract path vectors from dataframe
+        path_vectors = torch.tensor(df[config.sm_features].to_numpy(), dtype=torch.float)
+
+        # Create instance of animation prediction model
+        ap = AnimationPredictor()
+        ap.load_state_dict(torch.load(config.ap_state_dict_path))
+
+        an_predictions = ap(path_vectors)
+
+        df['animation_vector'] = an_predictions.detach().numpy().tolist()
+
+        gb = [df.groupby('filename')[column].apply(list) for column in
+              'animation_id animation_vector'.split()]
+        svg_animations = pd.concat(gb, axis=1).reset_index()
+
+        return svg_animations
 
     def insert_id(self):
         """ Add the attribute "animation_id" to all elements in a SVG. """
