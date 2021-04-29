@@ -4,7 +4,7 @@ import numpy as np
 
 
 class DatasetSM(torch.utils.data.Dataset):
-    """Surrogate model dataset."""
+    """ Surrogate model dataset. """
 
     # Characterizes a dataset for PyTorch
     def __init__(self, path, train=True, augmented=True):
