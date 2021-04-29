@@ -19,7 +19,7 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
     """ Creates path-level model input vectors from a given folder of SVG files.
 
     Args:
-        svg_folder (str): Path of folder that contains initial SVG files with animation IDs.
+        svg_folder (str): Path of folder containing all SVGs.
         emb_file_path (str): Path of path embedding file.
         fitted_pca (object): Fitted PCA model to apply on path embeddings.
         new_dim (float): Scalar that defines number of PCs to keep, or alternatively variance that should be explained
@@ -34,7 +34,8 @@ def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim
         avg_diff (bool): If True, the difference between the path color and the average SVG color is integrated in path vectors.
         train (bool): If True, training data is considered, else test data.
 
-    Returns (pd.DataFrame): Dataframe which contains path vectors that can be used as model input.
+    Returns:
+        (pd.DataFrame): Dataframe which contains path vectors that can be used as model input.
 
     """
     if avg_cols_svg is None:
@@ -103,7 +104,8 @@ def reduce_dim(data: pd.DataFrame, fitted_pca=None, new_dim=None, use_ppa=False,
         use_ppa: If True, Principal Polynomial Analysis (PPA) is integrated in the dimension reduction step.
         ppa_threshold (int): PPA threshold.
 
-    Returns (tuple): Dimension-reduced path embeddings (pd.DataFrame) and fitted PCA model (object)
+    Returns:
+        pd.DataFrame, object: Dimension-reduced path embeddings, fitted PCA model
 
     """
     # 1. PPA #1

@@ -31,9 +31,6 @@ class DatasetSM(torch.utils.data.Dataset):
 
         Args:
             fitted_scaler (object): Fitted scaler.
-
-        Returns: None
-
         """
         sc = fitted_scaler
         self.X[:, 12:] = torch.from_numpy(sc.transform(self.X[:, 12:]).astype(np.float32))
@@ -41,8 +38,8 @@ class DatasetSM(torch.utils.data.Dataset):
     def __len__(self):
         """ Denotes the total number of samples.
 
-        Returns (int): Total number of samples.
-
+        Returns:
+            (int): Total number of samples.
         """
         return self.X.shape[0]
 
@@ -52,7 +49,8 @@ class DatasetSM(torch.utils.data.Dataset):
         Args:
             index (int): Row index of sample to generate.
 
-        Returns (tuple): Tuple of torch.tensors that are generated (X: data, y: target)
+        Returns:
+            (tuple): Tuple of torch.tensors that are generated (X: data, y: target)
 
         """
         return self.X[index], self.y[index]

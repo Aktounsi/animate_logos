@@ -9,9 +9,9 @@ def rename_logos(old_folder, new_folder="data/svgs", start_with=0):
     Example: rename_logos("data/svgs_expanded", "data/svgs")
 
     Args:
-        old_folder (string): The path of the folder with all SVGs.
-        new_folder (string): The path of the folder with the renamed SVGs.
-        start_with (int): First value of renamed logos.
+        old_folder (string): Path of folder containing all SVG files.
+        new_folder (string): Path of folder containing all renamed SVG files.
+        start_with (int): First value of renamed file.
     """
     Path(new_folder).mkdir(parents=True, exist_ok=True)
     for i, file in enumerate(os.listdir(old_folder)):

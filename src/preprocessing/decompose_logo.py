@@ -11,8 +11,7 @@ def decompose_logos_in_folder(folder):
     Example: decompose_logos_in_folder('data/svgs')
 
     Args:
-        folder (string): The path of the folder with all SVGs that need to be decomposed.
-
+        folder (string): The path of folder with all SVGs that need to be decomposed.
     """
     for file in os.listdir(folder):
         if file.endswith(".svg"):
@@ -25,8 +24,7 @@ def decompose_logo(file):
     Example: decompose_logo('data/svgs/Air France.svg')
 
     Args:
-        file (string): The path of the SVG file that needs to be decomposed.
-
+        file (string): Path of SVG file that needs to be decomposed.
     """
     doc = minidom.parse(file)
     # store all elements in list
