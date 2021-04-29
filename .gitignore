@@ -76,7 +76,13 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-/data/
+/data/animated_svgs
+/data/animated_svgs_dataframes
+/data/initial_svgs
+/data/path_selection
+/data/PNG_selected_paths_expanded
+/data/svgs
+
 
 # Mac OS-specific storage files
 .DS_Store
