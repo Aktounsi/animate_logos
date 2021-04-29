@@ -6,7 +6,7 @@ Logo Pipeline
 
         >>> from src.pipeline import Logo
         >>> logo = Logo(data_dir='path/to/my/logo.svg')
-        >>> logo.animate(nb_animations=2)
+        >>> logo.animate()
 
 
 .. autoclass:: Logo
@@ -58,11 +58,11 @@ class Logo:
         print(f'width, height: {self.width}, {self.height}')
         print(f'bbox: {self.xmin_svg}, {self.xmax_svg}, {self.ymin_svg}, {self.ymax_svg}')
 
-    def animate(self, model):
+    def animate(self, model='all'):
         """ Automatically animates logo (currently randomly but is updated later)
 
         Args:
-              model (str): Chosen model for generation of animations. Should be 'opt' for entmoot optimization,
+              model (str, default='all'): Chosen model for generation of animations. Should be 'opt' for entmoot optimization,
               'ga' for genetic algorithm, or 'all' if both models should be applied to generate animations
         """
         if 'preprocessed' not in self.data_dir:
@@ -93,7 +93,6 @@ class Logo:
 
         for i, row in svg_animations.iterrows():
             try:
-                print(row['model'])
                 self._insert_animation(row['animation_id'], row['animation_vector'], filename_suffix=row['model'])
             except FileNotFoundError:
                 print(f"File not found: {row['filename']}")
