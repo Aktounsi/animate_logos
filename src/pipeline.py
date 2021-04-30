@@ -113,7 +113,7 @@ class Logo:
         # Predict and store animation vectors
         an_vec_preds = []
         for i in range(len(path_vectors)):
-            opt_x, opt_y = entmoot_predict(optimizer, func, path_vectors[i])
+            opt_x, opt_y, _ = entmoot_predict(optimizer, func, path_vectors[i], n_calls=5)
             an_vec_preds.append(opt_x)
 
         df['animation_vector'] = an_vec_preds
