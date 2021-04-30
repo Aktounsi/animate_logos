@@ -248,7 +248,7 @@ def entmoot_predict(opt, func, path_vector, n_calls):
 
         #itr += 1
 
-        result = opt.tell(next_x, next_y, fit=True)
+        result = opt.tell(next_x, next_y, fit=_n_calls>0)
 
         #best_fun = result.fun
         result.specs = specs
@@ -277,7 +277,7 @@ if __name__ == "__main__":
     # Load surrogate model
     func = SurrogateModelFNN()
 
-    opt = entmoot_fit(dimensions=func.get_bounds(), x0=X_train, y0=y_train, base_estimator="RF", std_estimator="MP", random_state=73)
+    opt = entmoot_fit(dimensions=func.get_bounds(), x0=X_train, y0=y_train, base_estimator="RF", std_estimator="MPI", random_state=73)
 
 #    with open("../../models/entmoot_optimizer_100_old.pkl", "rb") as f:
 #        opt = pickle.load(f)
