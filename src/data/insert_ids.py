@@ -4,13 +4,13 @@ import os
 
 
 def insert_ids_in_folder(old_folder, new_folder="data/svgs"):
-    """ Function to add the attribute "animation_id" to all Logos in a folder.
+    """ Function to add the attribute "animation_id" to all logos in a folder.
 
     Example: insert_ids_in_folder('data/svgs_without_ID', 'data/svgs_with_ID')
 
     Args:
-        old_folder (string): Path of folder containing all SVG files.
-        new_folder (string): Path of folder containing all SVG files with animation ID.
+        old_folder (str): Path of folder containing all SVG files.
+        new_folder (str): Path of folder containing all SVG files with animation ID.
     """
     for file in os.listdir(old_folder):
         if file.endswith(".svg"):

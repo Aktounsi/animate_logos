@@ -5,11 +5,13 @@ def get_path_probabilities(filename, animation_ids, pkl_file="data/model_1/model
     """ Function to get path probabilities that specify how likely it is that a path gets animated.
 
     Args:
-        filename (string): Name of SVG
-        animation_ids (list(int)): List of animation IDs
-        pkl_file (string): Path of pkl file which contains path labeling
+        filename (str): SVG filename.
+        animation_ids (list(int)): List of animation IDs.
+        pkl_file (str): Path of pkl file which contains path labeling.
 
-    Returns (list(float)): List of probabilities
+    Returns:
+        list(float): List of probabilities.
+
     """
     with open(pkl_file, 'rb') as f:
         df = pickle.load(f)
