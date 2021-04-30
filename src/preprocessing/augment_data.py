@@ -17,7 +17,7 @@ from src.features import get_svg_bbox, get_relative_path_pos, get_midpoint_of_pa
 
 def augment_data(folder='data/svgs',
                  nb_augmentations=2,
-                 df_dir='data/data_augmentation/data_for_data_augmentation_09042021.csv',
+                 df_dir='data/data_augmentation/data_for_data_augmentation_23042021.csv',
                  embedding_model='models/deepSVG_hierarchical_ordered.pth.tar',
                  pca_model='models/pca_path_embedding.sav',
                  introduce_noise_to_animation_vectors=False,
@@ -98,7 +98,9 @@ def augment_data(folder='data/svgs',
             df_full[f'an_vec_{i}'] = df_full[f'an_vec_{i}'].apply(
                 lambda row: row + (0.2 * random.random() - 0.1) if 0.1 < row < 0.9 else row)
 
-    col_order = [f'an_vec_{i}' for i in range(12)] + [f'emb_{i}' for i in range(10)] \
+    col_order = ['filename', 'animation_id', 'nb_augmentation'] \
+                + [f'an_vec_{i}' for i in range(12)] \
+                + [f'emb_{i}' for i in range(10)] \
                 + ['fill_r', 'fill_g', 'fill_b', 'svg_fill_r', 'svg_fill_g', 'svg_fill_b',
                    'diff_fill_r', 'diff_fill_g', 'diff_fill_b', 'rel_height', 'rel_width',
                    'rel_x_position', 'rel_y_position', 'rel_x_position_to_animations', 'rel_y_position_to_animations',
