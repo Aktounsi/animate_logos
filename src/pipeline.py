@@ -15,11 +15,9 @@ Logo Pipeline
 """
 
 import pickle5
-import random
-import pandas as pd
-import numpy as np
 from xml.dom import minidom
 from PIL import ImageColor
+from svgpathtools import svg2paths
 from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
 from src.preprocessing.deepsvg.svglib.svg import SVG
 from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
@@ -42,18 +40,15 @@ class Logo:
         self.parsed_doc = minidom.parse(data_dir)
         self.nr_paths = len(self._store_svg_elements(self.parsed_doc))
         self.animation_ids = [*range(self.nr_paths)]
-        self.deepSVG = SVG.from_str(self.parsed_doc.toxml())
         self.width, self.height = get_svg_size(data_dir)
         self.xmin_svg, self.xmax_svg, self.ymin_svg, self.ymax_svg = get_svg_bbox(data_dir)
 
-    def print_logo_information(self, print_deepSVG=False):
+    def print_logo_information(self):
         print('--------------------------- Logo Information ---------------------------')
         print(f'data_dir: {self.data_dir}')
         print(f'parsed_doc: {self.parsed_doc}')
         print(f'nr_paths: {self.nr_paths}')
         print(f'animation_ids: {self.animation_ids}')
-        if print_deepSVG:
-            print(f'deepSVG: {self.deepSVG}')
         print(f'width, height: {self.width}, {self.height}')
         print(f'bbox: {self.xmin_svg}, {self.xmax_svg}, {self.ymin_svg}, {self.ymax_svg}')
 
@@ -65,7 +60,7 @@ class Logo:
               'ga' for genetic algorithm, or 'all' if both models should be applied to generate animations
         """
         if 'preprocessed' not in self.data_dir:
-            self.insert_id()
+            self.preprocess()
 
         # Create input for model 1
         df = self.create_df(pca_model=config.pca_path)
@@ -142,12 +137,66 @@ class Logo:
 
         return svg_animations
 
-    def insert_id(self):
-        """ Add the attribute "animation_id" to all elements in a SVG. """
+    def preprocess(self, percent=50):
+        """ Add the attribute "animation_id" to all elements in a SVG and expand/insert viewbox. """
         if 'preprocessed' not in self.data_dir:
+            # Insert animation_id
             elements = self._store_svg_elements(self.parsed_doc)
             for i in range(len(elements)):
                 elements[i].setAttribute('animation_id', str(i))
+
+            # Expand/insert viewbox
+            x, y = '', ''
+            # get width and height of logo
+            try:
+                width = self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('width')
+                height = self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('height')
+                if not width[-1].isdigit():
+                    width = width.replace('px', '').replace('pt', '')
+                if not height[-1].isdigit():
+                    height = height.replace('px', '').replace('pt', '')
+                x = float(width)
+                y = float(height)
+                check = True
+            except:
+                check = False
+            if not check:
+                # get bounding box of svg
+                xmin_svg, xmax_svg, ymin_svg, ymax_svg = 0, 0, 0, 0
+                paths, attributes = svg2paths(logo)
+                for path in paths:
+                    xmin, xmax, ymin, ymax = path.bbox()
+                    if xmin < xmin_svg:
+                        xmin_svg = xmin
+                    if xmax > xmax_svg:
+                        xmax_svg = xmax
+                    if ymin < ymin_svg:
+                        ymin_svg = ymin
+                    if ymax > ymax_svg:
+                        ymax_svg = ymax
+                    x = xmax_svg - xmin_svg
+                    y = ymax_svg - ymin_svg
+
+            # Check if viewBox exists
+            if self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox') == '':
+                v1, v2, v3, v4 = 0, 0, 0, 0
+                # Calculate new viewBox values
+                x_new = x * (100 + percent) / 100
+                y_new = y * (100 + percent) / 100
+            else:
+                v1 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[0].replace('px', '').replace('pt', '').replace(',', ''))
+                v2 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[1].replace('px', '').replace('pt', '').replace(',', ''))
+                v3 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[2].replace('px', '').replace('pt', '').replace(',', ''))
+                v4 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[3].replace('px', '').replace('pt', '').replace(',', ''))
+                x = v3
+                y = v4
+                # Calculate new viewBox values
+                x_new = x * percent / 100
+                y_new = y * percent / 100
+            x_translate = - x * percent / 200
+            y_translate = - y * percent / 200
+            coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(v4 + y_new)
+            self.parsed_doc.getElementsByTagName('svg')[0].setAttribute('viewBox', coordinates)
 
             # create new file and update data_dir
             textfile = open(f"{self.data_dir.replace('.svg', '')}_preprocessed.svg", 'wb')
