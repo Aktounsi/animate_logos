@@ -14,6 +14,7 @@ Logo Pipeline
 
 """
 
+import pickle5
 from xml.dom import minidom
 from PIL import ImageColor
 from svgpathtools import svg2paths
@@ -69,7 +70,7 @@ class Logo:
         df = retrieve_animation_midpoints(df, data_dir=os.path.dirname(self.data_dir), drop=True)
 
         # Scale features
-        scaler = pickle.load(open(config.scaler_path, 'rb'))
+        scaler = pickle5.load(open(config.scaler_path, 'rb'))
         df[config.sm_features] = scaler.transform(df[config.sm_features])
 
         svg_animations = pd.DataFrame({'filename': [], 'animation_id': [], 'animation_vector': [], 'model': []})
@@ -97,8 +98,8 @@ class Logo:
         path_vectors = df[config.sm_features].values.tolist()
 
         # Load ENTMOOT optimizer to data
-        with open("models/entmoot_optimizer.pkl", "rb") as f:
-            optimizer = pickle.load(f)
+        with open("models/entmoot_optimizer_100_old_L1DDP.pkl", "rb") as f:
+            optimizer = pickle5.load(f)
 
         # Load surrogate model for function evaluations
         func = SurrogateModelFNN()
@@ -106,7 +107,7 @@ class Logo:
         # Predict and store animation vectors
         an_vec_preds = []
         for i in range(len(path_vectors)):
-            opt_x, opt_y = entmoot_predict(optimizer, func, path_vectors[i])
+            opt_x, opt_y, _ = entmoot_predict(optimizer, func, path_vectors[i], n_calls=5)
             an_vec_preds.append(opt_x)
 
         df['animation_vector'] = an_vec_preds
@@ -340,7 +341,7 @@ class Logo:
 
         # Apply PCA to embedding
         df_emb = df['embedding'].apply(lambda row: row.numpy()[0][0][0]).apply(pd.Series)
-        fitted_pca = pickle.load(open(pca_model, 'rb'))
+        fitted_pca = pickle5.load(open(pca_model, 'rb'))
         df_emb_red, _ = reduce_dim(df_emb, fitted_pca=fitted_pca)
 
         # Concatenate dataframes and drop unnecessary columns

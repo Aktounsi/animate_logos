@@ -121,7 +121,7 @@ def get_midpoint_of_path_bbox(file, animation_id):
         animation_id (int): Path ID.
 
     Returns:
-        x_midpoint, y_midpoint (float, float): Midpoint of bounding box of path.
+        float, float: Midpoint of bounding box of path (x_midpoint, y_midpoint).
 
     """
     try:
@@ -262,7 +262,7 @@ def get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.5):
         step (float): Time between begin values
 
     Returns:
-        list(float): Begin values of animation IDs.
+        list: Begin values of animation ids.
 
     """
     starting_point_list = []
