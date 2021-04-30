@@ -4,7 +4,7 @@ import numpy as np
 
 
 class DatasetSM(torch.utils.data.Dataset):
-    """Surrogate model dataset."""
+    """ Surrogate model dataset. """
 
     # Characterizes a dataset for PyTorch
     def __init__(self, path, train=True, augmented=True):
@@ -31,6 +31,7 @@ class DatasetSM(torch.utils.data.Dataset):
 
         Args:
             fitted_scaler (object): Fitted scaler.
+
         """
         sc = fitted_scaler
         self.X[:, 12:] = torch.from_numpy(sc.transform(self.X[:, 12:]).astype(np.float32))
@@ -39,7 +40,8 @@ class DatasetSM(torch.utils.data.Dataset):
         """ Denotes the total number of samples.
 
         Returns:
-            (int): Total number of samples.
+            int: Total number of samples.
+
         """
         return self.X.shape[0]
 
@@ -50,7 +52,7 @@ class DatasetSM(torch.utils.data.Dataset):
             index (int): Row index of sample to generate.
 
         Returns:
-            (tuple): Tuple of torch.tensors that are generated (X: data, y: target)
+            torch.tensor, torch.tensor: Data that is generated (data, target).
 
         """
         return self.X[index], self.y[index]
