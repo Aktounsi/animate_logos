@@ -98,7 +98,7 @@ class Logo:
         path_vectors = df[config.sm_features].values.tolist()
 
         # Load ENTMOOT optimizer to data
-        with open("models/entmoot_optimizer_100_old_L1DDP.pkl", "rb") as f:
+        with open("models/entmoot_optimizer_100_old_wo0123.pkl", "rb") as f:
             optimizer = pickle5.load(f)
 
         # Load surrogate model for function evaluations
