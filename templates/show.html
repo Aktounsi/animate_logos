@@ -86,36 +86,38 @@
                     </button>
                 </a>
             </div>
-            <div class="w-full sm:w-1/2 p-6">
+        </div>
+
+        <div class="flex flex-wrap">
+                    <div class="w-full sm:w-1/2 p-6">
                 <object type="image/svg+xml" id="animation_1"
                         data="{{ url_for('animated_svg_1', animation_filename_1=animation_filename_1) }}"></object>
             </div>
         </div>
-        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-            <div class="w-full sm:w-1/2 p-6 mt-6">
-                <object type="image/svg+xml" id="animation_2"
-                        data="{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}"></object>
-            </div>
-            <div class="w-full sm:w-1/2 p-6 mt-6">
-                <div class="align-middle">
-                    <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                        Animation Number 2
-                    </h3>
-                    <button onclick="repeat_animation_2()"
-                            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                        (Re)play Animation
-                    </button>
 
-                    <a download="animation_2.svg" href="{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}"
-                       target="blank">
-                        <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            Download Animation
-                        </button>
-                    </a>
-                </div>
+                <div class="flex flex-wrap">
+            <div class="w-5/6 sm:w-1/2 p-6">
+                <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                    Animation Number 2
+                </h3>
+                <button onclick="repeat_animation_2()"
+                        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    (Re)play Animation
+                </button>
+                <a download="animation_2.svg" href="{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}" target="blank">
+                    <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                        Download Animation
+                    </button>
+                </a>
             </div>
         </div>
 
+        <div class="flex flex-wrap">
+                    <div class="w-full sm:w-1/2 p-6">
+                <object type="image/svg+xml" id="animation_2"
+                        data="{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}"></object>
+            </div>
+        </div>
 
     </div>
 </section>
