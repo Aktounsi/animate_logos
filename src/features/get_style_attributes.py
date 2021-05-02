@@ -7,9 +7,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def get_style_attributes_svg(file):
-    """ Function to get style attributes of a SVG file.
-
-    Example: get_style_attributes_svg('data/svgs/logo_1.svg')
+    """ Get style attributes of an SVG.
 
     Args:
         file (str): Path of SVG file.
@@ -25,17 +23,15 @@ def get_style_attributes_svg(file):
 
 
 def get_style_attributes_path(file, animation_id, attribute):
-    """ Function to get style attributes of a specific path in a SVG file.
-
-    Example: get_style_attributes_path('data/svgs/logo_1.svg', 0, "fill")
+    """ Get style attributes of a specific path in an SVG.
 
     Args:
         file (str): Path of SVG file.
-        animation_id (int): Path ID.
+        animation_id (int): ID of element.
         attribute (str): One of the following: fill, stroke, stroke_width, opacity, stroke_opacity.
 
     Returns:
-        str: Specified attribute of the path.
+        str: Attribute of specific path.
 
     """
     styles = get_style_attributes_svg(file)
@@ -44,9 +40,7 @@ def get_style_attributes_path(file, animation_id, attribute):
 
 
 def parse_svg(file):
-    """ Function to parse a SVG file.
-
-    Example: parse_svg('svgs/Air France.svg')
+    """ Parse a SVG file.
 
     Args:
         file (str): Path of SVG file.
@@ -60,9 +54,7 @@ def parse_svg(file):
 
 
 def get_local_style_attributes(file):
-    """ Function to generate dataframe containing local style attributes of one SVG file.
-
-    Example: get_local_style_attributes('data/svgs/logo_1.svg')
+    """ Generate dataframe containing local style attributes of an SVG.
 
     Args:
         file (str): Path of SVG file.
@@ -126,9 +118,7 @@ def _get_local_style_attributes(file):
 
 
 def get_global_style_attributes(file):
-    """ Function to generate dataframe containing global style attributes of one SVG file.
-
-    Example: get_global_style_attributes('data/svgs/logo_1.svg')
+    """ Generate dataframe containing global style attributes of an SVG.
 
     Args:
         file (str): Path of SVG file.
@@ -175,9 +165,7 @@ def _get_global_style_attributes(file):
 
 
 def get_global_group_style_attributes(file):
-    """ Function to generate dataframe containing global style attributes defined through <g> tags of one SVG file.
-
-    Example: get_global_style_attributes_from_groups('data/svgs/logo_1.svg')
+    """ Generate dataframe containing global style attributes defined through <g> tags of an SVG.
 
     Args:
         file (str): Path of SVG file.
@@ -263,7 +251,7 @@ def _get_group_animation_id_matching(file):
 
 
 def combine_style_attributes(df_local, df_global, df_global_groups):
-    """ Function to combine local und global style attributes. Global attributes have priority.
+    """ Combine local und global style attributes. Global attributes have priority.
 
     Args:
         df_local (pd.DataFrame): Dataframe with local style attributes.
@@ -307,7 +295,7 @@ def _combine_columns(df, col_name):
 
 
 def transform_to_hex(rgb):
-    """ Function to transform RGB to hex.
+    """ Transform RGB to hex.
 
     Args:
         rgb (str): RGB code.

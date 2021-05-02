@@ -4,14 +4,12 @@ from svgpathtools import svg2paths
 import os
 
 
-def expand_viewbox_in_folder(old_folder, percent, new_folder="data/expanded_svgs"):
-    """ Function to expand the viewboxes of all SVGs in a folder.
-
-    Example: expand_viewbox_in_folder('data/svgs', 50, 'data/expanded_svgs')
+def expand_viewbox_in_folder(old_folder, percent=50, new_folder="data/expanded_svgs"):
+    """ Expand the viewboxes of all SVGs in a given folder.
 
     Args:
         old_folder (str): Path of folder containing all SVG files.
-        percent (int): Percentage in %: How much do we want to expand the viewbox?
+        percent (int): Percentage in %: How much do we want to expand the viewbox? Default is 50%.
         new_folder (str): Path of folder containing the expanded SVGs.
 
     """
@@ -20,22 +18,20 @@ def expand_viewbox_in_folder(old_folder, percent, new_folder="data/expanded_svgs
             expand_viewbox(old_folder + "/" + file, percent, new_folder)
 
 
-def expand_viewbox(logo, percent, new_folder):
-    """ Function to expand the viewbox for a given svg logo.
-
-    Example: expand_viewbox('data/svgs/BMW.svg', 50, 'data/expanded_svgs')
+def expand_viewbox(svg_file, percent=50, new_folder="data/expanded_svgs"):
+    """ Expand the viewbox of a given SVG.
 
     Args:
-        logo (svg): Path of SVG file.
-        percent (int): Percentage in %: How much do we want to expand the viewbox?
+        svg_file (svg): Path of SVG file.
+        percent (int): Percentage in %: How much do we want to expand the viewbox? Default is 50%.
         new_folder (str): Path of folder containing the expanded SVGs.
 
     """
     Path(new_folder).mkdir(parents=True, exist_ok=True)
-    pathelements = logo.split('/')
+    pathelements = svg_file.split('/')
     filename = pathelements[len(pathelements) - 1].replace('.svg', '')
 
-    doc = minidom.parse(logo)
+    doc = minidom.parse(svg_file)
     x, y = '', ''
     # get width and height of logo
     try:
@@ -54,7 +50,7 @@ def expand_viewbox(logo, percent, new_folder):
         try:
             # get bounding box of svg
             xmin_svg, xmax_svg, ymin_svg, ymax_svg = 0, 0, 0, 0
-            paths, attributes = svg2paths(logo)
+            paths, attributes = svg2paths(svg_file)
             for path in paths:
                 xmin, xmax, ymin, ymax = path.bbox()
                 if xmin < xmin_svg:

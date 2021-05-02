@@ -3,31 +3,29 @@ from pathlib import Path
 import os
 
 
-def insert_ids_in_folder(old_folder, new_folder="data/svgs"):
-    """ Function to add the attribute "animation_id" to all logos in a folder.
-
-    Example: insert_ids_in_folder('data/svgs_without_ID', 'data/svgs_with_ID')
+def insert_ids_in_folder(old_folder, new_folder="data/svgs_with_ID"):
+    """ Add the attribute "animation_id" to all SVGs in a given folder.
 
     Args:
-        old_folder (str): Path of folder containing all SVG files.
-        new_folder (str): Path of folder containing all SVG files with animation ID.
+        old_folder (str): Path of folder containing all SVGs without animation ID.
+        new_folder (str): Target directory where SVGs with animation ID are saved.
+
     """
     for file in os.listdir(old_folder):
         if file.endswith(".svg"):
             insert_id(old_folder + "/" + file, new_folder)
 
 
-def insert_id(logo, new_folder):
-    """ Function to add the attribute "animation_id" to all elements of a Logo.
-
-       Example: insert_id('svgs_without_ID/BMW.svg')
+def insert_id(svg_file, new_folder="data/svgs_with_ID"):
+    """ Add the attribute "animation_id" to all elements of a given SVG.
 
        Args:
-           logo (string): Path of SVG.
-       """
+           svg_file (str): Path of SVG file.
+
+    """
     Path(new_folder).mkdir(parents=True, exist_ok=True)
-    filename = logo.replace('.svg', '').split("/")[-1]
-    doc = minidom.parse(logo)
+    filename = svg_file.replace('.svg', '').split("/")[-1]
+    doc = minidom.parse(svg_file)
     # Store all elements in list
     elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
         'ellipse') + doc.getElementsByTagName('line') + doc.getElementsByTagName(

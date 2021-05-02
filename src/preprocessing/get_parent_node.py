@@ -3,15 +3,14 @@ from src.features.get_svg_size_pos import *
 
 
 def get_clip_paths(file):
-    """ Function to identify clip paths in SVG.
-
-    Example: get_clip_paths('data/svgs/logo_192.svg')
+    """ Identify clip paths in an SVG.
 
     Args:
-        file (string): Path of the SVG file.
+        file (str): Path of SVG.
 
     Returns:
         (list): Animation IDs of all paths that have a clip-path as a parent node.
+
     """
     doc = minidom.parse(file)
     # store all elements in list
@@ -26,11 +25,14 @@ def get_clip_paths(file):
 
 
 def get_background_paths(file):
-    """ Function to identify background by checking if its bbox size is nearly as big as the complete SVG
+    """ Identify background by checking if its bbox size is nearly as big as the complete SVG.
 
-    Example: get_background_paths('data/svgs/logo_1.svg')
+    Args:
+        file (str): Path of SVG.
 
-    Returns (list): Animation IDs of all background candidates
+    Returns:
+        list: Animation IDs of all background candidates.
+
     """
     doc = minidom.parse(file)
     # store all elements in list
