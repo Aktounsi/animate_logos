@@ -12,6 +12,8 @@ Data Manipulation
     :members:
 .. automodule:: src.data.sm_dataloader
     :members:
+.. automodule:: src.data.svg_scraper
+    :members:
 .. automodule:: src.data.svg_to_png
     :members:
 
