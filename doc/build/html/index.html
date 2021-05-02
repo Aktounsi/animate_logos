@@ -164,7 +164,7 @@
 <div><p>You can create animations of a SVG logo by using the following lines of code:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.pipeline</span> <span class="kn">import</span> <span class="n">Logo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">logo</span> <span class="o">=</span> <span class="n">Logo</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="s1">&#39;path/to/my/logo.svg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logo</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">nb_animations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logo</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -179,24 +179,28 @@
 
 <dl class="py method">
 <dt id="src.pipeline.Logo.print_logo_information">
-<code class="sig-name descname">print_logo_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">print_deepSVG</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.print_logo_information" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">print_logo_information</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.print_logo_information" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="src.pipeline.Logo.animate">
-<code class="sig-name descname">animate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nb_animations</span><span class="o">=</span><span class="default_value">6</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.animate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">animate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="o">=</span><span class="default_value">'all'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.animate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Automatically animates logo (currently randomly but is updated later)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>nb_animations</strong> (<em>int</em><em>, </em><em>default=6</em>) – Number of animations</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>str</em><em>, </em><em>default='all'</em>) – Chosen model for generation of animations. Should be ‘opt’ for entmoot optimization,</p></li>
+<li><p><strong>for genetic algorithm</strong> (<em>'ga'</em>) – </p></li>
+<li><p><strong>'all' if both models should be applied to generate animations</strong> (<em>or</em>) – </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.pipeline.Logo.insert_id">
-<code class="sig-name descname">insert_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.insert_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add the attribute “animation_id” to all elements in a SVG.</p>
+<dt id="src.pipeline.Logo.preprocess">
+<code class="sig-name descname">preprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">percent</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.pipeline.Logo.preprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the attribute “animation_id” to all elements in a SVG and expand/insert viewbox.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -241,9 +245,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>old_folder</strong> (<em>string</em>) – Path of folder containing all SVG files.</p></li>
+<li><p><strong>old_folder</strong> (<em>str</em>) – Path of folder containing all SVG files.</p></li>
 <li><p><strong>percent</strong> (<em>int</em>) – Percentage in %: How much do we want to expand the viewbox?</p></li>
-<li><p><strong>new_folder</strong> (<em>string</em>) – Path of folder containing the expanded SVGs.</p></li>
+<li><p><strong>new_folder</strong> (<em>str</em>) – Path of folder containing the expanded SVGs.</p></li>
 </ul>
 </dd>
 </dl>
@@ -259,7 +263,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>logo</strong> (<em>svg</em>) – Path of SVG file.</p></li>
 <li><p><strong>percent</strong> (<em>int</em>) – Percentage in %: How much do we want to expand the viewbox?</p></li>
-<li><p><strong>new_folder</strong> (<em>string</em>) – Path of folder containing the expanded SVGs.</p></li>
+<li><p><strong>new_folder</strong> (<em>str</em>) – Path of folder containing the expanded SVGs.</p></li>
 </ul>
 </dd>
 </dl>
@@ -288,13 +292,13 @@ file only considers “normal” paths.</p>
 <span class="target" id="module-src.data.insert_ids"></span><dl class="py function">
 <dt id="src.data.insert_ids.insert_ids_in_folder">
 <code class="sig-prename descclassname">src.data.insert_ids.</code><code class="sig-name descname">insert_ids_in_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_folder</span></em>, <em class="sig-param"><span class="n">new_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.insert_ids.insert_ids_in_folder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to add the attribute “animation_id” to all Logos in a folder.</p>
+<dd><p>Function to add the attribute “animation_id” to all logos in a folder.</p>
 <p>Example: insert_ids_in_folder(‘data/svgs_without_ID’, ‘data/svgs_with_ID’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>old_folder</strong> (<em>string</em>) – Path of folder containing all SVG files.</p></li>
-<li><p><strong>new_folder</strong> (<em>string</em>) – Path of folder containing all SVG files with animation ID.</p></li>
+<li><p><strong>old_folder</strong> (<em>str</em>) – Path of folder containing all SVG files.</p></li>
+<li><p><strong>new_folder</strong> (<em>str</em>) – Path of folder containing all SVG files with animation ID.</p></li>
 </ul>
 </dd>
 </dl>
@@ -330,7 +334,7 @@ file only considers “normal” paths.</p>
 
 <span class="target" id="module-src.data.sm_dataloader"></span><dl class="py class">
 <dt id="src.data.sm_dataloader.DatasetSM">
-<em class="property">class </em><code class="sig-prename descclassname">src.data.sm_dataloader.</code><code class="sig-name descname">DatasetSM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">augmented</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.data.sm_dataloader.</code><code class="sig-name descname">DatasetSM</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.data.sm_dataloader.DatasetSM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Surrogate model dataset.</p>
 <dl class="py method">
 <dt id="src.data.sm_dataloader.DatasetSM.__init__">
@@ -387,7 +391,7 @@ file only considers “normal” paths.</p>
 <h1>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-src.preprocessing.augment_data"></span><dl class="py function">
 <dt id="src.preprocessing.augment_data.augment_data">
-<code class="sig-prename descclassname">src.preprocessing.augment_data.</code><code class="sig-name descname">augment_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">nb_augmentations</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">df_dir</span><span class="o">=</span><span class="default_value">'data/data_augmentation/data_for_data_augmentation_23042021.csv'</span></em>, <em class="sig-param"><span class="n">embedding_model</span><span class="o">=</span><span class="default_value">'models/deepSVG_hierarchical_ordered.pth.tar'</span></em>, <em class="sig-param"><span class="n">pca_model</span><span class="o">=</span><span class="default_value">'models/pca_path_embedding.sav'</span></em>, <em class="sig-param"><span class="n">introduce_noise_to_animation_vectors</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.augment_data.augment_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.preprocessing.augment_data.</code><code class="sig-name descname">augment_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">nb_augmentations</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">df_dir</span><span class="o">=</span><span class="default_value">'data/model_1/model_1_train.csv'</span></em>, <em class="sig-param"><span class="n">embedding_model</span><span class="o">=</span><span class="default_value">'models/deepSVG_hierarchical_ordered.pth.tar'</span></em>, <em class="sig-param"><span class="n">pca_model</span><span class="o">=</span><span class="default_value">'models/pca_path_embedding.sav'</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.augment_data.augment_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data augmentation by randomly scaling and translating each path in an SVG.</p>
 <p>Scaling: Path is scaled by a random factor in the interval [0.8, 1.2].</p>
 <p>Translation: Path is translated by a random translation vector t where tx and ty are sampled independently in the
@@ -395,13 +399,11 @@ interval [-10, 10].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>folder</strong> (<em>string</em>) – Path of folder containing all SVGs.</p></li>
+<li><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVGs.</p></li>
 <li><p><strong>nb_augmentations</strong> (<em>int</em>) – Number of augmentations per path.</p></li>
-<li><p><strong>df_dir</strong> (<em>string</em>) – Directory of data that is augmented.</p></li>
-<li><p><strong>embedding_model</strong> (<em>string</em>) – Path of embedding model.</p></li>
-<li><p><strong>pca_model</strong> (<em>string</em>) – Path of PCA model.</p></li>
-<li><p><strong>introduce_noise_to_animation_vectors</strong> (<em>bool</em>) – If true, random noise is added to animation vectors to introduce
-more variance to data and increase model stability.</p></li>
+<li><p><strong>df_dir</strong> (<em>str</em>) – Directory of data that is augmented.</p></li>
+<li><p><strong>embedding_model</strong> (<em>str</em>) – Path of embedding model.</p></li>
+<li><p><strong>pca_model</strong> (<em>str</em>) – Path of PCA model.</p></li>
 <li><p><strong>seed</strong> (<em>int</em>) – Random seed.</p></li>
 <li><p><strong>save</strong> (<em>bool</em>) – If true, resulting dataframe is saved.</p></li>
 </ul>
@@ -410,7 +412,7 @@ more variance to data and increase model stability.</p></li>
 <dd class="field-even"><p>Dataframe containing metadata of SVGs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -418,33 +420,70 @@ more variance to data and increase model stability.</p></li>
 <span class="target" id="module-src.preprocessing.create_svg_embedding"></span><dl class="py function">
 <dt id="src.preprocessing.create_svg_embedding.encode_svg">
 <code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">encode_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">split_paths</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.encode_svg" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Function to get embedding of given SVG.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>string</em>) – SVG filename.</p></li>
-<li><p><strong>data_folder</strong> (<em>string</em>) – Path of folder containing all SVGs.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – SVG filename.</p></li>
+<li><p><strong>data_folder</strong> (<em>str</em>) – If data_folder=”data/svgs”, SVG embeddings are returned.
+If data_folder=”data/decomposed_svgs”, path embeddings are returned.</p></li>
 <li><p><strong>split_paths</strong> (<em>bool</em>) – If true, additional preprocessing step is carried out, where paths consisting of multiple
-paths are is split into multiple paths.</p></li>
+paths are split into multiple paths.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>SVG embedding.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(tensor)</p>
+<dd class="field-odd"><p>torch.Tensor</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocessing.create_svg_embedding.decode_z">
-<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">decode_z</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">do_display</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_svg</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_png</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.decode_z" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">decode_z</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">do_display</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_svg</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.decode_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to decode given SVG embedding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<em>str</em>) – SVG embedding.</p></li>
+<li><p><strong>data_folder</strong> (<em>str</em>) – Path of folder containing all SVGs.</p></li>
+<li><p><strong>do_display</strong> (<em>bool</em>) – If true, SVG is displayed.</p></li>
+<li><p><strong>return_svg</strong> (<em>bool</em>) – If true, SVG is returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decoded SVG embedding.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>deepsvg.svglib.svg.SVG</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocessing.create_svg_embedding.apply_embedding_model_to_svgs">
-<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">apply_embedding_model_to_svgs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">split_paths</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.apply_embedding_model_to_svgs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">src.preprocessing.create_svg_embedding.</code><code class="sig-name descname">apply_embedding_model_to_svgs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_folder</span><span class="o">=</span><span class="default_value">'data/svgs'</span></em>, <em class="sig-param"><span class="n">split_paths</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.create_svg_embedding.apply_embedding_model_to_svgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get embeddings of all SVGs in a given folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_folder</strong> (<em>str</em>) – If data_folder=”data/svgs”, SVG embeddings are returned.
+If data_folder=”data/decomposed_svgs”, path embeddings are returned.</p></li>
+<li><p><strong>split_paths</strong> (<em>bool</em>) – If true, additional preprocessing step is carried out, where paths consisting of multiple
+paths are split into multiple paths.</p></li>
+<li><p><strong>save</strong> (<em>bool</em>) – If true, SVG embedding is saved as pd.DataFrame in folder data/embeddings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe containing filename, animation_id (if data_folder=”decomposed_svgs”) and embedding.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="module-src.preprocessing.decompose_logo"></span><dl class="py function">
 <dt id="src.preprocessing.decompose_logo.decompose_logos_in_folder">
@@ -453,7 +492,7 @@ paths are is split into multiple paths.</p></li>
 <p>Example: decompose_logos_in_folder(‘data/svgs’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – The path of folder with all SVGs that need to be decomposed.</p>
+<dd class="field-odd"><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVGs that need to be decomposed.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -465,7 +504,7 @@ paths are is split into multiple paths.</p></li>
 <p>Example: decompose_logo(‘data/svgs/Air France.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file that needs to be decomposed.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file that needs to be decomposed.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -582,7 +621,7 @@ by the kept PCs.</p></li>
 <dd class="field-even"><p>Dataframe which contains path vectors that can be used as model input.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -603,10 +642,10 @@ by the kept PCs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dimension-reduced path embeddings (pd.DataFrame) and fitted PCA model (object)</p>
+<dd class="field-even"><p>Dimension-reduced path embeddings, fitted PCA model</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(tuple)</p>
+<dd class="field-odd"><p>pd.DataFrame, object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -618,13 +657,13 @@ by the kept PCs.</p></li>
 <p>Example: get_style_attributes_svg(‘data/svgs/logo_1.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe containing the attributes of each path.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -637,16 +676,16 @@ by the kept PCs.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p></li>
 <li><p><strong>animation_id</strong> (<em>int</em>) – Path ID.</p></li>
-<li><p><strong>attribute</strong> (<em>string</em>) – One of the following: fill, stroke, stroke_width, opacity, stroke_opacity</p></li>
+<li><p><strong>attribute</strong> (<em>str</em>) – One of the following: fill, stroke, stroke_width, opacity, stroke_opacity.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Specified attribute of the path.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(string)</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -658,13 +697,13 @@ by the kept PCs.</p></li>
 <p>Example: parse_svg(‘svgs/Air France.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List of path objects and list of dictionaries containing the attributes of each path.</p>
+<dd class="field-even"><p>List of path objects, list of dictionaries containing the attributes of each path.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>paths, attrs (list, list)</p>
+<dd class="field-odd"><p>list, list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -676,13 +715,13 @@ by the kept PCs.</p></li>
 <p>Example: get_local_style_attributes(‘data/svgs/logo_1.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -694,13 +733,13 @@ by the kept PCs.</p></li>
 <p>Example: get_global_style_attributes(‘data/svgs/logo_1.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -712,13 +751,13 @@ by the kept PCs.</p></li>
 <p>Example: get_global_style_attributes_from_groups(‘data/svgs/logo_1.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+<dd class="field-even"><p>Dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -739,7 +778,7 @@ by the kept PCs.</p></li>
 <dd class="field-even"><p>Dataframe with all style attributes.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -750,13 +789,13 @@ by the kept PCs.</p></li>
 <dd><p>Function to transform RGB to hex.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rgb</strong> (<em>string</em>) – RGB code.</p>
+<dd class="field-odd"><p><strong>rgb</strong> (<em>str</em>) – RGB code.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Hex code.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(string)</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -768,13 +807,13 @@ by the kept PCs.</p></li>
 <p>Example: get_style_attributes_folder(‘data/svgs’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – Path of folder containing all SVGs.</p>
+<dd class="field-odd"><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVGs.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe containing the attributes of each path of all SVGs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -789,11 +828,10 @@ by the kept PCs.</p></li>
 <dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List of path objects.
-attrs (list): List of dictionaries containing the attributes of each path.</p>
+<dd class="field-even"><p>List of path objects, list of dictionaries containing the attributes of each path.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>paths (list)</p>
+<dd class="field-odd"><p>list, list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -805,13 +843,13 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <p>Example: get_local_style_attributes(‘data/svgs’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – Path of folder containing all SVG files.</p>
+<dd class="field-odd"><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVG files.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe containing filename, animation_id, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -829,7 +867,7 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <dd class="field-even"><p>Dataframe containing filename, class, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -841,13 +879,13 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <p>Example: get_global_style_attributes_from_groups(‘data/svgs’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – Path of folder containing all SVG file.</p>
+<dd class="field-odd"><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
+<dd class="field-even"><p>Dataframe containing filename, href, animation_id, fill, stroke, stroke_width, opacity, stroke_opacity.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -855,7 +893,20 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <span class="target" id="module-src.features.get_svg_color_tendency"></span><dl class="py function">
 <dt id="src.features.get_svg_color_tendency.get_svg_color_tendencies">
 <code class="sig-prename descclassname">src.features.get_svg_color_tendency.</code><code class="sig-name descname">get_svg_color_tendencies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_color_tendency.get_svg_color_tendencies" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Function to get two most frequent colors in SVG file. Black and white is excluded.</p>
+<p>Example: get_svg_color_tendencies(‘data/svgs/logo_1.svg’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of two most frequent colors in SVG file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="module-src.features.get_svg_size_pos"></span><dl class="py function">
 <dt id="src.features.get_svg_size_pos.get_svg_size">
@@ -864,13 +915,13 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <p>Example: get_svg_size(‘data/svgs/logo_1.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Size of SVG file.</p>
+<dd class="field-even"><p>Width and height of SVG file.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>width, height (float, float)</p>
+<dd class="field-odd"><p>float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -882,13 +933,13 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <p>Example: get_svg_bbox(‘data/svgs/logo_1.svg’)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Bounding box of SVG.</p>
+<dd class="field-even"><p>Bounding box of SVG (xmin, xmax, ymin, ymax).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xmin, xmax, ymin, ymax (float, float, float, float)</p>
+<dd class="field-odd"><p>float, float, float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -896,24 +947,22 @@ attrs (list): List of dictionaries containing the attributes of each path.</p>
 <dl class="py function">
 <dt id="src.features.get_svg_size_pos.get_path_bbox">
 <code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_path_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_path_bbox" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Function to get bbox of a path in a SVG file.</dt><dd><p>xmin, ymin: upper left corner
-xmax, ymax: lower right corner</p>
-</dd>
-</dl>
+<dd><p>Function to get bbox of a path in a SVG file.</p>
+<p>xmin, ymin: Upper left corner.
+xmax, ymax: Lower right corner.</p>
 <p>Example: get_path_bbox(‘data/svgs/logo_1.svg’, 1)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – Path of SVG file.</p></li>
 <li><p><strong>animation_id</strong> (<em>int</em>) – Path ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Bounding box of path.</p>
+<dd class="field-even"><p>Bounding box of path (xmin, xmax, ymin, ymax).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xmin, xmax, ymin, ymax (float, float, float, float)</p>
+<dd class="field-odd"><p>float, float, float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -922,7 +971,7 @@ xmax, ymax: lower right corner</p>
 <dt id="src.features.get_svg_size_pos.get_midpoint_of_path_bbox">
 <code class="sig-prename descclassname">src.features.get_svg_size_pos.</code><code class="sig-name descname">get_midpoint_of_path_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">animation_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.get_svg_size_pos.get_midpoint_of_path_bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to get midpoint of bounding box of path.</p>
-<p>Example: get_midpoint_of_path_bbox(‘svgs/Air France.svg’, 1)</p>
+<p>Example: get_midpoint_of_path_bbox(‘data/svgs/logo_1.svg’, 1)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -931,10 +980,10 @@ xmax, ymax: lower right corner</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Midpoint of bounding box of path</p>
+<dd class="field-even"><p>Midpoint of bounding box of path (x_midpoint, y_midpoint).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>x_midpoint, y_midpoint (float, float)</p>
+<dd class="field-odd"><p>float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -952,10 +1001,10 @@ xmax, ymax: lower right corner</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Bounding box of given paths.</p>
+<dd class="field-even"><p>Bounding box of given paths (xmin, xmax, ymin, ymax).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xmin, xmax, ymin, ymax (float, float, float, float)</p>
+<dd class="field-odd"><p>float, float, float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -973,10 +1022,10 @@ xmax, ymax: lower right corner</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Relative position of path.</p>
+<dd class="field-even"><p>Relative x- and y-position of path.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>rel_x_position, rel_y_position (float, float)</p>
+<dd class="field-odd"><p>float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -995,10 +1044,10 @@ xmax, ymax: lower right corner</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Relative position of path to bounding box of all animated paths.</p>
+<dd class="field-even"><p>Relative x- and y-position of path to bounding box of all animated paths.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>rel_x_position, rel_y_position (float, float)</p>
+<dd class="field-odd"><p>float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1016,10 +1065,10 @@ xmax, ymax: lower right corner</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Relative size of path.</p>
+<dd class="field-even"><p>Relative width and height of path.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>rel_width, rel_height (float, float)</p>
+<dd class="field-odd"><p>float, float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1039,10 +1088,10 @@ xmax, ymax: lower right corner</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Begin values of animation ids</p>
+<dd class="field-even"><p>Begin values of animation ids.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(list)</p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1059,7 +1108,35 @@ xmax, ymax: lower right corner</p>
 <span class="target" id="module-src.models.coral_loss"></span><dl class="py function">
 <dt id="src.models.coral_loss.coral_loss">
 <code class="sig-prename descclassname">src.models.coral_loss.</code><code class="sig-name descname">coral_loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logits</span></em>, <em class="sig-param"><span class="n">levels</span></em>, <em class="sig-param"><span class="n">importance_weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'mean'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.coral_loss.coral_loss" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the CORAL loss described in
+Cao, Mirjalili, and Raschka (2020)
+<a href="#id1"><span class="problematic" id="id2">*</span></a>Rank Consistent Ordinal Regression for Neural Networks</p>
+<blockquote>
+<div><p>with Application to Age Estimation*</p>
+</div></blockquote>
+<p>Pattern Recognition Letters, <a class="reference external" href="https://doi.org/10.1016/j.patrec.2020.11.008">https://doi.org/10.1016/j.patrec.2020.11.008</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>logits</strong> (<em>torch.Tensor</em>) – Outputs of the CORAL layer (shape: (num_examples, num_classes-1)).</p></li>
+<li><p><strong>levels</strong> (<em>torch.Tensor</em>) – True labels represented as extended binary vectors (shape: (num_examples, num_classes-1)).</p></li>
+<li><p><strong>importance_weights</strong> (<em>torch.Tensor</em>) – Optional weights for the different labels in levels (shape: (num_classes-1,)).</p></li>
+<li><p><strong>reduction</strong> (<em>str</em>) – If ‘mean’ or ‘sum’, returns the averaged or summed loss value across</p></li>
+<li><p><strong>data points</strong> (<em>all</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A torch.tensor containing a single loss value (if <cite>reduction=’mean’</cite> or ‘<cite>sum’</cite>)</dt><dd><p>or a loss value for each data record (if <cite>reduction=None</cite>).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="module-src.models.genetic_algorithm"></span><dl class="py function">
 <dt id="src.models.genetic_algorithm.init_weights">
@@ -1114,17 +1191,27 @@ xmax, ymax: lower right corner</p>
 
 <dl class="py function">
 <dt id="src.models.train_animation_predictor.retrieve_animation_midpoints">
-<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">retrieve_animation_midpoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_data</span></em>, <em class="sig-param"><span class="n">drop</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.retrieve_animation_midpoints" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">retrieve_animation_midpoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_data</span></em>, <em class="sig-param"><span class="n">data_dir</span><span class="o">=</span><span class="default_value">'data/initial_svgs'</span></em>, <em class="sig-param"><span class="n">drop</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.retrieve_animation_midpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.train_animation_predictor.save_predictions">
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">save_predictions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">agents</span></em>, <em class="sig-param"><span class="n">test_paths</span></em>, <em class="sig-param"><span class="n">rewards</span></em>, <em class="sig-param"><span class="n">predictions</span></em>, <em class="sig-param"><span class="n">sorted_indices</span></em>, <em class="sig-param"><span class="n">generation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.save_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.models.train_animation_predictor.get_n_types">
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">get_n_types</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.get_n_types" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="src.models.train_animation_predictor.train_animation_predictor">
-<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">train_animation_predictor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_vectors</span></em>, <em class="sig-param"><span class="n">hidden_sizes</span><span class="o">=</span><span class="default_value">[15, 20]</span></em>, <em class="sig-param"><span class="n">out_size</span><span class="o">=</span><span class="default_value">[6, 6]</span></em>, <em class="sig-param"><span class="n">num_agents</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">top_parent_limit</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">generations</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.train_animation_predictor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">train_animation_predictor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_paths</span></em>, <em class="sig-param"><span class="n">test_paths</span></em>, <em class="sig-param"><span class="n">hidden_sizes</span><span class="o">=</span><span class="default_value">[15, 20]</span></em>, <em class="sig-param"><span class="n">out_size</span><span class="o">=</span><span class="default_value">[6, 6]</span></em>, <em class="sig-param"><span class="n">num_agents</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">top_parent_limit</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">generations</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">min_n_types</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.train_animation_predictor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="src.models.train_animation_predictor.main">
-<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_path</span><span class="o">=</span><span class="default_value">'data/model_1/model_1_train.csv'</span></em>, <em class="sig-param"><span class="n">drop</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">num_agents</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">top_parent_limit</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">generations</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.models.train_animation_predictor.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_path</span><span class="o">=</span><span class="default_value">'data/model_1/model_1_train.csv'</span></em>, <em class="sig-param"><span class="n">test_path</span><span class="o">=</span><span class="default_value">'data/model_1/model_1_test.csv'</span></em>, <em class="sig-param"><span class="n">drop</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">num_agents</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">top_parent_limit</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">generations</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">model1</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_animation_predictor.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1137,17 +1224,18 @@ xmax, ymax: lower right corner</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>folder</strong> (<em>string</em>) – Path of folder containing all SVG files.</p></li>
-<li><p><strong>nb_animations</strong> (<em>int</em>) – Number of random animations per logo.</p></li>
-<li><p><strong>split_df</strong> (<em>boolean</em>) – If true, animation vectors are saved to multiple dataframes (one dataframe per logo).
+<li><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVG files.</p></li>
+<li><p><strong>nb_animations</strong> (<em>int</em>) – Number of random animations per SVG file.</p></li>
+<li><p><strong>split_df</strong> (<em>bool</em>) – If true, animation vectors are saved to multiple dataframes (one dataframe per logo).
 If false, animation vectors are saved to one dataframe and returned.</p></li>
+<li><p><strong>very_random</strong> (<em>bool</em>) – If true, random seed is shuffled.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe containing all animation vectors.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1156,12 +1244,30 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dt id="src.animations.create_random_animations.create_multiple_df">
 <code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_multiple_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">nb_animations</span></em>, <em class="sig-param"><span class="n">very_random</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_multiple_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create random animations. Animation vectors are saved to one dataframe per logo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVG files.</p></li>
+<li><p><strong>nb_animations</strong> (<em>int</em>) – Number of random animations per SVG file.</p></li>
+<li><p><strong>very_random</strong> (<em>bool</em>) – If true, random seed is shuffled.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.create_random_animations.create_one_df">
 <code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_one_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">nb_animations</span></em>, <em class="sig-param"><span class="n">very_random</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_one_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create random animations. Animation vectors are saved to one dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<em>str</em>) – Path of folder containing all SVG files.</p></li>
+<li><p><strong>nb_animations</strong> (<em>int</em>) – Number of random animations per SVG file.</p></li>
+<li><p><strong>very_random</strong> (<em>bool</em>) – If true, random seed is shuffled.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1169,22 +1275,22 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">random_animation_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nr_animations</span></em>, <em class="sig-param"><span class="n">path_probs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">animation_type_prob</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">73</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.random_animation_vector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to generate random animation vectors.</p>
 <p>Format of vectors: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)</p>
-<p>Note: nr_animations must match length of path_probs</p>
+<p>Note: nr_animations must match length of path_probs.</p>
 <p>Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nr_animations</strong> (<em>int</em>) – Number of animation vectors that are generated</p></li>
-<li><p><strong>path_probs</strong> (<em>list</em>) – Specifies how likely it is that a path gets animated</p></li>
-<li><p><strong>animation_type_prob</strong> (<em>list</em>) – Specifies probabilities of animation types (default=uniform)</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Random seed</p></li>
+<li><p><strong>nr_animations</strong> (<em>int</em>) – Number of animation vectors that are generated.</p></li>
+<li><p><strong>path_probs</strong> (<em>list</em>) – Specifies how likely it is that a path gets animated.</p></li>
+<li><p><strong>animation_type_prob</strong> (<em>list</em><em>, </em><em>default=uniform</em>) – Specifies probabilities of animation types.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Array of 11 dimensional random animation vectors; List of IDs that were animated</p>
+<dd class="field-even"><p>Array of 11 dimensional random animation vectors, list of IDs that were animated.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.array(vec_list), animated_order_ids (ndarray, list)</p>
+<dd class="field-odd"><p>ndarray, list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1192,12 +1298,36 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="py function">
 <dt id="src.animations.create_random_animations.combine_dataframes">
 <code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">combine_dataframes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.combine_dataframes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Function to combine all dataframes saved as pkl in a given folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>str</em>) – Path of folder containing dataframes.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Concatenated dataframe.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.create_random_animations.create_backend_mapping_df">
 <code class="sig-prename descclassname">src.animations.create_random_animations.</code><code class="sig-name descname">create_backend_mapping_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.create_random_animations.create_backend_mapping_df" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Function to create backend mapping for labeling website.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Unprocessed dataframe containing backend mapping.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed dataframe containing backend mapping.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="module-src.animations.get_path_probabilities"></span><dl class="py function">
 <dt id="src.animations.get_path_probabilities.get_path_probabilities">
@@ -1206,13 +1336,18 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>string</em>) – Name of SVG</p></li>
-<li><p><strong>animation_ids</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – List of animation IDs</p></li>
-<li><p><strong>pkl_file</strong> (<em>string</em>) – Path of pkl file which contains path labeling</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – SVG filename.</p></li>
+<li><p><strong>animation_ids</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – List of animation IDs.</p></li>
+<li><p><strong>pkl_file</strong> (<em>str</em>) – Path of pkl file which contains path labeling.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of probabilities.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(float)</p>
+</dd>
 </dl>
-<p>Returns (list(float)): List of probabilities</p>
 </dd></dl>
 
 <span class="target" id="module-src.animations.insert_animation"></span><dl class="py function">
@@ -1222,17 +1357,17 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p></li>
-<li><p><strong>animation_ids</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – List of Path IDs that get animated</p></li>
-<li><p><strong>model_output</strong> (<em>ndarray</em>) – Array of 13 dimensional arrays with animation predictor model output</p></li>
-<li><p><strong>filename_suffix</strong> (<em>string</em>) – Suffix of animated SVG</p></li>
+<li><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p></li>
+<li><p><strong>animation_ids</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – List of Path IDs that get animated.</p></li>
+<li><p><strong>model_output</strong> (<em>ndarray</em>) – Array of 13 dimensional arrays with animation predictor model output.</p></li>
+<li><p><strong>filename_suffix</strong> (<em>str</em>) – Suffix of animated SVG.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>List of begin values of animation IDs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(list(float))</p>
+<dd class="field-odd"><p>list(float)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1243,13 +1378,13 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dd><p>Function to parse a SVG file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the SVG file</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – Path of SVG file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Parsed file</p>
+<dd class="field-even"><p>Parsed file.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(xml.dom.minidom.Document)</p>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1261,8 +1396,8 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file</p></li>
-<li><p><strong>filename</strong> (<em>string</em>) – Name of output file</p></li>
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – Name of output file.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1272,36 +1407,126 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dt id="src.animations.insert_animation.insert_translate_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_translate_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_translate_statement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert translate statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>model_output_dict</strong> (<em>dict</em>) – Dictionary containing animation statement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.insert_animation.insert_scale_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_scale_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em>, <em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_scale_statement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert scale statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>model_output_dict</strong> (<em>dict</em>) – Dictionary containing animation statement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.insert_animation.insert_rotate_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_rotate_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_rotate_statement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert rotate statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>model_output_dict</strong> (<em>dict</em>) – Dictionary containing animation statement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.insert_animation.insert_skew_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_skew_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_skew_statement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert skew statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>model_output_dict</strong> (<em>dict</em>) – Dictionary containing animation statement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.insert_animation.insert_fill_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_fill_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_fill_statement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert fill statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>model_output_dict</strong> (<em>dict</em>) – Dictionary containing animation statement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.animations.insert_animation.insert_opacity_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">insert_opacity_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc</span></em>, <em class="sig-param"><span class="n">animation_id</span></em>, <em class="sig-param"><span class="n">model_output_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.insert_opacity_statement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to insert opacity statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>model_output_dict</strong> (<em>dict</em>) – Dictionary containing animation statement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsed file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1311,17 +1536,17 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file</p></li>
-<li><p><strong>animation_id</strong> (<em>int</em>) – Id of the element that gets animated</p></li>
-<li><p><strong>animation</strong> (<em>string</em>) – Animation that needs to be inserted</p></li>
-<li><p><strong>pre_animations</strong> (<em>list</em>) – List of animations that needs to be inserted before actual animation</p></li>
+<li><p><strong>doc</strong> (<em>xml.dom.minidom.Document</em>) – Parsed file.</p></li>
+<li><p><strong>animation_id</strong> (<em>int</em>) – ID of element that gets animated.</p></li>
+<li><p><strong>animation</strong> (<em>string</em>) – Animation that needs to be inserted.</p></li>
+<li><p><strong>pre_animations</strong> (<em>list</em>) – List of animations that needs to be inserted before actual animation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Parsed file</p>
+<dd class="field-even"><p>Parsed file.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(xml.dom.minidom.Document)</p>
+<dd class="field-odd"><p>xml.dom.minidom.Document</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1329,16 +1554,16 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="py function">
 <dt id="src.animations.insert_animation.create_animation_statement">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_animation_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">animation_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_animation_statement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to set up animation statement from a dictionary</p>
+<dd><p>Function to set up animation statement from a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>animation_dict</strong> (<em>dict</em>) – Dictionary that is transformed into animation statement</p>
+<dd class="field-odd"><p><strong>animation_dict</strong> (<em>dict</em>) – Dictionary that is transformed into animation statement.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Animation statement.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(string)</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1346,16 +1571,16 @@ If false, animation vectors are saved to one dataframe and returned.</p></li>
 <dl class="py function">
 <dt id="src.animations.insert_animation.create_opacity_pre_animation_dicts">
 <code class="sig-prename descclassname">src.animations.insert_animation.</code><code class="sig-name descname">create_opacity_pre_animation_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">animation_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.animations.insert_animation.create_opacity_pre_animation_dicts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to set up pre_animation statements</p>
+<dd><p>Function to set up pre_animation statements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>animation_dict</strong> (<em>dict</em>) – Dictionary from animation that is needed to set up opacity pre-animations</p>
+<dd class="field-odd"><p><strong>animation_dict</strong> (<em>dict</em>) – Dictionary from animation that is needed to set up opacity pre-animations.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Animate Statement</p>
+<dd class="field-even"><p>Animation Statement.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(string)</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1376,10 +1601,10 @@ the last 6 determine the attribute from</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>animation statement as dictionary</p>
+<dd class="field-even"><p>Animation statement as dictionary.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(dict)</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
