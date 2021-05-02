@@ -161,11 +161,6 @@ class Logo:
 
         """
         if 'preprocessed' not in self.data_dir:
-            # Insert animation_id
-            elements = self._store_svg_elements(self.parsed_doc)
-            for i in range(len(elements)):
-                elements[i].setAttribute('animation_id', str(i))
-
             # Expand/insert viewbox
             x, y = '', ''
             # get width and height of logo
@@ -218,6 +213,11 @@ class Logo:
             y_translate = - y * percent / 200
             coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(v4 + y_new)
             self.parsed_doc.getElementsByTagName('svg')[0].setAttribute('viewBox', coordinates)
+
+            # Insert animation_id
+            elements = self._store_svg_elements(self.parsed_doc)
+            for i in range(len(elements)):
+                elements[i].setAttribute('animation_id', str(i))
 
             # create new file and update data_dir
             textfile = open(f"{self.data_dir.replace('.svg', '')}_preprocessed.svg", 'wb')
