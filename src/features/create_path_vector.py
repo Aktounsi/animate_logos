@@ -16,7 +16,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 def create_path_vectors(svg_folder, emb_file_path=None, fitted_pca=None, new_dim=10, use_ppa=False,
                         style=True, size=True, position=True, nr_commands=True, nr_paths_svg=True,
                         avg_cols_svg=None, avg_diff=True, train=True):
-    """ Creates path-level model input vectors from a given folder of SVG files.
+    """ Create path-level model input vectors from a given folder of SVGs.
 
     Args:
         svg_folder (str): Path of folder containing all SVGs.

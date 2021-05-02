@@ -36,7 +36,7 @@ def encode_svg(filename, data_folder="data/svgs", split_paths=True):
     """ Get embedding of given SVG.
 
     Args:
-        filename (str): SVG filename.
+        filename (str): Path of SVG.
         data_folder (str): If data_folder="data/svgs", SVG embeddings are returned.
                             If data_folder="data/decomposed_svgs", path embeddings are returned.
         split_paths (bool): If true, additional preprocessing step is carried out, where paths consisting of multiple

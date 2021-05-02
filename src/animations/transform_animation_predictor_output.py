@@ -4,20 +4,19 @@ from src.features.get_svg_color_tendency import get_svg_color_tendencies
 
 
 def transform_animation_predictor_output(file, animation_id, output):
-    """ Function to translate the numeric model output to animation commands
-
-    Format of output: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
+    """ Function to translate the numeric model output to animation commands.
 
     Example: transform_animation_predictor_output("data/svgs/logo_1.svg", 0, [0,0,1,0,0,0,-1,-1,-1,0.42,-1,-1])
 
     Args:
-        file (string): Name of logo that gets animated
-        animation_id (int): ID of the path in the SVG that gets animated
+        file (str): Path of SVG file.
+        animation_id (int): ID of element in SVG that gets animated.
         output (list): 12-dimensional list of numeric values of which first 6 determine the animation to be used and
-                        the last 6 determine the attribute from
+                        the last 6 determine the attribute from. Format: [translate, scale, rotate, skew, fill, opacity, translate_from_1, translate_from_2, scale_from, rotate_from, skew_from_1, skew_from_2].
 
     Returns:
         dict: Animation statement as dictionary.
+
     """
     animation = {}
     width, height = get_svg_size(file)

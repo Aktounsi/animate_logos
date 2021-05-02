@@ -7,18 +7,17 @@ from src.preprocessing.deepsvg.svglib.svg import SVG
 
 
 def get_svg_meta_data(data_folder="data/svgs"):
-    """ Function to get meta data of SVGs.
-
-    Example: get_svg_meta_data(data_folder="data/svgs")
+    """ Get meta data of all SVGs in a given folder.
 
     Note: There are some elements (like text tags or matrices or clip paths) that can't be processed here. The meta
-    file only considers "normal" paths.
+    file only considers "normal" elements.
 
     Args:
-        data_folder (string): Path of the folder containing all SVGs.
+        data_folder (str): Path of the folder containing all SVGs.
 
     Returns:
-        (pd.DataFrame): Dataframe containing metadata of SVGs.
+        pd.DataFrame: Dataframe containing metadata of SVGs.
+
     """
     with futures.ThreadPoolExecutor(max_workers=-1) as executor:
         svg_files = glob.glob(os.path.join(data_folder, "*.svg"))
