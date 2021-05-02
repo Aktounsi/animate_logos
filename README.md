@@ -12,4 +12,4 @@ logo.animate()
 
 ## Documentation and Usage
 
-Detailed documentation and usage instructions can be found in the [documentation](https://animate-logos.readthedocs.io/en/latest/).
+Detailed documentation and usage instructions can be found [here](https://animate-logos.readthedocs.io/en/latest/).
