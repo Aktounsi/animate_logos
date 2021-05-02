@@ -17,10 +17,9 @@ from src.features import get_svg_bbox, get_relative_path_pos, get_midpoint_of_pa
 
 def augment_data(folder='data/svgs',
                  nb_augmentations=2,
-                 df_dir='data/data_augmentation/data_for_data_augmentation_23042021.csv',
+                 df_dir='data/model_1/model_1_train.csv',
                  embedding_model='models/deepSVG_hierarchical_ordered.pth.tar',
                  pca_model='models/pca_path_embedding.sav',
-                 introduce_noise_to_animation_vectors=False,
                  seed=None,
                  save=True):
     """ Data augmentation by randomly scaling and translating each path in an SVG.
@@ -36,8 +35,6 @@ def augment_data(folder='data/svgs',
         df_dir (str): Directory of data that is augmented.
         embedding_model (str): Path of embedding model.
         pca_model (str): Path of PCA model.
-        introduce_noise_to_animation_vectors (bool): If true, random noise is added to animation vectors to introduce
-                                                    more variance to data and increase model stability.
         seed (int): Random seed.
         save (bool): If true, resulting dataframe is saved.
 
@@ -84,33 +81,25 @@ def augment_data(folder='data/svgs',
     df_full['rel_x_position'] = df_full.apply(lambda row: row['translation_factor_x'] * row['rel_x_position'], axis=1)
     df_full['rel_y_position'] = df_full.apply(lambda row: row['translation_factor_y'] * row['rel_y_position'], axis=1)
 
-    df_full['rel_x_position_to_animations'] = df_full.apply(lambda row: row['translation_factor_x'] * row['rel_x_position_to_animations'], axis=1)
-    df_full['rel_y_position_to_animations'] = df_full.apply(lambda row: row['translation_factor_y'] * row['rel_y_position_to_animations'], axis=1)
-
-    #df_full.drop(['filename', 'animation_id', 'nb_augmentation', 'translate_x', 'translate_y', 'scale',
-                  #'translation_factor', 'translation_factor_x', 'translation_factor_y'], axis=1)
-
     df_full.drop(['translate_x', 'translate_y', 'scale', 'translation_factor', 'translation_factor_x', 'translation_factor_y'], axis=1)
 
     # Introduce noise to animation vectors for model stability
-    if introduce_noise_to_animation_vectors:
-        for i in range(6, 12):
-            df_full[f'an_vec_{i}'] = df_full[f'an_vec_{i}'].apply(
-                lambda row: row + (0.2 * random.random() - 0.1) if 0.1 < row < 0.9 else row)
+    #if introduce_noise_to_animation_vectors:
+    #    for i in range(6, 12):
+    #        df_full[f'an_vec_{i}'] = df_full[f'an_vec_{i}'].apply(
+    #            lambda row: row + (0.2 * random.random() - 0.1) if 0.1 < row < 0.9 else row)
 
     col_order = ['filename', 'animation_id', 'nb_augmentation'] \
-                + [f'an_vec_{i}' for i in range(12)] \
                 + [f'emb_{i}' for i in range(10)] \
                 + ['fill_r', 'fill_g', 'fill_b', 'svg_fill_r', 'svg_fill_g', 'svg_fill_b',
                    'diff_fill_r', 'diff_fill_g', 'diff_fill_b', 'rel_height', 'rel_width',
-                   'rel_x_position', 'rel_y_position', 'rel_x_position_to_animations', 'rel_y_position_to_animations',
-                   'nr_paths_svg', 'rating_0', 'rating_1', 'rating_2', 'rating_3']
+                   'rel_x_position', 'rel_y_position', 'nr_paths_svg']
 
     df_full = df_full[col_order]
 
     if save:
         date_time = datetime.now().strftime('%H%M')
-        df_full.to_csv(f'data/data_augmentation/sm_train_nb_augmentations_{nb_augmentations}_{date_time}.csv', index=False)
+        df_full.to_csv(f'data/model_1/model_1_train_nb_augmentations_{nb_augmentations}_{date_time}.csv', index=False)
 
     return df_full
 
@@ -274,5 +263,4 @@ if __name__ == '__main__':
     os.chdir('../..')
     df = augment_data(folder='data/augment_svgs',
                       nb_augmentations=2,
-                      introduce_noise_to_animation_vectors=True,
                       save=True)
