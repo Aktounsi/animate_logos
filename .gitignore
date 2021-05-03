@@ -82,7 +82,7 @@ target/
 /data/path_selection
 /data/PNG_selected_paths_expanded
 /data/svgs
-data/uploads
+/data/uploads
 
 
 # Mac OS-specific storage files
