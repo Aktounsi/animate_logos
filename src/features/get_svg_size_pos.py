@@ -15,12 +15,14 @@ def get_svg_size(file):
     doc = minidom.parse(file)
     width = doc.getElementsByTagName('svg')[0].getAttribute('width')
     height = doc.getElementsByTagName('svg')[0].getAttribute('height')
+
     if width != "" and height != "":
         if not width[-1].isdigit():
             width = width.replace('px', '').replace('pt', '')
         if not height[-1].isdigit():
             height = height.replace('px', '').replace('pt', '')
-    else:
+
+    if width == "" or height == "" or not width[-1].isdigit() or not height[-1].isdigit():
         # get bounding box of svg
         xmin_svg, xmax_svg, ymin_svg, ymax_svg = 100, -100, 100, -100
         paths, _ = svg2paths(file)

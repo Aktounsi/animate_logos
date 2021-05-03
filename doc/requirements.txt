@@ -1,4 +1,0 @@
-recommonmark
-sphinx>=3.3.0
-sphinx_rtd_theme
-sphinx-markdown-builder
