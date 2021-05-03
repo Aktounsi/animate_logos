@@ -1,6 +1,6 @@
 """
 Feature Generation
-=================
+==================
 
 .. automodule:: src.features.create_path_vector
     :members:

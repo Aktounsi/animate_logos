@@ -1,6 +1,6 @@
 """
 Data Preprocessing
-=================
+==================
 
 .. automodule:: src.preprocessing.augment_data
     :members:
