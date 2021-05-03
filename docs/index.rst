@@ -6,7 +6,8 @@
 .. include:: ../README.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :caption: Content
 
    source/src.pipeline
    source/src.data
