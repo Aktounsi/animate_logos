@@ -5,14 +5,12 @@
    
 .. include:: ../README.rst
 
-Welcome to animate_logos's documentation!
-=========================================
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
    
    source/modules
+   src.animations
 
 
 
