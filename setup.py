@@ -35,5 +35,6 @@ setup(
         "wheel~=0.36.2",
         "flask~=1.1.2",
         "gurobipy",
+        "SPARQLWrapper",
     ]
 )

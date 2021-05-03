@@ -1,5 +1,5 @@
-Data Manipulation
-=================
+Data Scraping and Manipulation
+==============================
 
 .. automodule:: src.data
    :members:
