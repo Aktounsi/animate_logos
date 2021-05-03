@@ -1,7 +1,4 @@
 """
-Data Manipulation
-=================
-
 .. automodule:: src.data.expand_viewbox
     :members:
 .. automodule:: src.data.get_svg_meta_data
@@ -16,7 +13,6 @@ Data Manipulation
     :members:
 .. automodule:: src.data.svg_to_png
     :members:
-
 """
 from .expand_viewbox import expand_viewbox_in_folder, expand_viewbox
 from .get_svg_meta_data import get_svg_meta_data

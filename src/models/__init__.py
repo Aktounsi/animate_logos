@@ -1,7 +1,4 @@
 """
-Models
-=======
-
 .. autoclass:: src.models.animation_prediction
     :members:
 .. automodule:: src.models.coral_loss
@@ -14,7 +11,6 @@ Models
     :members:
 .. automodule:: src.models.train_animation_predictor
     :members:
-
 """
 from .animation_prediction import AnimationPredictor
 from .blackbox_sm_fnn import SurrogateModelFNN

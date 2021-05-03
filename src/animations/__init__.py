@@ -1,7 +1,4 @@
 """
-Animation Creation
-==================
-
 .. automodule:: src.animations.create_random_animations
     :members:
 .. automodule:: src.animations.get_path_probabilities
@@ -10,7 +7,6 @@ Animation Creation
     :members:
 .. automodule:: src.animations.transform_animation_predictor_output
     :members:
-
 """
 
 from .create_random_animations import create_random_animations

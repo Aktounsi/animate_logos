@@ -8,9 +8,13 @@
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
-   source/modules
-   src.animations
+
+   source/src.pipeline
+   source/src.data
+   source/src.preprocessing
+   source/src.features
+   source/src.models
+   source/src.animations
 
 
 
