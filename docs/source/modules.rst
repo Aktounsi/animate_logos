@@ -1,7 +1,7 @@
 animate_logos
 =============
 
-.. automodule:: src
+.. automodule:: src.pipeline
    :members:
    :undoc-members:
    :show-inheritance:
