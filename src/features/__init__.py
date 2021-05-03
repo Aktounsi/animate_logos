@@ -1,7 +1,4 @@
 """
-Feature Generation
-=================
-
 .. automodule:: src.features.create_path_vector
     :members:
 .. automodule:: src.features.get_style_attributes
@@ -12,7 +9,6 @@ Feature Generation
     :members:
 .. automodule:: src.features.get_svg_size_pos
     :members:
-
 """
 from .create_path_vector import reduce_dim
 from .get_style_attributes import get_style_attributes_svg, get_style_attributes_path

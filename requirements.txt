@@ -2,7 +2,6 @@ CairoSVG==2.5.1
 numpy~=1.19.2
 scikit-image~=0.17.2
 svgpathtools==1.4.1
-
 pillow~=8.1.0
 setuptools~=52.0.0
 pandas~=1.2.1
@@ -25,3 +24,5 @@ joblib~=1.0.1
 requests>=2.20.0
 wheel~=0.36.2
 flask~=1.1.2
+gurobipy
+SPARQLWrapper
