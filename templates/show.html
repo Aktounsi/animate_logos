@@ -1,39 +1,42 @@
+<!-- Template from https://www.tailwindtoolbox.com/templates/landing-page -->
+
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head -->
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
     <title>
         Automatically animate your SVG Logo
     </title>
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
-    <meta name="author" content=""/>
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css"/>
-    <!--Replace with your tailwind.css once created-->
+    <meta content="" name="description"/>
+    <meta content="" name="keywords"/>
+    <meta content="" name="author"/>
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet"/>
-    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
     <style>
         .gradient {
             background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
         }
     </style>
 </head>
+
+<!-- Body -->
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
 
-<!--Nav-->
-<nav id="header" class="fixed w-full z-30 top-0 text-white">
+<!-- Nav -->
+<nav class="fixed w-full z-30 top-0 text-white" id="header">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
         <div class="pl-4 flex items-center">
             <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="/">
-                <!--Icon from: http://www.potlabicons.com/ -->
                 Teamproject
             </a>
         </div>
         <div class="block lg:hidden pr-4">
-            <button id="nav-toggle"
-                    class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            <button class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    id="nav-toggle">
                 <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <title>Menu</title>
                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -51,8 +54,8 @@
                 </li>
             </ul>
             <button
-                    id="navAction" onclick="location.href = '{{ url_for('redirect_button') }}';"
-                    class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" id="navAction"
+                    onclick="location.href = '{{ url_for('redirect_button') }}';"
             >
                 Animate another Logo
             </button>
@@ -61,8 +64,8 @@
     </div>
     <hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>
 </nav>
-<!--Hero-->
 
+<!-- Animated Logos -->
 <section class="bg-white border-b py-8">
     <div class="container max-w-5xl mx-auto m-8">
         <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
@@ -76,11 +79,13 @@
                 <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
                     Animation Number 1
                 </h3>
-                <button onclick="repeat_animation_1()"
-                        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        onclick="repeat_animated_genetic()">
                     (Re)play Animation
                 </button>
-                <a download="animation_1.svg" href="{{ url_for('animated_svg_1', animation_filename_1=animation_filename_1) }}" target="blank">
+                <a download="animated_genetic.svg"
+                   href="{{ url_for('animated_svg_genetic', animation_filename_genetic=animation_filename_genetic) }}"
+                   target="blank">
                     <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                         Download Animation
                     </button>
@@ -89,22 +94,24 @@
         </div>
 
         <div class="flex flex-wrap">
-                    <div class="w-full sm:w-1/2 p-6">
-                <object type="image/svg+xml" id="animation_1"
-                        data="{{ url_for('animated_svg_1', animation_filename_1=animation_filename_1) }}"></object>
+            <div class="w-full sm:w-1/2 p-6">
+                <object data="{{ url_for('animated_svg_genetic', animation_filename_genetic=animation_filename_genetic) }}" id="animated_genetic"
+                        type="image/svg+xml"></object>
             </div>
         </div>
 
-                <div class="flex flex-wrap">
+        <div class="flex flex-wrap">
             <div class="w-5/6 sm:w-1/2 p-6">
                 <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
                     Animation Number 2
                 </h3>
-                <button onclick="repeat_animation_2()"
-                        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        onclick="repeat_animated_entmoot()">
                     (Re)play Animation
                 </button>
-                <a download="animation_2.svg" href="{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}" target="blank">
+                <a download="animated_entmoot.svg"
+                   href="{{ url_for('animated_svg_entmoot', animation_filename_entmoot=animation_filename_entmoot) }}"
+                   target="blank">
                     <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                         Download Animation
                     </button>
@@ -113,40 +120,40 @@
         </div>
 
         <div class="flex flex-wrap">
-                    <div class="w-full sm:w-1/2 p-6">
-                <object type="image/svg+xml" id="animation_2"
-                        data="{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}"></object>
+            <div class="w-full sm:w-1/2 p-6">
+                <object data="{{ url_for('animated_svg_entmoot', animation_filename_entmoot=animation_filename_entmoot) }}" id="animated_entmoot"
+                        type="image/svg+xml"></object>
             </div>
         </div>
 
     </div>
 </section>
-<!--Footer-->
+
+<!-- Footer -->
 <footer class="bg-white">
     <div class="container mx-auto px-8">
         <div class="w-full flex flex-col md:flex-row py-6">
             <div class="flex-1 mb-6 text-black">
                 <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="/">
-                    Teamproject
+                    Animate Logos
                 </a>
             </div>
             <div class="flex-1">
                 <p class="uppercase text-gray-500 md:mb-6">Legal</p>
                 <ul class="list-reset mb-6">
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Terms</a>
+                        <a class="no-underline hover:underline text-gray-800 hover:text-pink-500" href="#">Terms</a>
                     </li>
                     <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                        <a href="#" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Privacy</a>
+                        <a class="no-underline hover:underline text-gray-800 hover:text-pink-500" href="#">Privacy</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
-<!-- jQuery if you need it
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
--->
+
+<!-- JavaScript for site functionality -->
 <script>
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
@@ -156,7 +163,7 @@
     var toToggle = document.querySelectorAll(".toggleColour");
 
     document.addEventListener("scroll", function () {
-        /*Apply classes for slide in bar*/
+
         scrollpos = window.scrollY;
 
         if (scrollpos > 10) {
@@ -179,7 +186,7 @@
             navaction.classList.add("bg-white");
             navaction.classList.remove("text-white");
             navaction.classList.add("text-gray-800");
-            //Use to switch toggleColour colours
+
             for (var i = 0; i < toToggle.length; i++) {
                 toToggle[i].classList.add("text-white");
                 toToggle[i].classList.remove("text-gray-800");
@@ -191,43 +198,39 @@
         }
     });
 </script>
+
 <script>
-    function repeat_animation_1() {
-        let foundURL_1 = "{{ url_for('animated_svg_1', animation_filename_1=animation_filename_1) }}";
-        document.getElementById("animation_1").data = foundURL_1;
+    function repeat_animated_genetic() {
+        let found_url_genetic = "{{ url_for('animated_svg_genetic', animation_filename_genetic=animation_filename_genetic) }}";
+        document.getElementById("animated_genetic").data = found_url_genetic;
     }
 
-    function repeat_animation_2() {
-        let foundURL_2 = "{{ url_for('animated_svg_2', animation_filename_2=animation_filename_2) }}";
-        document.getElementById("animation_2").data = foundURL_2;
+    function repeat_animated_entmoot() {
+        let found_url_entmoot = "{{ url_for('animated_svg_entmoot', animation_filename_entmoot=animation_filename_entmoot) }}";
+        document.getElementById("animated_entmoot").data = found_url_entmoot;
     }
-
-
 </script>
+
 <script>
     /*Toggle dropdown list*/
     /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
 
-    var navMenuDiv = document.getElementById("nav-content");
-    var navMenu = document.getElementById("nav-toggle");
+    let navMenuDiv = document.getElementById("nav-content");
+    let navMenu = document.getElementById("nav-toggle");
 
     document.onclick = check;
 
     function check(e) {
         var target = (e && e.target) || (event && event.srcElement);
 
-        //Nav Menu
         if (!checkParent(target, navMenuDiv)) {
-            // click NOT on the menu
             if (checkParent(target, navMenu)) {
-                // click on the link
                 if (navMenuDiv.classList.contains("hidden")) {
                     navMenuDiv.classList.remove("hidden");
                 } else {
                     navMenuDiv.classList.add("hidden");
                 }
             } else {
-                // click both outside link and outside menu, hide menu
                 navMenuDiv.classList.add("hidden");
             }
         }
@@ -243,6 +246,8 @@
         return false;
     }
 </script>
+
 </body>
+
 </html>
 
