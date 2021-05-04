@@ -47,14 +47,17 @@ def index():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            logo = Logo(data_dir=os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            logo.animate()
-            animation_filename_genetic = filename.replace(".svg", "_animated_ga.svg")
-            animation_filename_entmoot = filename.replace(".svg", "_animated_entmoot.svg")
-            return render_template('show.html', filename=filename,
-                                   animation_filename_genetic=animation_filename_genetic,
-                                   animation_filename_entmoot=animation_filename_entmoot)
 
+            try:
+                logo = Logo(data_dir=os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                logo.animate()
+                animation_filename_genetic = filename.replace(".svg", "_animated_ga.svg")
+                animation_filename_entmoot = filename.replace(".svg", "_animated_entmoot.svg")
+                return render_template('show.html', filename=filename,
+                                       animation_filename_genetic=animation_filename_genetic,
+                                       animation_filename_entmoot=animation_filename_entmoot)
+            except:
+                return redirect(request.url)
     return render_template('index.html')
 
 
