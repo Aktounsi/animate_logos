@@ -3,15 +3,14 @@ from pathlib import Path
 import os
 
 
-def rename_logos(old_folder, new_folder="data/svgs", start_with=0):
-    """ Function to rename all logos in a folder.
-
-    Example: rename_logos("data/svgs_expanded", "data/svgs")
+def rename_logos(old_folder, new_folder="data/svgs_renamed", start_with=0):
+    """ Rename all logos in a folder.
 
     Args:
-        old_folder (string): Path of folder containing all SVG files.
-        new_folder (string): Path of folder containing all renamed SVG files.
+        old_folder (str): Path of folder containing all SVG files.
+        new_folder (str): Target directory where renamed SVGs are saved.
         start_with (int): First value of renamed file.
+
     """
     Path(new_folder).mkdir(parents=True, exist_ok=True)
     for i, file in enumerate(os.listdir(old_folder)):

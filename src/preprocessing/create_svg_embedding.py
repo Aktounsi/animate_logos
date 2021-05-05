@@ -33,21 +33,36 @@ def _load_model_and_dataset(data_folder="data/svgs"):
 
 
 def encode_svg(filename, data_folder="data/svgs", split_paths=True):
-    """
+    """ Get embedding of given SVG.
+
     Args:
-        filename (string): SVG filename.
-        data_folder (string): Path of folder containing all SVGs.
+        filename (str): Path of SVG.
+        data_folder (str): If data_folder="data/svgs", SVG embeddings are returned.
+                            If data_folder="data/decomposed_svgs", path embeddings are returned.
         split_paths (bool): If true, additional preprocessing step is carried out, where paths consisting of multiple
-                            paths are is split into multiple paths.
+                            paths are split into multiple paths.
 
     Returns:
-        (tensor): SVG embedding.
+        torch.Tensor: SVG embedding.
+
     """
     dataset, model, device, cfg = _load_model_and_dataset(data_folder=data_folder)
     return _encode_svg(dataset, filename, model, device, cfg, split_paths)
 
 
-def decode_z(z, data_folder="data/svgs", do_display=True, return_svg=False, return_png=False):
+def decode_z(z, data_folder="data/svgs", do_display=True, return_svg=False):
+    """ Decode given SVG embedding.
+
+    Args:
+        z (str): SVG embedding.
+        data_folder (str): Path of folder containing all SVGs.
+        do_display (bool): If true, SVG is displayed.
+        return_svg (bool): If true, SVG is returned.
+
+    Returns:
+        deepsvg.svglib.svg.SVG: Decoded SVG embedding.
+
+    """
     dataset, model, device, cfg = _load_model_and_dataset(data_folder=data_folder)
     commands_y, args_y = model.greedy_sample(z=z)
     tensor_pred = SVGTensor.from_cmd_args(commands_y[0].cpu(), args_y[0].cpu())
@@ -57,14 +72,27 @@ def decode_z(z, data_folder="data/svgs", do_display=True, return_svg=False, retu
     if return_svg:
         return svg_path_sample
 
-    return svg_path_sample.draw(do_display=do_display, return_png=return_png)
+    return svg_path_sample.draw(do_display=do_display, return_png=False)
 
 
-def apply_embedding_model_to_svgs(data_folder="data/svgs", split_paths=True, workers=4, save=True):
+def apply_embedding_model_to_svgs(data_folder="data/svgs", split_paths=True, save=True):
+    """ Get embeddings of all SVGs in a given folder.
+
+    Args:
+        data_folder (str): If data_folder="data/svgs", SVG embeddings are returned.
+                            If data_folder="data/decomposed_svgs", path embeddings are returned.
+        split_paths (bool): If true, additional preprocessing step is carried out, where paths consisting of multiple
+                            paths are split into multiple paths.
+        save (bool): If true, SVG embedding is saved as pd.DataFrame in folder data/embeddings.
+
+    Returns:
+        pd.DataFrame: Dataframe containing filename, animation_id (if data_folder="decomposed_svgs") and embedding.
+
+    """
     dataset, model, device, cfg = _load_model_and_dataset(data_folder=data_folder)
     cfg.data_dir = data_folder
 
-    with futures.ThreadPoolExecutor(max_workers=workers) as executor:
+    with futures.ThreadPoolExecutor(max_workers=-1) as executor:
         svg_files = glob.glob(os.path.join(cfg.data_dir, "*.svg"))
         svg_list = []
         with tqdm(total=len(svg_files)) as pbar:

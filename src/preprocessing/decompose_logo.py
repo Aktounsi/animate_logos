@@ -4,9 +4,7 @@ import os
 
 
 def decompose_logos_in_folder(folder):
-    """ Function to decompose all Logos in a folder.
-
-    Example: decompose_logos_in_folder('data/svgs')
+    """ Decompose all SVGs in a folder.
 
     Args:
         folder (str): Path of folder containing all SVGs that need to be decomposed.
@@ -18,12 +16,10 @@ def decompose_logos_in_folder(folder):
 
 
 def decompose_logo(file):
-    """ Function to decompose one Logo.
-
-    Example: decompose_logo('data/svgs/Air France.svg')
+    """ Decompose one SVG.
 
     Args:
-        file (str): Path of SVG file that needs to be decomposed.
+        file (str): Path of SVG that needs to be decomposed.
 
     """
     doc = minidom.parse(file)

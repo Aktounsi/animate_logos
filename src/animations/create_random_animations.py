@@ -17,17 +17,17 @@ path_relevance_order = "data/meta_data/path_relevance_order.pkl"
 
 
 def create_random_animations(folder, nb_animations, split_df=True, very_random=False):
-    """ Function to create random animations. Animation vectors are saved in data/animated_svgs_dataframes.
+    """ Create random animations. Animation vectors are saved in data/animated_svgs_dataframes.
 
     Args:
-        folder (str): Path of folder containing all SVG files.
-        nb_animations (int): Number of random animations per SVG file.
-        split_df (bool): If true, animation vectors are saved to multiple dataframes (one dataframe per logo).
+        folder (str): Path of folder containing all SVGs.
+        nb_animations (int): Number of random animations per SVG.
+        split_df (bool): If true, animation vectors are saved to multiple dataframes (one dataframe per SVG).
                             If false, animation vectors are saved to one dataframe and returned.
         very_random (bool): If true, random seed is shuffled.
 
     Returns:
-        pd.DataFrame: Dataframe containing all animation vectors.
+        pd.DataFrame: If split_df=False, dataframe containing all animation vectors is returned.
 
     """
     Path("data/animated_svgs_dataframes").mkdir(parents=True, exist_ok=True)
@@ -38,11 +38,11 @@ def create_random_animations(folder, nb_animations, split_df=True, very_random=F
 
 
 def create_multiple_df(folder, nb_animations, very_random):
-    """ Function to create random animations. Animation vectors are saved to one dataframe per logo.
+    """ Create random animations. Animation vectors are saved to one dataframe per SVG.
 
     Args:
-        folder (str): Path of folder containing all SVG files.
-        nb_animations (int): Number of random animations per SVG file.
+        folder (str): Path of folder containing all SVGs.
+        nb_animations (int): Number of random animations per SVG.
         very_random (bool): If true, random seed is shuffled.
 
     """
@@ -84,12 +84,15 @@ def _create_multiple_df(folder, file, nb_animations, very_random):
 
 
 def create_one_df(folder, nb_animations, very_random):
-    """ Function to create random animations. Animation vectors are saved to one dataframe.
+    """ Create random animations. Animation vectors are saved to one dataframe.
 
     Args:
-        folder (str): Path of folder containing all SVG files.
-        nb_animations (int): Number of random animations per SVG file.
+        folder (str): Path of folder containing all SVGs.
+        nb_animations (int): Number of random animations per SVG.
         very_random (bool): If true, random seed is shuffled.
+
+    Returns:
+        pd.DataFrame: Dataframe containing all animation vectors.
 
     """
     df = pd.DataFrame.from_records(_create_one_df(folder, nb_animations, very_random))
@@ -134,22 +137,20 @@ def _create_one_df(folder, nb_animations, very_random):
 
 
 def random_animation_vector(nr_animations, path_probs=None, animation_type_prob=None, seed=73):
-    """ Function to generate random animation vectors.
+    """ Generate random animation vectors.
 
-    Format of vectors: (translate scale rotate skew fill opacity translate_from_1 translate_from_2 scale_from rotate_from skew_from_1 skew_from_2)
+    Format of animation vectors: [translate, scale, rotate, skew, fill, opacity, translate_from_1, translate_from_2, scale_from, rotate_from, skew_from_1, skew_from_2].
 
     Note: nr_animations must match length of path_probs.
-
-    Example: random_animation_vector(nr_animations=2, path_probs=[0.5, 0.5])
 
     Args:
         nr_animations (int): Number of animation vectors that are generated.
         path_probs (list): Specifies how likely it is that a path gets animated.
-        animation_type_prob (list, default=uniform): Specifies probabilities of animation types.
+        animation_type_prob (list): Specifies probabilities of animation types. Default is a uniform distribution.
         seed (int): Random seed.
 
     Returns:
-        ndarray, list: Array of 11 dimensional random animation vectors, list of IDs that were animated.
+        ndarray, list: Array of 12 dimensional random animation vectors, list of IDs of elements that were animated.
 
     """
     if path_probs is None:

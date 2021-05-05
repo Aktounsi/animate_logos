@@ -6,16 +6,17 @@ from src.animations.transform_animation_predictor_output import transform_animat
 
 
 def create_animated_svg(file, animation_ids, model_output, filename_suffix="", save=True):
-    """ Function to insert multiple animation statements.
+    """ Insert multiple animation statements.
 
     Args:
-        file (string): Path of SVG file.
-        animation_ids (list[int]): List of Path IDs that get animated.
+        file (str): Path of SVG file.
+        animation_ids (list[int]): List of element IDs that get animated.
         model_output (ndarray): Array of 13 dimensional arrays with animation predictor model output.
         filename_suffix  (str): Suffix of animated SVG.
 
     Returns:
-        list(float): List of begin values of animation IDs.
+        list(float): List of begin values of elements in SVG.
+        xml.dom.minidom.Document: Parsed file with inserted animation statements.
 
     """
     doc = svg_to_doc(file)
@@ -49,20 +50,20 @@ def create_animated_svg(file, animation_ids, model_output, filename_suffix="", s
 
 
 def svg_to_doc(file):
-    """ Function to parse a SVG file.
+    """ Parse an SVG file.
 
     Args:
         file (string): Path of SVG file.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     return minidom.parse(file)
 
 
 def save_animated_svg(doc, filename):
-    """ Function to save animated logo to folder animated_logos.
+    """ Save animated SVGs to folder animated_svgs.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
@@ -76,7 +77,7 @@ def save_animated_svg(doc, filename):
 
 
 def insert_translate_statement(doc, animation_id, model_output_dict):
-    """ Function to insert translate statement.
+    """ Insert translate statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
@@ -84,7 +85,7 @@ def insert_translate_statement(doc, animation_id, model_output_dict):
         model_output_dict (dict): Dictionary containing animation statement.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     pre_animations = []
@@ -98,15 +99,16 @@ def insert_translate_statement(doc, animation_id, model_output_dict):
 
 
 def insert_scale_statement(doc, animation_id, model_output_dict, file):
-    """ Function to insert scale statement.
+    """ Insert scale statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
         animation_id (int): ID of element that gets animated.
         model_output_dict (dict): Dictionary containing animation statement.
+        file (str): Path of SVG file. Needed to get midpoint of path bbox to suppress simultaneous translate movement.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     pre_animations = []
@@ -136,7 +138,7 @@ def insert_scale_statement(doc, animation_id, model_output_dict, file):
 
 
 def insert_rotate_statement(doc, animation_id, model_output_dict):
-    """ Function to insert rotate statement.
+    """ Insert rotate statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
@@ -144,7 +146,7 @@ def insert_rotate_statement(doc, animation_id, model_output_dict):
         model_output_dict (dict): Dictionary containing animation statement.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     pre_animations = []
@@ -158,7 +160,7 @@ def insert_rotate_statement(doc, animation_id, model_output_dict):
 
 
 def insert_skew_statement(doc, animation_id, model_output_dict):
-    """ Function to insert skew statement.
+    """ Insert skew statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
@@ -166,7 +168,7 @@ def insert_skew_statement(doc, animation_id, model_output_dict):
         model_output_dict (dict): Dictionary containing animation statement.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     pre_animations = []
@@ -180,7 +182,7 @@ def insert_skew_statement(doc, animation_id, model_output_dict):
 
 
 def insert_fill_statement(doc, animation_id, model_output_dict):
-    """ Function to insert fill statement.
+    """ Insert fill statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file
@@ -188,7 +190,7 @@ def insert_fill_statement(doc, animation_id, model_output_dict):
         model_output_dict (dict): Dictionary containing animation statement.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     pre_animations = []
@@ -210,7 +212,7 @@ def insert_fill_statement(doc, animation_id, model_output_dict):
 
 
 def insert_opacity_statement(doc, animation_id, model_output_dict):
-    """ Function to insert opacity statement.
+    """ Insert opacity statement.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
@@ -218,7 +220,7 @@ def insert_opacity_statement(doc, animation_id, model_output_dict):
         model_output_dict (dict): Dictionary containing animation statement.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     pre_animations = []
@@ -236,7 +238,7 @@ def insert_opacity_statement(doc, animation_id, model_output_dict):
 
 
 def insert_animation(doc, animation_id, animation, pre_animations=None):
-    """ Function to insert animation statements including pre-animation statements.
+    """ Insert animation statements including pre-animation statements.
 
     Args:
         doc (xml.dom.minidom.Document): Parsed file.
@@ -245,7 +247,7 @@ def insert_animation(doc, animation_id, animation, pre_animations=None):
         pre_animations (list): List of animations that needs to be inserted before actual animation.
 
     Returns:
-        xml.dom.minidom.Document: Parsed file.
+        xml.dom.minidom.Document: Parsed file with inserted animation statement.
 
     """
     elements = doc.getElementsByTagName('path') + doc.getElementsByTagName('circle') + doc.getElementsByTagName(
@@ -264,7 +266,7 @@ def insert_animation(doc, animation_id, animation, pre_animations=None):
 
 
 def create_animation_statement(animation_dict):
-    """ Function to set up animation statement from a dictionary.
+    """ Set up animation statement from a dictionary.
 
     Args:
         animation_dict (dict): Dictionary that is transformed into animation statement.
@@ -280,7 +282,7 @@ def create_animation_statement(animation_dict):
 
 
 def _create_animate_transform_statement(animation_dict):
-    """ Function to set up animation statement from model output for ANIMATETRANSFORM animations """
+    """ Set up animation statement from model output for ANIMATETRANSFORM animations """
     animation = f'animateTransform attributeName = "transform" attributeType = "XML" ' \
                 f'type = "{animation_dict["type"]}" ' \
                 f'begin = "{str(animation_dict["begin"])}" ' \
@@ -293,7 +295,7 @@ def _create_animate_transform_statement(animation_dict):
 
 
 def _create_animate_statement(animation_dict):
-    """ Function to set up animation statement from model output for ANIMATE animations """
+    """ Set up animation statement from model output for ANIMATE animations """
     animation = f'animate attributeName = "{animation_dict["type"]}" ' \
                 f'begin = "{str(animation_dict["begin"])}" ' \
                 f'dur = "{str(animation_dict["dur"])}" ' \
@@ -305,7 +307,7 @@ def _create_animate_statement(animation_dict):
 
 
 def create_opacity_pre_animation_dicts(animation_dict):
-    """ Function to set up pre_animation statements.
+    """ Set up pre_animation statements.
 
     Args:
         animation_dict (dict): Dictionary from animation that is needed to set up opacity pre-animations.

@@ -2,15 +2,13 @@ from src.features.get_style_attributes import get_style_attributes_svg
 
 
 def get_svg_color_tendencies(file):
-    """ Function to get two most frequent colors in SVG file. Black and white is excluded.
-
-    Example: get_svg_color_tendencies('data/svgs/logo_1.svg')
+    """ Get two most frequent colors in SVG. Black and white are excluded.
 
     Args:
         file (str): Path of SVG file.
 
     Returns:
-        list: List of two most frequent colors in SVG file.
+        list: List of two most frequent colors in SVG.
 
     """
     df = get_style_attributes_svg(file)

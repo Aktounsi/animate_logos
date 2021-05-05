@@ -1,19 +1,3 @@
-"""
-Logo Pipeline
-=================
-
-    You can create animations of a SVG logo by using the following lines of code:
-
-        >>> from src.pipeline import Logo
-        >>> logo = Logo(data_dir='path/to/my/logo.svg')
-        >>> logo.animate()
-
-
-.. autoclass:: Logo
-    :members:
-
-"""
-
 import pickle5
 from xml.dom import minidom
 from PIL import ImageColor
@@ -30,12 +14,16 @@ from src.models.train_animation_predictor import *
 from src.models.entmoot_functions import *
 from src.models import config
 
-# Reproducibility
-# utils.set_seed(42)
-
 
 class Logo:
+    """ Logo class used for pipeline on website. """
+
     def __init__(self, data_dir):
+        """
+        Args:
+            data_dir (str): Path of logo.
+
+        """
         self.data_dir = data_dir
         self.parsed_doc = minidom.parse(data_dir)
         self.nr_paths = len(self._store_svg_elements(self.parsed_doc))
@@ -44,6 +32,8 @@ class Logo:
         self.xmin_svg, self.xmax_svg, self.ymin_svg, self.ymax_svg = get_svg_bbox(data_dir)
 
     def print_logo_information(self):
+        """ Print information of given logo, such as data directory, parsed doc, number of elements, animation IDs,
+        width, height and coordinates of bounding box. """
         print('--------------------------- Logo Information ---------------------------')
         print(f'data_dir: {self.data_dir}')
         print(f'parsed_doc: {self.parsed_doc}')
@@ -53,11 +43,12 @@ class Logo:
         print(f'bbox: {self.xmin_svg}, {self.xmax_svg}, {self.ymin_svg}, {self.ymax_svg}')
 
     def animate(self, model='all'):
-        """ Automatically animates logo (currently randomly but is updated later)
+        """ Automatically animate a logo and save animations in the same folder directory.
 
         Args:
-              model (str, default='all'): Chosen model for generation of animations. Should be 'opt' for entmoot optimization,
-              'ga' for genetic algorithm, or 'all' if both models should be applied to generate animations
+              model (str): Chosen model for generation of animations. Should be 'opt' for entmoot optimization,
+                            'ga' for genetic algorithm, or 'all' if both models should be applied to generate animations.
+
         """
         if 'preprocessed' not in self.data_dir:
             self.preprocess()
@@ -138,13 +129,13 @@ class Logo:
         return svg_animations
 
     def preprocess(self, percent=50):
-        """ Add the attribute "animation_id" to all elements in a SVG and expand/insert viewbox. """
-        if 'preprocessed' not in self.data_dir:
-            # Insert animation_id
-            elements = self._store_svg_elements(self.parsed_doc)
-            for i in range(len(elements)):
-                elements[i].setAttribute('animation_id', str(i))
+        """ Add attribute "animation_id" to all elements in an SVG and expands/inserts a viewbox.
 
+         Args:
+             percent (int): Percentage in %: How much do we want to expand the viewbox? Default is 50%.
+
+        """
+        if 'preprocessed' not in self.data_dir:
             # Expand/insert viewbox
             x, y = '', ''
             # get width and height of logo
@@ -163,7 +154,7 @@ class Logo:
             if not check:
                 # get bounding box of svg
                 xmin_svg, xmax_svg, ymin_svg, ymax_svg = 0, 0, 0, 0
-                paths, attributes = svg2paths(logo)
+                paths, attributes = svg2paths(self.data_dir)
                 for path in paths:
                     xmin, xmax, ymin, ymax = path.bbox()
                     if xmin < xmin_svg:
@@ -198,6 +189,11 @@ class Logo:
             coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(v4 + y_new)
             self.parsed_doc.getElementsByTagName('svg')[0].setAttribute('viewBox', coordinates)
 
+            # Insert animation_id
+            elements = self._store_svg_elements(self.parsed_doc)
+            for i in range(len(elements)):
+                elements[i].setAttribute('animation_id', str(i))
+
             # create new file and update data_dir
             textfile = open(f"{self.data_dir.replace('.svg', '')}_preprocessed.svg", 'wb')
             textfile.write(self.parsed_doc.toprettyxml(encoding="iso-8859-1"))
@@ -205,7 +201,12 @@ class Logo:
             self.data_dir = f"{self.data_dir.replace('.svg', '')}_preprocessed.svg"
 
     def decompose_svg(self):
-        """ Decompose a SVG into its paths. """
+        """ Decompose a SVG into its paths.
+
+        Returns:
+            list(xml.dom.minidom.Document): Decomposed SVG as list of paths.
+
+        """
         elements = Logo._store_svg_elements(self.parsed_doc)
         num_elements = len(elements)
 
@@ -234,11 +235,27 @@ class Logo:
                parsed_doc.getElementsByTagName('rect') + parsed_doc.getElementsByTagName('text')
 
     def create_svg_embedding(self, embedding_model="models/deepSVG_hierarchical_ordered.pth.tar"):
-        """ Create SVG embedding. """
+        """ Create SVG embedding according to deepSVG.
+
+        Args:
+            embedding model (str): Path of embedding model.
+
+        Returns:
+            torch.Tensor: SVG embedding.
+
+        """
         return Logo._create_embedding(self.parsed_doc.toxml(), embedding_model)
 
     def create_path_embedding(self, embedding_model="models/deepSVG_hierarchical_ordered.pth.tar"):
-        """ Create path embedding. """
+        """ Create path embedding accordint to deepSVG.
+
+        Args:
+            embedding_model (str): Path of embedding model.
+
+        Returns:
+            torch.Tensor: Path embedding.
+
+        """
         decomposed_docs = self.decompose_svg()
         embeddings = []
         for doc in decomposed_docs:
@@ -247,7 +264,6 @@ class Logo:
 
     @staticmethod
     def _create_embedding(parsed_doc_xml, embedding_model):
-        """ Create embedding according to deepSVG. """
         # The following parameters are defined in the deepSVG config:
         model_args = ['commands', 'args', 'commands', 'args']
 
@@ -328,6 +344,15 @@ class Logo:
         return deep_svg.numericalize(256)
 
     def create_df(self, pca_model="models/pca_path_embedding.sav"):
+        """ Creates input data for GA and entmoot optimizer.
+
+        Args:
+            pca_model (str): Path of embedding model.
+
+        Returns:
+            pd.DataFrame: Dataframe containing filename, animation IDs, embedding, color, size and position of given logo.
+
+        """
         filename = self.data_dir.split("/")[-1].replace(".svg", "")
         data = {'filename': filename,
                 'animation_id': self.animation_ids,
@@ -403,45 +428,3 @@ class Logo:
         # Save animated SVG
         with open(f"{self.data_dir.replace('preprocessed.svg', '')}animated_{filename_suffix}.svg", 'wb') as f:
             f.write(doc_temp.toprettyxml(encoding="iso-8859-1"))
-
-    @staticmethod
-    def random_animation_vector(animation_ids, path_probs=None, animation_type_prob=None, seed=None):
-        """ Function to generate random animation vectors. Can be deleted later. """
-        if path_probs is None:
-            path_probs = [1 / 2] * len(animation_ids)
-        if animation_type_prob is None:
-            animation_type_prob = [1 / 6] * 6
-        if seed is not None:
-            random.seed(seed)
-            np.random.seed(seed)
-
-        vec_list = []
-        animated_animation_ids = []
-        for i, animation_id in enumerate(animation_ids):
-            animate = np.random.choice(a=[False, True], p=[1 - path_probs[i], path_probs[i]])
-            if animate:
-                vec = np.array([int(0)] * 6 + [float(-1.0)] * 6, dtype=object)
-                animation_type = np.random.choice(a=[0, 1, 2, 3, 4, 5], p=animation_type_prob)
-                vec[animation_type] = 1
-                if animation_type == 0:  # translate
-                    vec[6] = random.uniform(0, 1)
-                    vec[7] = random.uniform(0, 1)
-                if animation_type == 1:  # scale
-                    vec[8] = random.uniform(0, 1)
-                if animation_type == 2:  # rotate
-                    vec[9] = random.uniform(0, 1)
-                if animation_type == 3:  # skew
-                    vec[10] = random.uniform(0, 1)
-                    vec[11] = random.uniform(0, 1)
-                vec_list.append(vec)
-                animated_animation_ids.append(animation_id)
-        return np.array(vec_list), animated_animation_ids
-
-
-if __name__ == '__main__':
-    logo = Logo(data_dir="../data/svgs/logo_1.svg")
-    #svg_parsed_doc = svg.insert_id()
-
-    # Create input for model 1
-    df = logo.create_df(pca_model="../models/pca_path_embedding.sav")
-

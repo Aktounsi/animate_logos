@@ -1,7 +1,4 @@
 """
-Data Preprocessing
-=================
-
 .. automodule:: src.preprocessing.augment_data
     :members:
 .. automodule:: src.preprocessing.create_svg_embedding

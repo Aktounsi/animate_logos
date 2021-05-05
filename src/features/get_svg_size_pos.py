@@ -3,26 +3,26 @@ from svgpathtools import svg2paths
 
 
 def get_svg_size(file):
-    """ Function to get width and height of a SVG file.
-
-    Example: get_svg_size('data/svgs/logo_1.svg')
+    """ Get width and height of an SVG.
 
     Args:
         file (str): Path of SVG file.
 
     Returns:
-        float, float: Width and height of SVG file.
+        float, float: Width and height of SVG.
 
     """
     doc = minidom.parse(file)
     width = doc.getElementsByTagName('svg')[0].getAttribute('width')
     height = doc.getElementsByTagName('svg')[0].getAttribute('height')
+
     if width != "" and height != "":
         if not width[-1].isdigit():
             width = width.replace('px', '').replace('pt', '')
         if not height[-1].isdigit():
             height = height.replace('px', '').replace('pt', '')
-    else:
+
+    if width == "" or height == "" or not width[-1].isdigit() or not height[-1].isdigit():
         # get bounding box of svg
         xmin_svg, xmax_svg, ymin_svg, ymax_svg = 100, -100, 100, -100
         paths, _ = svg2paths(file)
@@ -43,9 +43,11 @@ def get_svg_size(file):
 
 
 def get_svg_bbox(file):
-    """ Function to get bbox of a SVG file.
+    """ Get bounding box coordinates of an SVG.
 
-    Example: get_svg_bbox('data/svgs/logo_1.svg')
+    xmin, ymin: Upper left corner.
+
+    xmax, ymax: Lower right corner.
 
     Args:
         file (str): Path of SVG file.
@@ -80,16 +82,11 @@ def get_svg_bbox(file):
 
 
 def get_path_bbox(file, animation_id):
-    """ Function to get bbox of a path in a SVG file.
-
-    xmin, ymin: Upper left corner.
-    xmax, ymax: Lower right corner.
-
-    Example: get_path_bbox('data/svgs/logo_1.svg', 1)
+    """ Get bounding box coordinates of a path in an SVG.
 
     Args:
         file (str): Path of SVG file.
-        animation_id (int): Path ID.
+        animation_id (int): ID of element.
 
     Returns:
         float, float, float, float: Bounding box of path (xmin, xmax, ymin, ymax).
@@ -112,13 +109,11 @@ def get_path_bbox(file, animation_id):
 
 
 def get_midpoint_of_path_bbox(file, animation_id):
-    """ Function to get midpoint of bounding box of path.
-
-    Example: get_midpoint_of_path_bbox('data/svgs/logo_1.svg', 1)
+    """ Get midpoint of bounding box of path.
 
     Args:
-        file (string): Path of SVG file.
-        animation_id (int): Path ID.
+        file (str): Path of SVG file.
+        animation_id (int): ID of element.
 
     Returns:
         float, float: Midpoint of bounding box of path (x_midpoint, y_midpoint).
@@ -136,16 +131,15 @@ def get_midpoint_of_path_bbox(file, animation_id):
 
 
 def get_bbox_of_multiple_paths(file, animation_ids):
-    """ Function to get bounding box of multiple paths in a SVG file.
-
-    Example: get_bbox_of_multiple_paths('data/svgs/logo_1.svg', [1, 4, 5])
+    """ Get bounding box of multiple paths in an SVG.
 
     Args:
-        file (string): Path of SVG file.
-        animation_ids (list(int)): List of path IDs.
+        file (str): Path of SVG file.
+        animation_ids (list(int)): List of element IDs.
 
     Returns:
         float, float, float, float: Bounding box of given paths (xmin, xmax, ymin, ymax).
+
     """
     try:
         paths, attributes = svg2paths(file)
@@ -174,13 +168,11 @@ def get_bbox_of_multiple_paths(file, animation_ids):
 
 
 def get_relative_path_pos(file, animation_id):
-    """ Function to get relative position of a path in a SVG file.
-
-    Example: get_relative_path_pos('data/svgs/logo_1.svg', 1)
+    """ Get relative position of a path in an SVG.
 
     Args:
         file (string): Path of SVG file.
-        animation_id (int): Path ID.
+        animation_id (int): ID of element.
 
     Returns:
         float, float: Relative x- and y-position of path.
@@ -194,14 +186,12 @@ def get_relative_path_pos(file, animation_id):
 
 
 def get_relative_pos_to_bounding_box_of_animated_paths(file, animation_id, animated_animation_ids):
-    """ Function to get relative position of a path to the bounding box of all animated paths (aka Tims feature).
-
-    Example: get_relative_pos_to_bounding_box_of_animated_paths('data/svgs/logo_1.svg', 1, [1, 3, 5, 6])
+    """ Get relative position of a path to the bounding box of all animated paths.
 
     Args:
-        file (string): Path of SVG file.
-        animation_id (int): Path ID.
-        animated_animation_ids (list(int)): List of animated path IDs.
+        file (str): Path of SVG file.
+        animation_id (int): ID of element.
+        animated_animation_ids (list(int)): List of animated element IDs.
 
     Returns:
         float, float: Relative x- and y-position of path to bounding box of all animated paths.
@@ -224,13 +214,11 @@ def get_relative_pos_to_bounding_box_of_animated_paths(file, animation_id, anima
 
 
 def get_relative_path_size(file, animation_id):
-    """ Function to get relative size of a path in a SVG file.
-
-    Example: get_relative_path_size('data/svgs/logo_1.svg', 1)
+    """ Get relative size of a path in an SVG.
 
     Args:
-        file (string): Path of SVG file.
-        animation_id (int): Path ID.
+        file (str): Path of SVG file.
+        animation_id (int): ID of element.
 
     Returns:
         float, float: Relative width and height of path.
@@ -251,18 +239,16 @@ def get_relative_path_size(file, animation_id):
 
 
 def get_begin_values_by_starting_pos(file, animation_ids, start=1, step=0.5):
-    """ Function to get begin values by sorting from left to right.
-
-    Example: get_begin_values_by_bbox('data/svgs/logo_1.svg', [0, 6, 2])
+    """ Get begin values by sorting from left to right.
 
     Args:
-        file (string): The path of the SVG file
-        animation_ids (list(int)): List of animation_ids
-        start (float): First begin value
-        step (float): Time between begin values
+        file (str): Path of SVG file.
+        animation_ids (list(int)): List of element IDs.
+        start (float): First begin value.
+        step (float): Time between begin values.
 
     Returns:
-        list: Begin values of animation ids.
+        list: Begin values of element IDs.
 
     """
     starting_point_list = []
