@@ -1,18 +1,21 @@
-import pickle5
 from xml.dom import minidom
+
+import pickle5
 from PIL import ImageColor
 from svgpathtools import svg2paths
-from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
-from src.preprocessing.deepsvg.svglib.svg import SVG
-from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
-from src.preprocessing.deepsvg.utils.utils import batchify
-from src.preprocessing.deepsvg import utils
-from src.features import get_svg_size, get_svg_bbox, get_relative_path_pos, get_relative_path_size,\
-    get_style_attributes_path, reduce_dim, get_begin_values_by_starting_pos
 from src.animations import *
-from src.models.train_animation_predictor import *
-from src.models.entmoot_functions import *
+from src.features import get_style_attributes_path
+from src.features.create_path_vector import reduce_dim
+from src.features.get_svg_size_pos import get_svg_size, get_svg_bbox, get_relative_path_pos, get_relative_path_size, \
+    get_begin_values_by_starting_pos
 from src.models import config
+from src.models.entmoot_functions import *
+from src.models.train_animation_predictor import *
+from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
+from src.preprocessing.deepsvg import utils
+from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
+from src.preprocessing.deepsvg.svglib.svg import SVG
+from src.preprocessing.deepsvg.utils.utils import batchify
 
 
 class Logo:
@@ -175,10 +178,22 @@ class Logo:
                 x_new = x * (100 + percent) / 100
                 y_new = y * (100 + percent) / 100
             else:
-                v1 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[0].replace('px', '').replace('pt', '').replace(',', ''))
-                v2 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[1].replace('px', '').replace('pt', '').replace(',', ''))
-                v3 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[2].replace('px', '').replace('pt', '').replace(',', ''))
-                v4 = float(self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[3].replace('px', '').replace('pt', '').replace(',', ''))
+                v1 = float(
+                    self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[0].replace('px',
+                                                                                                                 '').replace(
+                        'pt', '').replace(',', ''))
+                v2 = float(
+                    self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[1].replace('px',
+                                                                                                                 '').replace(
+                        'pt', '').replace(',', ''))
+                v3 = float(
+                    self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[2].replace('px',
+                                                                                                                 '').replace(
+                        'pt', '').replace(',', ''))
+                v4 = float(
+                    self.parsed_doc.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ')[3].replace('px',
+                                                                                                                 '').replace(
+                        'pt', '').replace(',', ''))
                 x = v3
                 y = v4
                 # Calculate new viewBox values
@@ -186,7 +201,8 @@ class Logo:
                 y_new = y * percent / 100
             x_translate = - x * percent / 200
             y_translate = - y * percent / 200
-            coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(v4 + y_new)
+            coordinates = str(v1 + x_translate) + ' ' + str(v2 + y_translate) + ' ' + str(v3 + x_new) + ' ' + str(
+                v4 + y_new)
             self.parsed_doc.getElementsByTagName('svg')[0].setAttribute('viewBox', coordinates)
 
             # Insert animation_id
@@ -282,7 +298,7 @@ class Logo:
         cfg = Config()
         model = cfg.make_model().to(device)
         utils.load_model(embedding_model, model)
-        model.eval();
+        model.eval()
 
         t_sep, fillings = deep_svg.to_tensor(concat_groups=False, PAD_VAL=PAD_VAL), deep_svg.to_fillings()
         # Note: DeepSVG can only handle 8 paths in a SVG and 30 sequences per path

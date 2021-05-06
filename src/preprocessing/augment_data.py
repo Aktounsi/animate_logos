@@ -6,13 +6,15 @@ import numpy as np
 import random
 from datetime import datetime
 from xml.dom import minidom
+
+from src.features.create_path_vector import reduce_dim
 from src.preprocessing.configs.deepsvg.hierarchical_ordered import Config
 from src.preprocessing.deepsvg.svglib.geom import Point
 from src.preprocessing.deepsvg.svglib.svg import SVG
 from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
 from src.preprocessing.deepsvg.utils.utils import batchify
 from src.preprocessing.deepsvg import utils
-from src.features import get_svg_bbox, get_relative_path_pos, get_midpoint_of_path_bbox, reduce_dim
+from src.features.get_svg_size_pos import get_svg_bbox, get_relative_path_pos, get_midpoint_of_path_bbox
 
 
 def augment_data(folder='data/svgs',
