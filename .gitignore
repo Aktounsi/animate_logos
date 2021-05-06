@@ -83,6 +83,7 @@ target/
 /data/PNG_selected_paths_expanded
 /data/svgs
 /data/uploads
+/venv/
 
 
 # Mac OS-specific storage files
