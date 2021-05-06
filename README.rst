@@ -23,7 +23,7 @@ The data is collected through a `labeling website <https://animate-logos.web.app
 Documentation and Usage
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Animate your logos with machine learning by using the following code or visit our `website <https://animate-logos.herokuapp.com/>`__ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_website>`__), where you can get an animated version of your uploaded logo.
+Animate your logos with machine learning using the code below or visit our `website <https://animate-logos.herokuapp.com/>`__ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_website>`__) to get an animated version of your uploaded logo.
 
 .. code:: python
 
