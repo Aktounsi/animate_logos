@@ -17,13 +17,13 @@ The project started in November 2020 as a Masters Team Project at the University
 Data Aquisition
 ^^^^^^^^^^^^^^^
 
-The data is collected through a `website <https://animate-logos.web.app/>`__ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_label_website>`__) where users can rate the quality of animations.
+The data is collected through a `labeling website <https://animate-logos.web.app/>`__ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_label_website>`__) where users can rate the quality of animations.
 
 
 Documentation and Usage
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Animate your logos with machine learning by using the following code or visit the website https://animate-logos.herokuapp.com/ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_website>`__).
+Animate your logos with machine learning by using the following code or visit our `website <https://animate-logos.herokuapp.com/>`__ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_website>`__), where you can get an animated version of your uploaded logo.
 
 .. code:: python
 
