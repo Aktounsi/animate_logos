@@ -98,6 +98,7 @@ def prepare_sm_input(path_vectors, animation_predictions, convert=True):
     Args:
         path_vectors (np.ndarray): Path vectors of input data.
         animation_predictions (np.ndarray): Animation predictions for each path in path vectors.
+        convert (bool): Whether or not to convert animation predictor model output to actual animation vector.
 
     Returns:
         torch.Tensor: Concatenated surrogate model input.
@@ -214,6 +215,7 @@ def mutate(agent, mutation_power=config.mutation_power):
 
     Args:
         agent (src.models.animation_prediction.AnimationPredictor): Agent for which the weights are to be adjusted.
+        mutation_power (float): Modification value for weight updates.
 
     Returns:
         src.models.animation_prediction.AnimationPredictor: Mutated child agent.
