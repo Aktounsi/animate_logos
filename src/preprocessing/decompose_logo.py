@@ -3,6 +3,12 @@ from pathlib import Path
 import os
 
 
+""" 
+In order for the function to work properly, an animation_id first has to be inserted into each element of the SVG.
+Use for this the function insert_ids.py prior to this function.
+"""
+
+
 def decompose_logos_in_folder(folder):
     """ Decompose all SVGs in a folder.
 

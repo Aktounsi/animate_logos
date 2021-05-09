@@ -10,7 +10,7 @@
 .. automodule:: src.features.get_svg_size_pos
     :members:
 """
-from .create_path_vector import reduce_dim
+
 from .get_style_attributes import get_style_attributes_svg, get_style_attributes_path
 from .get_style_attributes_folder import get_style_attributes_folder
 from .get_svg_color_tendency import get_svg_color_tendencies
