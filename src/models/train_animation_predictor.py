@@ -32,7 +32,7 @@ def retrieve_m1_predictions(input_data):
     return input_data
 
 
-def retrieve_animation_midpoints(input_data, data_dir='data/initial_svgs', drop=True):
+def retrieve_animation_midpoints(input_data, data_dir='data/svgs_preprocessed', drop=True):
     """ Retrieve x and y position of animated path relatively to all animated paths in an SVG.
 
     Args:
