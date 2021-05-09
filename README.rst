@@ -35,13 +35,38 @@ Using these training examples, we can increase the average aesthetic score of a 
 
 How to Install
 ##############
+
+To use this code you have to follow these steps:
+
+1. Start by cloning this Git repository:
+
+.. code-block::
+
+    $  git clone https://github.com/J4K08L4N63N84HN/animate_logos.git
+    $  cd animate_logos
+
+2. Continue by creating a new conda environment (Python 3.7):
+
+.. code-block::
+
+    $  conda create -n animate_logos python=3.7
+    $  conda activate animate_logos
+
+3. Install the dependencies:
+
+.. code-block::
+
+    $ pip install -r requirements.txt
+    $ conda install -c conda-forge cairosvg
+
+If there are problems with cairosvg please refer to `this guide <https://cairosvg.org/documentation/#installation/>`__.
+
 Besides the code of this repository one other installation is necessary, to use the application.
 For training our optimization model for the generation of logo animations, we use the commercial `Gurobi Optimizer <https://www.gurobi.com/>`__
 with a `free academic licence <https://www.gurobi.com/academia/academic-program-and-licenses/>`__. You can find a detailed
 guide to install Gurobi on your computer `here <https://www.gurobi.com/documentation/9.1/quickstart_mac/software_installation_guid.html#section:Installation/>`__.
 
 For completeness you would need the `labeling website <https://animate-logos.web.app/>`__ (`Github <https://github.com/J4K08L4N63N84HN/animate_logos_label_website>`__) where users can rate the quality of animations.
-
 
 
 How to Use
@@ -51,7 +76,16 @@ The repository serves two functions.
 On the one hand it is a documentation of our final computational creativity system and can be used to reproduce our results and serve as basis for further research.
 For this you can retrace the model process with the help of the jupyter notebooks.
 On the other hand it is a final product, that can be used in two ways.
-Either you start the included Flask App and follow the instructions on the application or you use the code in Python directly with the following commands:
+Either you start the included Flask App and follow the instructions on the application or you use the code in Python directly.
+
+You can use the flask app with the following command.
+
+.. code::
+
+    $ export FLASK_APP=hello.py
+    $ flask run
+
+If you want to use the pipeline you can either use the notebook 6_logo_animation_pipeline or the following code:
 
 .. code:: python
 
@@ -60,7 +94,6 @@ Either you start the included Flask App and follow the instructions on the appli
     logo.animate()
 
 Detailed documentation and usage instructions can be found `here <https://animate-logos.readthedocs.io/en/latest/>`__.
-
 
 
 Credits
@@ -74,6 +107,15 @@ This project is a Master Team Project at the University of Mannheim. The project
 * `Jakob Langenbahn <https://github.com/J4K08L4N63N84HN/>`__
 * `Jan Schwedhelm <https://github.com/janschwedhelm/>`__
 * `Sarah Sester <https://github.com/sarahsester/>`__
+
+Reference
+#########
+
+For embedding the paths of SVG logos, we used the approach described
+by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte
+from this `paper <https://arxiv.org/pdf/2007.11301.pdf/>`__
+by using the code from this `repository <https://github.com/alexandre01/deepsvg/>`__.
+You find the code in the directories src.preprocessing.configs and src.preprocessing.deepsvg.
 
 License
 #######

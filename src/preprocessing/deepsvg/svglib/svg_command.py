@@ -1,3 +1,8 @@
+"""This code is taken from <https://github.com/alexandre01/deepsvg>
+by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte
+from the paper >https://arxiv.org/pdf/2007.11301.pdf>
+"""
+
 from __future__ import annotations
 from .geom import *
 from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
