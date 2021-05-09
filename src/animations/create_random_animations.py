@@ -56,8 +56,7 @@ def create_multiple_df(folder, nb_animations, very_random):
 
 def _create_multiple_df(folder, file, nb_animations, very_random):
     relevant_animation_ids = get_path_relevance(file.replace('.svg', ''), pkl_file=path_relevance_order)
-    path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids,
-                                        pkl_file=animation_path_label)
+    path_probs = get_path_probabilities(file.replace('.svg', ''), relevant_animation_ids, pkl_file=animation_path_label)
     file = folder + "/" + file
     for random_seed in range(nb_animations):
         if very_random:
@@ -70,7 +69,7 @@ def _create_multiple_df(folder, file, nb_animations, very_random):
         animated_animation_ids = []
         for i in range(len(animated_order_ids)):
             animated_animation_ids.append(relevant_animation_ids[animated_order_ids[i]])
-        begin_values = create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
+        begin_values, _ = create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
         for j in range(len(animated_animation_ids)):
             yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
                        animation_id=animated_animation_ids[j],
@@ -123,7 +122,7 @@ def _create_one_df(folder, nb_animations, very_random):
                 animated_animation_ids = []
                 for i in range(len(animated_order_ids)):
                     animated_animation_ids.append(relevant_animation_ids[animated_order_ids[i]])
-                begin_values = create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
+                begin_values, _ = create_animated_svg(file, animated_animation_ids, animation_vectors, str(random_seed))
                 for j in range(len(animated_animation_ids)):
                     yield dict(file=f'{file.split("/")[-1].replace(".svg", "")}_animation_{random_seed}',
                                animation_id=animated_animation_ids[j],
