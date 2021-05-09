@@ -1,13 +1,13 @@
 """
-.. autoclass:: src.models.animation_prediction
+.. autoclass:: src.models.animation_prediction.AnimationPredictor
+    :members:
+.. autoclass:: src.models.blackbox_sm_fnn.SurrogateModelFNN
     :members:
 .. automodule:: src.models.coral_loss
     :members:
 .. automodule:: src.models.genetic_algorithm
     :members:
-.. autoclass:: src.models.ordinal_classifier_fnn
-    :members:
-.. autoclass:: src.models.ordinal_classifier_scikit
+.. autoclass:: src.models.ordinal_classifier_fnn.OrdinalClassifierFNN
     :members:
 .. automodule:: src.models.train_animation_predictor
     :members:
