@@ -34,7 +34,7 @@ def create_random_agents(num_agents):
         num_agents (int): Number of agents to be created.
 
     Returns:
-        list (src.models.animation_prediction.AnimationPredictor): List of random agents.
+        list(src.models.animation_prediction.AnimationPredictor): List of random agents.
 
     """
     agents = []
@@ -164,7 +164,6 @@ def crossover(agents, num_agents):
     children = list()
 
     for _ in range((num_agents - len(agents)) // 2):
-        # Todo: Make sure to select each agent at least once
         parent1 = np.random.choice(agents)
         parent2 = np.random.choice(agents)
         child1 = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)

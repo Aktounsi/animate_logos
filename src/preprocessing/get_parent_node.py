@@ -9,7 +9,7 @@ def get_clip_paths(file):
         file (str): Path of SVG.
 
     Returns:
-        (list): Animation IDs of all paths that have a clip-path as a parent node.
+        list: Animation IDs of all paths that have a clip-path as a parent node.
 
     """
     doc = minidom.parse(file)
