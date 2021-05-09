@@ -19,7 +19,7 @@ def get_svg_meta_data(data_folder="data/svgs"):
         pd.DataFrame: Dataframe containing metadata of SVGs.
 
     """
-    with futures.ThreadPoolExecutor(max_workers=-1) as executor:
+    with futures.ThreadPoolExecutor(max_workers=2) as executor:
         svg_files = glob.glob(os.path.join(data_folder, "*.svg"))
         meta_data = {}
 
