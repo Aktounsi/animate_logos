@@ -65,7 +65,10 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
         np.array: Updated animation vector.
 
     """
-    # Todo: Maybe put this function to another directory?
+    # animation_prediction = list(animation_prediction)
+    # type_ = np.argmax(animation_prediction[:6])
+    # animation_prediction = [1 if j == type_ else 0 for j in range(len(animation_prediction[:6]))] \
+    #                               + animation_prediction[6:]
     if animation_prediction[0] == 1:
         for i in [8, 9, 10, 11]:
             animation_prediction[i] = value
@@ -89,8 +92,9 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
     if animation_prediction[5] == 1:
         for i in [6, 7, 8, 9, 10, 11]:
             animation_prediction[i] = value
-    return animation_prediction
 
+    # return torch.Tensor(animation_prediction)
+    return animation_prediction
 
 def prepare_sm_input(path_vectors, animation_predictions, convert=True):
     """ Prepare input for surrogate model from path vectors and animation predictions.
