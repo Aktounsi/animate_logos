@@ -1,7 +1,7 @@
 import pickle
 
 
-def get_path_probabilities(filename, animation_ids, pkl_file="data/model_1/model_1_path_label.pkl"):
+def get_path_probabilities(filename, animation_ids, pkl_file="data/path_selector/path_selector_label.pkl"):
     """ Function to get path probabilities that specify how likely it is that a path gets animated.
 
     Args:
