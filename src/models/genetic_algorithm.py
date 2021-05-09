@@ -86,8 +86,9 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
     if animation_prediction[5] == 1:
         for i in [6, 7, 8, 9, 10, 11]:
             animation_prediction[i] = value
-    return animation_prediction
 
+    # return torch.Tensor(animation_prediction)
+    return animation_prediction
 
 def prepare_sm_input(path_vectors, animation_predictions, convert=True):
     """ Prepare input for surrogate model from path vectors and animation predictions.
