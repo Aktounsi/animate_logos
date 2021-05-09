@@ -106,7 +106,7 @@ The project started in November 2020 as a Masters Team Project at the University
 Reference
 #########
 
-For embedding SVG logos, we used an approach described by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte from this `paper <https://arxiv.org/pdf/2007.11301.pdf/>`__ by using the code from this `repository <https://github.com/alexandre01/deepsvg/>`__. You can find the code in the directories src.preprocessing.configs and src.preprocessing.deepsvg.
+To get an embedding of SVG logos, we used an approach described by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte from their paper `DeepSVG: A Hierarchical Generative Network for Vector Graphics Animation <https://arxiv.org/pdf/2007.11301.pdf/>`__ by using the code from this `repository <https://github.com/alexandre01/deepsvg/>`__. You can find the code in the directories src.preprocessing.configs and src.preprocessing.deepsvg.
 
 License
 #######
