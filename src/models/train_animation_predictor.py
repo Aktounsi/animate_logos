@@ -247,7 +247,7 @@ def main(train_path='data/path_selector/path_selector_train.csv', test_path='dat
     info(f'Train data source: {train_path}')
     info(f'Test data source: {test_path}')
 
-    info(f'Surrogate model in use: {config.sm_path}')
+    info(f'Surrogate model in use: {config.sm_fnn_path}')
     info(f'Replacement value for animation vector elements not in use: {config.replacement_value}')
 
     info(f'Mutation power: {config.mutation_power}')
