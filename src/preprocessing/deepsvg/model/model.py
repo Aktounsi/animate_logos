@@ -276,7 +276,7 @@ class Decoder(nn.Module):
                 key_padding_mask = _get_key_padding_mask(commands, seq_dim=0)
                 out = self.decoder(src, z, tgt_mask=self.square_subsequent_mask[:S, :S], tgt_key_padding_mask=key_padding_mask, memory2=l)
             else:  # "lstm"
-                hidden_cell = self._get_initial_state(z)  # TODO: reinject intermediate state
+                hidden_cell = self._get_initial_state(z)
                 out, _ = self.decoder(src, hidden_cell)
 
         else:  # "one_shot"

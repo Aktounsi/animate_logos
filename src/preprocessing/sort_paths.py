@@ -120,7 +120,6 @@ class Selector:
             try:
                 decomposed_id = f'{logo}_{i}'
                 if decomposed_id in excluded_paths:
-                    # Todo: Include excluded_paths = None
                     missed_mse = mean_squared_error(img_origin, img_reduced)
                     missed_scores.append(missed_mse)
                     missed_paths.append(decomposed_id)
@@ -194,7 +193,6 @@ class Selector:
             nr_paths_trunc (int): Number of paths that should be kept as the most relevant ones.
 
         """
-        # Todo: Combine arguments svgs_folder and logos
         Path(self.dir_truncated_svgs).mkdir(parents=True, exist_ok=True)
         start = datetime.now()
         logos = [f[:-4] for f in listdir(svgs_folder) if isfile(join(svgs_folder, f))] if logos is None else logos
