@@ -82,7 +82,7 @@ You can use the flask app with the following command.
 
 .. code::
 
-    $ export FLASK_APP=hello.py
+    $ export FLASK_APP=flask_app.py
     $ flask run
 
 If you want to use the pipeline you can either use the notebook 6_logo_animation_pipeline or the following code:
