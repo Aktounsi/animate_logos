@@ -26,4 +26,5 @@ matplotlib~=3.4.2
 scikit-image~=0.18.1
 gurobipy~=9.1.2
 tensorboardX~=2.2
+jupyter~=1.0.0
 
