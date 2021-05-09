@@ -22,7 +22,6 @@ def init_weights(agent):
         agent (src.models.animation_prediction.AnimationPredictor): Agent of which weights should be initialized.
 
     """
-    # Todo: Check if weights are actually initialized on outer object
     for layer in agent.children():
         torch.nn.init.xavier_uniform_(layer.weight)
 
@@ -44,7 +43,6 @@ def create_random_agents(num_agents):
         agent = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)
 
         for param in agent.parameters():
-            # Todo: Check if grad requirement is actually set False.
             param.requires_grad = False
 
         init_weights(agent)
@@ -65,10 +63,6 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
         np.array: Updated animation vector.
 
     """
-    # animation_prediction = list(animation_prediction)
-    # type_ = np.argmax(animation_prediction[:6])
-    # animation_prediction = [1 if j == type_ else 0 for j in range(len(animation_prediction[:6]))] \
-    #                               + animation_prediction[6:]
     if animation_prediction[0] == 1:
         for i in [8, 9, 10, 11]:
             animation_prediction[i] = value
