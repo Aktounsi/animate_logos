@@ -150,8 +150,7 @@ def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hid
         top_parent_limit (int): Number of top parents to be considered for each subsequent generation.
         generations (int): Number of generation to train for.
         timestamp (str): Timestamp of starting time of training (used for logging).
-        min_n_types (int): Minimum number of types as a threshold to punish agents predicting only a
-        small number of animation types.
+        min_n_types (int): Minimum number of types as a threshold to punish agents predicting only a small number of animation types.
 
     Returns:
         src.models.animation_prediction.AnimationPredictor: Best agent after training.
