@@ -8,7 +8,7 @@ SVG Logo Animation using Machine Learning
 
 This project allows to automatically animate logos in SVG format using machine learning.
 
-Its functionality include extracting SVG information (e.g., size, position, color), get SVG embeddings of logos by using `deepSVG<https://github.com/alexandre01/deepsvg/>`__'s hierarchical generative network, and an entire pipeline that takes an unprocessed logo as input and outputs an animated logo created with two different machine learning models: An approach using a genetic algorithm and an approach using the entmoot optimizer.
+Its functionality include extracting SVG information (e.g., size, position, color), get SVG embeddings of logos by using `deepSVG<https://github.com/alexandre01/deepsvg/>`__ 's hierarchical generative network, and an entire pipeline that takes an unprocessed logo as input and outputs an animated logo created with two different machine learning models: An approach using a genetic algorithm and an approach using the entmoot optimizer.
 
 
 Table of Contents
