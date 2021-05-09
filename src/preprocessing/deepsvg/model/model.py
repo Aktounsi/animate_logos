@@ -1,3 +1,8 @@
+"""This code is taken from <https://github.com/alexandre01/deepsvg>
+by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte
+from the paper >https://arxiv.org/pdf/2007.11301.pdf>
+"""
+
 from src.preprocessing.deepsvg.difflib.tensor import SVGTensor
 from src.preprocessing.deepsvg.utils.utils import _pack_group_batch, _unpack_group_batch, _make_seq_first, _make_batch_first
 

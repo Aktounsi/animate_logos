@@ -25,3 +25,5 @@ moviepy~=1.0.3
 matplotlib~=3.4.2
 scikit-image~=0.18.1
 gurobipy~=9.1.2
+tensorboardX~=2.2
+

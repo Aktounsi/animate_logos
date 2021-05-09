@@ -1,3 +1,8 @@
+"""This code is taken from <https://github.com/alexandre01/deepsvg>
+by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte
+from the paper >https://arxiv.org/pdf/2007.11301.pdf>
+"""
+
 from src.preprocessing.deepsvg.config import _Config
 from src.preprocessing.deepsvg import utils
 from src.preprocessing.deepsvg.utils import Stats, TrainVars, Timer
