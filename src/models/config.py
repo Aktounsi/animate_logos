@@ -28,7 +28,7 @@ pca_path = 'models/pca_path_embedding.sav'
 scaler_path = 'models/sm_train_standard_scaler.pkl'
 
 # Surrogate model
-replacement_value = 0  # Value to replace animation vector elements that are not in use
+replacement_value = 0
 s_hidden_sizes = [360, 245]
 sm_fnn_path = 'models/sm_fnn.pth'
 sm_tree_path = 'models/sm_gradient_boosting.sav'
