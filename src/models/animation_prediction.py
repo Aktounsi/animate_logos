@@ -45,11 +45,13 @@ class AnimationPredictor(nn.Module):
         # forward pass of model two: predict type of animation (choice out of 6)
         h_1 = torch.relu(self.hidden_1(X))
         y_1 = nn.functional.softmax(self.out_1(h_1), dim=1)
-        max_indices = y_1.argmax(1)
-        y_1 = torch.tensor([[1 if j == max_indices[i] else 0 for j in range(self.out_sizes[0])]
-                            for i in range(X.shape[0])])
 
         # forward pass of model three: predict animation parameters
         h_2 = torch.relu(self.hidden_2(torch.cat((X, y_1), 1)))
         y_2 = torch.sigmoid(self.out_2(h_2))
+
+        # max_indices = y_1.argmax(1)
+        # y_1 = torch.tensor([[1 if j == max_indices[i] else 0 for j in range(self.out_sizes[0])]
+        #                     for i in range(X.shape[0])])
+
         return torch.cat((y_1, y_2), 1)
