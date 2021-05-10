@@ -12,7 +12,7 @@ def get_svg_color_tendencies(file):
 
     """
     df = get_style_attributes_svg(file)
-    df = df[~df['fill'].isin(['#FFFFFF', '#ffffff', '#000000'])]
+    df = df[~df['fill'].isin(['#FFFFFF', '#ffffff'])]
     colour_tendencies_list = df["fill"].value_counts()[:2].index.tolist()
     colour_tendencies_list.append("#000000")
     return colour_tendencies_list[:2]
