@@ -32,7 +32,7 @@ def retrieve_m1_predictions(input_data):
     return input_data
 
 
-def retrieve_animation_midpoints(input_data, data_dir='data/initial_svgs', drop=True):
+def retrieve_animation_midpoints(input_data, data_dir='data/svgs_preprocessed', drop=True):
     """ Retrieve x and y position of animated path relatively to all animated paths in an SVG.
 
     Args:
@@ -150,8 +150,7 @@ def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hid
         top_parent_limit (int): Number of top parents to be considered for each subsequent generation.
         generations (int): Number of generation to train for.
         timestamp (str): Timestamp of starting time of training (used for logging).
-        min_n_types (int): Minimum number of types as a threshold to punish agents predicting only a
-        small number of animation types.
+        min_n_types (int): Minimum number of types as a threshold to punish agents predicting only a small number of animation types.
 
     Returns:
         src.models.animation_prediction.AnimationPredictor: Best agent after training.
@@ -226,7 +225,7 @@ def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hid
     return top_agents[0]
 
 
-def main(train_path='data/model_1/model_1_train.csv', test_path='data/model_1/model_1_test.csv', drop=True,
+def main(train_path='data/path_selector/path_selector_train.csv', test_path='data/path_selector/path_selector_test.csv', drop=True,
          num_agents=100, top_parent_limit=20, generations=50, timestamp='', model1=True):
     """ Main function to prepare and run training using the genetic algorithm.
 
@@ -247,7 +246,7 @@ def main(train_path='data/model_1/model_1_train.csv', test_path='data/model_1/mo
     info(f'Train data source: {train_path}')
     info(f'Test data source: {test_path}')
 
-    info(f'Surrogate model in use: {config.sm_path}')
+    info(f'Surrogate model in use: {config.sm_fnn_path}')
     info(f'Replacement value for animation vector elements not in use: {config.replacement_value}')
 
     info(f'Mutation power: {config.mutation_power}')
@@ -300,10 +299,10 @@ if __name__ == '__main__':
     ap.add_argument("-m1", "--model1", required=False, action='store_false', help="if set, model one won't be applied "
                                                                                   "to input data. Note: Also expects "
                                                                                   "input data to be scaled already")
-    ap.add_argument("-train", "--train", required=False, default='data/model_1'
-                                                                 '/model_1_train.csv',
+    ap.add_argument("-train", "--train", required=False, default='data/path_selector'
+                                                                 '/path_selector_train.csv',
                     help="path to training data")
-    ap.add_argument("-test", "--test", required=False, default='data/model_1/model_1_test.csv',
+    ap.add_argument("-test", "--test", required=False, default='data/path_selector/path_selector_test.csv',
                     help="path to test data")
 
     ap.add_argument("-a", "--n_agents", required=False, default=100, help="number of agents")

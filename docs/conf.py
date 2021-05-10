@@ -18,8 +18,8 @@ sys.path.insert(0, os.path.abspath('./..'))
 # -- Project information -----------------------------------------------------
 
 project = 'animate_logos'
-copyright = '2021, Rebecca Armbruster, Jonathan Baumert, Tim Bleil, Jakob Langenbahn, Jan-Christian Schwedhelm, Sarah Sester'
-author = 'Rebecca Armbruster, Jonathan Baumert, Tim Bleil, Jakob Langenbahn, Jan-Christian Schwedhelm, Sarah Sester'
+copyright = '2021, Rebecca Armbruster, Jonathan Baumert, Tim Bleil, Jakob Langenbahn, Jan Christian Schwedhelm, Sarah Sester'
+author = 'Rebecca Armbruster, Jonathan Baumert, Tim Bleil, Jakob Langenbahn, Jan Christian Schwedhelm, Sarah Sester'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1'

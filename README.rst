@@ -8,13 +8,8 @@ SVG Logo Animation using Machine Learning
 
 This project allows to automatically animate logos in SVG format using machine learning.
 
-Its functionality includes:
+Its functionality include extracting SVG information (e.g., size, position, color), get SVG embeddings of logos by using  `DeepSVG <https://github.com/alexandre01/deepsvg/>`__'s hierarchical generative network, and an entire pipeline that takes an unprocessed logo as input and outputs an animated logo created with two different machine learning models: An approach using a genetic algorithm and an approach using the entmoot optimizer.
 
-* Extract SVG information, e.g., size, position, color
-* Get SVG embeddings of logos by using deepSVG's hierarchical generative network
-* Automatically animate logos using two different approaches: Genetic algorithm and entmoot optimizer
-
-The project started in November 2020 as a Masters Team Project at the University of Mannheim.
 
 Table of Contents
 #################
@@ -99,7 +94,7 @@ Detailed documentation and usage instructions can be found `here <https://animat
 Credits
 #######
 
-This project is a Master Team Project at the University of Mannheim. The project team consists of:
+The project started in November 2020 as a Masters Team Project at the University of Mannheim. The project team consists of:
 
 * `Rebecca Armbruster <https://github.com/rebeccaarmbruster/>`__
 * `Jonathan Baumert <https://github.com/JonathanBt/>`__
@@ -111,11 +106,7 @@ This project is a Master Team Project at the University of Mannheim. The project
 Reference
 #########
 
-For embedding the paths of SVG logos, we used the approach described
-by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte
-from this `paper <https://arxiv.org/pdf/2007.11301.pdf/>`__
-by using the code from this `repository <https://github.com/alexandre01/deepsvg/>`__.
-You find the code in the directories src.preprocessing.configs and src.preprocessing.deepsvg.
+To get an embedding of SVG logos, we used an approach described by Alexandre Carlier, Martin Danelljan, Alexandre Alahi and Radu Timofte in their paper `DeepSVG: A Hierarchical Generative Network for Vector Graphics Animation <https://arxiv.org/abs/2007.11301>`__ by using the code from this `repository <https://github.com/alexandre01/deepsvg/>`__. You can find the code in the directories src.preprocessing.configs and src.preprocessing.deepsvg.
 
 License
 #######

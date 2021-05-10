@@ -6,8 +6,16 @@ from src.preprocessing.sm_label_transformer import *
 
 
 class OrdinalClassifierFNN(nn.Module):
+    """ Ordinal classification neural network used as surrogate model for the evaluation of path animations. """
+
     # Ordinal Regression
-    def __init__(self, num_classes, layer_sizes = [36, 28], preinit_bias=True):
+    def __init__(self, num_classes, layer_sizes=[36, 28]):
+        """
+        Args:
+            num_classes (int): Number of classes in classification task.
+            layer_sizes (list): Number of neurons in input and hidden layer.
+
+        """
         super().__init__()
 
         # Hidden Layers
@@ -16,15 +24,8 @@ class OrdinalClassifierFNN(nn.Module):
             self.hidden.append(nn.Linear(layer_sizes[k], layer_sizes[k + 1]))
 
         self.coral_weights = nn.Linear(layer_sizes[-1], 1, bias=False)
-        if preinit_bias:
-            self.coral_bias = torch.nn.Parameter(
-                torch.arange(num_classes - 1, 0, -1).float() / (num_classes - 1))
-        else:
-            self.coral_bias = torch.nn.Parameter(
-                torch.zeros(num_classes - 1).float())
-
-        # Output Layers
-        #self.out = nn.Linear(hidden_sizes[-1], 4)
+        self.coral_bias = torch.nn.Parameter(
+            torch.arange(num_classes - 1, 0, -1).float() / (num_classes - 1))
 
     # Forward Pass
     def forward(self, X):
@@ -34,8 +35,17 @@ class OrdinalClassifierFNN(nn.Module):
         return logits
 
 
-def predict(animation_vectors):
+def predict(path_animation_vectors):
+    """ Use pre-trained surrogate model (src.models.config.sm_fnn_path) to evaluate given path animations.
+
+    Args:
+        path_animation_vectors (torch.Tensor): Concatenated path and animation vectors to evaluate.
+
+    Returns:
+        np.ndarray: Decoded evaluation score (between 0 and 4).
+
+    """
     sm = OrdinalClassifierFNN(num_classes=5, layer_sizes=[38, 28])
-    sm.load_state_dict(torch.load(config.sm_path))
-    sm_output = sm(animation_vectors)
+    sm.load_state_dict(torch.load(config.sm_fnn_path))
+    sm_output = sm(path_animation_vectors)
     return decode_classes(sm_output)

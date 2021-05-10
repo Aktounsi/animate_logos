@@ -22,7 +22,6 @@ def init_weights(agent):
         agent (src.models.animation_prediction.AnimationPredictor): Agent of which weights should be initialized.
 
     """
-    # Todo: Check if weights are actually initialized on outer object
     for layer in agent.children():
         torch.nn.init.xavier_uniform_(layer.weight)
 
@@ -34,7 +33,7 @@ def create_random_agents(num_agents):
         num_agents (int): Number of agents to be created.
 
     Returns:
-        list (src.models.animation_prediction.AnimationPredictor): List of random agents.
+        list(src.models.animation_prediction.AnimationPredictor): List of random agents.
 
     """
     agents = []
@@ -44,7 +43,6 @@ def create_random_agents(num_agents):
         agent = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)
 
         for param in agent.parameters():
-            # Todo: Check if grad requirement is actually set False.
             param.requires_grad = False
 
         init_weights(agent)
@@ -65,7 +63,6 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
         np.array: Updated animation vector.
 
     """
-    # Todo: Maybe put this function to another directory?
     if animation_prediction[0] == 1:
         for i in [8, 9, 10, 11]:
             animation_prediction[i] = value
@@ -89,8 +86,9 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
     if animation_prediction[5] == 1:
         for i in [6, 7, 8, 9, 10, 11]:
             animation_prediction[i] = value
-    return animation_prediction
 
+    # return torch.Tensor(animation_prediction)
+    return animation_prediction
 
 def prepare_sm_input(path_vectors, animation_predictions, convert=True):
     """ Prepare input for surrogate model from path vectors and animation predictions.
@@ -164,7 +162,6 @@ def crossover(agents, num_agents):
     children = list()
 
     for _ in range((num_agents - len(agents)) // 2):
-        # Todo: Make sure to select each agent at least once
         parent1 = np.random.choice(agents)
         parent2 = np.random.choice(agents)
         child1 = AnimationPredictor(config.a_input_size, config.a_hidden_sizes, config.a_out_sizes)
