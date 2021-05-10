@@ -92,7 +92,7 @@ def apply_embedding_model_to_svgs(data_folder="data/svgs", split_paths=True, sav
     dataset, model, device, cfg = _load_model_and_dataset(data_folder=data_folder)
     cfg.data_dir = data_folder
 
-    with futures.ThreadPoolExecutor(max_workers=-1) as executor:
+    with futures.ThreadPoolExecutor(max_workers=2) as executor:
         svg_files = glob.glob(os.path.join(cfg.data_dir, "*.svg"))
         svg_list = []
         with tqdm(total=len(svg_files)) as pbar:
