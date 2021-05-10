@@ -32,11 +32,12 @@ class AnimationPredictor(nn.Module):
         self.out_2 = nn.Linear(self.hidden_sizes[1], self.out_sizes[1])
 
     # Forward Pass
-    def forward(self, X):
+    def forward(self, X, binary=False):
         """ Forward pass to generate animations.
 
         Args:
             X (np.ndarray): Path vectors for which animations are to be generated.
+            binary (bool): Whether or to transform animation type vector to binary vector before returning
 
         Returns:
             torch.Tensor: Generated animation vectors.
@@ -50,8 +51,9 @@ class AnimationPredictor(nn.Module):
         h_2 = torch.relu(self.hidden_2(torch.cat((X, y_1), 1)))
         y_2 = torch.sigmoid(self.out_2(h_2))
 
-        # max_indices = y_1.argmax(1)
-        # y_1 = torch.tensor([[1 if j == max_indices[i] else 0 for j in range(self.out_sizes[0])]
-        #                     for i in range(X.shape[0])])
+        if binary:
+            max_indices = y_1.argmax(1)
+            y_1 = torch.tensor([[1 if j == max_indices[i] else 0 for j in range(self.out_sizes[0])]
+                                for i in range(X.shape[0])])
 
         return torch.cat((y_1, y_2), 1)
