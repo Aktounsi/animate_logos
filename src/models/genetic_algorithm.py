@@ -63,8 +63,6 @@ def create_animation_vector(animation_prediction, value=config.replacement_value
         np.array: Updated animation vector.
 
     """
-    max_index = animation_prediction.argmax(0)
-    animation_prediction = torch.Tensor([1 if i == max_index else 0 for i in range(len(animation_prediction))])
 
     if animation_prediction[0] == 1:
         for i in [8, 9, 10, 11]:
