@@ -138,7 +138,7 @@ def get_n_types(predictions):
 
 
 def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hidden_sizes, out_sizes=config.a_out_sizes,
-                              num_agents=100, top_parent_limit=10, generations=10, timestamp='', min_n_types=0):
+                              num_agents=100, top_parent_limit=10, generations=10, timestamp=''):
     """ Iterate over a given number of generations and train animation predictor model using genetic algorithm.
 
     Args:
@@ -150,7 +150,6 @@ def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hid
         top_parent_limit (int): Number of top parents to be considered for each subsequent generation.
         generations (int): Number of generation to train for.
         timestamp (str): Timestamp of starting time of training (used for logging).
-        min_n_types (int): Minimum number of types as a threshold to punish agents predicting only a small number of animation types.
 
     Returns:
         src.models.animation_prediction.AnimationPredictor: Best agent after training.
@@ -187,13 +186,7 @@ def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hid
         start = datetime.now()
         info(f'Generation {generation + 1}/{generations}')
         rewards, predictions = compute_agent_rewards(agents=agents, path_vectors=train_paths)
-        n_types = get_n_types(predictions)
         sorted_parent_indexes = np.argsort(rewards)[::-1].astype(int)
-        '''sorted_parent_indexes = np.array(
-            [index for index in reward_sorted_parent_indexes if n_types[index] >= min_n_types]
-            + [index for index in
-               reward_sorted_parent_indexes if
-               n_types[index] < min_n_types])'''
         training_process = save_predictions(df=training_process, agents=agents, test_paths=test_paths,
                                             rewards=rewards, predictions=predictions,
                                             sorted_indices=sorted_parent_indexes, generation=generation)
