@@ -1,4 +1,4 @@
-import os, sys, torch, pickle
+import os, sys, torch, pickle5
 from datetime import datetime
 from pathlib import Path
 import numpy as np
@@ -24,7 +24,7 @@ def retrieve_m1_predictions(input_data):
 
     """
     m1_path_vectors = torch.tensor(input_data[config.m1_features].to_numpy(), dtype=torch.float)
-    m1 = pickle.load(open(config.m1_path, 'rb'))
+    m1 = pickle5.load(open(config.m1_path, 'rb'))
     path_predictions = m1.predict(m1_path_vectors)
     input_data['animated'] = path_predictions
 
@@ -91,8 +91,6 @@ def save_predictions(df, agents, test_paths, rewards, predictions, sorted_indice
     for i, agent in enumerate(sorted_indices):
         test_predictions = agents[agent](test_paths)
         test_reward = return_average_reward(test_paths, test_predictions)
-        if i % steps == 0:
-            info(f'Computed avg rewards for agent {i + 1}/{len(agents)} on test data: {test_reward}')
 
         train_types = list()
         for prediction in predictions[agent]:
@@ -213,6 +211,8 @@ def train_animation_predictor(train_paths, test_paths, hidden_sizes=config.a_hid
     overall_stop = datetime.now()
     info(f'Overall operation time: {overall_stop - overall_start}')
 
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
     training_process.to_csv(f'logs/{timestamp}_animation_predictions.csv', index=False)
 
     return top_agents[0]
@@ -257,7 +257,7 @@ def main(train_path='data/path_selector/path_selector_train.csv', test_path='dat
         test_data = retrieve_animation_midpoints(test_data, drop=drop)
 
         # Scale input data for surrogate model
-        scaler = pickle.load(open(config.scaler_path, 'rb'))
+        scaler = pickle5.load(open(config.scaler_path, 'rb'))
         train_data[config.sm_features] = scaler.transform(train_data[config.sm_features])
         test_data[config.sm_features] = scaler.transform(test_data[config.sm_features])
         info('Scaled input data for surrogate model')

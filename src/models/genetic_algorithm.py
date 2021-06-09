@@ -12,7 +12,6 @@ from src.utils.logger import *
 from src.models import config
 from src.models.ordinal_classifier_fnn import *
 from src.models.animation_prediction import AnimationPredictor
-from src.models.train_animation_predictor import *
 
 
 def init_weights(agent):

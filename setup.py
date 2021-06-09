@@ -18,7 +18,7 @@ setup(
         "tqdm~=4.60.0",
         "scikit-learn~=0.24.1",
         "matplotlib~=3.3.2",
-        "torchvision~=0.8.2",
+        "torchvision~=0.9.1",
         "moviepy~=1.0.3",
         "scipy~=1.6.0",
         "ipython~=7.20.0",
