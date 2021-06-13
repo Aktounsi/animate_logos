@@ -53,6 +53,7 @@ To use this code you have to follow these steps:
 
     $ pip install -r requirements.txt
     $ conda install -c conda-forge cairosvg
+    $ conda install -c conda-forge lightgbm
 
 If there are problems with cairosvg please refer to `this guide <https://cairosvg.org/documentation/#installation/>`__.
 
