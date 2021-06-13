@@ -44,22 +44,17 @@ To use this code you have to follow these steps:
 
 .. code-block::
 
-    $  conda env create --file environment.yaml
+    $  conda create -n animate_logos python=3.7
     $  conda activate animate_logos
 
-If there are problems with cairosvg try
+3. Install the dependencies:
 
 .. code-block::
 
+    $ pip install -r requirements.txt
     $ conda install -c conda-forge cairosvg
 
-or refer to `this guide <https://cairosvg.org/documentation/#installation/>`__.
-
-3. Set the conda environment on your jupyter notebook:
-
-.. code-block::
-
-    $ python -m ipykernel install --user --name=animate_logos
+If there are problems with cairosvg please refer to `this guide <https://cairosvg.org/documentation/#installation/>`__.
 
 Besides the code of this repository one other installation is necessary, to use the application.
 For training our optimization model for the generation of logo animations, we use the commercial `Gurobi Optimizer <https://www.gurobi.com/>`__
@@ -74,8 +69,9 @@ How to Use
 
 The repository serves two functions.
 On the one hand it is a documentation of our final computational creativity system and can be used to reproduce our results and serve as basis for further research.
-For this you can retrace the model process with the help of the jupyter notebooks. Always make sure that the conda environment is activated (click 'Kernel' > 'Change kernel' > 'animate_logos').
-On the other hand it is a final product, that can be used in two ways. Either you start the included Flask App and follow the instructions on the application or you use the code in Python directly.
+For this you can retrace the model process with the help of the jupyter notebooks.
+On the other hand it is a final product, that can be used in two ways.
+Either you start the included Flask App and follow the instructions on the application or you use the code in Python directly.
 
 You can use the flask app with the following command.
 
@@ -116,10 +112,3 @@ License
 #######
 
 This repository is licenced under the GPL-3.0 License. If you have any enquiries concerning the use of our code, do not hesitate to contact us.
-
-
-
-
-
-
-
