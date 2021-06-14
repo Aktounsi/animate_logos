@@ -54,6 +54,12 @@ To use this code you have to follow these steps:
     $ pip install -r requirements.txt
     $ conda install -c conda-forge cairosvg
     $ conda install -c conda-forge lightgbm
+    
+4. Set the conda environment on your jupyter notebook:
+
+.. code-block::
+
+    $ python -m ipykernel install --user --name=animate_logos 
 
 If there are problems with cairosvg please refer to `this guide <https://cairosvg.org/documentation/#installation/>`__.
 
