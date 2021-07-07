@@ -274,8 +274,8 @@ def main(train_path='data/path_selector/path_selector_train.csv', test_path='dat
                                           timestamp=timestamp)
 
     # Save best model for animation prediction
-    torch.save(top_model, f'models/{timestamp}_ap_best_model.pkl')
-    torch.save(top_model.state_dict(), f'models/{timestamp}_ap_best_model_state_dict.pth')
+    # torch.save(top_model, f'models/{timestamp}_ap_best_model.pkl')
+    # torch.save(top_model.state_dict(), f'models/{timestamp}_ap_best_model_state_dict.pth')
 
     return top_model
 
