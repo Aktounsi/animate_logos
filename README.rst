@@ -61,7 +61,11 @@ To use this code you have to follow these steps:
 
     $ python -m ipykernel install --user --name=animate_logos 
 
-If there are problems with cairosvg please refer to `this guide <https://cairosvg.org/documentation/#installation/>`__.
+If there are problems with cairosvg please refer to `this guide <https://cairosvg.org/documentation/#installation/>`__. In case you encounter problems running notebooks 5a and 5b (e.g., the kernel dies), try to install PyTorch Nightly, which may fix the bug:
+
+.. code-block::
+
+    $ conda install pytorch torchvision torchaudio -c pytorch-nightly 
 
 Besides the code of this repository one other installation is necessary, to use the application.
 For training our optimization model for the generation of logo animations, we use the commercial `Gurobi Optimizer <https://www.gurobi.com/>`__
